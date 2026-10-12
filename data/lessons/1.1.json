@@ -5,7 +5,7 @@
   "status": "in-progress",
   "references": [
     "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.1, printed pages 1–13 (exposition); exercises continue through page 16.",
-    "Original companion explanations and examples. Review draft published at the owner’s request; automated calculations and editorial checks are recorded separately."
+    "Original companion explanations and examples; draft for review."
   ],
   "units": [
     {
@@ -670,7 +670,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "An everyday instruction such as “If the room is dark, turn on the lamp” tells someone what to do. A programming if-statement has that action-oriented purpose too. This is the distinction explored in the textbook?s Example 11."
+          "text": "An everyday instruction such as “If the room is dark, turn on the lamp” tells someone what to do. A programming if-statement has that action-oriented purpose too. This is the distinction explored in the textbook’s Example 11."
         },
         {
           "type": "table",
