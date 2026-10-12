@@ -1,0 +1,887 @@
+{
+  "schemaVersion": 1,
+  "title": "Discrete Mathematics Companion",
+  "textbook": "Rosen · Discrete Mathematics and Its Applications · Eighth Edition",
+  "chapters": [
+    {
+      "id": "front-matter",
+      "number": null,
+      "title": "Front matter",
+      "children": [
+        {
+          "id": "about-author",
+          "number": null,
+          "title": "About the Author",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "preface",
+          "number": null,
+          "title": "Preface",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "online-resources",
+          "number": null,
+          "title": "Online Resources",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "to-student",
+          "number": null,
+          "title": "To the Student",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-1",
+      "number": "1",
+      "title": "The Foundations: Logic and Proofs",
+      "children": [
+        {
+          "id": "1.1",
+          "number": "1.1",
+          "title": "Propositional Logic",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1.2",
+          "number": "1.2",
+          "title": "Applications of Propositional Logic",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1.3",
+          "number": "1.3",
+          "title": "Propositional Equivalences",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1.4",
+          "number": "1.4",
+          "title": "Predicates and Quantifiers",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1.5",
+          "number": "1.5",
+          "title": "Nested Quantifiers",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1.6",
+          "number": "1.6",
+          "title": "Rules of Inference",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1.7",
+          "number": "1.7",
+          "title": "Introduction to Proofs",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1.8",
+          "number": "1.8",
+          "title": "Proof Methods and Strategy",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "1-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "number": "2",
+      "title": "Basic Structures: Sets, Functions, Sequences, Sums, and Matrices",
+      "children": [
+        {
+          "id": "2.1",
+          "number": "2.1",
+          "title": "Sets",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "2.2",
+          "number": "2.2",
+          "title": "Set Operations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "2.3",
+          "number": "2.3",
+          "title": "Functions",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "2.4",
+          "number": "2.4",
+          "title": "Sequences and Summations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "2.5",
+          "number": "2.5",
+          "title": "Cardinality of Sets",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "2.6",
+          "number": "2.6",
+          "title": "Matrices",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "2-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "number": "3",
+      "title": "Algorithms",
+      "children": [
+        {
+          "id": "3.1",
+          "number": "3.1",
+          "title": "Algorithms",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "3.2",
+          "number": "3.2",
+          "title": "The Growth of Functions",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "3.3",
+          "number": "3.3",
+          "title": "Complexity of Algorithms",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "3-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-4",
+      "number": "4",
+      "title": "Number Theory and Cryptography",
+      "children": [
+        {
+          "id": "4.1",
+          "number": "4.1",
+          "title": "Divisibility and Modular Arithmetic",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "4.2",
+          "number": "4.2",
+          "title": "Integer Representations and Algorithms",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "4.3",
+          "number": "4.3",
+          "title": "Primes and Greatest Common Divisors",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "4.4",
+          "number": "4.4",
+          "title": "Solving Congruences",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "4.5",
+          "number": "4.5",
+          "title": "Applications of Congruences",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "4.6",
+          "number": "4.6",
+          "title": "Cryptography",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "4-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-5",
+      "number": "5",
+      "title": "Induction and Recursion",
+      "children": [
+        {
+          "id": "5.1",
+          "number": "5.1",
+          "title": "Mathematical Induction",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "5.2",
+          "number": "5.2",
+          "title": "Strong Induction and Well-Ordering",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "5.3",
+          "number": "5.3",
+          "title": "Recursive Definitions and Structural Induction",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "5.4",
+          "number": "5.4",
+          "title": "Recursive Algorithms",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "5.5",
+          "number": "5.5",
+          "title": "Program Correctness",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "5-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-6",
+      "number": "6",
+      "title": "Counting",
+      "children": [
+        {
+          "id": "6.1",
+          "number": "6.1",
+          "title": "The Basics of Counting",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "6.2",
+          "number": "6.2",
+          "title": "The Pigeonhole Principle",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "6.3",
+          "number": "6.3",
+          "title": "Permutations and Combinations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "6.4",
+          "number": "6.4",
+          "title": "Binomial Coefficients and Identities",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "6.5",
+          "number": "6.5",
+          "title": "Generalized Permutations and Combinations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "6.6",
+          "number": "6.6",
+          "title": "Generating Permutations and Combinations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "6-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-7",
+      "number": "7",
+      "title": "Discrete Probability",
+      "children": [
+        {
+          "id": "7.1",
+          "number": "7.1",
+          "title": "An Introduction to Discrete Probability",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "7.2",
+          "number": "7.2",
+          "title": "Probability Theory",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "7.3",
+          "number": "7.3",
+          "title": "Bayes’ Theorem",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "7.4",
+          "number": "7.4",
+          "title": "Expected Value and Variance",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "7-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-8",
+      "number": "8",
+      "title": "Advanced Counting Techniques",
+      "children": [
+        {
+          "id": "8.1",
+          "number": "8.1",
+          "title": "Applications of Recurrence Relations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "8.2",
+          "number": "8.2",
+          "title": "Solving Linear Recurrence Relations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "8.3",
+          "number": "8.3",
+          "title": "Divide-and-Conquer Algorithms and Recurrence Relations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "8.4",
+          "number": "8.4",
+          "title": "Generating Functions",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "8.5",
+          "number": "8.5",
+          "title": "Inclusion–Exclusion",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "8.6",
+          "number": "8.6",
+          "title": "Applications of Inclusion–Exclusion",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "8-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-9",
+      "number": "9",
+      "title": "Relations",
+      "children": [
+        {
+          "id": "9.1",
+          "number": "9.1",
+          "title": "Relations and Their Properties",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "9.2",
+          "number": "9.2",
+          "title": "n-ary Relations and Their Applications",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "9.3",
+          "number": "9.3",
+          "title": "Representing Relations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "9.4",
+          "number": "9.4",
+          "title": "Closures of Relations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "9.5",
+          "number": "9.5",
+          "title": "Equivalence Relations",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "9.6",
+          "number": "9.6",
+          "title": "Partial Orderings",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "9-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-10",
+      "number": "10",
+      "title": "Graphs",
+      "children": [
+        {
+          "id": "10.1",
+          "number": "10.1",
+          "title": "Graphs and Graph Models",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10.2",
+          "number": "10.2",
+          "title": "Graph Terminology and Special Types of Graphs",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10.3",
+          "number": "10.3",
+          "title": "Representing Graphs and Graph Isomorphism",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10.4",
+          "number": "10.4",
+          "title": "Connectivity",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10.5",
+          "number": "10.5",
+          "title": "Euler and Hamilton Paths",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10.6",
+          "number": "10.6",
+          "title": "Shortest-Path Problems",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10.7",
+          "number": "10.7",
+          "title": "Planar Graphs",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10.8",
+          "number": "10.8",
+          "title": "Graph Coloring",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "10-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-11",
+      "number": "11",
+      "title": "Trees",
+      "children": [
+        {
+          "id": "11.1",
+          "number": "11.1",
+          "title": "Introduction to Trees",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "11.2",
+          "number": "11.2",
+          "title": "Applications of Trees",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "11.3",
+          "number": "11.3",
+          "title": "Tree Traversal",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "11.4",
+          "number": "11.4",
+          "title": "Spanning Trees",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "11.5",
+          "number": "11.5",
+          "title": "Minimum Spanning Trees",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "11-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-12",
+      "number": "12",
+      "title": "Boolean Algebra",
+      "children": [
+        {
+          "id": "12.1",
+          "number": "12.1",
+          "title": "Boolean Functions",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "12.2",
+          "number": "12.2",
+          "title": "Representing Boolean Functions",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "12.3",
+          "number": "12.3",
+          "title": "Logic Gates",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "12.4",
+          "number": "12.4",
+          "title": "Minimization of Circuits",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "12-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "chapter-13",
+      "number": "13",
+      "title": "Modeling Computation",
+      "children": [
+        {
+          "id": "13.1",
+          "number": "13.1",
+          "title": "Languages and Grammars",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "13.2",
+          "number": "13.2",
+          "title": "Finite-State Machines with Output",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "13.3",
+          "number": "13.3",
+          "title": "Finite-State Machines with No Output",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "13.4",
+          "number": "13.4",
+          "title": "Language Recognition",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "13.5",
+          "number": "13.5",
+          "title": "Turing Machines",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "13-end",
+          "number": null,
+          "title": "End-of-Chapter Material",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "appendices",
+      "number": null,
+      "title": "Appendices",
+      "children": [
+        {
+          "id": "appendix-1",
+          "number": "1",
+          "title": "Axioms for the Real Numbers and the Positive Integers",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "appendix-2",
+          "number": "2",
+          "title": "Exponential and Logarithmic Functions",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "appendix-3",
+          "number": "3",
+          "title": "Pseudocode",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "back-matter",
+      "number": null,
+      "title": "Reference material",
+      "children": [
+        {
+          "id": "suggested-readings",
+          "number": null,
+          "title": "Suggested Readings",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "odd-answers",
+          "number": null,
+          "title": "Answers to Odd-Numbered Exercises",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "biographies",
+          "number": null,
+          "title": "Index of Biographies",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        },
+        {
+          "id": "index",
+          "number": null,
+          "title": "Index",
+          "status": "unavailable",
+          "path": null,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

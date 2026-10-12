@@ -1,0 +1,8 @@
+.local/
+refer/
+dist/
+node_modules/
+test-results/
+*.pdf
+*.log
+.env*

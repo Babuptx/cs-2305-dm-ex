@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A growing, beginner-friendly companion to the full Rosen eighth-edition discrete mathematics textbook.">
+  <title>Discrete Mathematics Companion</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#reading">Skip to reading area</a>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">∴</span><span>Discrete Mathematics<span class="brand-sub">COMPANION</span></span></a>
+    <span class="edition">Rosen · Eighth edition</span>
+    <button id="menu" aria-controls="sidebar" aria-expanded="false">Contents</button>
+  </header>
+  <button id="backdrop" aria-label="Close contents" hidden></button>
+  <aside id="sidebar" aria-label="Textbook contents">
+    <div class="sidebar-head"><span class="eyebrow">THE TEXTBOOK MAP</span><button id="close-menu" aria-label="Close contents">×</button></div>
+    <a class="home-link" href="#home">Companion home</a>
+    <p class="nav-note">Browse a chapter, then choose a section.</p>
+    <nav id="contents" aria-label="Chapters and sections"><p>Loading contents…</p></nav>
+    <p class="sidebar-foot">Growing one section at a time.</p>
+  </aside>
+  <main id="reading" tabindex="-1">
+    <nav id="breadcrumbs" aria-label="Breadcrumb"></nav>
+    <div id="view" aria-live="polite" aria-busy="true"><p>Loading the companion…</p></div>
+    <footer>Independent learning companion · Original explanations as they become available.</footer>
+  </main>
+  <noscript>This companion needs JavaScript to load its contents and sections.</noscript>
+</body>
+</html>
