@@ -1,6 +1,6 @@
 # Section 1.2 review record
 
-Status: in progress, available for owner review. On October 12, 2026, the owner explicitly requested processing and publishing Section 1.2 after approving Section 1.1. This authorizes publication for review; Section 1.3 has not been requested.
+Status: in progress, available for owner review. On October 12, 2026, the owner explicitly requested processing and publishing Section 1.2 after approving Section 1.1. The owner subsequently requested Section 1.3 separately; its coverage and checks are recorded in `review-1.3.md`.
 
 Coverage: ten companion teaching units cover Rosen eighth edition §1.2.1–§1.2.6, exposition on printed pages 17–23. Topics are English-to-logic translation, exceptions and negation, consistent system specifications, Boolean searches, location puzzles, knights and knaves, shared information, interpreting logic gates, constructing circuits, and a recap. The section exercises occupy printed pages 23–26; this lesson uses original practice checks rather than reproducing the exercise set or its answer bank.
 

@@ -1,0 +1,1252 @@
+{
+  "schemaVersion": 1,
+  "id": "1.3",
+  "title": "Propositional Equivalences",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.3.1–§1.3.7, printed pages 26–37 (exposition).",
+    "Original companion explanations, worked examples, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "classifying",
+      "title": "1. Ask whether a statement can ever change its truth value",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Start with the main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Two formulas can look different and still give the same answer in every situation. Section 1.3 teaches you how to recognize and justify those replacements. It then asks a different question: can a collection of logical conditions be true at all? Work through the examples before opening each check."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Let p mean “The desk lamp is on.” The claim “The lamp is on or it is not on” is true whether p is T or F. The claim “The lamp is on and it is not on” is false either way. The simple claim “The lamp is on” changes truth value when p changes. We are talking about one lamp at one time, using the ordinary two-valued logic of this chapter."
+        },
+        {
+          "type": "definition",
+          "title": "Three kinds of truth-table columns",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A tautology has T in every row. A contradiction has F in every row. A contingency has at least one T and at least one F. Classify the entire formula by all possible assignments to its variables, not by one situation you happen to observe."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "¬p",
+            "p ∨ ¬p",
+            "p ∧ ¬p"
+          ],
+          "rows": [
+            [
+              "T",
+              "F",
+              "T",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "T",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The third column never changes from T, so p ∨ ¬p is a tautology. The fourth never changes from F, so p ∧ ¬p is a contradiction. The p column itself contains both values, so p is a contingency. In formulas below, the constants T and F mean an always-true and an always-false expression."
+        },
+        {
+          "type": "check",
+          "prompt": "The formula p ∨ q is true when p = T and q = F. Does that make it a tautology?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. One true row is not enough. Set p = F and q = F: then p ∨ q is F. Because it also has true rows, it is a contingency."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.1, printed pages 26–27."
+        }
+      ]
+    },
+    {
+      "id": "equivalence",
+      "title": "2. Equivalent means matching on every row",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Imagine a reminder that appears when a task is overdue, or when it is overdue and important. That second route adds nothing: anything overdue and important is already overdue. Let p mean overdue and q mean important. The two reminder conditions are p ∨ (p ∧ q) and p."
+        },
+        {
+          "type": "definition",
+          "title": "Logical equivalence",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Formulas A and B are logically equivalent when they have the same truth value for every assignment to the variables involved. We write A ≡ B. Here A and B are names for whole formulas, which can contain several variables."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p ∧ q",
+            "p ∨ (p ∧ q)"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "T",
+              "F",
+              "F",
+              "T"
+            ],
+            [
+              "F",
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "F",
+              "F",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Compare the p column with the final column. They match in all four rows. Therefore p ∨ (p ∧ q) ≡ p. This particular equivalence is called absorption: the extra p ∧ q route is already covered by p."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Notation",
+            "What it says"
+          ],
+          "rows": [
+            [
+              "A ↔ B",
+              "A formula. On a particular row it is true when A and B have the same truth value."
+            ],
+            [
+              "A ≡ B",
+              "A claim about formulas: their columns agree on every row. Equivalently, A ↔ B is a tautology."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In this book, ≡ is not another connective inside a truth-table formula. It announces an equivalence. Two formulas being false together on one row makes their biconditional true on that row; it does not establish equivalence."
+        },
+        {
+          "type": "check",
+          "prompt": "Are p → q and q → p equivalent just because both are true when p = q = T?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Take p = T and q = F. Then p → q is F, while q → p is T. A single mismatching row disproves equivalence. To prove equivalence by a truth table, you must check every row."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.2, printed pages 27–30."
+        }
+      ]
+    },
+    {
+      "id": "laws",
+      "title": "3. Use equivalence laws as permitted replacements",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An equivalence law is a reusable pattern. It tells you which expression can replace another without changing the result. Learn what each pattern does, rather than treating the names as a list to memorize. Each law can be used in either direction."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Law",
+            "Equivalent forms",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Identity",
+              "p ∧ T ≡ p",
+              "Requiring something guaranteed adds no restriction."
+            ],
+            [
+              "Identity",
+              "p ∨ F ≡ p",
+              "An impossible alternative adds no possibility."
+            ],
+            [
+              "Domination",
+              "p ∨ T ≡ T",
+              "A guaranteed alternative makes the OR true."
+            ],
+            [
+              "Domination",
+              "p ∧ F ≡ F",
+              "An impossible requirement makes the AND false."
+            ],
+            [
+              "Idempotent",
+              "p ∨ p ≡ p",
+              "Repeating an alternative does not change it."
+            ],
+            [
+              "Idempotent",
+              "p ∧ p ≡ p",
+              "Repeating a requirement does not change it."
+            ],
+            [
+              "Double negation",
+              "¬(¬p) ≡ p",
+              "Negating twice restores the original truth value."
+            ],
+            [
+              "Negation",
+              "p ∨ ¬p ≡ T",
+              "One of a claim and its negation must be true."
+            ],
+            [
+              "Negation",
+              "p ∧ ¬p ≡ F",
+              "They cannot both be true."
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Law",
+            "Equivalent forms",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Commutative",
+              "p ∨ q ≡ q ∨ p",
+              "Swap the order of OR inputs."
+            ],
+            [
+              "Commutative",
+              "p ∧ q ≡ q ∧ p",
+              "Swap the order of AND inputs."
+            ],
+            [
+              "Associative",
+              "(p ∨ q) ∨ r ≡ p ∨ (q ∨ r)",
+              "Regroup a sequence of ORs."
+            ],
+            [
+              "Associative",
+              "(p ∧ q) ∧ r ≡ p ∧ (q ∧ r)",
+              "Regroup a sequence of ANDs."
+            ],
+            [
+              "Distributive",
+              "p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)",
+              "Require p with either alternative."
+            ],
+            [
+              "Distributive",
+              "p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)",
+              "OR also distributes over AND in logic."
+            ],
+            [
+              "Absorption",
+              "p ∨ (p ∧ q) ≡ p",
+              "The narrower alternative adds nothing."
+            ],
+            [
+              "Absorption",
+              "p ∧ (p ∨ q) ≡ p",
+              "Once p holds, the second requirement adds nothing."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Replace a whole subexpression",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The letters in a law can stand for compound expressions too. In A ∧ T ≡ A, choose A to be p ∨ q. Then (p ∨ q) ∧ T ≡ p ∨ q. The expression inside the parentheses stays together."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Check the shape before applying a law",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Associativity changes parentheses among the same operator. It does not let you change (p ∨ q) ∧ r into p ∨ (q ∧ r). At p = T, q = F, r = F, the first is F and the second is T. Also, implication is not commutative: reversing an arrow can change the result."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Simplify (p ∧ T) ∨ (p ∧ F). Which rules justify the result?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Identity gives p ∧ T ≡ p. Domination gives p ∧ F ≡ F. The whole formula becomes p ∨ F, which is p by identity. Nothing requires choosing a particular truth value for p."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.2, printed pages 29–30."
+        }
+      ]
+    },
+    {
+      "id": "de-morgan",
+      "title": "4. Negate a group without changing its meaning",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "If a parcel is both packed and labeled, what would make that statement false? A missing label is enough. A failure to pack it is enough. Both could fail, but both failures are not required. That is why negating AND produces an OR of failures."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Law",
+            "Equivalent forms",
+            "Read it in words"
+          ],
+          "rows": [
+            [
+              "De Morgan",
+              "¬(p ∧ q) ≡ ¬p ∨ ¬q",
+              "Not both: at least one claim is false."
+            ],
+            [
+              "De Morgan",
+              "¬(p ∨ q) ≡ ¬p ∧ ¬q",
+              "Neither: both claims are false."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a door with a key or a keypad as alternative ways in, having neither means no key AND no keypad. Negate each part and switch the connective. Merely adding NOT to each part while keeping the same connective changes the meaning."
+        },
+        {
+          "type": "example",
+          "title": "Work from the outside inward",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Simplify ¬(p ∨ (q ∧ r)). First identify the outer operator inside the negation: it is OR. Treat the whole q ∧ r group as one input."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Expression",
+                "Reason"
+              ],
+              "rows": [
+                [
+                  "¬(p ∨ (q ∧ r))",
+                  "Starting formula."
+                ],
+                [
+                  "¬p ∧ ¬(q ∧ r)",
+                  "De Morgan applied to the outer OR."
+                ],
+                [
+                  "¬p ∧ (¬q ∨ ¬r)",
+                  "De Morgan applied to the remaining negated AND."
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Keep the parentheses around ¬q ∨ ¬r. The original statement fails when p is false and the paired alternative q ∧ r also fails."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The same pattern extends beyond two inputs: ¬(p ∨ q ∨ r) ≡ ¬p ∧ ¬q ∧ ¬r, and ¬(p ∧ q ∧ r) ≡ ¬p ∨ ¬q ∨ ¬r. A large ⋁ means “OR all the listed expressions”; a large ⋀ means “AND all of them.” For example, ⋁ᵢ₌₁³ pᵢ abbreviates p₁ ∨ p₂ ∨ p₃. The subscript gives the first index and the superscript gives the last."
+        },
+        {
+          "type": "check",
+          "prompt": "Negate “The file is saved and the backup is verified.” Must both steps have failed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The negation is “The file is not saved or the backup is not verified,” using inclusive OR. Either failure, or both, makes the original statement false. If the file is saved but the backup is unverified, the negation is already true."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.2–1.3.3, printed pages 27, 30."
+        }
+      ]
+    },
+    {
+      "id": "arrows",
+      "title": "5. Rewrite arrows into familiar operations",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An implication p → q forbids exactly one case: p is true and q is false. The expression ¬p ∨ q forbids that same case, so the two formulas are equivalent. This gives you a way to work with an arrow using NOT and OR."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p → q",
+            "¬p ∨ q",
+            "¬(p → q)",
+            "p ∧ ¬q"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T",
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "T",
+              "F",
+              "F",
+              "F",
+              "T",
+              "T"
+            ],
+            [
+              "F",
+              "T",
+              "T",
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "F",
+              "T",
+              "T",
+              "F",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "What does it mean for a rule to be false?",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let p mean “The upload finishes” and q mean “A receipt appears.” The rule p → q is false precisely when the upload finishes but no receipt appears. It is not made false merely because the upload never finishes."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Expression",
+                "Reason"
+              ],
+              "rows": [
+                [
+                  "¬(p → q)",
+                  "We want the negation of the rule."
+                ],
+                [
+                  "¬(¬p ∨ q)",
+                  "Replace the implication."
+                ],
+                [
+                  "¬(¬p) ∧ ¬q",
+                  "Use De Morgan."
+                ],
+                [
+                  "p ∧ ¬q",
+                  "Remove double negation."
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Use",
+            "Equivalent forms"
+          ],
+          "rows": [
+            [
+              "Remove implication",
+              "(p → q) ≡ ¬p ∨ q"
+            ],
+            [
+              "Contrapositive",
+              "(p → q) ≡ (¬q → ¬p)"
+            ],
+            [
+              "Express OR with an arrow",
+              "p ∨ q ≡ (¬p → q)"
+            ],
+            [
+              "Express AND with an arrow",
+              "p ∧ q ≡ ¬(p → ¬q)"
+            ],
+            [
+              "Negate implication",
+              "¬(p → q) ≡ p ∧ ¬q"
+            ],
+            [
+              "Same hypothesis, both conclusions",
+              "(p → q) ∧ (p → r) ≡ (p → (q ∧ r))"
+            ],
+            [
+              "Either hypothesis, same conclusion",
+              "(p → r) ∧ (q → r) ≡ ((p ∨ q) → r)"
+            ],
+            [
+              "Same hypothesis, either conclusion",
+              "(p → q) ∨ (p → r) ≡ (p → (q ∨ r))"
+            ],
+            [
+              "Both hypotheses, same conclusion",
+              "(p → r) ∨ (q → r) ≡ ((p ∧ q) → r)"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A biconditional is true when the two sides agree: both T or both F. You can express that agreement either as two implications or as two matching cases."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Use",
+            "Equivalent forms"
+          ],
+          "rows": [
+            [
+              "Both directions",
+              "(p ↔ q) ≡ (p → q) ∧ (q → p)"
+            ],
+            [
+              "Negate both sides",
+              "(p ↔ q) ≡ (¬p ↔ ¬q)"
+            ],
+            [
+              "Matching cases",
+              "(p ↔ q) ≡ (p ∧ q) ∨ (¬p ∧ ¬q)"
+            ],
+            [
+              "Disagreement",
+              "¬(p ↔ q) ≡ (p ↔ ¬q)"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "When p = F and q = T, what are p ↔ q and its negation? Does ¬p ↔ ¬q negate the original biconditional?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The biconditional p ↔ q is F because the values differ, so its negation is T. But ¬p = T and ¬q = F still differ, making ¬p ↔ ¬q false. Negating both sides preserves agreement or disagreement; it does not negate the biconditional."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.2, §1.3.4, printed pages 28–29, 31."
+        }
+      ]
+    },
+    {
+      "id": "proofs",
+      "title": "6. Show every justified step in a simplification",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A chain of equivalences is a proof: each line is a permitted replacement of the previous line. If the first formula matches the second on every row, and the second matches the third, then the first matches the third. You do not need to evaluate separate cases when every replacement is already justified."
+        },
+        {
+          "type": "example",
+          "title": "Remove a condition that cancels itself out",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Simplify (p ∨ q) ∧ (p ∨ ¬q). Notice the repeated p in the two OR groups. Use the distributive law backward to collect it."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Expression",
+                "Reason"
+              ],
+              "rows": [
+                [
+                  "(p ∨ q) ∧ (p ∨ ¬q)",
+                  "Starting expression."
+                ],
+                [
+                  "p ∨ (q ∧ ¬q)",
+                  "Distributive law, used from right to left."
+                ],
+                [
+                  "p ∨ F",
+                  "Negation law: q and not-q cannot both hold."
+                ],
+                [
+                  "p",
+                  "Identity law."
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "The result depends only on p. When p is true, both original groups are true. When p is false, the formula would require q and ¬q together, which is impossible. This gives an intuitive check of the symbolic proof."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Prove a tautology by reaching T",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The implication p → (p ∨ q) says that if p holds, at least one of p and q holds. We can justify that for every assignment:"
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Expression",
+                "Reason"
+              ],
+              "rows": [
+                [
+                  "p → (p ∨ q)",
+                  "Starting expression."
+                ],
+                [
+                  "¬p ∨ (p ∨ q)",
+                  "Remove implication."
+                ],
+                [
+                  "(¬p ∨ p) ∨ q",
+                  "Associate the ORs."
+                ],
+                [
+                  "T ∨ q",
+                  "Negation law, with the OR inputs swapped if needed."
+                ],
+                [
+                  "T",
+                  "Domination law, with the OR inputs swapped if needed."
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A replacement must work in every case",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "From p ∧ q you may reason that p is true when the whole conjunction is true. But you cannot replace p ∧ q by p as an equivalence: at p = T, q = F their values differ. Implication and equivalence serve different purposes."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Simplify (p ∧ q) ∨ (p ∧ ¬q) with a short chain.",
+          "explanation": [
+            {
+              "type": "math",
+              "notation": "(p ∧ q) ∨ (p ∧ ¬q) ≡ p ∧ (q ∨ ¬q) ≡ p ∧ T ≡ p",
+              "description": "Distribute backward, use the negation law, then the identity law."
+            },
+            {
+              "type": "paragraph",
+              "text": "First collect the shared p using distribution. The remaining alternative is always true. AND with that truth leaves p."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.4, printed pages 31–32."
+        }
+      ]
+    },
+    {
+      "id": "satisfiability",
+      "title": "7. Find one working assignment—or show none can work",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Satisfiable and unsatisfiable",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A formula is satisfiable when at least one assignment makes it true. Such an assignment is a satisfying assignment, or witness. A formula is unsatisfiable when every assignment makes it false. A single failed attempt does not prove that no witness exists."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Kind of formula",
+            "True rows",
+            "Satisfiable?"
+          ],
+          "rows": [
+            [
+              "Tautology",
+              "All rows",
+              "Yes"
+            ],
+            [
+              "Contingency",
+              "Some but not all rows",
+              "Yes"
+            ],
+            [
+              "Contradiction",
+              "No rows",
+              "No"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This connects to Section 1.2: several specifications are consistent exactly when their conjunction is satisfiable. The same assignment must satisfy every requirement."
+        },
+        {
+          "type": "example",
+          "title": "A three-condition problem",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let a mean “The morning session runs,” b mean “The evening session runs,” and c mean “The room is booked.” Require at least one session, require a room if the morning session runs, and rule out the evening session. Rewriting the implication gives:"
+            },
+            {
+              "type": "math",
+              "notation": "(a ∨ b) ∧ (¬a ∨ c) ∧ ¬b",
+              "description": "At least one session runs; a morning session requires a room; the evening session does not run."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 1 — The last requirement forces b = F. Step 2 — Then a ∨ b forces a = T. Step 3 — With a true, ¬a ∨ c forces c = T. Step 4 — Substitute a = T, b = F, c = T into all three parts: they are T, T, and T. The formula is satisfiable."
+            },
+            {
+              "type": "paragraph",
+              "text": "If we add ¬c, the new requirement contradicts the forced c = T. This is a reason no assignment can work, not just a report that one trial failed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The useful negation relationship is: A is unsatisfiable exactly when ¬A is a tautology. Equivalently, A is satisfiable exactly when ¬A is not a tautology. Be careful with the word “not”: a satisfiable formula can have false rows."
+        },
+        {
+          "type": "check",
+          "prompt": "Two separate formulas, p and ¬p, are each satisfiable. Is their conjunction necessarily satisfiable?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The first needs p = T; the second needs p = F. Each has a witness, but they have no shared witness. Their conjunction p ∧ ¬p is unsatisfiable."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.5, §1.3.7, printed pages 33, 37."
+        }
+      ]
+    },
+    {
+      "id": "exactly-one",
+      "title": "8. Translate “exactly one” into two smaller rules",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Before encoding puzzles, separate “at least one” from “at most one.” Let a, b, and c mean choosing the first, second, and third appointment slot. Exactly one slot means that you choose something and never choose a pair."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Requirement",
+            "Formula",
+            "What it rules out"
+          ],
+          "rows": [
+            [
+              "At least one",
+              "a ∨ b ∨ c",
+              "Choosing none."
+            ],
+            [
+              "At most one",
+              "(¬a ∨ ¬b) ∧ (¬a ∨ ¬c) ∧ (¬b ∨ ¬c)",
+              "Every pair of simultaneous choices."
+            ],
+            [
+              "Exactly one",
+              "(a ∨ b ∨ c) ∧ (¬a ∨ ¬b) ∧ (¬a ∨ ¬c) ∧ (¬b ∨ ¬c)",
+              "Both no choice and multiple choices."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why does ¬a ∨ ¬b rule out a pair? By De Morgan, it is equivalent to ¬(a ∧ b): a and b must not both be true. Do this for every distinct pair. The at-most-one part still allows all three to be false, so it needs the at-least-one part."
+        },
+        {
+          "type": "paragraph",
+          "text": "For more choices, OR all the choices to require at least one, then AND a not-both condition for each pair to require at most one. The large AND and OR notation in the textbook simply repeats those operations across rows, columns, or choices."
+        },
+        {
+          "type": "check",
+          "prompt": "Does a ⊕ b ⊕ c mean exactly one of three choices, if XOR is applied from left to right?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. If a = b = c = T, then (a ⊕ b) ⊕ c = F ⊕ T = T. Repeated XOR detects an odd number of true inputs here, so it also accepts all three. Use the at-least-one and at-most-one conditions for exactly one."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.6, printed pages 33–36."
+        }
+      ]
+    },
+    {
+      "id": "queens",
+      "title": "9. Model a queens puzzle with true-or-false choices",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A queen attacks along its row, column, and diagonals. The n-queens puzzle asks you to place n queens on an n × n board so no two attack one another. Use a 4 × 4 board to see the model without a large grid."
+        },
+        {
+          "type": "definition",
+          "title": "One variable for each square",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let Q(i, j) mean “There is a queen in row i, column j.” On a 4 × 4 board, i and j range from 1 to 4, giving 16 Boolean variables. Q(1, 2) is one variable name identified by its coordinates, not a multiplication or a function you must calculate."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Constraint family",
+            "How to encode it"
+          ],
+          "rows": [
+            [
+              "One queen in each row",
+              "For each row, require at least one occupied square and forbid every pair in that row."
+            ],
+            [
+              "No shared column",
+              "For each column, forbid every pair of occupied squares."
+            ],
+            [
+              "No shared diagonal",
+              "For every pair of squares on the same diagonal, forbid both being occupied."
+            ],
+            [
+              "All rules together",
+              "AND every row, column, and diagonal constraint."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Read individual constraints",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "Q(1, 1) ∨ Q(1, 2) ∨ Q(1, 3) ∨ Q(1, 4)",
+              "description": "At least one square in the first row has a queen."
+            },
+            {
+              "type": "math",
+              "notation": "¬Q(1, 1) ∨ ¬Q(1, 2)",
+              "description": "The first two squares in row one cannot both contain queens."
+            },
+            {
+              "type": "paragraph",
+              "text": "Those two formulas alone do not encode the board. Repeat the pair restrictions for every pair in that row, then for the other rows, columns, and diagonals. Two distinct squares (i, j) and (k, l) lie on a common diagonal exactly when |i − k| = |j − l|. The vertical and horizontal distances must match."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Row",
+            "Queen column"
+          ],
+          "rows": [
+            [
+              "1",
+              "2"
+            ],
+            [
+              "2",
+              "4"
+            ],
+            [
+              "3",
+              "1"
+            ],
+            [
+              "4",
+              "3"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This table is one satisfying placement. Each row has one queen; the four columns are different. For diagonal checking, list row minus column: −1, −2, 2, 1. All are different. List row plus column: 3, 6, 4, 7. All are different too. Equal differences or equal sums would reveal a shared diagonal. Set the four listed square variables to T and all other square variables to F."
+        },
+        {
+          "type": "paragraph",
+          "text": "Exactly one queen in each of n rows gives n queens total. With at most one in any column and n columns available, every column must also have one. We do not need an extra at-least-one-per-column rule for this encoding."
+        },
+        {
+          "type": "check",
+          "prompt": "Would queens at (1, 1) and (2, 2) be allowed just because their rows and columns differ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Their row difference and column difference both have absolute value 1, so they share a diagonal. The clause ¬Q(1, 1) ∨ ¬Q(2, 2) rejects putting queens on both squares."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.6, printed pages 33–35."
+        }
+      ]
+    },
+    {
+      "id": "sudoku",
+      "title": "10. Encode Sudoku without guessing what a cell means",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In a standard Sudoku, each cell contains one digit from 1 through 9. Each row, column, and 3 × 3 block must contain every digit once. The given digits stay fixed. To encode this, let S(i, j, d) mean “The cell in row i, column j contains digit d.” There are 9 × 9 × 9 = 729 Boolean variables, even though the board has only 81 cells: each cell has nine separate digit claims."
+        },
+        {
+          "type": "paragraph",
+          "text": "For a smaller teaching example, use a 4 × 4 board with digits 1 through 4 and 2 × 2 blocks. This has 4 × 4 × 4 = 64 Boolean variables. We will explicitly require exactly one digit per cell and exactly one occurrence of each digit in each row, column, and block."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Rule family",
+            "Meaning in the 4 × 4 model"
+          ],
+          "rows": [
+            [
+              "Cells",
+              "For each cell, exactly one of its four digit variables is true."
+            ],
+            [
+              "Rows",
+              "For each row and each digit, exactly one of that row’s four cells contains the digit."
+            ],
+            [
+              "Columns",
+              "For each column and each digit, exactly one of that column’s four cells contains the digit."
+            ],
+            [
+              "Blocks",
+              "For each 2 × 2 block and each digit, exactly one of its four cells contains the digit."
+            ],
+            [
+              "Givens",
+              "Set each given cell-and-digit variable to true."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Zoom in on one digit",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "S(1, 1, 2) ∨ S(1, 2, 2) ∨ S(1, 3, 2) ∨ S(1, 4, 2)",
+              "description": "The digit two occurs somewhere in the first row."
+            },
+            {
+              "type": "math",
+              "notation": "¬S(1, 1, 2) ∨ ¬S(1, 2, 2)",
+              "description": "The first two cells of row one cannot both contain two."
+            },
+            {
+              "type": "paragraph",
+              "text": "The first expression says “at least one.” To make it “exactly one,” add the not-both clause for every pair of cells in the row. Apply the same pattern to the other rule families. A given 2 at row 1, column 2 is the additional requirement S(1, 2, 2)."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Row",
+            "Column 1",
+            "Column 2",
+            "Column 3",
+            "Column 4"
+          ],
+          "rows": [
+            [
+              "1",
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            [
+              "2",
+              "3",
+              "4",
+              "1",
+              "2"
+            ],
+            [
+              "3",
+              "2",
+              "1",
+              "4",
+              "3"
+            ],
+            [
+              "4",
+              "4",
+              "3",
+              "2",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The displayed grid is a witness for the 4 × 4 rules with the given S(1, 2, 2). Check each row, each column, and each 2 × 2 block: each contains 1, 2, 3, and 4. In the Boolean assignment, exactly the digit shown in each cell has its variable set to T; the other three digit variables for that cell are F."
+        },
+        {
+          "type": "callout",
+          "title": "A solution is not automatically the only solution",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Our one-given example has more than one solution. For instance, swapping digits 3 and 4 everywhere preserves every rule and the given 2, but produces a different grid. Satisfiability asks whether a solution exists. Uniqueness asks whether exactly one exists. A contradictory set of givens can instead make the formula unsatisfiable."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A row contains 1, 2, 3, and 4. Does that single fact prove the entire grid is a Sudoku solution?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. All other rows, all columns, all blocks, every cell’s one-digit rule, and all givens must also hold. The full model is an AND of the rule families; satisfying one family is not enough."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.6, printed pages 35–37."
+        }
+      ]
+    },
+    {
+      "id": "solving",
+      "title": "11. Choose the check that answers your actual question",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A truth table with n distinct Boolean variables has 2ⁿ rows. Each new variable doubles the assignments, regardless of how many times an existing variable is repeated in the formula. For 3 variables there are 8 rows; for 10 there are 1,024; for 20 there are 1,048,576."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "What settles it?"
+          ],
+          "rows": [
+            [
+              "Is A satisfiable?",
+              "One assignment with A = T proves yes."
+            ],
+            [
+              "Is A unsatisfiable?",
+              "A proof that no assignment works, or an exhaustive table containing only F."
+            ],
+            [
+              "Is A a tautology?",
+              "A proof it is always true, or an exhaustive table containing only T."
+            ],
+            [
+              "Are A and B equivalent?",
+              "A justified equivalence chain, or matching columns for every assignment."
+            ],
+            [
+              "Are A and B not equivalent?",
+              "One assignment where their values differ."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a large conjunction, start with forced values, as in the session example. A requirement ¬b fixes b = F; that may force another variable and expose a conflict. If no value is forced, one possible strategy is to choose a variable, explore T, and explore F if necessary. Reject a branch when a requirement cannot be satisfied. A search must account for every remaining branch before concluding there is no solution."
+        },
+        {
+          "type": "paragraph",
+          "text": "SAT is the usual abbreviation for the propositional satisfiability problem. SAT solvers automate searches using methods that can avoid examining every truth-table row. The important lesson here is the modeling task: name the variables and state all the constraints correctly. A solver answers the formula it receives, so an omitted rule can produce a result that fails the intended puzzle."
+        },
+        {
+          "type": "example",
+          "title": "Test equivalence by searching for a disagreement",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A and B disagree precisely when exactly one is true. Form this expression:"
+            },
+            {
+              "type": "math",
+              "notation": "(A ∧ ¬B) ∨ (¬A ∧ B)",
+              "description": "Either A is true and B false, or A is false and B true."
+            },
+            {
+              "type": "paragraph",
+              "text": "If it has a satisfying assignment, that assignment is a counterexample to equivalence. If it is unsatisfiable, A and B agree everywhere. Here A and B stand for the original formulas; keep their shared variables shared when substituting."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "The formula (p ∨ q) ∧ (¬p ∨ q) repeats p and q. How many truth-table rows are needed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Four, because there are only two distinct variables: 2² = 4. Counting written occurrences would overcount. In fact the formula simplifies to q, but a table over the original variables still has four rows."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.3.2, §1.3.5–1.3.7, printed pages 28, 33–37."
+        }
+      ]
+    },
+    {
+      "id": "equivalences-recap",
+      "title": "12. Recap: same meaning, some solution, or every case?",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Idea",
+            "Keep this distinction"
+          ],
+          "rows": [
+            [
+              "Equivalence",
+              "Same truth value for every assignment, not just one matching row."
+            ],
+            [
+              "Tautology",
+              "True in every row. A single witness is not enough."
+            ],
+            [
+              "Satisfiability",
+              "True in at least one row. A tautology is satisfiable too."
+            ],
+            [
+              "Unsatisfiability",
+              "False in every row; the negation is a tautology."
+            ],
+            [
+              "De Morgan",
+              "Negate the parts and switch AND with OR, preserving grouping."
+            ],
+            [
+              "Equivalence proof",
+              "Use a named law at each replacement; implication alone does not justify replacement."
+            ],
+            [
+              "Puzzle model",
+              "AND all the background rules, and separate existence from uniqueness."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "When simplifying, first look for the outermost operator, repeated expressions, and negated groups. When solving constraints, first ask what values are forced. In both cases, read the final result back in ordinary language to check that you answered the original question."
+        },
+        {
+          "type": "check",
+          "prompt": "Classify (p → q) ∨ (p ∧ ¬q). Is it satisfiable?",
+          "explanation": [
+            {
+              "type": "math",
+              "notation": "(p → q) ∨ (p ∧ ¬q) ≡ (p → q) ∨ ¬(p → q) ≡ T",
+              "description": "The second alternative is the negation of the first, so their OR is always true."
+            },
+            {
+              "type": "paragraph",
+              "text": "Let A be p → q. Its negation is p ∧ ¬q, so the formula is A ∨ ¬A. It is a tautology and therefore satisfiable. It is not merely true for one selected pair of values."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Try the checks again without opening their explanations. For further practice, use the quiz-site link in the sidebar."
+        }
+      ]
+    }
+  ]
+}

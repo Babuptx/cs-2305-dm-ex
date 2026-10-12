@@ -13,10 +13,11 @@ try {
   await mkdir('test-results',{recursive:true});await page.screenshot({path:'test-results/home.png',fullPage:true});
   assert.equal(await page.locator('#contents > details').count(),15);assert.equal(await page.locator('#contents a').count(),92);
   assert.equal(await page.locator('[data-chapter="front-matter"], .topbar, .home-link').count(),0);
-  assert.equal(await page.locator('#sidebar .brand').getAttribute('href'),'#home');assert.equal(await page.locator('#sidebar .edition').innerText(),'Rosen · Eighth edition');
+  assert.equal(await page.locator('#sidebar .brand').getAttribute('href'),'#home');assert.equal(await page.locator('#sidebar .edition').count(),0);assert.doesNotMatch(await page.locator('#sidebar').innerText(),/Rosen|Browse a chapter, then choose a section/);
+  const sidebarQuiz=page.locator('#sidebar .nav-note a');assert.equal(await sidebarQuiz.getAttribute('href'),'https://babuptx.github.io/cs-2305-dm/');assert.equal(await sidebarQuiz.getAttribute('target'),'_blank');assert.match(await sidebarQuiz.innerText(),/↗/);assert.match(await sidebarQuiz.getAttribute('aria-label'),/opens in a new tab or window/);
   assert.equal(await page.locator('#sidebar').evaluate(node=>node.getBoundingClientRect().top),0);
   assert.doesNotMatch(await page.locator('body').innerText(),/the textbook map|in.progress|review draft|check the status/i);
-  const quiz=page.getByRole('link',{name:'Discrete Mathematics Quiz Site'});assert.equal(await quiz.getAttribute('href'),'https://babuptx.github.io/cs-2305-dm/');assert.equal(await quiz.getAttribute('target'),'_blank');assert.match(await quiz.getAttribute('rel'),/noopener/);assert.match(await page.locator('.quiz-link').innerText(),/Opens in a new tab/);
+  const quiz=page.locator('#view').getByRole('link',{name:'Discrete Mathematics Quiz Site'});assert.equal(await quiz.getAttribute('href'),'https://babuptx.github.io/cs-2305-dm/');assert.equal(await quiz.getAttribute('target'),'_blank');assert.match(await quiz.getAttribute('rel'),/noopener/);assert.match(await page.locator('.quiz-link').innerText(),/Opens in a new tab/);
   assert.equal(lessonRequests.length,0,'Homepage must not preload lessons');
   await page.locator('[data-chapter="chapter-1"] summary').click();await page.locator('[data-entry="1.1"]').click();
   await page.locator('#unit-recap').waitFor();assert.equal(await page.locator('[aria-current="page"][data-entry]').getAttribute('data-entry'),'1.1');assert.equal(lessonRequests.length,1);assert.equal(await page.locator('.lesson-unit').count(),11);
@@ -26,7 +27,9 @@ try {
   await page.reload();await page.getByRole('heading',{name:'Propositional Logic'}).waitFor();
   await page.goto(url+'#1.2');await page.locator('#unit-applications-recap').waitFor();assert.equal(await page.locator('.lesson-unit').count(),10);assert.equal(await page.locator('.section-heading .pill, .lesson-unit > .pill').count(),0);assert.doesNotMatch(await page.locator('#view').innerText(),/review draft|in.progress/i);await page.getByRole('button',{name:'Read a circuit as a sequence of small decisions'}).click();
   const diagram=page.locator('.lesson-diagram img');await diagram.scrollIntoViewIfNeeded();await page.waitForFunction(()=>{const img=document.querySelector('.lesson-diagram img');return img.complete&&img.naturalWidth>0;});await page.screenshot({path:'test-results/section-1.2-circuit-desktop.png'});
-  await page.goto(url+'#1.3');await page.getByRole('heading',{name:'Not yet available.'}).waitFor();
+  await page.goto(url+'#1.3');await page.locator('#unit-equivalences-recap').waitFor();assert.equal(await page.locator('.lesson-unit').count(),12);assert.doesNotMatch(await page.locator('#view').innerText(),/review draft|in.progress/i);assert.equal(await page.locator('.section-heading .pill, .lesson-unit > .pill').count(),0);
+  await page.getByRole('button',{name:'Show every justified step in a simplification'}).click();await page.screenshot({path:'test-results/section-1.3-proofs-desktop.png'});
+  await page.goto(url+'#1.4');await page.getByRole('heading',{name:'Not yet available.'}).waitFor();
   await page.goto(url+'#13.5');await page.getByRole('heading',{name:'Turing Machines'}).waitFor();assert.equal(await page.locator('[data-chapter="chapter-13"]').getAttribute('open'),'');
   assert.ok(await page.locator('[data-entry="13.5"]').evaluate(node=>{const rect=node.getBoundingClientRect();return rect.top>=0&&rect.bottom<=innerHeight;}));
   assert.ok(await page.evaluate(()=>{const side=document.querySelector('#sidebar');return side.scrollHeight>side.clientHeight&&getComputedStyle(side).overflowY==='auto';}));
@@ -44,6 +47,10 @@ try {
   await page.getByRole('button',{name:'Learn from someone else’s “I don’t know”'}).click();await page.locator('#unit-shared-information .check summary').click();assert.equal(await page.locator('#unit-shared-information details').getAttribute('open'),'');await page.screenshot({path:'test-results/section-1.2-puzzle-mobile.png'});
   await page.locator('.lesson-diagram').scrollIntoViewIfNeeded();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'test-results/section-1.2-circuit-mobile.png'});
   await page.locator('#menu').click();await page.waitForFunction(()=>document.querySelector('#sidebar').getBoundingClientRect().left>=0);await page.screenshot({path:'test-results/mobile-drawer.png'});await page.keyboard.press('Escape');
+  await page.goto(url+'#1.3');await page.locator('#unit-equivalences-recap').waitFor();await page.waitForFunction(()=>document.querySelector('#sidebar').getBoundingClientRect().right<=0);await page.screenshot({path:'test-results/section-1.3-mobile.png'});
+  await page.getByRole('button',{name:'Use equivalence laws as permitted replacements'}).click();await page.locator('#unit-laws .table-wrap').last().scrollIntoViewIfNeeded();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'test-results/section-1.3-laws-mobile.png'});
+  await page.getByRole('button',{name:'Encode Sudoku without guessing what a cell means'}).click();await page.locator('#unit-sudoku .check summary').click();assert.equal(await page.locator('#unit-sudoku details').getAttribute('open'),'');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'test-results/section-1.3-sudoku-mobile.png'});
+  await page.locator('#menu').click();await page.locator('#sidebar .brand').click();await page.getByRole('heading',{name:'Make sense of discrete mathematics.'}).waitFor();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'false');
   // Intercepted fixtures test future lesson behavior without publishing lesson files.
   const manifest=JSON.parse(await readFile('data/manifest.json','utf8'));manifest.chapters.find(c=>c.id==='chapter-1').children[0].status='in-progress';manifest.chapters.find(c=>c.id==='chapter-1').children[0].path='data/lessons/1.1.json';
   await page.route('**/data/manifest.json',r=>r.fulfill({json:manifest}));let fail=true;
