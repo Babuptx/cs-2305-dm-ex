@@ -1,5 +1,7 @@
 # Teaching style
 
+Reader interface preference, October 12, 2026: report editorial status in chat, not on the site. Omit completion labels and draft notices from current and future lessons. Maintain internal status metadata for validation.
+
 Owner-provided preference, recorded October 11, 2026: use the clarity and stepwise structure of the supplied explanation of Rosen §1.1 Example 11 (programming assignment versus logical implication). The supplied conversation itself stays private; write original prose.
 
 Start with a short main idea. Introduce every unfamiliar word and symbol before using it. Begin with everyday examples, then mathematical examples. Break worked examples into explicit steps: identify inputs, interpret the notation, apply the rule, calculate, state the result. Explain why each step is justified. Use a compact comparison table for concepts that look similar, name common misunderstandings, and include a counterfactual where it clarifies a rule. Give short understanding checks with expandable explanations, then a concise recap.

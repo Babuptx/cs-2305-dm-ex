@@ -1,5 +1,4 @@
 export const statuses = ['unavailable', 'in-progress', 'complete'];
-export const labels = {unavailable:'Not yet available.', 'in-progress':'In progress', complete:'Complete'};
 export function entries(manifest) {
   return manifest.chapters.flatMap(chapter => {
     const walk = children => children.flatMap(entry => [{...entry, chapter}, ...walk(entry.children || [])]);

@@ -8,7 +8,7 @@ Editorial review by the authoring assistant: compared scope and definitions with
 
 Automated mathematical checks in `tests/lesson-1.1.test.mjs`: evaluate every displayed column of all six truth tables and check exhaustive input assignments; check the one-bit operation table and both actual displayed bit-string results; parse and check the worked assignment trace; verify the integer counterexamples and grouping calculations. These tests check finite computations, not the completeness or teaching quality of the prose. The general content validator checks JSON schema, status consistency, and lesson paths.
 
-Browser checks exercise real lesson loading after selection, the eleven-unit outline, complete status, absence of unfinished-content notices, keyboard focus on topic jumps, expandable explanations, desktop/mobile layout, continued unavailability of Section 1.3, deep links, and failed-fetch recovery. Screenshots remain local. Source PDF and private analysis are excluded from both Git and the public build.
+Browser checks exercise real lesson loading after selection, the eleven-unit outline, absence of editorial status labels and unfinished-content notices, keyboard focus on topic jumps, expandable explanations, desktop/mobile layout, continued unavailability of Section 1.3, deep links, and failed-fetch recovery. Screenshots remain local. Source PDF and private analysis are excluded from both Git and the public build.
 
 Next: preserve Section 1.1's URL and finalized status. Collect the owner's review of the newly authorized Section 1.2.
 

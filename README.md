@@ -1,6 +1,6 @@
 # Discrete Mathematics Companion
 
-A lightweight static companion to the full supplied Rosen eighth-edition textbook: 13 chapters and 72 numbered sections, with end-of-chapter material, appendices, front matter, and reference entries. Section 1.1, Propositional Logic, is **complete** with eleven teaching units. Section 1.2, Applications of Propositional Logic, is **available for review** with ten teaching units covering translations, specifications, searches, puzzles, and circuits. Both include original worked examples and expandable checks. All other unwritten entries show **Not yet available.**
+A lightweight static companion to the full supplied Rosen eighth-edition textbook: 13 chapters and 72 numbered sections, with end-of-chapter material, appendices, and reference entries. Front Matter is omitted at the owner's request. Section 1.1, Propositional Logic, is **complete** with eleven teaching units. Section 1.2, Applications of Propositional Logic, is **available for review** with ten teaching units covering translations, specifications, searches, puzzles, and circuits. Both include original worked examples and expandable checks. All other unwritten entries show **Not yet available.**
 
 Live site: https://Babuptx.github.io/cs-2305-dm-ex/
 

@@ -4,45 +4,6 @@
   "textbook": "Rosen · Discrete Mathematics and Its Applications · Eighth Edition",
   "chapters": [
     {
-      "id": "front-matter",
-      "number": null,
-      "title": "Front matter",
-      "children": [
-        {
-          "id": "about-author",
-          "number": null,
-          "title": "About the Author",
-          "status": "unavailable",
-          "path": null,
-          "children": []
-        },
-        {
-          "id": "preface",
-          "number": null,
-          "title": "Preface",
-          "status": "unavailable",
-          "path": null,
-          "children": []
-        },
-        {
-          "id": "online-resources",
-          "number": null,
-          "title": "Online Resources",
-          "status": "unavailable",
-          "path": null,
-          "children": []
-        },
-        {
-          "id": "to-student",
-          "number": null,
-          "title": "To the Student",
-          "status": "unavailable",
-          "path": null,
-          "children": []
-        }
-      ]
-    },
-    {
       "id": "chapter-1",
       "number": "1",
       "title": "The Foundations: Logic and Proofs",

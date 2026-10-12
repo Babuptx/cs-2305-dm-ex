@@ -1,4 +1,4 @@
-import {entries, labels, validateLesson} from './content.js';
+import {entries, validateLesson} from './content.js';
 const $ = id => document.getElementById(id);
 const view = $('view'), sidebar = $('sidebar'), menu = $('menu');
 let manifest, all = [], request = 0, controller;
@@ -26,7 +26,7 @@ function navigation() {
   const expanded=new Set([...$('contents').querySelectorAll('details[open]')].map(group=>group.dataset.chapter));
   $('contents').replaceChildren();
   const add = (entry,parent) => {
-    const a=link('',entry.id); a.dataset.entry=entry.id; a.title=labels[entry.status];
+    const a=link('',entry.id); a.dataset.entry=entry.id;
     if(entry.number) a.append(el('span',entry.number,'section-number'));
     a.append(el('span',entry.title)); parent.append(a);
     if(entry.children?.length) {const group=el('details'); group.append(el('summary','Subsections'));entry.children.forEach(child=>add(child,group));parent.append(group);}
@@ -39,13 +39,11 @@ function navigation() {
   });
 }
 function home() {
-  view.innerHTML=`<section class="hero"><span class="pill">A COMPANION IN THE MAKING</span><h1>Make sense of discrete mathematics.</h1><p class="lead">A place to build understanding, one idea at a time. Follow the full textbook map, find your section, and return as clear, beginner-friendly explanations become available.</p><a class="action" href="#1.1">Explore Section 1.1 <span aria-hidden="true">→</span></a></section><div class="overview"><div><strong>13</strong><span>textbook chapters</span></div><div><strong>72</strong><span>numbered sections</span></div><div><strong>0</strong><span>lessons available</span></div></div><section class="guide"><span class="eyebrow">HOW TO USE THE COMPANION</span><h2>Your book. A clearer path through it.</h2><div class="steps"><div><span class="step-number">01 / FIND YOUR PLACE</span><h3>Browse the contents</h3><p>Expand a chapter in the sidebar. Section numbers and titles follow Rosen’s eighth edition. On a phone, open Contents.</p></div><div><span class="step-number">02 / CHECK THE STATUS</span><h3>See what’s available</h3><p>Each section states whether it is not yet available, in progress, or complete. The navigation is ready; lessons are still to come.</p></div><div><span class="step-number">03 / COME BACK TO IT</span><h3>Keep your place</h3><p>Bookmark or share a section’s URL. As explanations are published, they will appear at the same address.</p></div></div></section><div class="notice"><span class="eyebrow">CURRENT STATE</span><h3>The map is ready. The lessons are next.</h3><p>This first release provides the full chapter and section navigation. Unwritten sections show an empty state. Future lessons will introduce symbols, explain ideas in everyday language, and offer worked examples and short understanding checks.</p></div>`;
+  view.innerHTML=`<section class="hero"><h1>Make sense of discrete mathematics.</h1><p class="lead">Build understanding, one idea at a time. Follow Rosen’s textbook, find your section, and work through clear, beginner-friendly explanations.</p><a class="action" href="#1.1">Explore Section 1.1 <span aria-hidden="true">→</span></a><p class="quiz-link">Ready to practice? Visit the <a href="https://babuptx.github.io/cs-2305-dm/" target="_blank" rel="noopener noreferrer"><strong>Discrete Mathematics Quiz Site</strong></a> to practice the skills you learn here. Opens in a new tab.</p></section><div class="overview"><div><strong>13</strong><span>textbook chapters</span></div><div><strong>72</strong><span>numbered sections</span></div><div><strong>0</strong><span>study lessons</span></div></div><section class="guide"><span class="eyebrow">HOW TO USE THE COMPANION</span><h2>Your book. A clearer path through it.</h2><div class="steps"><div><span class="step-number">01 / FIND YOUR PLACE</span><h3>Browse the contents</h3><p>Expand a chapter in the sidebar. Section numbers and titles follow Rosen’s eighth edition. On a phone, open Contents.</p></div><div><span class="step-number">02 / BUILD UNDERSTANDING</span><h3>Work through an idea</h3><p>Read the explanation, follow a worked example, and try each check before opening its answer.</p></div><div><span class="step-number">03 / COME BACK TO IT</span><h3>Keep your place</h3><p>Bookmark or share a section’s URL so you can return to the same place as you study.</p></div></div></section><div class="notice"><h3>Continue your study</h3><p>Choose a section from the contents to explore the textbook.</p></div>`;
   const stats=view.querySelectorAll('.overview strong');stats[0].textContent=manifest.chapters.filter(c=>c.number).length;stats[1].textContent=all.filter(e=>/^\d+\.\d+$/.test(e.id)).length;stats[2].textContent=all.filter(e=>e.status!=='unavailable').length;
   const available=all.filter(entry=>entry.status!=='unavailable');
   if(available.length) {
-    view.querySelector('.steps > div:nth-child(2) p').textContent='Each section shows its availability. Completed lessons are ready to study; sections still being reviewed carry their own status.';
-    view.querySelector('.notice h3').textContent='Continue your study';
-    const notice=view.querySelector('.notice p');notice.textContent='Choose an available lesson: ';
+    const notice=view.querySelector('.notice p');notice.textContent='Choose a lesson: ';
     available.forEach((entry,index)=>{if(index)notice.append(document.createTextNode(' · '));notice.append(link((entry.number?entry.number+' — ':'')+entry.title,entry.id));});
   }
 }
@@ -85,21 +83,20 @@ async function route(refresh=true) {
   if(selected){selected.setAttribute('aria-current','page');let parent=selected.parentElement;while(parent&&parent!==sidebar){if(parent.tagName==='DETAILS')parent.open=true;parent=parent.parentElement;}if(!matchMedia('(max-width:800px)').matches)selected.scrollIntoView({block:'center'});}
   $('breadcrumbs').replaceChildren(link('Home','home'));
   view.setAttribute('aria-busy','false');
-  if(id==='home') {document.querySelector('.home-link').setAttribute('aria-current','page');document.title=manifest.title;home();}
+  if(id==='home') {document.querySelector('.brand').setAttribute('aria-current','page');document.title=manifest.title;home();}
   else if(!entry) {document.title='Section not found · '+manifest.title;view.replaceChildren(el('h1','Section not found'),el('p','This address does not match a section in the companion.'),link('Return to the companion home','home','action'));}
   else {
     $('breadcrumbs').append(el('span','/'),el('span',(entry.chapter.number?'Chapter '+entry.chapter.number+': ':'')+entry.chapter.title),el('span','/'),el('span',entry.number||entry.title));
     document.title=(entry.number?entry.number+' · ':'')+entry.title+' · '+manifest.title;
-    const header=el('header',undefined,'section-heading');header.append(el('span',entry.number?'SECTION '+entry.number:entry.chapter.title.toUpperCase(),'eyebrow'),el('h1',entry.title),el('span',labels[entry.status],'pill'));view.replaceChildren(header);
+    const header=el('header',undefined,'section-heading');header.append(el('span',entry.number?'SECTION '+entry.number:entry.chapter.title.toUpperCase(),'eyebrow'),el('h1',entry.title));view.replaceChildren(header);
     if(entry.status==='unavailable'){const empty=el('section',undefined,'empty');empty.append(el('h2','Not yet available.'),el('p','This section has not been written yet. Its place in the textbook map is ready, and its explanation will appear here when published.'));const refresh=el('button','Check for updates','retry');refresh.addEventListener('click',()=>route());empty.append(refresh);view.append(empty);}
     else {
       const content=el('div','Loading this section…');view.append(content);view.setAttribute('aria-busy','true');
       try {const lesson=validateLesson(await fetchJSON(entry.path,controller.signal),entry);if(token!==request)return;content.replaceChildren();
-        if(lesson.status==='in-progress')content.append(el('p','In progress · Review draft. Explanations may be revised and teaching units may be added.','notice'));
         const outline=el('nav',undefined,'lesson-outline');outline.setAttribute('aria-label','In this section');outline.append(el('h2','In this section'));const list=el('ol');outline.append(list);content.append(outline);
         for(const unit of lesson.units){
           const section=el('section',undefined,'lesson-unit');section.id='unit-'+unit.id;
-          const heading=el('h2',unit.title);heading.tabIndex=-1;section.append(heading,el('span',labels[unit.status],'pill'),...unit.blocks.map(renderBlock));content.append(section);
+          const heading=el('h2',unit.title);heading.tabIndex=-1;section.append(heading,...unit.blocks.map(renderBlock));content.append(section);
           const item=el('li'),button=el('button',unit.title.replace(/^\d+\.\s*/,''));button.type='button';button.addEventListener('click',()=>{heading.focus({preventScroll:true});heading.scrollIntoView({block:'start'});});item.append(button);list.append(item);
         }
         content.append(el('p',lesson.references.join(' · '),'lesson-references'));
