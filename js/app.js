@@ -60,7 +60,7 @@ async function route() {
   drawer(false,false);
   document.querySelectorAll('[aria-current]').forEach(node=>node.removeAttribute('aria-current'));
   const selected=[...document.querySelectorAll('[data-entry]')].find(node=>node.dataset.entry===id);
-  if(selected){selected.setAttribute('aria-current','page');let parent=selected.parentElement;while(parent&&parent!==sidebar){if(parent.tagName==='DETAILS')parent.open=true;parent=parent.parentElement;}if(!matchMedia('(max-width:800px)').matches)selected.scrollIntoView({block:'nearest'});}
+  if(selected){selected.setAttribute('aria-current','page');let parent=selected.parentElement;while(parent&&parent!==sidebar){if(parent.tagName==='DETAILS')parent.open=true;parent=parent.parentElement;}if(!matchMedia('(max-width:800px)').matches)selected.scrollIntoView({block:'center'});}
   $('breadcrumbs').replaceChildren(link('Home','home'));
   view.setAttribute('aria-busy','false');
   if(id==='home') {document.querySelector('.home-link').setAttribute('aria-current','page');document.title=manifest.title;home();}
