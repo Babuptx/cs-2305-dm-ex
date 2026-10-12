@@ -1,6 +1,6 @@
 # Discrete Mathematics Companion
 
-A lightweight static companion to the full supplied Rosen eighth-edition textbook. The first release is the navigation shell only: 13 chapters and 72 numbered sections, with end-of-chapter material, appendices, front matter, and reference entries. All unwritten entries honestly show **Not yet available.** No lessons or sample worked examples are published.
+A lightweight static companion to the full supplied Rosen eighth-edition textbook: 13 chapters and 72 numbered sections, with end-of-chapter material, appendices, front matter, and reference entries. Section 1.1, Propositional Logic, is available as an **in-progress review draft** with eleven teaching units, original worked examples, truth tables, and expandable checks. All other unwritten entries show **Not yet available.**
 
 Live site: https://Babuptx.github.io/cs-2305-dm-ex/
 
@@ -24,10 +24,10 @@ Navigation: `data/manifest.json`. Future lessons: `data/lessons/<section>.json`.
 
 Source PDFs and saved analysis are private local references. `.local/` contains the source index and verified page mappings on the author's workstation; it is ignored. `refer/`, PDFs, development tools, and analysis are excluded from Git and the build. The build uses an explicit allowlist of the interface and public JSON. Never put source extracts or private paths in those files. The existing quiz repository is read-only and separate.
 
-Draft only the section or small teaching unit requested by the owner. Before publication, review the draft with the owner, obtain content approval, validate the JSON and mathematical examples, update availability accurately, and preserve stable URLs. Automated checks and editorial review serve different purposes; record both. The teaching-style sample has been received; await the Section 1.1 drafting request.
+Draft only the section or small teaching unit requested by the owner. Normally, review the draft with the owner and obtain content approval before publication. The owner explicitly requested publishing the Section 1.1 draft for review; its status remains in progress. Validate JSON and mathematical examples, update availability accurately, and preserve stable URLs. Automated checks and editorial review serve different purposes; see the [Section 1.1 review record](docs/review-1.1.md). Await feedback on this draft; do not start Section 1.2 automatically.
 
 ## Publication
 
 The owner authorized publishing the shell to `Babuptx/cs-2305-dm-ex`. GitHub Pages uses GitHub Actions. On a push to `main`, `.github/workflows/pages.yml` installs dependencies, validates content, runs unit and desktop/mobile browser checks, builds the public allowlist, uploads `dist/`, and deploys it. Pull requests validate without deploying. Repository Pages settings use the GitHub Actions source.
 
-After authorized changes: run checks, commit, push, inspect the workflow result, and verify the live homepage and section URLs. Later lessons require owner approval of their content before this publication sequence. Do not add textbook text, private source analysis, or credentials to commits. No license has been chosen by the owner.
+After authorized changes: run checks, commit, push, inspect the workflow result, and verify the live homepage and section URLs. Later lessons require owner approval of their content before this publication sequence unless the owner explicitly requests publishing a draft for review, as for Section 1.1. Do not add textbook text, private source analysis, or credentials to commits. No license has been chosen by the owner.

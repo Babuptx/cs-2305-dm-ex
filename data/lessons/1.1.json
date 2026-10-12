@@ -1,0 +1,1091 @@
+{
+  "schemaVersion": 1,
+  "id": "1.1",
+  "title": "Propositional Logic",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.1, printed pages 1–13 (exposition); exercises continue through page 16.",
+    "Original companion explanations and examples. Review draft published at the owner’s request; automated calculations and editorial checks are recorded separately."
+  ],
+  "units": [
+    {
+      "id": "propositions",
+      "title": "1. What counts as a proposition?",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Review draft: start here",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "This is a first draft of the whole of Section 1.1, published for your review. Read one topic at a time. Before opening a check’s explanation, try saying your answer in plain English. The lesson remains in progress while its explanations are reviewed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Imagine checking a parcel delivery: “This parcel arrived on Monday.” Once we agree which parcel and which Monday, that claim has a truth value: it is true or false. Logic starts with claims like this and gives us precise rules for combining them."
+        },
+        {
+          "type": "definition",
+          "title": "Proposition and truth value",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A proposition is a declarative statement with exactly one of two truth values: true or false. “Declarative” means it makes a claim. A false statement still counts as a proposition. We write T for true and F for false."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Sentence",
+            "A proposition?",
+            "Why"
+          ],
+          "rows": [
+            [
+              "“7 + 2 = 9.”",
+              "Yes; T",
+              "It makes a true mathematical claim."
+            ],
+            [
+              "“7 + 2 = 10.”",
+              "Yes; F",
+              "It makes a false mathematical claim."
+            ],
+            [
+              "“Please close the window.”",
+              "No",
+              "It gives an instruction."
+            ],
+            [
+              "“Is the window closed?”",
+              "No",
+              "It asks a question."
+            ],
+            [
+              "“x + 2 = 9,” with x unspecified",
+              "Not yet",
+              "Its truth depends on the value assigned to x."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Not knowing the truth value is different from not having one. “The sealed envelope contains a receipt” can be a proposition even before you open it. By contrast, x + 2 = 9 with no value or other context for x is an open statement: x = 7 makes it true, while x = 4 makes it false."
+        },
+        {
+          "type": "paragraph",
+          "text": "We use letters such as p and q as short names for propositions. For example, let p mean “The parcel arrived” and q mean “The parcel is damaged.” Here p is a name for a statement, not a number to solve for. An atomic proposition is a basic statement we are treating as a single claim; a compound proposition combines claims using logical operators, such as AND or NOT."
+        },
+        {
+          "type": "check",
+          "prompt": "Is “12 is an odd number” a proposition? Does being wrong disqualify it?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is a proposition, and its truth value is F. It makes a definite claim; that claim happens to be false because 12 is even. A proposition does not have to be correct."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.1–§1.1.2, printed pages 1–3."
+        }
+      ]
+    },
+    {
+      "id": "negation",
+      "title": "2. NOT: reverse a truth value",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose p means “The kitchen light is on.” The claim “The kitchen light is not on” reverses p. If p is true, its negation is false; if p is false, its negation is true."
+        },
+        {
+          "type": "definition",
+          "title": "Negation: ¬p",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The symbol ¬ means NOT. Read ¬p as “not p” or “It is not the case that p.” It acts on one proposition."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "¬p"
+          ],
+          "rows": [
+            [
+              "T",
+              "F"
+            ],
+            [
+              "F",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This is a truth table: each row is one possible assignment of truth values, and each result column shows what the operator does. Keep the whole row together when reading it."
+        },
+        {
+          "type": "example",
+          "title": "Worked example: getting the boundary right",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let p mean “The box weighs at least 5 kilograms.” Step 1: “At least 5” includes 5 and everything above it. Step 2: To negate the claim, collect all remaining possible weights. Step 3: ¬p means “The box weighs less than 5 kilograms.” “At most 5” would be wrong because it still includes 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a mathematical example, if n is a fixed integer, the negation of n > 3 is n ≤ 3. The symbol ≤ means “less than or equal to.” Include the equality case because n = 3 makes the original claim false."
+        },
+        {
+          "type": "check",
+          "prompt": "A fixed number n satisfies the claim “n ≤ 8.” What is the negation?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The negation is n > 8. At n = 8 the original claim is true, so n = 8 must not be included in its negation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.2, printed pages 3–4."
+        }
+      ]
+    },
+    {
+      "id": "and-or-xor",
+      "title": "3. AND, OR, and exclusive OR",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let p mean “I brought a notebook” and q mean “I brought a pen.” We can combine these two claims in three different ways. The difference is what happens when both are true."
+        },
+        {
+          "type": "definition",
+          "title": "Three connectives",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Conjunction, written p ∧ q, means AND: both must be true. Disjunction, written p ∨ q, means inclusive OR: at least one must be true, and both are allowed. Exclusive OR, written p ⊕ q and often called XOR, means exactly one is true."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p ∧ q",
+            "p ∨ q",
+            "p ⊕ q"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T",
+              "T",
+              "F"
+            ],
+            [
+              "T",
+              "F",
+              "F",
+              "T",
+              "T"
+            ],
+            [
+              "F",
+              "T",
+              "F",
+              "T",
+              "T"
+            ],
+            [
+              "F",
+              "F",
+              "F",
+              "F",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Read the first row aloud: “I brought the notebook and the pen.” That satisfies AND and inclusive OR. It fails XOR because I brought both. The last row fails all three because I brought neither."
+        },
+        {
+          "type": "example",
+          "title": "Worked example with mathematical claims",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let p be “9 > 4” and q be “9 is even.” First determine the inputs: p is T and q is F. Now use the T, F row. The conjunction p ∧ q is F because they are not both true. The disjunction p ∨ q is T because one is true. The exclusive OR p ⊕ q is T because exactly one is true."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Everyday “or” needs context",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "“Tea or coffee, but not both” explicitly requests XOR. “You may pay with cash or a card” does not, by itself, settle whether splitting the payment is allowed. Clarify the intended meaning. In a logical formula, ∨ always permits both. Also, “p, but q” has the truth-value pattern of p ∧ q; the word “but” adds conversational contrast."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If both p and q are true, which of p ∨ q and p ⊕ q is true?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "p ∨ q is true; p ⊕ q is false. Inclusive OR accepts two true inputs. Exclusive OR accepts exactly one."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.2, printed pages 4–6."
+        }
+      ]
+    },
+    {
+      "id": "conditionals",
+      "title": "4. If p, then q: the one way it can fail",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Consider a delivery promise: “If you choose express delivery, your parcel arrives by Friday.” Let p mean “You choose express delivery” and q mean “Your parcel arrives by Friday.” The promise is broken when you choose express delivery and the parcel does not arrive by Friday."
+        },
+        {
+          "type": "definition",
+          "title": "Conditional statement: p → q",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Read p → q as “if p, then q.” It is also called an implication. The first part, p, is the hypothesis or antecedent. The second part, q, is the conclusion or consequent. The whole conditional is false exactly when p is true and q is false."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p → q"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "T"
+            ],
+            [
+              "F",
+              "F",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why are the last two rows true? The promise sets a requirement for the express-delivery case. If you did not choose express delivery, it does not specify whether the parcel arrives by Friday. Either outcome is compatible with the promise. In this truth-value system, those rows count as true, rather than receiving a third value such as “not applicable.”"
+        },
+        {
+          "type": "callout",
+          "title": "A true conditional does not make its conclusion true",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "On the F, F row, p → q is T while q is F. These are different claims with different truth values. To use a true conditional to conclude q, you also need p to be true. And one matching delivery does not establish that a policy works for every parcel; a universal claim requires checking all relevant cases or giving a proof."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example: a false starting claim",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let p be “10 is odd” and q be “10 < 4.” Step 1: p is F because 10 is even. Step 2: q is F because 10 is greater than 4. Step 3: the F, F row makes p → q true. We have not made either arithmetic claim true. We have only evaluated the compound statement using the conditional’s rule."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Logical implication does not require a cause-and-effect relationship. For example, “If this drawer is open, then 6 + 1 = 7” has a true conclusion, so the conditional is true whether the drawer is open or closed. It does not say that opening a drawer causes arithmetic to work."
+        },
+        {
+          "type": "check",
+          "prompt": "Let p be true and q false. What are the truth values of p → q and q → p?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "p → q is F: its hypothesis is true and conclusion false. q → p is T: its hypothesis is false. Reversing an arrow can change the truth value."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.3, printed pages 6–8."
+        }
+      ]
+    },
+    {
+      "id": "conditional-language",
+      "title": "5. “If,” “only if,” “necessary,” and “sufficient”",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Small changes in wording can reverse the arrow. Translate by asking: “Which condition, if true, requires the other one?” Place that first condition on the left of →."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "English wording",
+            "Logical form"
+          ],
+          "rows": [
+            [
+              "If p, then q",
+              "p → q"
+            ],
+            [
+              "q if p; q whenever p; q provided that p",
+              "p → q"
+            ],
+            [
+              "p only if q",
+              "p → q"
+            ],
+            [
+              "p is sufficient for q",
+              "p → q"
+            ],
+            [
+              "q is necessary for p",
+              "p → q"
+            ],
+            [
+              "p if q",
+              "q → p"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Sufficient versus necessary",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Sufficient means enough to guarantee the other condition, under the stated rule. Necessary means required: without it, the other condition cannot hold. For p → q, p is sufficient for q, and q is necessary for p. Neither description asserts the reverse implication."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example: access to an archive",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let a mean “You access the archive” and b mean “You have an active badge.” “You access the archive only if you have an active badge” becomes a → b. Why? Access without a badge is the forbidden case. The badge is necessary for access. Having a badge alone may not be sufficient: the archive might also need to be open."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A mathematical version",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Take a fixed integer n. Let p mean “n is divisible by 6” and q mean “n is divisible by 3.” Divisible means division leaves an integer result, with no remainder. Divisibility by 6 is sufficient for divisibility by 3; divisibility by 3 is necessary for divisibility by 6. The reverse fails at n = 9: 9 is divisible by 3, but not by 6."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "“Unless” gives an exception. In the standard inclusive logical reading, “I will walk unless it rains” means “If it does not rain, I will walk.” Let w mean “I will walk” and r mean “It rains”; write ¬r → w. This does not say what happens when it rains: I might still walk. If the speaker intends to rule that out, extra information is needed. Similarly, the textbook’s form “q unless ¬p” expresses p → q."
+        },
+        {
+          "type": "check",
+          "prompt": "Let s mean “The machine starts” and k mean “The key is inserted.” Translate “The machine starts only if the key is inserted.” Is inserting the key alone guaranteed to start it?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The translation is s → k. Inserting the key is necessary. The statement does not guarantee k → s; there may be other requirements, such as fuel or power."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.3, printed pages 7–8."
+        }
+      ]
+    },
+    {
+      "id": "related-conditionals",
+      "title": "6. Converse, inverse, and contrapositive",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose a club has this rule: “If you are a committee member, you have a membership card.” Let p mean “You are a committee member” and q mean “You have a membership card.” Reordering and negating these claims creates three related statements."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Name",
+            "Formula",
+            "Club wording"
+          ],
+          "rows": [
+            [
+              "Original",
+              "p → q",
+              "If you are a committee member, you have a card."
+            ],
+            [
+              "Converse",
+              "q → p",
+              "If you have a card, you are a committee member."
+            ],
+            [
+              "Inverse",
+              "¬p → ¬q",
+              "If you are not a committee member, you do not have a card."
+            ],
+            [
+              "Contrapositive",
+              "¬q → ¬p",
+              "If you do not have a card, you are not a committee member."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Ordinary club members might have cards too. That possibility is compatible with the original rule, but it can make the converse and inverse false. The contrapositive preserves the original rule: someone without the required card cannot be a committee member."
+        },
+        {
+          "type": "definition",
+          "title": "Equivalent statements",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Two compound propositions are logically equivalent when they have the same truth value for every assignment of their propositional variables. Agreement on one row is not enough. The original conditional and its contrapositive are equivalent. The converse and inverse are equivalent to each other, but are not generally equivalent to the original."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p → q",
+            "q → p",
+            "¬p → ¬q",
+            "¬q → ¬p"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T",
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "T",
+              "F",
+              "F",
+              "T",
+              "T",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "T",
+              "F",
+              "F",
+              "T"
+            ],
+            [
+              "F",
+              "F",
+              "T",
+              "T",
+              "T",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked counterexample: divisible by 8 versus divisible by 4",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For integers, the original rule “If n is divisible by 8, then n is divisible by 4” is true. The converse says “If n is divisible by 4, then n is divisible by 8.” At n = 12 its hypothesis is true and its conclusion false, so 12 is a counterexample: one case that disproves the general claim. The inverse fails at 12 too. The contrapositive, “If n is not divisible by 4, then n is not divisible by 8,” preserves the original rule."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is the contrapositive of “If the alarm is armed, the indicator is lit”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "“If the indicator is not lit, the alarm is not armed.” Reverse the two parts and negate both. Only reversing gives the converse; only negating gives the inverse."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.3, printed page 9."
+        }
+      ]
+    },
+    {
+      "id": "biconditionals",
+      "title": "7. If and only if: a rule in both directions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Imagine a simple indicator designed to be lit exactly when its switch is on. That description makes two promises: an on switch means a lit indicator, and a lit indicator means an on switch."
+        },
+        {
+          "type": "definition",
+          "title": "Biconditional: p ↔ q",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Read p ↔ q as “p if and only if q,” often shortened to “p iff q.” It is true when p and q have the same truth value. It combines both directions: (p → q) ∧ (q → p). “Necessary and sufficient” and “exactly when” are other common ways to express it."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p ↔ q"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "F"
+            ],
+            [
+              "F",
+              "F",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Both false still counts as agreement. If the switch is off and the indicator is unlit, the “exactly when” rule is satisfied. Do not confuse ↔ with AND: p ∧ q requires two true inputs, while p ↔ q also accepts two false inputs."
+        },
+        {
+          "type": "example",
+          "title": "Worked mathematical example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let n be a fixed integer. “n is even if and only if its remainder on division by 2 is 0” states both directions. Being even guarantees remainder 0, and remainder 0 guarantees being even. This is stronger than a statement that gives only one direction."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Avoid adding an unstated reverse rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "People sometimes say “if” while intending “if and only if.” Context may suggest that intention, but the formal symbols remain distinct. Translate an explicit if-then as →; use ↔ when both directions are stated or when you clearly explain the extra assumption."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If p and q are both false, what are p ∧ q and p ↔ q?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "p ∧ q is F because neither input is true. p ↔ q is T because their truth values match."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.3, printed page 10."
+        }
+      ]
+    },
+    {
+      "id": "programming-if",
+      "title": "8. A programming if-statement performs an action",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An everyday instruction such as “If the room is dark, turn on the lamp” tells someone what to do. A programming if-statement has that action-oriented purpose too. This is the distinction explored in the textbook?s Example 11."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Logical conditional",
+            "Programming statement"
+          ],
+          "rows": [
+            [
+              "p → q",
+              "if p then S"
+            ],
+            [
+              "p and q are propositions.",
+              "p is the tested condition; S is a command or sequence of commands."
+            ],
+            [
+              "The whole expression has a truth value.",
+              "The statement controls whether S is executed."
+            ],
+            [
+              "A false p makes p → q true.",
+              "A false p skips S in this if-without-else construct."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "We are discussing the statement “if p then S,” with no else branch. Some programming languages also provide conditional expressions that produce values. That does not turn an assignment command in this example into the proposition q of p → q."
+        },
+        {
+          "type": "definition",
+          "title": "Assignment: :=",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Read x := x + 2 as “replace the stored value of x with its current value plus 2.” Calculate the right-hand side first, using the old value; then store that result on the left. The symbol := means assignment. It does not assert that the old value equals itself plus 2."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example: follow the stored value",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Start with x = 3. Execute this pseudocode (a readable description of program steps):"
+            },
+            {
+              "type": "math",
+              "notation": "if 5 + 1 = 6 then x := x + 2",
+              "description": "If five plus one equals six, replace x with its old value plus two."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 1 — Check the condition: 5 + 1 = 6 is true."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2 — Select the action: because the condition is true, execute x := x + 2."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3 — Calculate using the old x: 3 + 2 = 5."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 4 — Store the result: x is now 5. The earlier value 3 has been replaced."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If the condition were 5 + 1 = 9 instead, it would be false. The assignment would be skipped, and x would remain 3. No conclusion about the truth of an assignment is needed: we are tracing an action and a stored value."
+        },
+        {
+          "type": "check",
+          "prompt": "Start with x = 4. What is x after “if 3 < 2 then x := x + 5”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The condition 3 < 2 is false, so the assignment is skipped. The final value is x = 4, not 9."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.3, printed pages 8–9, especially Example 11. The worked values here are an original variation."
+        }
+      ]
+    },
+    {
+      "id": "compound-tables",
+      "title": "9. Build a compound truth table one column at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let p mean “The file is saved” and q mean “The backup is ready.” Consider (p ∧ ¬q) → q. Before thinking about the whole expression, identify its pieces: NOT q, then p AND that result, then a conditional whose conclusion is q."
+        },
+        {
+          "type": "example",
+          "title": "Worked table: (p ∧ ¬q) → q",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1: List all input combinations. With two variables there are 2² = 4 rows: TT, TF, FT, FF. For n distinct propositional variables there are 2ⁿ assignments; with three variables, use eight rows."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2: Fill ¬q by reversing q. Step 3: Fill p ∧ ¬q using the AND rule. Step 4: Treat that whole column as the hypothesis of an implication to q. It is false only where that hypothesis is T and q is F."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "p",
+                "q",
+                "¬q",
+                "p ∧ ¬q",
+                "(p ∧ ¬q) → q"
+              ],
+              "rows": [
+                [
+                  "T",
+                  "T",
+                  "F",
+                  "F",
+                  "T"
+                ],
+                [
+                  "T",
+                  "F",
+                  "T",
+                  "T",
+                  "F"
+                ],
+                [
+                  "F",
+                  "T",
+                  "F",
+                  "F",
+                  "T"
+                ],
+                [
+                  "F",
+                  "F",
+                  "T",
+                  "F",
+                  "T"
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Inspect the last row: p is F and q is F, so ¬q is T. The conjunction F ∧ T is F. The final conditional is therefore F → F, which is T. Work from the inside outward rather than guessing from the original p and q."
+            }
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Precedence: which operation comes first?",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Parentheses specify a group to evaluate first. Without parentheses, this section’s precedence order is: ¬, then ∧, then ∨, then →, then ↔. Precedence means priority, not a claim that the operators are interchangeable."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Grouping under this convention"
+          ],
+          "rows": [
+            [
+              "¬p ∧ q",
+              "(¬p) ∧ q"
+            ],
+            [
+              "p ∨ q ∧ r",
+              "p ∨ (q ∧ r)"
+            ],
+            [
+              "p → q ∨ r",
+              "p → (q ∨ r)"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Use parentheses whenever the grouping could be hard to read, particularly for repeated arrows or mixtures involving XOR. The textbook’s precedence table does not assign XOR a level; do not invent one for this lesson."
+        },
+        {
+          "type": "example",
+          "title": "Why grouping matters",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Take p = T, q = F, r = F. In p ∨ (q ∧ r), evaluate F ∧ F first to get F, then T ∨ F to get T. In (p ∨ q) ∧ r, evaluate T ∨ F first to get T, then T ∧ F to get F. The same inputs give different answers because the grouping changed."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "In the worked table above, take p = T and q = F. Why is the final column false?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "¬q is T, so p ∧ ¬q is T. The final step is T → F. This is the one false case for a conditional."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "With p = F and q = F, compare ¬p ∧ q and ¬(p ∧ q).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "¬p ∧ q groups as (¬p) ∧ q, which is T ∧ F = F. In ¬(p ∧ q), first get F ∧ F = F, then negate it to obtain T. NOT affects only the expression it is attached to."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.4–§1.1.5, printed page 11."
+        }
+      ]
+    },
+    {
+      "id": "bits",
+      "title": "10. Use the same rules on bits",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Imagine four indicator lamps recorded as 1 for on and 0 for off. A list such as 1010 records four separate positions. Computers use bits, short for binary digits, with values 0 or 1. To represent truth values in this section, use 1 for T and 0 for F."
+        },
+        {
+          "type": "definition",
+          "title": "Boolean variables and bit strings",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A Boolean variable has a truth value, true or false. A bit can encode that value. A bit string is a sequence of zero or more bits; its length is the number of bits. For example, 101001 has length 6. Leading zeros count: 001 has length 3. The empty string has length 0."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "x",
+            "y",
+            "x AND y",
+            "x OR y",
+            "x XOR y"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "0",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "0",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "1",
+              "1",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For strings of the same length, apply the operation to corresponding positions. This is called a bitwise operation. Compare the first bits with each other, then the second bits, and so on. Do not combine neighboring positions or carry a digit to the next position."
+        },
+        {
+          "type": "example",
+          "title": "Worked example: two six-bit strings",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "A = 101101\nB = 110010\nA AND B = 100000\nA OR B  = 111111\nA XOR B = 011111",
+              "description": "For bit strings A one zero one one zero one and B one one zero zero one zero, AND is one zero zero zero zero zero, OR is six ones, and XOR is zero followed by five ones."
+            },
+            {
+              "type": "paragraph",
+              "text": "At position 1, both inputs are 1: AND gives 1, OR gives 1, and XOR gives 0. At position 2, the inputs are 0 and 1: AND gives 0, OR gives 1, and XOR gives 1. Continue with the remaining four positions. Every result keeps all six positions, including the initial 0 in the XOR result."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Bitwise XOR is not ordinary binary addition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For individual bits, XOR gives 1 when the bits differ. If you add binary 1 + 1 as numbers, the result is 10, including a carry. The bitwise operation 1 XOR 1 gives the single bit 0. These are different operations."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find the bitwise AND, OR, and XOR of 0101 and 0011. Keep four positions in each answer.",
+          "explanation": [
+            {
+              "type": "math",
+              "notation": "AND = 0001\nOR  = 0111\nXOR = 0110",
+              "description": "AND zero zero zero one, OR zero one one one, XOR zero one one zero."
+            },
+            {
+              "type": "paragraph",
+              "text": "Only position 4 has two 1s, giving the single 1 in AND. Positions 2, 3, and 4 have at least one 1, giving OR. Only positions 2 and 3 differ, giving XOR."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.1.6, printed pages 12–13."
+        }
+      ]
+    },
+    {
+      "id": "recap",
+      "title": "11. Recap and one last check",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Concept",
+            "Remember"
+          ],
+          "rows": [
+            [
+              "Proposition",
+              "A definite true-or-false claim; a false claim still qualifies."
+            ],
+            [
+              "¬p",
+              "Reverse p’s truth value."
+            ],
+            [
+              "p ∧ q",
+              "Both true."
+            ],
+            [
+              "p ∨ q",
+              "At least one true; both allowed."
+            ],
+            [
+              "p ⊕ q",
+              "Exactly one true."
+            ],
+            [
+              "p → q",
+              "False only with a true hypothesis and false conclusion."
+            ],
+            [
+              "p ↔ q",
+              "Matching truth values; both directions hold."
+            ],
+            [
+              "Contrapositive",
+              "Reverse and negate: ¬q → ¬p."
+            ],
+            [
+              "Programming if",
+              "Test a condition, then execute or skip an action."
+            ],
+            [
+              "Compound expressions",
+              "Group carefully and evaluate intermediate pieces."
+            ],
+            [
+              "Bitwise operations",
+              "Apply the logical rule separately at each position."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "When you get stuck, translate the symbols into words, determine each input’s truth value, and apply one operator at a time. For conditional language, identify the one case that would violate the statement. For a program, trace which instruction runs and how the stored value changes."
+        },
+        {
+          "type": "check",
+          "prompt": "Let p mean “The application is submitted” and q mean “The fee is paid.” Translate “The application is submitted only if the fee is paid.” Evaluate it when p = F and q = T. Does this establish that paying the fee submits the application?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The translation is p → q. With p = F and q = T, it is true because its failing case, T → F, did not occur. It does not establish q → p. Paying a fee may be required without automatically submitting an application."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Pause here and review Section 1.1. For feedback, name the topic heading and point out any step that felt too fast, too wordy, or unclear. Later sections will be added separately."
+        }
+      ]
+    }
+  ]
+}

@@ -8,4 +8,4 @@ Preserve mathematical precision while simplifying. Distinguish logical propositi
 
 Do not reproduce the sample explanation or textbook paragraphs. Cite textbook sections. Verify definitions and examples against the source; use independent calculations where helpful and clearly separate those checks from editorial review.
 
-Phase 1 includes no lessons. The sample has been received. Next, wait for an explicit request to draft §1.1 or one of its teaching units. Draft only that requested scope. Obtain the owner's content approval before publishing a lesson; do not automatically proceed to §1.2.
+The sample has been received and used for the Section 1.1 draft. The owner explicitly requested drafting and publishing that section for review on October 11, 2026. Keep it in progress pending feedback. Draft only requested scope. Normally obtain the owner's content approval before publication; an explicit request to publish a review draft authorizes that draft publication. Do not automatically proceed to §1.2.
