@@ -1,6 +1,6 @@
 # Discrete Mathematics Companion
 
-A lightweight static companion to the full supplied Rosen eighth-edition textbook: 13 chapters and 72 numbered sections, with end-of-chapter material, appendices, front matter, and reference entries. Section 1.1, Propositional Logic, is available as an **in-progress review draft** with eleven teaching units, original worked examples, truth tables, and expandable checks. All other unwritten entries show **Not yet available.**
+A lightweight static companion to the full supplied Rosen eighth-edition textbook: 13 chapters and 72 numbered sections, with end-of-chapter material, appendices, front matter, and reference entries. Section 1.1, Propositional Logic, is **complete** with eleven teaching units. Section 1.2, Applications of Propositional Logic, is **available for review** with ten teaching units covering translations, specifications, searches, puzzles, and circuits. Both include original worked examples and expandable checks. All other unwritten entries show **Not yet available.**
 
 Live site: https://Babuptx.github.io/cs-2305-dm-ex/
 
@@ -24,9 +24,9 @@ Publication freshness: the build adds a content-derived version to interface ass
 
 Navigation: `data/manifest.json`. Future lessons: `data/lessons/<section>.json`. Interface: `index.html`, `styles.css`, and `js/`. See [the lesson contract](docs/content-schema.md), [teaching style](docs/teaching-style.md), and [progress record](docs/progress.md).
 
-Source PDFs and saved analysis are private local references. `.local/` contains the source index and verified page mappings on the author's workstation; it is ignored. `refer/`, PDFs, development tools, and analysis are excluded from Git and the build. The build uses an explicit allowlist of the interface and public JSON. Never put source extracts or private paths in those files. The existing quiz repository is read-only and separate.
+Source PDFs and saved analysis are private local references. `.local/` contains the source index and verified page mappings on the author's workstation; it is ignored. `refer/`, PDFs, development tools, and analysis are excluded from Git and the build. The build uses an explicit allowlist of the interface, public JSON, and original SVG assets. Never put source extracts or private paths in those files. The existing quiz repository is read-only and separate.
 
-Draft only the section or small teaching unit requested by the owner. Normally, review the draft with the owner and obtain content approval before publication. The owner explicitly requested publishing the Section 1.1 draft for review; its status remains in progress. Validate JSON and mathematical examples, update availability accurately, and preserve stable URLs. Automated checks and editorial review serve different purposes; see the [Section 1.1 review record](docs/review-1.1.md). Await feedback on this draft; do not start Section 1.2 automatically.
+Work only on the section or small teaching unit requested by the owner. On October 12, 2026, the owner approved finalizing Section 1.1 and explicitly authorized processing and publishing Section 1.2. Section 1.1 is complete; Section 1.2 remains in progress pending owner review. Validate JSON and mathematical examples, update availability accurately, and preserve stable URLs. Automated checks and editorial review serve different purposes; see the [Section 1.1 review record](docs/review-1.1.md) and [Section 1.2 review record](docs/review-1.2.md). Await feedback on Section 1.2; do not start Section 1.3 automatically.
 
 ## Publication
 

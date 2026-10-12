@@ -9,8 +9,11 @@ function identity(entry){assert.match(entry.id,/^[a-z0-9][a-z0-9.-]*$/);assert.o
 function check(entry){identity(entry);assert.ok(statuses.includes(entry.status));if(entry.status==='unavailable')assert.equal(entry.path,null);else {assert.equal(entry.path,'data/lessons/'+entry.id+'.json');assert.ok(!paths.has(entry.path));paths.add(entry.path);}entry.children.forEach(check);}
 manifest.chapters.forEach(chapter=>{identity(chapter);chapter.children.forEach(check);});
 const ajv=new Ajv({allErrors:true}),validate=ajv.compile(await json('data/lesson.schema.json'));
-for(const entry of entries(manifest).filter(e=>e.path)){const lesson=await json(entry.path);assert.ok(validate(lesson),JSON.stringify(validate.errors));validateLesson(lesson,entry);}
+const diagrams=new Set();
+function inspectBlocks(blocks){for(const block of blocks){if(block.type==='diagram')diagrams.add(block.src);if(block.blocks)inspectBlocks(block.blocks);if(block.explanation)inspectBlocks(block.explanation);}}
+for(const entry of entries(manifest).filter(e=>e.path)){const lesson=await json(entry.path);assert.ok(validate(lesson),JSON.stringify(validate.errors));validateLesson(lesson,entry);lesson.units.forEach(unit=>inspectBlocks(unit.blocks));}
+for(const path of diagrams){const svg=await readFile(path,'utf8');assert.ok(svg.includes('<svg'),'Missing SVG diagram');assert.ok(!/<script|<foreignObject|\bon\w+\s*=|\b(?:href|src)\s*=|<!ENTITY/i.test(svg),'Diagram must be a standalone static SVG');}
 const files=await readdir('data/lessons');for(const file of files){if(file!=='.gitkeep')assert.ok(paths.has('data/lessons/'+file),'Unregistered lesson '+file);}
 async function audit(path){for(const file of await readdir(path,{withFileTypes:true})){const next=path+'/'+file.name;if(file.isDirectory())await audit(next);else {assert.ok(!/\.(pdf|txt|png)$/i.test(file.name),'Source material in public data');const text=await readFile(next,'utf8');assert.ok(!/[A-Z]:[\\/]|\.local[\\/]|refer[\\/]|\ufffd/.test(text),'Private path or invalid UTF-8 in '+next);}}}
-await audit('data');await audit('js');
+await audit('data');await audit('js');await audit('assets');
 console.log('Validated '+manifest.chapters.length+' navigation groups, '+entries(manifest).length+' entries, '+paths.size+' lessons; public sources contain no private paths.');

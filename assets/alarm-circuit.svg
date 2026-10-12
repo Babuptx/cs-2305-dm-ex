@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" role="img" aria-labelledby="title desc">
+  <title id="title">Alarm circuit</title>
+  <desc id="desc">Inputs p and q feed an OR gate producing u. Input r feeds a NOT gate producing v. The signals u and v feed an AND gate producing s. Thus s is (p OR q) AND NOT r.</desc>
+  <rect width="760" height="350" rx="12" fill="#f1f4ef"/>
+  <g fill="none" stroke="#246451" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M76 100H180 M76 150H180 M76 285H180 M300 125H365V170H450 M300 285H385V235H450 M570 202H696"/>
+  </g>
+  <g fill="#fcfcf8" stroke="#246451" stroke-width="2">
+    <rect x="180" y="70" width="120" height="110" rx="8"/>
+    <rect x="180" y="250" width="120" height="70" rx="8"/>
+    <rect x="450" y="135" width="120" height="135" rx="8"/>
+  </g>
+  <g font-family="system-ui, sans-serif" fill="#20322f" font-size="22" text-anchor="middle">
+    <text x="50" y="106">p</text><text x="50" y="156">q</text><text x="50" y="291">r</text>
+    <text x="240" y="133">OR</text><text x="240" y="293">NOT</text><text x="510" y="210">AND</text>
+    <text x="705" y="191">s</text>
+  </g>
+  <g font-family="system-ui, sans-serif" fill="#246451" font-size="17">
+    <text x="310" y="108">u = p ∨ q</text><text x="310" y="315">v = ¬r</text>
+    <text x="585" y="237">Alarm output</text>
+  </g>
+  <g fill="#246451"><circle cx="76" cy="100" r="4"/><circle cx="76" cy="150" r="4"/><circle cx="76" cy="285" r="4"/><path d="M698 202l-10-6v12z"/></g>
+</svg>

@@ -2,24 +2,24 @@
   "schemaVersion": 1,
   "id": "1.1",
   "title": "Propositional Logic",
-  "status": "in-progress",
+  "status": "complete",
   "references": [
-    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.1, printed pages 1–13 (exposition); exercises continue through page 16.",
-    "Original companion explanations and examples; draft for review."
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.1, printed pages 1–13 (exposition); exercises continue through page 17.",
+    "Original companion explanations and examples."
   ],
   "units": [
     {
       "id": "propositions",
       "title": "1. What counts as a proposition?",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "callout",
-          "title": "Review draft: start here",
+          "title": "Start here",
           "blocks": [
             {
               "type": "paragraph",
-              "text": "This is a first draft of the whole of Section 1.1, published for your review. Read one topic at a time. Before opening a check’s explanation, try saying your answer in plain English. The lesson remains in progress while its explanations are reviewed."
+              "text": "Read one topic at a time. Before opening a check’s explanation, try saying your answer in plain English. Keep a pencil nearby to work through the truth tables and calculations."
             }
           ]
         },
@@ -99,7 +99,7 @@
     {
       "id": "negation",
       "title": "2. NOT: reverse a truth value",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -169,7 +169,7 @@
     {
       "id": "and-or-xor",
       "title": "3. AND, OR, and exclusive OR",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -268,7 +268,7 @@
     {
       "id": "conditionals",
       "title": "4. If p, then q: the one way it can fail",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -361,7 +361,7 @@
     {
       "id": "conditional-language",
       "title": "5. “If,” “only if,” “necessary,” and “sufficient”",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -453,7 +453,7 @@
     {
       "id": "related-conditionals",
       "title": "6. Converse, inverse, and contrapositive",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -577,7 +577,7 @@
     {
       "id": "biconditionals",
       "title": "7. If and only if: a rule in both directions",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -666,7 +666,7 @@
     {
       "id": "programming-if",
       "title": "8. A programming if-statement performs an action",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -765,7 +765,7 @@
     {
       "id": "compound-tables",
       "title": "9. Build a compound truth table one column at a time",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -903,7 +903,7 @@
     {
       "id": "bits",
       "title": "10. Use the same rules on bits",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "paragraph",
@@ -1012,7 +1012,7 @@
     {
       "id": "recap",
       "title": "11. Recap and one last check",
-      "status": "in-progress",
+      "status": "complete",
       "blocks": [
         {
           "type": "table",
@@ -1083,7 +1083,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Pause here and review Section 1.1. For feedback, name the topic heading and point out any step that felt too fast, too wordy, or unclear. Later sections will be added separately."
+          "text": "Pause here and revisit any check you found difficult. When you are ready, Section 1.2 shows how these logical rules apply to requirements, searches, puzzles, and circuits."
         }
       ]
     }

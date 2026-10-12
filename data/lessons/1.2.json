@@ -1,0 +1,1006 @@
+{
+  "schemaVersion": 1,
+  "id": "1.2",
+  "title": "Applications of Propositional Logic",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.2.1–§1.2.6, printed pages 17–23 (exposition).",
+    "Original companion explanations, examples, and circuit diagram."
+  ],
+  "units": [
+    {
+      "id": "translation",
+      "title": "1. Turn a sentence into a precise rule",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "How to use this section",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Section 1.1 introduced the logical operators. Here you will use them to describe requirements, filter information, solve puzzles, and build circuits. Keep the meanings of your letters beside your work. Try each check before opening its explanation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Suppose a workshop says, “You may use the laser cutter only if you have completed training or a supervisor is present.” The words sound familiar, but the rule leaves an important distinction: meeting a prerequisite is not the same as being guaranteed permission."
+        },
+        {
+          "type": "definition",
+          "title": "A translation preserves the stated conditions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To translate into propositional logic, name the simple claims, identify how they are connected, and write a formula that says the same thing. Make assumptions explicit when the English is ambiguous. A formula removes ambiguity only after you choose the intended meaning."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked translation: a workshop rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1 — Fix the situation: one person, one attempted use of the machine. Let u mean “This person may use the cutter,” t mean “This person has completed training,” and s mean “A supervisor is present.”"
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2 — Read “only if” as a requirement. If u is true, the prerequisite must hold. That puts u on the left of the arrow."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3 — Group the alternatives. We interpret “or” inclusively: training, supervision, or both can satisfy this prerequisite."
+            },
+            {
+              "type": "math",
+              "notation": "u → (t ∨ s)",
+              "description": "Permission to use the cutter implies training or supervision."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 4 — Read it back: permission requires at least one of training and supervision. A person allowed to use the cutter with neither condition would violate the rule. The statement does not say that either prerequisite alone guarantees permission; another condition might still be required."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A mathematical example works the same way. For a fixed integer n, let p mean “n is divisible by 12,” q mean “n is divisible by 3,” and r mean “n is divisible by 4.” The true claim “If n is divisible by 12, it is divisible by 3 and by 4” translates to p → (q ∧ r). The grouped AND says that both conclusions must hold. Divisible means the division has an integer result, with no remainder."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Translation step",
+            "Question to ask"
+          ],
+          "rows": [
+            [
+              "Choose the claims",
+              "What does each letter mean in this particular situation?"
+            ],
+            [
+              "Choose the direction",
+              "What condition is sufficient, and what condition is required?"
+            ],
+            [
+              "Group the pieces",
+              "Does AND or OR join these requirements? Where does NOT apply?"
+            ],
+            [
+              "Read it back",
+              "Does the formula add a promise the sentence never made?"
+            ],
+            [
+              "Try a violating case",
+              "Does the formula reject exactly the situation the rule forbids?"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Let d mean “The document is released,” a mean “It is approved,” and c mean “It has been checked.” Translate “The document is released only if it is approved and checked.”",
+          "explanation": [
+            {
+              "type": "math",
+              "notation": "d → (a ∧ c)",
+              "description": "Release implies both approval and checking."
+            },
+            {
+              "type": "paragraph",
+              "text": "Approval and checking are required for release. The reverse formula (a ∧ c) → d would promise release whenever those two conditions hold, which the original sentence does not say."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.1–§1.2.2, printed pages 17–18."
+        }
+      ]
+    },
+    {
+      "id": "exceptions",
+      "title": "2. Keep exceptions and negations in the right place",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Consider a library policy: “If an item is overdue, you cannot renew it unless a librarian approves an exception.” The exception matters only within the situation being described. Separate that situation from the action it restricts."
+        },
+        {
+          "type": "example",
+          "title": "Worked translation: an exception to a restriction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let o mean “The item is overdue,” a mean “A librarian approves an exception,” and r mean “You may renew the item.”"
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 1 — Identify when the restriction applies: the item is overdue AND approval is absent. That condition is o ∧ ¬a."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2 — Identify what the restriction says: renewal is not permitted, written ¬r."
+            },
+            {
+              "type": "math",
+              "notation": "(o ∧ ¬a) → ¬r",
+              "description": "If the item is overdue and no exception is approved, renewal is not permitted."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3 — Test a forbidden case. Suppose o = T, a = F, and r = T. The hypothesis is T, but ¬r is F, so the formula is false. It correctly rejects renewal in the restricted situation."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 4 — Test an exception. Suppose a = T. The hypothesis is now false, so this particular restriction is satisfied regardless of r. Approval removes this restriction; it does not, by itself, guarantee renewal under every other rule."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Do not turn an exception into an extra promise",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "In the standard reading used here, “unless” does not automatically create an if-and-only-if rule. State which implication you intend. Also keep the scope of NOT clear: ¬(a ∧ c) says the pair is not both true; ¬a ∧ ¬c says each is false. Those are different requirements."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, “The two switches are not both on” allows one switch to be on. “Neither switch is on” allows no switch to be on. Naming a concrete allowed case is a useful way to check whether your translation is too strong."
+        },
+        {
+          "type": "check",
+          "prompt": "Under (o ∧ ¬a) → ¬r, take o = T, a = T, and r = F. Is the policy satisfied even though renewal is denied?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Since a = T, ¬a = F and the hypothesis o ∧ ¬a is F. The conditional is true. The rule does not promise that an approved exception must lead to renewal; it only forbids renewal in the overdue, unapproved case."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.2, printed page 18."
+        }
+      ]
+    },
+    {
+      "id": "specifications",
+      "title": "3. Check whether requirements can all hold together",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A system specification is a precise description of required behavior or allowed states. Before building a system, check that its requirements can be satisfied together. If one rule requires an outcome and another forbids that same outcome in every candidate state, the conflict needs to be resolved."
+        },
+        {
+          "type": "definition",
+          "title": "Consistent specifications",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A collection of propositional requirements is consistent when at least one assignment of truth values makes every requirement true at the same time. That assignment is a witness: a concrete example showing consistency. If no assignment works, the requirements are inconsistent."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example: a backup job",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For one particular backup attempt, let p mean “The backup starts” and q mean “The drive is mounted.” A mounted drive is connected and available to the system. Require both: “The backup starts only if the drive is mounted” and “The backup starts.”"
+            },
+            {
+              "type": "math",
+              "notation": "(p → q) ∧ p",
+              "description": "Both the rule that starting requires a mounted drive and the requirement that the backup starts."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 1 — The requirement p forces p = T. Step 2 — With p true, p → q requires q = T. Step 3 — Check both requirements with p = T and q = T. Both are true, so the specifications are consistent."
+            },
+            {
+              "type": "paragraph",
+              "text": "Now add “The drive is not mounted,” or ¬q. This requires q = F, conflicting with the q = T forced above. No assignment can satisfy all three."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p → q",
+            "(p → q) ∧ p",
+            "((p → q) ∧ p) ∧ ¬q"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T",
+              "T",
+              "F"
+            ],
+            [
+              "T",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "F",
+              "T",
+              "F",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The fourth column has one T, so the original pair of requirements has a working assignment. The final column has no T, so the extended set is inconsistent. The job is not to make each requirement true on a different row: all must be true on the same row."
+        },
+        {
+          "type": "callout",
+          "title": "Consistency is not a finished implementation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A consistent formula shows that the stated requirements do not conflict in this propositional model. It does not establish that a real program meets them, or that the requirements cover every important situation. Conversely, consistency does not mean every possible input assignment must satisfy the rules."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Are the two requirements q → p and ¬p consistent? What if q is added as a third requirement?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The pair is consistent with p = F and q = F. The implication is true because its hypothesis q is false, and ¬p is true. Adding q makes the set inconsistent: q = T forces p = T through q → p, while ¬p requires p = F."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.3, printed pages 18–19."
+        }
+      ]
+    },
+    {
+      "id": "boolean-search",
+      "title": "4. Treat a search query as a true-or-false filter",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Imagine searching a small catalog. For each record, a condition such as “Its title contains the word wind” is either true or false. A Boolean search combines those conditions. A record is returned when the entire query is true for that record."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Operator",
+            "What a matching record must satisfy"
+          ],
+          "rows": [
+            [
+              "AND",
+              "Both conditions."
+            ],
+            [
+              "OR",
+              "At least one condition, including both."
+            ],
+            [
+              "NOT",
+              "The condition being negated must be false."
+            ],
+            [
+              "Parentheses",
+              "Evaluate the grouped condition as one piece."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked search: energy storage titles",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Use a teaching catalog that ignores capitalization, matches whole words, and treats text in quotation marks as an exact contiguous phrase. These rules define this example; an actual search service may use different syntax or matching rules."
+            },
+            {
+              "type": "math",
+              "notation": "(\"solar power\" OR wind) AND storage AND NOT toy",
+              "description": "A title must contain the phrase solar power or the word wind, must contain storage, and must not contain toy."
+            },
+            {
+              "type": "paragraph",
+              "text": "First test the alternative in parentheses. Then require storage. Finally reject any title containing toy. A title that matches both alternatives is allowed because this OR is inclusive."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Record title",
+            "Matches?",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "Solar power storage handbook",
+              "Yes",
+              "The phrase and storage occur; toy does not."
+            ],
+            [
+              "Wind storage for toy vehicles",
+              "No",
+              "It contains toy."
+            ],
+            [
+              "Wind turbine repair",
+              "No",
+              "It lacks storage."
+            ],
+            [
+              "Solar storage without power cells",
+              "No",
+              "The exact phrase solar power is absent, and wind is absent."
+            ],
+            [
+              "Wind and solar power storage guide",
+              "Yes",
+              "Both alternatives occur; storage occurs; toy does not."
+            ],
+            [
+              "Battery storage manual",
+              "No",
+              "Neither alternative occurs."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Phrase matching and AND are different. A title can contain solar and power separately without containing the phrase “solar power.” Likewise, excluding toy removes the whole record when toy occurs anywhere in the title—even if the record is mostly about useful full-size equipment. Matching a query does not guarantee that the result is relevant."
+        },
+        {
+          "type": "check",
+          "prompt": "In this catalog, would “Wind storage without toy parts” match the query?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The word toy is present. NOT toy is a word-exclusion rule here; it does not interpret “without toy parts” as meaning that the record should be included."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.4, printed pages 19–20. This lesson uses a defined catalog rather than relying on a particular search engine’s current syntax."
+        }
+      ]
+    },
+    {
+      "id": "location-puzzle",
+      "title": "5. Solve a puzzle by checking complete possibilities",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A maintenance room has Blue, Green, and Red lockers. Exactly one contains a spare battery. Their labels say: Blue — “The battery is in Green.” Green — “The battery is in Red.” Red — “The battery is not in Red.” You are told that exactly two labels are true. Where is the battery?"
+        },
+        {
+          "type": "example",
+          "title": "Worked puzzle: count the true labels",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1 — List the complete possible locations: Blue, Green, or Red. Exactly one location is allowed, so these three cases cover every possibility."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2 — In each case, evaluate every label. Do not assume a locker’s label describes its own contents truthfully."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Battery location",
+                "Blue label",
+                "Green label",
+                "Red label",
+                "True labels"
+              ],
+              "rows": [
+                [
+                  "Blue",
+                  "F",
+                  "F",
+                  "T",
+                  "1"
+                ],
+                [
+                  "Green",
+                  "T",
+                  "F",
+                  "T",
+                  "2"
+                ],
+                [
+                  "Red",
+                  "F",
+                  "T",
+                  "F",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3 — Keep the rows with exactly two true labels. Only the Green row remains, so the battery is in Green. Step 4 — Check it directly: the Blue and Red labels are true, while the Green label is false."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In symbols, let b, g, and r mean that the battery is in the Blue, Green, and Red lockers respectively. The three labels are g, r, and ¬r. Exactly one of r and ¬r is true. Therefore, getting two true labels requires g to be true. The original exactly-one-location rule then makes b and r false."
+        },
+        {
+          "type": "callout",
+          "title": "Keep the background rules",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The exactly-one-location condition is part of the puzzle. Without it, assignments with batteries in several lockers would describe a different problem. Translating only the labels and forgetting the background facts can introduce invalid “solutions.”"
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If the same labels came with the clue “Exactly one label is true,” would the battery’s location be uniquely determined?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Both Blue and Red give one true label. The possibilities are Blue or Red. Finding one working case would not justify claiming that it is the only solution."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.5, printed page 20. This is an original location puzzle."
+        }
+      ]
+    },
+    {
+      "id": "truth-tellers",
+      "title": "6. Separate a speaker’s type from the claim they make",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In this puzzle, each inhabitant is either a knight, who always makes true statements, or a knave, who always makes false statements. These are rules of a fictional puzzle. Ara says, “Bram is a knave.” Bram says, “We are different types.” Determine their types."
+        },
+        {
+          "type": "definition",
+          "title": "Connect type and statement with a biconditional",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let a mean “Ara is a knight” and b mean “Bram is a knight.” Ara’s statement is ¬b. Bram’s statement is a ⊕ b, where XOR means exactly one of them is a knight. A speaker is a knight exactly when their statement is true. Thus the constraints are a ↔ ¬b and b ↔ (a ⊕ b)."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked reasoning by cases",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose Ara is a knight. Then Ara’s statement is true, so Bram is a knave. They are different types, which would make Bram’s statement true. A knave cannot make a true statement in this puzzle. Reject that case."
+            },
+            {
+              "type": "paragraph",
+              "text": "Suppose Ara is a knave. Then “Bram is a knave” is false, so Bram is a knight. They are different types, so Bram’s statement is true, as required for a knight. This case works: Ara is a knave and Bram is a knight."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "a",
+            "b",
+            "¬b",
+            "a ⊕ b",
+            "a ↔ ¬b",
+            "b ↔ (a ⊕ b)"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            [
+              "T",
+              "F",
+              "T",
+              "T",
+              "T",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "F",
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "F",
+              "F",
+              "T",
+              "F",
+              "F",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Both constraint columns must be T on the same row. The only such row has a = F and b = T, confirming the reasoning. A false statement is not the same as a false constraint: the constraint for a knave succeeds precisely when the knave’s statement is false."
+        },
+        {
+          "type": "check",
+          "prompt": "Suppose instead Ara says “Bram is a knight” and Bram says “Ara is a knight.” Must both be knights?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Both knights is consistent because both statements are true. Both knaves is also consistent because both statements are false. The clues give two possible assignments, so they do not determine a unique answer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.5, printed pages 20–21."
+        }
+      ]
+    },
+    {
+      "id": "shared-information",
+      "title": "7. Learn from someone else’s “I don’t know”",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Two volunteers, Ada and Ben, wear helmets. Each helmet either has a red sticker or has none. Each person can see the other helmet but cannot see their own. In the actual situation, both helmets have stickers. A host publicly announces, “At least one helmet has a red sticker.”"
+        },
+        {
+          "type": "paragraph",
+          "text": "The host then asks, “Do you know whether your own helmet has a sticker?” The volunteers answer simultaneously, hear both answers, and are asked the same question a second time. Assume both are honest, reason correctly, and know that both heard the announcement and follow these rules. They receive no other information."
+        },
+        {
+          "type": "example",
+          "title": "Round 1: why both answer No",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Ada sees a sticker on Ben. That already makes the announcement true, whether Ada has a sticker or not. Ada cannot yet distinguish those two possibilities, so answers No. Ben reasons in the same way and also answers No."
+            },
+            {
+              "type": "paragraph",
+              "text": "Here No means “I do not know whether I have a sticker.” It does not mean “I have no sticker.” The question is about knowledge, not directly about the sticker’s presence."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Round 2: why both answer Yes",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Ada now uses Ben’s first answer. Suppose Ada had no sticker. Ben would see no sticker on Ada. Because the host said at least one exists, Ben would immediately know that his own helmet has a sticker and would have answered Yes in round 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "But Ben answered No. Therefore Ada’s supposition is ruled out: Ada must have a sticker. Ben can use Ada’s No in the same way. Both now answer Yes and know that their own helmet has a sticker."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Ada has sticker",
+            "Ben has sticker",
+            "Ada: round 1",
+            "Ben: round 1"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "No",
+              "No"
+            ],
+            [
+              "T",
+              "F",
+              "Yes",
+              "No"
+            ],
+            [
+              "F",
+              "T",
+              "No",
+              "Yes"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The table lists the possibilities after the public announcement; F, F is excluded. The first pair of answers, No and No, eliminates the last two rows. Only T, T remains. This is why hearing an answer can provide new information even when that answer is “I don’t know.”"
+        },
+        {
+          "type": "callout",
+          "title": "Truth and knowledge are different",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The stickers do not change between rounds. What changes is which situations each volunteer can still consider possible. An ordinary truth table records whether claims are true; this puzzle also requires tracking what each person can observe and what the public answers reveal. Simultaneous answers prevent someone from using the other’s current-round answer too early."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If only Ada had a sticker, what would the first simultaneous answers be?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Ada would answer Yes: seeing no sticker on Ben, Ada uses the public announcement to identify her own. Ben would answer No: seeing Ada’s sticker, Ben cannot yet tell whether his own helmet has one. Ben can use Ada’s answer only after that round ends."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.5, printed pages 21–22, the shared-information reasoning of Example 9."
+        }
+      ]
+    },
+    {
+      "id": "logic-gates",
+      "title": "8. Read a circuit as a sequence of small decisions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A simple alarm should sound when either of two sensors detects activity, provided the mute switch is off. We can describe that rule with the same logical operators used for sentences. In an idealized digital circuit, each input and output is a bit: 1 represents true and 0 represents false."
+        },
+        {
+          "type": "definition",
+          "title": "Logic gates",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A gate is a small circuit that applies one operation. A NOT gate, also called an inverter, flips one input bit. An AND gate produces 1 only when both inputs are 1. An OR gate produces 1 when at least one input is 1. In the combinational circuits here, the output is determined by the current inputs; we do not model memory or timing delays."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "¬p",
+            "p ∧ q",
+            "p ∨ q"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "1",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "0",
+              "1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Let p mean “Sensor A detects activity,” q mean “Sensor B detects activity,” and r mean “Mute is on.” The alarm output is s. First combine the sensors with OR; invert the mute signal with NOT; then combine those two results with AND."
+        },
+        {
+          "type": "math",
+          "notation": "u = p ∨ q\nv = ¬r\ns = u ∧ v = (p ∨ q) ∧ ¬r",
+          "description": "u is sensor A OR sensor B, v is NOT mute, and the alarm s is u AND v."
+        },
+        {
+          "type": "diagram",
+          "title": "Alarm circuit: follow the signals from left to right",
+          "src": "assets/alarm-circuit.svg",
+          "description": "Sensor inputs p and q enter an OR gate, producing u. Mute input r enters a NOT gate, producing v. The u and v signals enter an AND gate whose output is s, the alarm. The output formula is s = (p OR q) AND NOT r."
+        },
+        {
+          "type": "example",
+          "title": "Worked signal trace",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Take p = 0, q = 1, and r = 1. Step 1: the OR gate gives u = 0 OR 1 = 1. Step 2: the NOT gate gives v = NOT 1 = 0. Step 3: the AND gate gives s = 1 AND 0 = 0. The sensor detects activity, but the mute switch blocks the alarm."
+            },
+            {
+              "type": "paragraph",
+              "text": "Now change only r to 0. The OR output stays 1, but v becomes 1, so s becomes 1. This second calculation checks the intended effect of turning mute off."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For this alarm circuit, what is s when p = 0, q = 0, and r = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The OR gate gives 0, and NOT r gives 1. Their AND is 0. Turning mute off permits an alarm; it does not create activity at either sensor."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.6, printed page 22. The diagram is an original circuit using labeled gate blocks."
+        }
+      ]
+    },
+    {
+      "id": "building-circuits",
+      "title": "9. Build a circuit from a formula, then test it",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A formula can also serve as a construction plan. Start with its small subexpressions and connect gates in the order required by the parentheses. The last operation becomes the final gate."
+        },
+        {
+          "type": "example",
+          "title": "Construct the alarm circuit from s = (p ∨ q) ∧ ¬r",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1 — Identify the last operation. The entire expression is an AND of two pieces, so the output gate must be AND."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2 — Build the first piece, p ∨ q, with an OR gate connected to inputs p and q."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3 — Build the second piece, ¬r, with a NOT gate connected to input r."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 4 — Connect both intermediate outputs to the final AND gate. The result is exactly the circuit in the preceding topic."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Three input bits have 2³ = 8 possible assignments. Checking all eight verifies this small circuit’s logical output for every input combination. The intermediate columns also help locate a mistake: a wrong OR result, an uninverted mute signal, or the wrong final gate."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "r",
+            "p ∨ q",
+            "¬r",
+            "(p ∨ q) ∧ ¬r"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "1",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "0",
+              "1",
+              "1",
+              "1"
+            ],
+            [
+              "0",
+              "1",
+              "1",
+              "1",
+              "0",
+              "0"
+            ],
+            [
+              "1",
+              "0",
+              "0",
+              "1",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "1",
+              "1",
+              "0",
+              "0"
+            ],
+            [
+              "1",
+              "1",
+              "0",
+              "1",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "1",
+              "1",
+              "0",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Every row with r = 1 has output 0. With r = 0, the output is 1 exactly when at least one sensor is 1. These observations translate the table back into the intended behavior. They check the Boolean model, not physical issues such as wiring faults or signal delays."
+        },
+        {
+          "type": "check",
+          "prompt": "How would you build an output z = (p ∧ q) ∨ ¬r using only AND, OR, and NOT gates? Is its final gate the same as the alarm circuit’s?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Use an AND gate for p ∧ q, a NOT gate for ¬r, and an OR gate to combine those two outputs. The final gate is OR, whereas the alarm circuit’s final gate is AND. At p = 0, q = 0, r = 0, the new circuit outputs 1 because ¬r = 1; the alarm circuit outputs 0. The two formulas therefore describe different behavior."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.2.6, printed pages 22–23."
+        }
+      ]
+    },
+    {
+      "id": "applications-recap",
+      "title": "10. Recap: model, solve, and read the result back",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Application",
+            "Method",
+            "Common mistake"
+          ],
+          "rows": [
+            [
+              "English translation",
+              "Define each claim, group the parts, and test a violating case.",
+              "Reversing only if or adding an unstated guarantee."
+            ],
+            [
+              "Specifications",
+              "Find an assignment that satisfies every requirement together.",
+              "Using a different row for each requirement."
+            ],
+            [
+              "Boolean search",
+              "Evaluate the query separately for each record.",
+              "Confusing word matching with meaning or relevance."
+            ],
+            [
+              "Logic puzzles",
+              "State the background rules and check every allowed case.",
+              "Assuming one solution found means the solution is unique."
+            ],
+            [
+              "Shared information",
+              "Track what each person can see and learn from public answers.",
+              "Treating I do not know as a claim that a fact is false."
+            ],
+            [
+              "Logic circuits",
+              "Evaluate intermediate gate outputs, then the final output.",
+              "Ignoring parentheses or confusing permission with a trigger."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The repeated pattern is: describe the situation precisely, name its claims, connect them with logical operators, and check what the formula allows. Then return to ordinary language and ask whether that result matches the situation you meant to describe."
+        },
+        {
+          "type": "check",
+          "prompt": "A system requires both “The alert is shown only if the connection is active” and “The alert is shown.” Let a mean the alert is shown and c mean the connection is active. What must be true? Can you also require ¬c?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The requirements are a → c and a. The second gives a = T, so the first forces c = T. This assignment satisfies the pair. Adding ¬c makes the specifications inconsistent, because it requires c = F at the same time."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "You have now used propositional logic to represent and analyze several kinds of problems. Revisit any check you found difficult before moving on."
+        }
+      ]
+    }
+  ]
+}

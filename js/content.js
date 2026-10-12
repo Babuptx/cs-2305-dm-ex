@@ -15,6 +15,7 @@ export function validateLesson(lesson, entry) {
       case 'heading': if (![2,3,4].includes(b.level) || !text(b.text)) throw new Error('Invalid heading.'); break;
       case 'paragraph': if (!text(b.text)) throw new Error('Invalid paragraph.'); break;
       case 'math': if (!text(b.notation) || !text(b.description)) throw new Error('Mathematical notation needs a description.'); break;
+      case 'diagram': if (!text(b.title) || !text(b.description) || typeof b.src!=='string' || !/^assets\/[a-z0-9][a-z0-9-]*\.svg$/.test(b.src)) throw new Error('Invalid local diagram.'); break;
       case 'definition': case 'example': case 'callout': if (!text(b.title) || !Array.isArray(b.blocks) || !b.blocks.length) throw new Error('Invalid teaching block.'); b.blocks.forEach(block); break;
       case 'table': if (!Array.isArray(b.headers) || !b.headers.length || !b.headers.every(text) || !Array.isArray(b.rows) || !b.rows.length || !b.rows.every(row => Array.isArray(row) && row.length === b.headers.length && row.every(text))) throw new Error('Invalid comparison table.'); break;
       case 'check': if (!text(b.prompt) || !Array.isArray(b.explanation) || !b.explanation.length) throw new Error('Invalid understanding check.'); b.explanation.forEach(block); break;

@@ -13,6 +13,7 @@ Supported blocks:
 | heading | level (2–4), text | Heading |
 | paragraph | text | Plain text paragraph |
 | math | notation, description | Unicode mathematical notation with accessible description |
+| diagram | title, src, description | Original SVG with descriptive alternative text and a scrollable frame |
 | definition | title, blocks | Definition panel |
 | example | title, blocks | Worked example panel |
 | table | headers, rows | Comparison table; equal column counts required |
@@ -20,5 +21,7 @@ Supported blocks:
 | check | prompt, explanation (blocks) | Check with expandable explanation |
 
 Text is rendered using textContent; embedded HTML is not supported. Use readable Unicode notation (e.g. `p → q`), not unprocessed TeX. Introduce notation in the lesson prose. Nested blocks use the same schema. No lesson fixture is deployed in Phase 1.
+
+Diagram sources must be local paths matching `assets/<lowercase-name>.svg`. The validator requires a standalone SVG without scripts, embedded foreign content, event handlers, external references, or entities. Original diagram assets are included in the public build and its content fingerprint. Mobile readers can scroll diagrams horizontally; alternative text explains the full circuit.
 
 `npm run validate` validates lesson JSON with Ajv and checks cross-field invariants with the shared runtime validator: metadata matches navigation, unit IDs are unique, table rows are rectangular, complete lessons have complete units, paths are safe and registered, and private source paths are absent from public data. Unit and browser tests use temporary or intercepted fixtures to verify the contract without publishing lessons. These tests verify data and UI behavior; they are not mathematical or editorial approval of future lessons.

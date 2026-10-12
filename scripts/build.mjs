@@ -1,7 +1,7 @@
 import {cp,mkdir,rm,readFile,writeFile,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 await rm('dist',{recursive:true,force:true});await mkdir('dist');
-for(const file of ['index.html','styles.css','js','data']) await cp(file,'dist/'+file,{recursive:true,filter:path=>!path.endsWith('.gitkeep')});
+for(const file of ['index.html','styles.css','js','data','assets']) await cp(file,'dist/'+file,{recursive:true,filter:path=>!path.endsWith('.gitkeep')});
 const hash=createHash('sha256');
 async function fingerprint(directory){for(const entry of (await readdir(directory,{withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name))){const path=directory+'/'+entry.name;if(entry.isDirectory())await fingerprint(path);else{hash.update(path);hash.update(await readFile(path));}}}
 await fingerprint('dist');const version=hash.digest('hex').slice(0,12);

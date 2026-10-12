@@ -47,7 +47,7 @@ try {
   assert.ok(requests.filter(r=>r.pathname==='/data/lessons/1.1.json').length>=2);
   await page.reload();await page.getByText('Updated lesson content from the server.',{exact:true}).waitFor();
   // Same-tab navigation must also refresh an in-memory unavailable entry.
-  published=false;await page.goto(url+'#1.2');await page.getByRole('heading',{name:'Not yet available.'}).waitFor();
+  published=false;await page.goto(url+'#1.3');await page.getByRole('heading',{name:'Not yet available.'}).waitFor();
   published=true;await page.goto(url+'#1.1');await page.getByText('Updated lesson content from the server.',{exact:true}).waitFor();
   const html=await readFile('dist/index.html','utf8'),app=await readFile('dist/js/app.js','utf8');
   const version=html.match(/js\/app\.js\?v=([a-f0-9]{12})/)[1];

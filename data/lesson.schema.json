@@ -274,6 +274,33 @@
             "prompt",
             "explanation"
           ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "diagram"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "src": {
+              "type": "string",
+              "pattern": "^assets/[a-z0-9][a-z0-9-]*\\.svg$"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "type",
+            "title",
+            "src",
+            "description"
+          ]
         }
       ]
     }

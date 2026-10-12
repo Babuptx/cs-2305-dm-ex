@@ -15,9 +15,13 @@ try {
   assert.equal(lessonRequests.length,0,'Homepage must not preload lessons');
   await page.locator('[data-chapter="chapter-1"] summary').click();await page.locator('[data-entry="1.1"]').click();
   await page.locator('#unit-recap').waitFor();assert.equal(await page.locator('[aria-current="page"][data-entry]').getAttribute('data-entry'),'1.1');assert.equal(lessonRequests.length,1);assert.equal(await page.locator('.lesson-unit').count(),11);
+  assert.equal(await page.locator('.section-heading .pill').innerText(),'Complete');assert.doesNotMatch(await page.locator('#view').innerText(),/draft|in.progress/i);
   assert.equal(await page.locator('.check details[open]').count(),0);await page.locator('.check summary').first().click();assert.equal(await page.locator('.check details[open]').count(),1);
   await page.getByRole('button',{name:'A programming if-statement performs an action'}).click();assert.equal(await page.evaluate(()=>document.activeElement.textContent),'8. A programming if-statement performs an action');await page.screenshot({path:'test-results/lesson-desktop.png'});
   await page.reload();await page.getByRole('heading',{name:'Propositional Logic'}).waitFor();
+  await page.goto(url+'#1.2');await page.locator('#unit-applications-recap').waitFor();assert.equal(await page.locator('.lesson-unit').count(),10);await page.getByRole('button',{name:'Read a circuit as a sequence of small decisions'}).click();
+  const diagram=page.locator('.lesson-diagram img');await diagram.scrollIntoViewIfNeeded();await page.waitForFunction(()=>{const img=document.querySelector('.lesson-diagram img');return img.complete&&img.naturalWidth>0;});await page.screenshot({path:'test-results/section-1.2-circuit-desktop.png'});
+  await page.goto(url+'#1.3');await page.getByRole('heading',{name:'Not yet available.'}).waitFor();
   await page.goto(url+'#13.5');await page.getByRole('heading',{name:'Turing Machines'}).waitFor();assert.equal(await page.locator('[data-chapter="chapter-13"]').getAttribute('open'),'');
   assert.ok(await page.locator('[data-entry="13.5"]').evaluate(node=>{const rect=node.getBoundingClientRect();return rect.top>=88&&rect.bottom<=innerHeight;}));
   assert.ok(await page.evaluate(()=>{const side=document.querySelector('#sidebar');return side.scrollHeight>side.clientHeight&&getComputedStyle(side).overflowY==='auto';}));
@@ -31,7 +35,9 @@ try {
   await page.keyboard.press('Shift+Tab');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Reference material');await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.id),'close-menu');
   await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>document.activeElement.id),'menu');
   await page.locator('#menu').click();await page.locator('[data-entry="1.2"]').click();await page.getByRole('heading',{name:'Applications of Propositional Logic'}).waitFor();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'false');
-  await page.waitForFunction(()=>document.querySelector('#sidebar').getBoundingClientRect().right<=0);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'test-results/mobile.png',fullPage:true});
+  await page.locator('#unit-applications-recap').waitFor();await page.waitForFunction(()=>document.querySelector('#sidebar').getBoundingClientRect().right<=0);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'test-results/section-1.2-mobile.png'});
+  await page.getByRole('button',{name:'Learn from someone else’s “I don’t know”'}).click();await page.locator('#unit-shared-information .check summary').click();assert.equal(await page.locator('#unit-shared-information details').getAttribute('open'),'');await page.screenshot({path:'test-results/section-1.2-puzzle-mobile.png'});
+  await page.locator('.lesson-diagram').scrollIntoViewIfNeeded();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'test-results/section-1.2-circuit-mobile.png'});
   await page.locator('#menu').click();await page.waitForFunction(()=>document.querySelector('#sidebar').getBoundingClientRect().left>=0);await page.screenshot({path:'test-results/mobile-drawer.png'});await page.keyboard.press('Escape');
   // Intercepted fixtures test future lesson behavior without publishing lesson files.
   const manifest=JSON.parse(await readFile('data/manifest.json','utf8'));manifest.chapters.find(c=>c.id==='chapter-1').children[0].status='in-progress';manifest.chapters.find(c=>c.id==='chapter-1').children[0].path='data/lessons/1.1.json';
