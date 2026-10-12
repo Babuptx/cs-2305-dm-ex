@@ -1,6 +1,8 @@
 # Progress and next steps
 
-Current state: Section 1.1 has been drafted in eleven teaching units and is being published as an in-progress review draft at the owner's explicit request. All other sections remain unavailable. See `review-1.1.md` for coverage, mathematical checks, and the editorial review record. Next, collect feedback on Section 1.1; do not begin Section 1.2 automatically.
+Current state: [Section 1.1](https://babuptx.github.io/cs-2305-dm-ex/#1.1) is published in eleven teaching units as an in-progress review draft at the owner's explicit request. All other sections remain unavailable. See `review-1.1.md` for coverage, mathematical checks, and the editorial review record. Next, collect feedback on Section 1.1; do not begin Section 1.2 automatically.
+
+Section 1.1 release verified October 11, 2026 (America/Chicago): site source commit `e81c3da`, [successful deployment run 38203645729](https://github.com/Babuptx/cs-2305-dm-ex/actions/runs/38203645729). Schema validation, all eight content and mathematical tests, build, and desktop/mobile browser checks passed locally and on GitHub Actions. Browser checks also passed against the live website, and the live manifest and lesson JSON exactly matched local source. The current follow-up only records deployment evidence; public site files are unchanged.
 
 Phase 1 history: the full navigation shell was published with all 72 numbered sections, 13 end-of-chapter entries, 3 appendices, 4 front-matter entries, and 4 reference entries unavailable. Navigation titles and order come from the supplied Rosen eighth-edition table of contents (PDF pages 4–6); no deeper hierarchy is listed there.
 

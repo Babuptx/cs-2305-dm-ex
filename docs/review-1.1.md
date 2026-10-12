@@ -11,3 +11,5 @@ Automated mathematical checks in `tests/lesson-1.1.test.mjs`: evaluate every dis
 Browser checks exercise real lesson loading after selection, the eleven-unit outline, keyboard focus on topic jumps, expandable explanations, desktop/mobile layout, continued unavailability of Section 1.2, deep links, and failed-fetch recovery. Screenshots remain local. Source PDF and private analysis are excluded from both Git and the public build.
 
 Next: collect the owner's review of Section 1.1, revise only the requested scope, and retain its URL. Mark it complete only after review resolves outstanding content changes. Do not start Section 1.2 automatically.
+
+Publication verified: commit `e81c3da` deployed successfully in [run 38203645729](https://github.com/Babuptx/cs-2305-dm-ex/actions/runs/38203645729). The eight unit/mathematical tests and browser suite passed in CI. The same browser suite passed on the live site, and its actual manifest and Section 1.1 JSON matched local release data.
