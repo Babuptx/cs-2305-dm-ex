@@ -18,6 +18,8 @@ npm start
 
 Open http://127.0.0.1:8081. The server serves only `dist/`, binds to loopback, and uses `PORT` to override the port. Rebuild after changes. To check browser behavior, install Chromium with `npx playwright install chromium`, then run `npm run test:browser`. The test starts and stops its own server. `TEST_URL` can target the live site for verification; fixture tests still use local manifest data.
 
+Publication freshness: the build adds a content-derived version to interface asset URLs. The reader revalidates manifest and lesson JSON with the server and refreshes availability when navigating. Unavailable entries also offer “Check for updates.” Browser checks include a real HTTP server with a ten-minute cache policy to cover returning readers with stale navigation and lesson data. If an old tab predates this behavior, open the site with a new query value before its section hash, such as `?refresh=1#1.1`, to load the current document and versioned assets.
+
 ## Structure and authoring
 
 Navigation: `data/manifest.json`. Future lessons: `data/lessons/<section>.json`. Interface: `index.html`, `styles.css`, and `js/`. See [the lesson contract](docs/content-schema.md), [teaching style](docs/teaching-style.md), and [progress record](docs/progress.md).

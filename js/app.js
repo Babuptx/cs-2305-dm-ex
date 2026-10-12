@@ -23,6 +23,7 @@ document.addEventListener('keydown',event=>{
 });
 matchMedia('(max-width:800px)').addEventListener('change',()=>drawer(false,false)); drawer(false,false);
 function navigation() {
+  const expanded=new Set([...$('contents').querySelectorAll('details[open]')].map(group=>group.dataset.chapter));
   $('contents').replaceChildren();
   const add = (entry,parent) => {
     const a=link('',entry.id); a.dataset.entry=entry.id; a.title=labels[entry.status];
@@ -32,6 +33,7 @@ function navigation() {
   };
   manifest.chapters.forEach(chapter=>{
     const group=el('details'); group.dataset.chapter=chapter.id;
+    group.open=expanded.has(chapter.id);
     group.append(el('summary',(chapter.number ? chapter.number+' · ' : '')+chapter.title));
     chapter.children.forEach(entry=>add(entry,group)); $('contents').append(group);
   });
@@ -56,10 +58,22 @@ function renderBlock(block) {
   }
 }
 function error(message,retry) {const box=el('div',undefined,'error');box.append(el('h2','Something went wrong'),el('p',message));const button=el('button','Try again','retry');button.addEventListener('click',retry);box.append(button);view.replaceChildren(box);}
-async function fetchJSON(path,signal) {const response=await fetch(path,{signal});if(!response.ok) throw new Error('Could not load '+path);return response.json();}
-async function route() {
+async function fetchJSON(path,signal) {const response=await fetch(path,{signal,cache:'no-cache'});if(!response.ok) throw new Error('Could not load '+path);return response.json();}
+async function route(refresh=true) {
   if(!manifest) return;
   const token=++request;controller?.abort();controller=new AbortController();
+  if(refresh) {
+    view.setAttribute('aria-busy','true');
+    try {
+      const latest=await fetchJSON('data/manifest.json',controller.signal);
+      if(token!==request)return;
+      if(latest.schemaVersion!==1||!Array.isArray(latest.chapters))throw new Error('Invalid contents');
+      if(JSON.stringify(latest)!==JSON.stringify(manifest)){manifest=latest;all=entries(manifest);navigation();}
+    } catch(e) {
+      if(e.name==='AbortError'||token!==request)return;
+      view.setAttribute('aria-busy','false');error('The latest contents could not be loaded. Check your connection and retry.',()=>route());return;
+    }
+  }
   let id;try{id=decodeURIComponent(location.hash.slice(1))||'home';}catch{id='unknown';}
   const entry=all.find(e=>e.id===id);
   drawer(false,false);
@@ -74,7 +88,7 @@ async function route() {
     $('breadcrumbs').append(el('span','/'),el('span',(entry.chapter.number?'Chapter '+entry.chapter.number+': ':'')+entry.chapter.title),el('span','/'),el('span',entry.number||entry.title));
     document.title=(entry.number?entry.number+' · ':'')+entry.title+' · '+manifest.title;
     const header=el('header',undefined,'section-heading');header.append(el('span',entry.number?'SECTION '+entry.number:entry.chapter.title.toUpperCase(),'eyebrow'),el('h1',entry.title),el('span',labels[entry.status],'pill'));view.replaceChildren(header);
-    if(entry.status==='unavailable'){const empty=el('section',undefined,'empty');empty.append(el('h2','Not yet available.'),el('p','This section has not been written yet. Its place in the textbook map is ready, and its explanation will appear here when published.'));view.append(empty);}
+    if(entry.status==='unavailable'){const empty=el('section',undefined,'empty');empty.append(el('h2','Not yet available.'),el('p','This section has not been written yet. Its place in the textbook map is ready, and its explanation will appear here when published.'));const refresh=el('button','Check for updates','retry');refresh.addEventListener('click',()=>route());empty.append(refresh);view.append(empty);}
     else {
       const content=el('div','Loading this section…');view.append(content);view.setAttribute('aria-busy','true');
       try {const lesson=validateLesson(await fetchJSON(entry.path,controller.signal),entry);if(token!==request)return;content.replaceChildren();
@@ -93,8 +107,8 @@ async function route() {
   $('reading').focus({preventScroll:true});window.scrollTo(0,0);
 }
 async function init() {
-  try {manifest=await fetchJSON('data/manifest.json');if(manifest.schemaVersion!==1||!Array.isArray(manifest.chapters))throw new Error('Invalid contents');all=entries(manifest);navigation();await route();}
+  try {manifest=await fetchJSON('data/manifest.json');if(manifest.schemaVersion!==1||!Array.isArray(manifest.chapters))throw new Error('Invalid contents');all=entries(manifest);navigation();await route(false);}
   catch {view.setAttribute('aria-busy','false');$('contents').replaceChildren(el('p','Contents unavailable.'));error('The companion’s contents could not be loaded. Check your connection and retry.',init);}
 }
-window.addEventListener('hashchange',route);init();
+window.addEventListener('hashchange',()=>route());init();
 
