@@ -1,0 +1,721 @@
+{
+  "schemaVersion": 1,
+  "id": "5.2",
+  "title": "Strong Induction and Well-Ordering",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §5.2.1–§5.2.5, printed pages 354–362 (exposition).",
+    "Original companion explanations, worked proofs, examples, and polygon diagram."
+  ],
+  "units": [
+    {
+      "id": "strong-idea",
+      "title": "1. Use earlier cases when the next case needs them",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main change from Section 5.1",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Ordinary induction gives you P(k) while you prove P(k + 1). Strong induction gives you every earlier claim in the allowed range, P(b) through P(k). The target is still P(k + 1). You must still prove the starting cases, and you may not assume the target."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "[P(b) ∧ P(b + 1) ∧ ⋯ ∧ P(k)] → P(k + 1)",
+          "description": "If every case from the starting index through k holds, then the next case holds."
+        },
+        {
+          "type": "paragraph",
+          "text": "The symbol ∧ means AND: all the listed assumptions are available. You do not have to use every one. This is useful when a problem of size k + 1 reduces to a smaller size that could be far below k, or to two smaller problems of different sizes."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Method",
+            "Available hypothesis",
+            "Typical use"
+          ],
+          "rows": [
+            [
+              "Ordinary induction",
+              "P(k)",
+              "Attach one term or element to the immediately previous case."
+            ],
+            [
+              "Strong induction",
+              "P(j) for every b ≤ j ≤ k",
+              "Break the next object into smaller objects of varying sizes."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "“Strong” describes the more generous-looking hypothesis, not a larger class of theorems it can prove. The two forms are equivalent; we will explain the connection after some examples."
+        },
+        {
+          "type": "check",
+          "prompt": "In a strong-induction proof starting at b = 2, may you use P(1) while proving P(k + 1)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Not from the IH. It only covers indices 2 through k. You would need a separate reason for P(1). Checking the lower bound is just as important as checking that an index is smaller than the target."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.1–5.2.2, printed pages 354–356."
+        }
+      ]
+    },
+    {
+      "id": "base-block",
+      "title": "2. Let the backward jump determine the starting cases",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose a machine can complete jobs of sizes 1, 2, and 3, and any completed size can be increased by 3. Then it can complete every positive integer size. Starting with only size 1 would reach 1, 4, 7, … and leave gaps."
+        },
+        {
+          "type": "example",
+          "title": "Three starting cases cover a three-step jump",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let P(n) mean size n is achievable. Verify P(1), P(2), and P(3). For the strong step, take an arbitrary k ≥ 3 and assume P(j) for every 1 ≤ j ≤ k."
+            },
+            {
+              "type": "paragraph",
+              "text": "To obtain k + 1, use size k − 2 and add 3. Because k ≥ 3, we have 1 ≤ k − 2 ≤ k. Thus P(k − 2) is available from the IH. The result is size (k − 2) + 3 = k + 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "This proves all positive sizes. The three bases cover the cases for which stepping backward by 3 would leave the domain."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Multiple bases are not required merely because a proof uses strong induction. They are required when the step needs them. A one-base factorization proof comes next. Always derive the needed initial block from the actual backward dependency."
+        },
+        {
+          "type": "check",
+          "prompt": "If the step reaches a target m from m − 4, and the theorem begins at 10, which consecutive initial cases make this argument work?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Verify 10, 11, 12, and 13. For any m ≥ 14, the needed index m − 4 is at least 10 and less than m. A basis only at 10 would leave three other chains unstarted."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.2–5.2.3, printed pages 356–357."
+        }
+      ]
+    },
+    {
+      "id": "prime-products",
+      "title": "3. Factorization uses smaller factors, not the previous number",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A prime is an integer greater than 1 with no positive divisors except 1 and itself. A composite integer greater than 1 can be written ab with both a and b greater than 1. We will prove that every integer n ≥ 2 is a product of primes. A product may have just one factor."
+        },
+        {
+          "type": "example",
+          "title": "A complete strong-induction proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis: 2 is prime, so it is already a one-factor product of primes."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: fix k ≥ 2 and assume every integer j with 2 ≤ j ≤ k is a product of primes. Consider k + 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "If k + 1 is prime, there is nothing to split. Otherwise k + 1 = ab with 2 ≤ a < k + 1 and 2 ≤ b < k + 1. Because a and b are integers, both lie between 2 and k. Apply the IH to each factor, then combine their prime products to obtain one for k + 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Both cases establish the next claim. Strong induction proves existence of a prime factorization for every n ≥ 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, 84 = 7·12, and 12 = 3·4 with 4 = 2·2, so 84 = 2·2·3·7. Knowing a factorization of 83 alone would not naturally help. The strong hypothesis supplies the claims for 7 and 12."
+        },
+        {
+          "type": "callout",
+          "title": "Existence is only the conclusion proved here",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "This argument does not prove uniqueness of prime factorization; that needs a separate argument. Also, 1 is not prime, and 0 is not a finite product of primes. We deliberately start the claim at 2."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why would splitting k + 1 into 1·(k + 1) fail as an inductive step?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "One factor is the target itself, so the IH does not apply to it. The composite case needs two proper factors, each at least 2 and strictly smaller than k + 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.3, printed pages 357."
+        }
+      ]
+    },
+    {
+      "id": "game",
+      "title": "4. A strategy must answer every legal move",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Two players alternate turns. On each turn, a player removes any positive number of tokens from exactly one of two piles. Whoever removes the last token wins. If both piles initially contain n ≥ 1 tokens, the second player can guarantee a win by matching the first player’s move in the other pile."
+        },
+        {
+          "type": "example",
+          "title": "Strong induction on the common pile size",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 1: the first player removes the token in one pile; the second removes the other token and wins."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: assume the second player can win for equal starting pile sizes j with 1 ≤ j ≤ k. Start instead with k + 1 in each pile. Let the first player remove r tokens from one pile, where 1 ≤ r ≤ k + 1. The second removes r from the other pile."
+            },
+            {
+              "type": "paragraph",
+              "text": "If r = k + 1, the second player removes the final tokens and wins immediately. Otherwise both piles now have j = k + 1 − r tokens, with 1 ≤ j ≤ k. It is again the first player’s turn. The IH gives a winning strategy from that smaller equal-pile position."
+            },
+            {
+              "type": "paragraph",
+              "text": "This handles every legal first move, proving the claim for all n ≥ 1. Pile sizes decrease, so play cannot continue forever."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is it not enough to show the reply works when the first player removes only one token?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first player may remove any positive number up to the entire pile. A guaranteed strategy must handle them all, including the separate case that leaves both piles empty after the reply. That zero-pile case is an immediate win, not an application of the IH for j ≥ 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.3, printed pages 357–358."
+        }
+      ]
+    },
+    {
+      "id": "packing",
+      "title": "5. Prove a whole range with a short block of constructions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A supplier packs items only in boxes of 3 or 7. We claim every integer quantity n ≥ 12 can be packed exactly. Let P(n) mean n = 3a + 7b for some nonnegative integers a and b, representing the numbers of boxes."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Quantity",
+            "3-item boxes",
+            "7-item boxes"
+          ],
+          "rows": [
+            [
+              "12",
+              "4",
+              "0"
+            ],
+            [
+              "13",
+              "2",
+              "1"
+            ],
+            [
+              "14",
+              "0",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Strong induction with three bases",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The table verifies P(12), P(13), and P(14). For the step, let k ≥ 14 and assume P(j) holds for every 12 ≤ j ≤ k. We want P(k + 1)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Use P(k − 2). Its index satisfies 12 ≤ k − 2 ≤ k, so it is covered by the IH. Add one 3-item box to that construction. The new quantity is (k − 2) + 3 = k + 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Therefore every n ≥ 12 can be packed. The bound is sharp as the start of a continuous range: 11 cannot be made. With no 7-item box, 11 is not a multiple of 3; with one, the remainder is 4; with two, the quantity already exceeds 11."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "The same claim by ordinary induction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Use basis 12 = 4·3 and assume a packing of k ≥ 12. If it contains at least two 3-item boxes, replace those two boxes with one 7-item box, increasing the quantity by 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Otherwise it contains zero or one 3-item box. Since k ≥ 12, it must contain at least two 7-item boxes: with at most one of each kind, the total would be at most 10. Replace two 7-item boxes by five 3-item boxes, again increasing the quantity by 1. These cases prove P(k) → P(k + 1)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Both proofs work. Strong induction makes the step shorter here; ordinary induction needs a more careful replacement argument."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Could the strong proof start with only 12 and then repeatedly add 3?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "That would produce only multiples of 3. The bases 13 and 14 start the other two remainder classes. Strong induction does not fill missing starting cases automatically."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.3, printed pages 358–359."
+        }
+      ]
+    },
+    {
+      "id": "triangulation",
+      "title": "6. Split a polygon into two smaller sizes",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A simple polygon has sides that form a closed boundary without crossings. A diagonal joins nonadjacent vertices; an interior diagonal stays inside the polygon except at its endpoints. A triangulation divides the region into triangles with diagonals that do not cross one another. We claim a simple n-sided polygon can be triangulated into n − 2 triangles for n ≥ 3."
+        },
+        {
+          "type": "definition",
+          "title": "The geometric fact the proof needs",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Every simple polygon with at least four sides has an interior diagonal. This is a lemma: a supporting result used in a larger proof. The textbook proves it separately on page 361. We use it here explicitly. We cannot replace it with “any diagonal works,” which is false for concave polygons."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Strong induction supplies both smaller polygons",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 3: the polygon is already one triangle, and 3 − 2 = 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: assume every simple j-sided polygon can be triangulated into j − 2 triangles for 3 ≤ j ≤ k. Consider a polygon with k + 1 sides. Since it has at least four sides, choose an interior diagonal using the lemma."
+            },
+            {
+              "type": "paragraph",
+              "text": "The diagonal splits it into polygons with s and t sides, where 3 ≤ s,t ≤ k. Each original boundary side belongs to one smaller polygon, and the new diagonal belongs to both. Hence s + t = (k + 1) + 2."
+            },
+            {
+              "type": "math",
+              "notation": "(s − 2) + (t − 2) = s + t − 4 = (k + 1) − 2",
+              "description": "Add the triangle counts supplied by the hypothesis for the two smaller polygons."
+            },
+            {
+              "type": "paragraph",
+              "text": "The IH triangulates both pieces. Their triangles fill the original polygon without crossing the splitting diagonal, and the displayed count proves the target. Strong induction completes the proof."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "A six-sided polygon split into two four-sided polygons",
+          "src": "assets/induction-polygon.svg",
+          "description": "A convex hexagon labeled A through F has an interior diagonal from A to D. The diagonal separates quadrilateral ABCD from quadrilateral ADEF. Each can be split into two triangles, giving four triangles in total."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the picture, n = 6 and s = t = 4. Thus s + t = 8 = n + 2, and the total is (4 − 2) + (4 − 2) = 4 = n − 2. The added 2 in s + t counts the shared diagonal twice; it does not count two new original sides."
+        },
+        {
+          "type": "paragraph",
+          "text": "Why the lemma needs care: in a concave polygon, joining the two neighbors of a convex corner can meet other parts of the boundary. The textbook selects a suitable visible vertex inside the corner triangle when needed. That geometric visibility argument is separate from the induction and triangle-count calculation above."
+        },
+        {
+          "type": "check",
+          "prompt": "A diagonal splits a 9-sided polygon into a 4-sided piece and another piece. How many sides and triangles does the other piece have?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The side counts satisfy 4 + t = 9 + 2, so t = 7. The pieces have 2 and 5 triangles, for a total of 7 = 9 − 2. Using t = 5 would forget that the diagonal appears in both smaller boundaries."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.4, printed pages 359–361."
+        }
+      ]
+    },
+    {
+      "id": "well-ordering",
+      "title": "7. A nonempty set of nonnegative integers has a first member",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Well-ordering",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Every nonempty subset of {0, 1, 2, …} has a least element. The subset can be infinite and need not have a largest element. For example, {8, 11, 14, …} has least element 8 and no largest element."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Set",
+            "Does this property apply?"
+          ],
+          "rows": [
+            [
+              "{5, 10, 15, …}",
+              "Yes: a nonempty set of nonnegative integers, with least element 5."
+            ],
+            [
+              "∅",
+              "No: there is no member to be least."
+            ],
+            [
+              "{…, −3, −2, −1}",
+              "No: these integers have no lower bound."
+            ],
+            [
+              "{1, 1/2, 1/3, …}",
+              "No: these are positive real numbers, and each has a smaller member."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The conclusion depends on both the domain and nonemptiness. Positive real numbers are not automatically well-ordered by their usual order. A set of integers bounded below can be shifted into the nonnegative integers, so the same smallest-element reasoning works there."
+        },
+        {
+          "type": "example",
+          "title": "Choose the smallest counterexample",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose you want to prove every integer n ≥ b has some property. Assume the opposite and form the set of failing indices. Under that assumption it is nonempty. Choose its smallest member m. Every allowed index below m is then a successful case."
+            },
+            {
+              "type": "paragraph",
+              "text": "Use those earlier cases to rule out m, or construct a smaller failing index that is still in the domain. Either way, contradict the choice of m. The contradiction proves there was no counterexample."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is “Choose the smallest positive real counterexample” not automatically justified?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Well-ordering here applies to nonnegative integers. A nonempty set of positive real counterexamples might approach zero without containing any smallest member. You need an additional reason before making that choice."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.5, printed pages 361–362."
+        }
+      ]
+    },
+    {
+      "id": "division",
+      "title": "8. Find the smallest possible nonnegative remainder",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For any integer a and any positive integer d, we want integers q and r such that a = dq + r and 0 ≤ r < d. This is the division algorithm theorem: q is the quotient and r is the remainder. The theorem asserts existence and uniqueness; its name does not mean the following proof is a program."
+        },
+        {
+          "type": "example",
+          "title": "Use well-ordering to prove existence",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Consider S = {a − dq : q is an integer and a − dq ≥ 0}. Its members are candidate remainders. First show S is nonempty. For example, choose q = −|a|, where |a| is the nonnegative magnitude of a. Since d ≥ 1, a + d|a| ≥ 0, so this choice contributes a member."
+            },
+            {
+              "type": "paragraph",
+              "text": "By well-ordering, S has a least member r = a − dq₀ for some integer q₀. We already know r ≥ 0. If r ≥ d, then r − d ≥ 0 and r − d = a − d(q₀ + 1) is another member of S. It is smaller than r because d > 0, a contradiction."
+            },
+            {
+              "type": "paragraph",
+              "text": "Therefore r < d. Rearranging r = a − dq₀ gives a = dq₀ + r, proving existence."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Prove uniqueness separately",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a = dq + r = dq′ + r′, where both remainders lie between 0 and d − 1. Subtraction gives d(q − q′) = r′ − r."
+            },
+            {
+              "type": "paragraph",
+              "text": "The right side has absolute value less than d. The only multiple of d with absolute value less than d is zero. Thus r′ − r = 0 and q − q′ = 0. The quotient and remainder are unique."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "a",
+            "d",
+            "q",
+            "r"
+          ],
+          "rows": [
+            [
+              "23",
+              "5",
+              "4",
+              "3"
+            ],
+            [
+              "−23",
+              "5",
+              "−5",
+              "2"
+            ],
+            [
+              "0",
+              "5",
+              "0",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For the negative example, −23 = 5(−5) + 2. The expression −23 = 5(−4) − 3 is also an arithmetic identity, but −3 fails the required remainder condition. Different programming-language remainder conventions should not replace the theorem’s stated range."
+        },
+        {
+          "type": "check",
+          "prompt": "What fails if you allow d = 0 in this proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Subtracting d would not make a smaller candidate, and the condition 0 ≤ r < 0 is impossible. The positive-divisor assumption is used, not decorative."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.5, printed pages 362."
+        }
+      ]
+    },
+    {
+      "id": "tournament",
+      "title": "9. Shorten a smallest cycle to get a contradiction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In a round-robin tournament, every pair of players meets once and each game has one winner and one loser. Write A → B when A beats B. A directed cycle is a list of distinct players where each beats the next and the last beats the first. If any cycle exists, we will show that a three-player cycle exists."
+        },
+        {
+          "type": "example",
+          "title": "Look at the first and third players",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The set of cycle lengths is a nonempty set of positive integers, so choose its smallest length m and a corresponding cycle v₁ → v₂ → ⋯ → vₘ → v₁. A one-player cycle is excluded, and a two-player cycle is impossible because a game cannot go both ways. Thus m ≥ 3."
+            },
+            {
+              "type": "paragraph",
+              "text": "If m = 3, we are done. Suppose m > 3. There is a game between v₁ and v₃, with exactly two possible outcomes."
+            },
+            {
+              "type": "paragraph",
+              "text": "If v₃ beats v₁, then v₁ → v₂ → v₃ → v₁ is a three-cycle. This is the desired conclusion (and contradicts m being a shortest cycle longer than three)."
+            },
+            {
+              "type": "paragraph",
+              "text": "If v₁ beats v₃, skip v₂. The list v₁ → v₃ → v₄ → ⋯ → vₘ → v₁ is a cycle of length m − 1, contradicting minimality. Thus a shortest cycle cannot be longer than three."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Would the same argument automatically work in a directed graph where some pairs have no edge?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The crucial connection between v₁ and v₃ might be missing. The tournament assumption guarantees one of the two directions and makes the case split exhaustive."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.5, printed pages 362."
+        }
+      ]
+    },
+    {
+      "id": "equivalent-methods",
+      "title": "10. Understand why the three principles agree",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Ordinary induction, strong induction, and well-ordering are equivalent principles for the nonnegative integers (or for an integer range after shifting its start). They package the same no-first-failure idea in different ways."
+        },
+        {
+          "type": "example",
+          "title": "Bundle earlier cases into one claim",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose you have a strong-induction argument for P(n) starting at b. Define Q(k) to mean “P(b), P(b + 1), …, P(k) all hold.” The basis Q(b) is just P(b)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Assume Q(k). Its contents are exactly the hypotheses needed by the strong-induction step, so that step gives P(k + 1). Combine this with Q(k) to obtain Q(k + 1). Ordinary induction now proves Q(k) for every k ≥ b and therefore proves every P(k). This shows how ordinary induction can carry the entire earlier history."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Conversely, a strong hypothesis includes P(k), so any ordinary-induction step is also a valid strong-induction step. From well-ordering, either form follows by choosing a least failing index: all preceding cases hold, so the appropriate step rules out the failure."
+        },
+        {
+          "type": "example",
+          "title": "Why induction also gives well-ordering",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a nonempty set S of nonnegative integers had no least element. Then 0 cannot belong to S, since it would be least. Assume none of 0 through k belongs to S. If k + 1 belonged to S, it would be the least member because every smaller nonnegative integer has been excluded. Therefore k + 1 is not in S."
+            },
+            {
+              "type": "paragraph",
+              "text": "Induction says no nonnegative integer belongs to S, contradicting its nonemptiness. Thus every such S has a least member."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does using strong induction mean ordinary induction could never prove the same theorem?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Strong induction may make the proof easier to find or write, but the bundled claim Q(k) converts its accumulated assumptions into an ordinary-induction argument."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.2.1–5.2.2, §5.2.5, printed pages 354–356, 361–362."
+        }
+      ]
+    },
+    {
+      "id": "strong-recap",
+      "title": "11. Choose a method and check every index",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Situation",
+            "Useful approach",
+            "Question that catches mistakes"
+          ],
+          "rows": [
+            [
+              "The next case adds one term",
+              "Ordinary induction",
+              "Where does the previous expression occur?"
+            ],
+            [
+              "An object splits into smaller pieces",
+              "Strong induction",
+              "Are all piece sizes within the IH’s lower and upper bounds?"
+            ],
+            [
+              "A construction jumps by several sizes",
+              "An initial block plus induction",
+              "Which early targets cannot yet use the backward jump?"
+            ],
+            [
+              "A failure would give a smaller failure",
+              "Well-ordering",
+              "Is the counterexample set nonempty and made of eligible integers?"
+            ],
+            [
+              "A smallest candidate should satisfy a bound",
+              "Well-ordering",
+              "Does the proposed smaller candidate stay inside the set?"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A complete proof states the claim, its domain, the needed initial cases, and exactly which earlier claims it uses. “Smaller” by itself is not enough: a subproblem below the starting index is outside the IH. In existence proofs, also distinguish finding one solution from proving it is unique."
+        },
+        {
+          "type": "check",
+          "prompt": "You want P(n) for n ≥ 12. Your step for target k + 1 uses P(k − 2). What must be checked before applying the IH?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "You need 12 ≤ k − 2 ≤ k, which requires k ≥ 14. Verify P(12), P(13), and P(14) separately; then the step covers targets 15 onward. This is the range check used in the box-packing proof."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Revisit a proof and try to label each use of the hypothesis without reading its explanation. That is a stronger check of understanding than memorizing the words “basis” and “inductive step.”"
+        }
+      ]
+    }
+  ]
+}

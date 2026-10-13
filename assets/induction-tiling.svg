@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380" viewBox="0 0 760 380">
+  <title>Induction tiling: four smaller boards</title>
+  <desc>A hole in the upper-left quadrant and three squares of a central L tile leave each two-by-two quadrant with three available squares.</desc>
+  <rect width="760" height="380" fill="#f1f4ef"/>
+  <g transform="translate(40 40)">
+    <rect width="288" height="288" fill="#fcfcf8" stroke="#20322f" stroke-width="2"/>
+    <rect width="72" height="72" fill="#d8dcd8"/>
+    <path d="M144 72H216V216H72V144H144Z" fill="#246451"/>
+    <path d="M72 0V288M216 0V288M0 72H288M0 216H288" fill="none" stroke="#8d9e93" stroke-width="1.5"/>
+    <path d="M144 0V288M0 144H288" fill="none" stroke="#20322f" stroke-width="3"/>
+    <path d="M23 23L49 49M49 23L23 49" stroke="#52655b" stroke-width="3"/>
+  </g>
+  <g font-family="system-ui, sans-serif" fill="#20322f">
+    <text x="374" y="85" font-size="23" font-weight="600">One hole in each quadrant</text>
+    <rect x="375" y="118" width="22" height="22" fill="#d8dcd8"/>
+    <text x="410" y="137" font-size="20">The original missing square</text>
+    <rect x="375" y="167" width="22" height="22" fill="#246451"/>
+    <text x="410" y="186" font-size="20">One central L tile</text>
+    <text x="375" y="243" font-size="19">Each smaller board now has</text>
+    <text x="375" y="272" font-size="19">three squares left to cover.</text>
+    <text x="40" y="358" font-size="18">The bold cross separates the four smaller boards.</text>
+  </g>
+</svg>

@@ -1,0 +1,950 @@
+{
+  "schemaVersion": 1,
+  "id": "5.1",
+  "title": "Mathematical Induction",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §5.1.1–§5.1.8, printed pages 331–350 (exposition).",
+    "Original companion explanations, worked proofs, examples, and tiling diagram."
+  ],
+  "units": [
+    {
+      "id": "induction-idea",
+      "title": "1. Prove a starting case and a repeatable step",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Begin here, even if you jumped ahead",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "This section explains how a finite argument can prove a claim about infinitely many integers. You only need basic algebra and the meaning of “if … then.” We introduce sums, divisibility, and set notation as they arise. In every worked proof, look for the starting case, the assumption, and the exact point where that assumption is used."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Imagine a row of numbered switches. Switch 1 turns on, and the wiring guarantees that whenever switch k turns on, switch k + 1 turns on. Then switch 2 turns on, then 3, and so on. For any particular switch number, only finitely many applications of the rule are needed to reach it."
+        },
+        {
+          "type": "definition",
+          "title": "The two obligations of induction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Write P(n) for the claim about the integer n. The basis step proves the first claim P(b). The inductive step proves P(k) → P(k + 1) for every integer k ≥ b. Together they establish P(n) for every integer n ≥ b. The starting integer b might be 0, 1, or some other value."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "P(b) is true.\nFor every integer k ≥ b: P(k) → P(k + 1).\nTherefore P(n) is true for every integer n ≥ b.",
+          "description": "A starting case and a valid implication from each case to the next establish all cases from the starting point onward."
+        },
+        {
+          "type": "paragraph",
+          "text": "Both obligations matter. Perfect wiring proves nothing turns on unless a starting switch turns on. A working first switch proves nothing about later ones unless the wiring rule is justified."
+        },
+        {
+          "type": "check",
+          "prompt": "You checked P(1), P(2), and P(3). Have you proved P(n) for all positive integers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Those are three individual cases. You still need an argument that works for an arbitrary k, proving that P(k) implies P(k + 1). A finite list of successful tests does not supply that implication."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.1–5.1.2, printed pages 331–334."
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "title": "2. Keep the assumption separate from the goal",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The inductive hypothesis, often shortened to IH, is a temporary assumption used to prove an implication. You are not assuming the whole theorem. You are asking: if one arbitrary case is true, can I justify the next one?"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Part",
+            "What you may say"
+          ],
+          "rows": [
+            [
+              "Choose k",
+              "Let k be an arbitrary fixed integer in the required range."
+            ],
+            [
+              "Assume P(k)",
+              "State the formula or property for this k explicitly."
+            ],
+            [
+              "Target P(k + 1)",
+              "Write what must be established; do not assume it."
+            ],
+            [
+              "Use the hypothesis",
+              "Transform the next case until the known k-case appears."
+            ],
+            [
+              "Finish",
+              "Identify the resulting expression as P(k + 1), then invoke induction."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A target is not an extra assumption",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose P(n) says 3 + 6 + ⋯ + 3n = 3n(n + 1)/2. The dots mean that we keep adding multiples of 3 up to 3n."
+            },
+            {
+              "type": "math",
+              "notation": "IH: 3 + 6 + ⋯ + 3k = 3k(k + 1)/2\nGoal: 3 + 6 + ⋯ + 3k + 3(k + 1) = 3(k + 1)(k + 2)/2",
+              "description": "The hypothesis is the sum with k terms; the goal is the sum with k plus one terms."
+            },
+            {
+              "type": "paragraph",
+              "text": "The new term is 3(k + 1), not 3k + 1. Replace n by k + 1 everywhere, including inside n + 1. That is why the next target has factors k + 1 and k + 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An arbitrary k is not a special number such as 7. Your calculation must use only facts justified for every k in the stated range. Induction is deductive proof; the word “induction” here does not mean guessing from a pattern."
+        },
+        {
+          "type": "check",
+          "prompt": "May you start the proof of P(k + 1) by saying “Assume the target formula is true” and then simplify it to a true equation?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "That alone does not prove the target. You can explore backward while planning, but the written proof must justify the target from established facts and the IH, or explicitly justify every step as reversible. Starting from the known k-case is usually clearer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.2, §5.1.5, printed pages 333, 335–336."
+        }
+      ]
+    },
+    {
+      "id": "sum-proof",
+      "title": "3. Walk through a complete sum proof",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We will prove that the sum of the first n positive multiples of 3 is 3n(n + 1)/2 for every integer n ≥ 1. Small cases suggest the formula, but the following proof establishes every case."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "Sum",
+            "3n(n + 1)/2"
+          ],
+          "rows": [
+            [
+              "1",
+              "3",
+              "3"
+            ],
+            [
+              "2",
+              "9",
+              "9"
+            ],
+            [
+              "3",
+              "18",
+              "18"
+            ],
+            [
+              "4",
+              "30",
+              "30"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Basis, hypothesis, step, conclusion",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis: at n = 1, the sum is 3 and the formula gives 3·1·2/2 = 3."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: fix an arbitrary integer k ≥ 1 and assume the formula for the first k terms. The goal is the formula for k + 1 terms."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Expression",
+                "Reason"
+              ],
+              "rows": [
+                [
+                  "3 + 6 + ⋯ + 3k + 3(k + 1)",
+                  "Start with the next sum."
+                ],
+                [
+                  "3k(k + 1)/2 + 3(k + 1)",
+                  "IH: replace only the first k terms."
+                ],
+                [
+                  "[3k(k + 1) + 6(k + 1)]/2",
+                  "Put both terms over the same denominator."
+                ],
+                [
+                  "3(k + 1)(k + 2)/2",
+                  "Factor out 3(k + 1)."
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "That is exactly the k + 1 target. The implication holds for every k ≥ 1. With the basis established, induction proves the formula for every n ≥ 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The engine of this proof is “old sum + new term.” The IH does not evaluate the new term for you; it replaces the old sum. Writing brackets around the first k terms makes this boundary easier to see."
+        },
+        {
+          "type": "check",
+          "prompt": "For the first n odd numbers, suppose 1 + 3 + ⋯ + (2k − 1) = k². What term is added next, and what does the new sum become?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The next term is 2(k + 1) − 1 = 2k + 1. The new sum is k² + 2k + 1 = (k + 1)². Together with the basis 1 = 1², this proves the odd-number sum formula for every n ≥ 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.7, printed pages 337–339."
+        }
+      ]
+    },
+    {
+      "id": "geometric",
+      "title": "4. Count terms carefully when the index starts at zero",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A geometric sum multiplies each term by a fixed ratio to obtain the next. Consider 2 + 2·3 + 2·3² + ⋯ + 2·3ⁿ. The exponent starts at 0, so there are n + 1 terms. We claim the sum is 3ⁿ⁺¹ − 1 for every integer n ≥ 0."
+        },
+        {
+          "type": "example",
+          "title": "A proof with basis n = 0",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis: when n = 0 there is one term, 2, and 3¹ − 1 = 2. The sum is not empty."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: for an arbitrary k ≥ 0, assume the sum through 2·3ᵏ equals 3ᵏ⁺¹ − 1. The next term is 2·3ᵏ⁺¹."
+            },
+            {
+              "type": "math",
+              "notation": "(3ᵏ⁺¹ − 1) + 2·3ᵏ⁺¹ = 3·3ᵏ⁺¹ − 1 = 3ᵏ⁺² − 1",
+              "description": "Replace the old sum using the hypothesis, add the new term, and combine three copies of the same power."
+            },
+            {
+              "type": "paragraph",
+              "text": "The final exponent is k + 2 because the target replaces n by k + 1 in n + 1. Thus the claim holds for every n ≥ 0 by induction."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The same algebra works for a general initial term a and fixed real ratio r ≠ 1. The symbol Σ means “add the listed terms”; a sum indexed j = 0 through n includes both endpoints."
+        },
+        {
+          "type": "math",
+          "notation": "a + ar + ⋯ + arⁿ = a(rⁿ⁺¹ − 1)/(r − 1)",
+          "description": "The geometric sum with n plus one terms, for n at least zero and r not equal to one."
+        },
+        {
+          "type": "paragraph",
+          "text": "For the general basis n = 0, the right side is a(r − 1)/(r − 1) = a. In the step, substitute the old sum and add arᵏ⁺¹. The numerator becomes a(rᵏ⁺¹ − 1) + arᵏ⁺¹(r − 1) = a(rᵏ⁺² − 1). Dividing by r − 1 gives the next formula. If r = 1, each term is a and the sum is (n + 1)a; do not divide by zero."
+        },
+        {
+          "type": "check",
+          "prompt": "For 2 + 2·3 + ⋯ + 2·3ⁿ, what are the sum and number of terms when n = 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are three terms: 2 + 6 + 18 = 26. The formula gives 3³ − 1 = 26. The number n records the last exponent, not the number of terms."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.4, §5.1.7, printed pages 335, 339–340."
+        }
+      ]
+    },
+    {
+      "id": "inequalities",
+      "title": "5. Justify the bridge in an inequality proof",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An inequality proof often needs more than substituting the IH. You must bridge the result of that substitution to the next target. We will prove n² ≤ 2ⁿ for every integer n ≥ 4. This claim fails at n = 3, where 9 > 8, so its starting point matters."
+        },
+        {
+          "type": "example",
+          "title": "Compare the next square with twice the old square",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis: 4² = 16 = 2⁴."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: take an arbitrary k ≥ 4 and assume k² ≤ 2ᵏ. We want (k + 1)² ≤ 2ᵏ⁺¹."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Step",
+                "Justification"
+              ],
+              "rows": [
+                [
+                  "(k + 1)² = k² + 2k + 1",
+                  "Expand the square."
+                ],
+                [
+                  "k² + 2k + 1 ≤ 2k²",
+                  "Because 2k + 1 ≤ k² for k ≥ 4."
+                ],
+                [
+                  "2k² ≤ 2·2ᵏ",
+                  "IH, multiplied by the positive number 2."
+                ],
+                [
+                  "2·2ᵏ = 2ᵏ⁺¹",
+                  "Exponent rule."
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "To justify the bridge, k² − (2k + 1) = (k − 1)² − 2 ≥ 9 − 2 = 7 when k ≥ 4. Thus each inequality has the required direction. Induction proves the stated range."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Factorials give another useful pattern. The notation n! means 1·2·⋯·n, and (k + 1)! = (k + 1)k!. For example, 3ⁿ < n! for every n ≥ 7: the basis is 2,187 < 5,040. Assuming 3ᵏ < k!, we get 3ᵏ⁺¹ = 3·3ᵏ < 3k! < (k + 1)k! = (k + 1)!, since k + 1 > 3 and k! is positive."
+        },
+        {
+          "type": "check",
+          "prompt": "If the step only works for k ≥ 4, can a basis at n = 2 establish every case n ≥ 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. You have not connected 2 to 3 or 3 to 4. You must either prove those transitions, supply the necessary initial cases for a suitable argument, or state a theorem beginning at 4. Here the proposed square inequality is actually false at 3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.4, §5.1.7, printed pages 335, 340–341."
+        }
+      ]
+    },
+    {
+      "id": "harmonic",
+      "title": "6. Induct on a parameter, not necessarily the visible size",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Define Hₘ = 1 + 1/2 + ⋯ + 1/m for a positive integer m. These are the harmonic sums. A useful bound is H_(2ⁿ) ≥ 1 + n/2 for every integer n ≥ 0. Here H_(2ⁿ) means the sum ending at 1/(2ⁿ); it does not mean (H₂)ⁿ. We induct on n, while the number of terms doubles."
+        },
+        {
+          "type": "example",
+          "title": "Group the newly added terms",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis: n = 0 gives H₁ = 1 ≥ 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: for k ≥ 0 assume H_(2ᵏ) ≥ 1 + k/2. To reach H_(2ᵏ⁺¹), add the reciprocals with denominators 2ᵏ + 1 through 2ᵏ⁺¹."
+            },
+            {
+              "type": "paragraph",
+              "text": "There are exactly 2ᵏ new terms. Each is at least 1/(2ᵏ⁺¹), because its positive denominator is no larger than 2ᵏ⁺¹. Their total is therefore at least 2ᵏ/(2ᵏ⁺¹) = 1/2."
+            },
+            {
+              "type": "math",
+              "notation": "H_(2ᵏ⁺¹) ≥ H_(2ᵏ) + 1/2 ≥ 1 + k/2 + 1/2 = 1 + (k + 1)/2",
+              "description": "The new block contributes at least one half, then the inductive hypothesis bounds the old block."
+            },
+            {
+              "type": "paragraph",
+              "text": "This proves the next case and hence the bound for all n ≥ 0. Since 1 + n/2 grows without bound, the harmonic sums cannot stay below one fixed number."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "When k = 2, which terms form the new block, and what lower bound do they give?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The block is 1/5 + 1/6 + 1/7 + 1/8. It has four terms, each at least 1/8, so its sum is at least 4/8 = 1/2. It is actually greater than 1/2; a lower bound need not be an exact value."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.7, printed pages 341–342."
+        }
+      ]
+    },
+    {
+      "id": "divisibility",
+      "title": "7. Expose a known multiple inside the next expression",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To say d divides x means x = dt for some integer t. We write d ∣ x. Zero is divisible by every nonzero integer d, since 0 = d·0. In an induction proof, try to express the next value as a multiple of the old value plus an obvious multiple of d."
+        },
+        {
+          "type": "example",
+          "title": "Show that 4 divides 5ⁿ − 1 for all n ≥ 0",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis: 5⁰ − 1 = 0 = 4·0."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: for an arbitrary k ≥ 0, assume 5ᵏ − 1 = 4t for some integer t. Then:"
+            },
+            {
+              "type": "math",
+              "notation": "5ᵏ⁺¹ − 1 = 5(5ᵏ − 1) + 4 = 5·4t + 4 = 4(5t + 1)",
+              "description": "Rewrite the next expression to expose the known multiple of four."
+            },
+            {
+              "type": "paragraph",
+              "text": "Because 5t + 1 is an integer, the next expression is a multiple of 4. This completes the induction."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A polynomial version",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For every n ≥ 1, the integer n³ − n is divisible by 6. The basis n = 1 gives zero. For the step, expand:"
+            },
+            {
+              "type": "math",
+              "notation": "(k + 1)³ − (k + 1) = (k³ − k) + 3k(k + 1)",
+              "description": "Separate the old cubic expression from the increment."
+            },
+            {
+              "type": "paragraph",
+              "text": "The first part is divisible by 6 by the IH. One of the consecutive integers k and k + 1 is even, so k(k + 1) = 2s for some integer s. The extra part is 3·2s = 6s. Their sum is divisible by 6, which proves the next case."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why would “5ᵏ − 1 is divisible by 4, so 5ᵏ⁺¹ − 1 is too” be incomplete?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It skips the reason the property survives the change in exponent. The identity 5ᵏ⁺¹ − 1 = 5(5ᵏ − 1) + 4 supplies that connection. Induction needs a justified implication, not just a similar-looking expression."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.7, printed pages 342–344."
+        }
+      ]
+    },
+    {
+      "id": "sets",
+      "title": "8. Use induction to count and combine sets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A set is a collection of distinct objects. A subset selects some of those objects, possibly none or all. If a set has n elements, it has 2ⁿ subsets. The empty set, written ∅, is itself the only subset when n = 0."
+        },
+        {
+          "type": "example",
+          "title": "Add one new element",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis: an empty set has 1 = 2⁰ subset. Hypothesis: assume every k-element set has 2ᵏ subsets. Take any set with k + 1 elements and remove one element x to obtain a k-element set S."
+            },
+            {
+              "type": "paragraph",
+              "text": "Every subset of the larger set either leaves x out or includes x. For every subset Y of S, these two options are Y and Y ∪ {x}. The symbol ∪ means union: combine the elements. Both groups have 2ᵏ members by the IH, the groups do not overlap, and together they contain every subset. Thus the count is 2·2ᵏ = 2ᵏ⁺¹. Induction proves the claim."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Subset of {a, b}",
+            "Without new element c",
+            "With new element c"
+          ],
+          "rows": [
+            [
+              "∅",
+              "∅",
+              "{c}"
+            ],
+            [
+              "{a}",
+              "{a}",
+              "{a, c}"
+            ],
+            [
+              "{b}",
+              "{b}",
+              "{b, c}"
+            ],
+            [
+              "{a, b}",
+              "{a, b}",
+              "{a, b, c}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Induction also extends identities from two sets to many sets. Fix one universal set U. Write Aᶜ for the elements of U outside A, and A ∩ B for the elements in both A and B. The generalized De Morgan identity is (A₁ ∩ ⋯ ∩ Aₙ)ᶜ = A₁ᶜ ∪ ⋯ ∪ Aₙᶜ for n ≥ 2."
+        },
+        {
+          "type": "example",
+          "title": "Treat the first k sets as one group",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 2: not belonging to both sets means failing membership in at least one, so (A₁ ∩ A₂)ᶜ = A₁ᶜ ∪ A₂ᶜ."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: the identity holds for any k sets. Let B = A₁ ∩ ⋯ ∩ Aₖ. Apply the two-set law to (B ∩ Aₖ₊₁)ᶜ to get Bᶜ ∪ Aₖ₊₁ᶜ. Use the IH to replace Bᶜ by A₁ᶜ ∪ ⋯ ∪ Aₖᶜ. This is the required union of all k + 1 complements. All complements must refer to the same U."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does the empty set have zero subsets?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It has one subset: ∅. This is why the basis is 2⁰ = 1. Confusing the number of elements with the number of subsets would break the count at its starting case."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.7, printed pages 344–346."
+        }
+      ]
+    },
+    {
+      "id": "scheduling",
+      "title": "9. Explain why a greedy choice can be safe",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose talks have fixed start and finish times, each start strictly before its finish. A room can host one talk at a time; a talk may start exactly when the previous one ends. We want the largest number of talks, with all talks counted equally. A greedy rule chooses the earliest-finishing available talk, then repeats among talks starting at or after that finish."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Talk",
+            "Start",
+            "Finish"
+          ],
+          "rows": [
+            [
+              "A",
+              "0",
+              "5"
+            ],
+            [
+              "B",
+              "1",
+              "2"
+            ],
+            [
+              "C",
+              "2",
+              "4"
+            ],
+            [
+              "D",
+              "4",
+              "6"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The rule selects B, C, D: three talks. Choosing the earliest-starting talk A would leave only one talk in this example. But an example does not establish that earliest finish always works; we need a proof."
+        },
+        {
+          "type": "example",
+          "title": "Exchange first, then apply induction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let P(n) say that for every finite instance where greedy selects n talks, no valid schedule contains more than n. Basis n = 0: if no talk is selected, there are no candidate talks, so the empty schedule is optimal."
+            },
+            {
+              "type": "paragraph",
+              "text": "For the step, consider an instance where greedy selects k + 1 talks and let g be its first talk. Start with an optimal schedule and call its first talk h. Because g finishes no later than h, replacing h with g leaves every later talk compatible. Therefore an optimal schedule exists that starts with g."
+            },
+            {
+              "type": "paragraph",
+              "text": "After g, consider the remaining candidate talks that start at or after its finish. Greedy selects k of them. The IH applies to this smaller instance and says that no continuation can contain more than k talks. Thus no optimal schedule starting with g has more than k + 1 talks. Since such an optimal schedule exists, greedy is optimal."
+            },
+            {
+              "type": "paragraph",
+              "text": "The conclusion follows for every n ≥ 0 by induction. The IH must cover every input instance with that output count, because the continuation is a new instance."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Would this prove earliest finish maximizes total payment when talks have different payments?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The exchange preserves the number of talks but might replace a high-payment talk with a low-payment one. The theorem and proof are about the largest count of nonoverlapping talks."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.7, printed pages 346–347."
+        }
+      ]
+    },
+    {
+      "id": "nearest-neighbor",
+      "title": "10. Choose an index that matches the reduction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Consider 2n + 1 people, with n ≥ 1, whose pairwise distances are all different. Each sends one message to their nearest other person. We claim at least one person receives no message. Distinct distances ensure each nearest neighbor is unique. Induct on n, so the group size grows by two."
+        },
+        {
+          "type": "example",
+          "title": "Remove the closest pair",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 1: there are three people. The closest pair sends to each other, and the third sends to one of that pair. Nobody sends to the third person."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: assume the claim for every allowed arrangement of 2k + 1 people. For 2k + 3 people, let A and B be the closest pair. They send to each other."
+            },
+            {
+              "type": "paragraph",
+              "text": "Case 1: someone else also sends to A or B. At least three of the 2k + 3 messages go to those two people. At most 2k messages remain for the other 2k + 1 people. They cannot each receive one, so at least one receives none."
+            },
+            {
+              "type": "paragraph",
+              "text": "Case 2: nobody else sends to A or B. Remove A and B. Every remaining person’s nearest neighbor remains the same, because none had chosen A or B. Distances among the remaining 2k + 1 people still satisfy the assumptions. By the IH, someone receives no message in that smaller group. Restoring A and B adds only their messages to each other, so that person still receives none."
+            },
+            {
+              "type": "paragraph",
+              "text": "Both cases establish the next step. The conclusion follows for every odd group size at least three."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why can we not remove any arbitrary pair and immediately use the same reasoning?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Removing a person can change somebody else’s nearest neighbor. The proof uses the closest pair to know their own choices, then separates the case where other people choose that pair from the case where all remaining choices stay unchanged."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.7, printed pages 347–348."
+        }
+      ]
+    },
+    {
+      "id": "tiling",
+      "title": "11. Strengthen the claim enough to reuse it",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An L-shaped tile covers three squares of a 2 × 2 block. We claim that a 2ⁿ × 2ⁿ board with any one square removed can be covered exactly by these tiles, without overlaps, for every n ≥ 1. “Any one square” is essential: the missing square need not be a corner."
+        },
+        {
+          "type": "example",
+          "title": "Make four smaller instances of the same problem",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 1: the remaining three squares of a 2 × 2 board form one L tile."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: for an arbitrary k ≥ 1, every 2ᵏ × 2ᵏ board with any one missing square can be tiled. Split a 2ᵏ⁺¹ × 2ᵏ⁺¹ board into four equal quadrants. The real missing square is in one quadrant."
+            },
+            {
+              "type": "paragraph",
+              "text": "Place one L tile at the center, covering the center-adjacent square of each of the other three quadrants. Now each quadrant has exactly one square unavailable: the real hole in one, and a square already covered by the center tile in each of the others."
+            },
+            {
+              "type": "paragraph",
+              "text": "Apply the IH separately to all four quadrants. Their tilings are disjoint and fill all squares except those already accounted for. Together with the center tile, they tile the original board. This proves the next case and completes induction."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "A 4 × 4 example: one hole and one central L tile",
+          "src": "assets/induction-tiling.svg",
+          "description": "A four by four board is divided into four two by two quadrants. The hole is at row one, column one. One central L tile covers squares (2,3), (3,2), and (3,3), giving each other quadrant one occupied square. Each quadrant has exactly three remaining squares to tile."
+        },
+        {
+          "type": "paragraph",
+          "text": "For a 4 × 4 board, the four smaller boards need one tile each and the central placement adds one, for five tiles total. For side 2ⁿ, the number of tiles is (4ⁿ − 1)/3. Area divisibility is a necessary check, but the construction proves that a tiling actually exists."
+        },
+        {
+          "type": "check",
+          "prompt": "Would an IH that only covers boards with a missing outer corner be enough for this proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The quadrant containing the original hole may have its hole anywhere, so the proof needs the claim for every missing-square location. Strengthening the statement can make the step possible, even though the statement sounds harder."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.7, printed pages 348–349."
+        }
+      ]
+    },
+    {
+      "id": "induction-errors",
+      "title": "12. Test the first transition and look for hidden assumptions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A proof can have a correct basis and an invalid step. In particular, a construction that works for large k may fail at the first required k. Always substitute that smallest value into the step before trusting it."
+        },
+        {
+          "type": "example",
+          "title": "An overlap that disappears",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A false argument claims every group of n cards has the same color. A one-card group does. For k + 1 cards, the argument removes the last card and applies the IH to the first k; then it removes the first card and applies the IH to the last k. It claims an overlapping card connects the colors of both groups."
+            },
+            {
+              "type": "paragraph",
+              "text": "At k = 1, the two one-card groups have no card in common. A red card and a blue card satisfy the separate one-card claims without having the same color. The step from 1 to 2 is missing, so induction never gets started beyond the basis."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The textbook’s nonparallel-lines example has a related gap: two overlapping groups need at least two shared distinct lines to force their intersection points to agree. In the transition from two lines to three, the groups share only one line. Three sides of a triangle give a counterexample: every pair meets, but no point lies on all three."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Common gap",
+            "What to check"
+          ],
+          "rows": [
+            [
+              "No basis",
+              "Does the first claim actually hold? A conditional chain alone proves no starting claim."
+            ],
+            [
+              "Assumed goal",
+              "Did you use P(k + 1) to establish P(k + 1)?"
+            ],
+            [
+              "Bad lower bound",
+              "Does the step work at the first required k?"
+            ],
+            [
+              "Wrong parameter",
+              "Does increasing your index by one change the object the way you claim?"
+            ],
+            [
+              "Changed setting",
+              "Does the smaller object still satisfy every assumption?"
+            ],
+            [
+              "Too weak an IH",
+              "Does the hypothesis cover all the smaller objects you need?"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Suppose you can prove “if n = n + 1, then n + 1 = n + 2.” Does that establish that every positive integer equals its successor?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The implication can be obtained by adding 1 to both sides of a temporary assumption, but the basis 1 = 2 is false. There is no valid starting claim to propagate."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.8, printed pages 349–350."
+        }
+      ]
+    },
+    {
+      "id": "why-induction",
+      "title": "13. Understand why there cannot be a first failure",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The well-ordering property says every nonempty set of nonnegative integers has a least element. It is the reason a correct basis and step leave no place for an induction proof to fail. Section 5.2 develops this idea further."
+        },
+        {
+          "type": "example",
+          "title": "A smallest-counterexample argument",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose P(b) is true and P(k) implies P(k + 1) for all integers k ≥ b, but some claim at or above b is false. The failing indices have a smallest member m: translate them by subtracting b to apply well-ordering to nonnegative integers."
+            },
+            {
+              "type": "paragraph",
+              "text": "Because the basis holds, m > b. Since m is the first failure, P(m − 1) is true. The step applies at k = m − 1 and gives P(m), contradicting the choice of m. Therefore no failure exists."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The conclusion covers infinitely many integers without checking them one by one. The inductive step is one argument for an arbitrary index; it is not an infinitely long list of calculations. Small tests remain useful for discovering errors and suggesting conjectures, but they do not replace that argument."
+        },
+        {
+          "type": "check",
+          "prompt": "Where is the basis used in the smallest-counterexample proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It rules out m = b. That ensures m − 1 is still in the permitted range, where the step and the “no earlier failure” reasoning apply."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.1.3, §5.1.6, printed pages 334–336."
+        }
+      ]
+    },
+    {
+      "id": "induction-recap",
+      "title": "14. Write a proof someone else can check",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Write this part",
+            "Make it explicit"
+          ],
+          "rows": [
+            [
+              "Claim and range",
+              "State P(n), the integer parameter, and the first allowed value b."
+            ],
+            [
+              "Basis",
+              "Substitute b and verify the statement."
+            ],
+            [
+              "Hypothesis",
+              "Assume P(k) for an arbitrary fixed k ≥ b."
+            ],
+            [
+              "Target",
+              "Write P(k + 1) with every index replaced correctly."
+            ],
+            [
+              "Argument",
+              "Mark where the IH is used and justify the other steps."
+            ],
+            [
+              "Conclusion",
+              "Invoke induction and state the exact range proved."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Choose the parameter to match the construction: number of terms, exponent, set size, selected-talk count, or board-size exponent. The repeatable step is the heart of the proof. When it naturally needs several earlier sizes rather than just k, strong induction may be the cleaner form."
+        },
+        {
+          "type": "check",
+          "prompt": "For a claim about every integer n ≥ 6, what are the basis and the ordinary inductive step?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Prove P(6). Then, for an arbitrary integer k ≥ 6, assume P(k) and derive P(k + 1). Conclude P(n) for all integers n ≥ 6. This does not establish anything about n below 6."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Continue to Section 5.2 to learn how to use all earlier cases while keeping the same discipline about bases and index ranges."
+        }
+      ]
+    }
+  ]
+}

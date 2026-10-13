@@ -256,16 +256,16 @@
           "id": "5.1",
           "number": "5.1",
           "title": "Mathematical Induction",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/5.1.json",
           "children": []
         },
         {
           "id": "5.2",
           "number": "5.2",
           "title": "Strong Induction and Well-Ordering",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/5.2.json",
           "children": []
         },
         {
