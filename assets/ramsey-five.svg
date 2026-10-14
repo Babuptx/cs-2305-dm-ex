@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="400" viewBox="0 0 760 400" role="img" aria-labelledby="title desc">
+<title id="title">Five vertices without a same-color triangle</title><desc id="desc">All ten pairs of five vertices are joined. The outside cycle is solid red and the remaining five edges are dashed blue. Neither color forms a triangle.</desc>
+<rect width="760" height="400" rx="16" fill="#f4f7f5"/>
+<text x="380" y="35" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle" fill="#17382d" font-weight="600">Five vertices can avoid both kinds of triangle</text>
+<line data-edge="A-B" data-color="red" x1="205.0" y1="83.0" x2="333.4" y2="176.3" stroke="#ae4f38" stroke-width="3"/>
+<line data-edge="A-C" data-color="blue" x1="205.0" y1="83.0" x2="284.4" y2="327.2" stroke="#356b9c" stroke-width="3" stroke-dasharray="9 6"/>
+<line data-edge="A-D" data-color="blue" x1="205.0" y1="83.0" x2="125.6" y2="327.2" stroke="#356b9c" stroke-width="3" stroke-dasharray="9 6"/>
+<line data-edge="A-E" data-color="red" x1="205.0" y1="83.0" x2="76.6" y2="176.3" stroke="#ae4f38" stroke-width="3"/>
+<line data-edge="B-C" data-color="red" x1="333.4" y1="176.3" x2="284.4" y2="327.2" stroke="#ae4f38" stroke-width="3"/>
+<line data-edge="B-D" data-color="blue" x1="333.4" y1="176.3" x2="125.6" y2="327.2" stroke="#356b9c" stroke-width="3" stroke-dasharray="9 6"/>
+<line data-edge="B-E" data-color="blue" x1="333.4" y1="176.3" x2="76.6" y2="176.3" stroke="#356b9c" stroke-width="3" stroke-dasharray="9 6"/>
+<line data-edge="C-D" data-color="red" x1="284.4" y1="327.2" x2="125.6" y2="327.2" stroke="#ae4f38" stroke-width="3"/>
+<line data-edge="C-E" data-color="blue" x1="284.4" y1="327.2" x2="76.6" y2="176.3" stroke="#356b9c" stroke-width="3" stroke-dasharray="9 6"/>
+<line data-edge="D-E" data-color="red" x1="125.6" y1="327.2" x2="76.6" y2="176.3" stroke="#ae4f38" stroke-width="3"/>
+<circle cx="205.0" cy="83.0" r="19" fill="#fff" stroke="#17382d" stroke-width="2"/>
+<text x="205.0" y="89.0" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">A</text>
+<circle cx="333.4" cy="176.3" r="19" fill="#fff" stroke="#17382d" stroke-width="2"/>
+<text x="333.4" y="182.3" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">B</text>
+<circle cx="284.4" cy="327.2" r="19" fill="#fff" stroke="#17382d" stroke-width="2"/>
+<text x="284.4" y="333.2" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">C</text>
+<circle cx="125.6" cy="327.2" r="19" fill="#fff" stroke="#17382d" stroke-width="2"/>
+<text x="125.6" y="333.2" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">D</text>
+<circle cx="76.6" cy="176.3" r="19" fill="#fff" stroke="#17382d" stroke-width="2"/>
+<text x="76.6" y="182.3" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">E</text>
+<line x1="410" y1="125" x2="460" y2="125" stroke="#ae4f38" stroke-width="3"/>
+<text x="477" y="131" font-family="system-ui, sans-serif" font-size="18" text-anchor="start" fill="#17382d" font-weight="400">Solid red edges</text>
+<text x="410" y="167" font-family="system-ui, sans-serif" font-size="19" text-anchor="start" fill="#17382d" font-weight="400">A–B–C–D–E–A</text>
+<line x1="410" y1="223" x2="460" y2="223" stroke="#356b9c" stroke-width="3" stroke-dasharray="9 6"/>
+<text x="477" y="229" font-family="system-ui, sans-serif" font-size="18" text-anchor="start" fill="#17382d" font-weight="400">Dashed blue edges</text>
+<text x="410" y="265" font-family="system-ui, sans-serif" font-size="19" text-anchor="start" fill="#17382d" font-weight="400">A–C–E–B–D–A</text>
+<text x="410" y="310" font-family="system-ui, sans-serif" font-size="17" text-anchor="start" fill="#17382d" font-weight="400">Each color forms a 5-cycle.</text>
+<text x="380" y="375" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#17382d" font-weight="400">Five can fail. Six always force a same-color triangle: R(3, 3) = 6.</text>
+</svg>

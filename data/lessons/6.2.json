@@ -1,0 +1,1021 @@
+{
+  "schemaVersion": 1,
+  "id": "6.2",
+  "title": "The Pigeonhole Principle",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §6.2.1–§6.2.3, printed pages 420–426 (exposition).",
+    "Original companion explanations, examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "pigeons-and-boxes",
+      "title": "1. Identify the objects and their boxes",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If you put more objects than boxes into those boxes, some box must hold at least two objects. The objects can be files, numbers, people, or anything else. The boxes can be categories rather than physical containers."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Five files, four folders",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Place each of five files in exactly one of four folders. Could every folder contain at most one file? No: that would account for at most four files. The fifth file forces a shared folder."
+            }
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Pigeonhole principle",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let k be a positive integer. If at least k + 1 objects are assigned to k boxes, at least one box contains two or more objects."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The proof is a capacity argument: avoiding a collision lets each box hold at most one object, so k boxes hold at most k objects. More than k objects cannot fit without a collision."
+        },
+        {
+          "type": "callout",
+          "title": "What the conclusion promises",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "At least one box has a collision. The principle does not identify that box, require every box to be occupied, or say that exactly two objects are in it. It is a guarantee for every assignment, not a probability estimate."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Do four files in four folders guarantee a shared folder?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. One file in each folder avoids a collision. A collision is possible, but it is not forced. Five files are enough, and four are not."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.1, printed pages 420–421."
+        }
+      ]
+    },
+    {
+      "id": "box-models",
+      "title": "2. Turn categories and functions into boxes",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Situation",
+            "Objects",
+            "Boxes",
+            "First forced collision"
+          ],
+          "rows": [
+            [
+              "Whole-number scores from 0 through 20",
+              "Learners",
+              "21 scores, including 0",
+              "22 learners"
+            ],
+            [
+              "One of four days and six time slots per day",
+              "Appointments",
+              "4 × 6 = 24 day-and-time pairs",
+              "25 appointments"
+            ],
+            [
+              "A function from a 9-element set to an 8-element set",
+              "9 inputs",
+              "8 possible output values",
+              "Two distinct inputs have the same output"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For the appointment example, the relevant category is the complete pair (day, time). Counting only days would guarantee a shared day, not a shared appointment slot."
+        },
+        {
+          "type": "definition",
+          "title": "A function collision",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A function assigns exactly one output to each input. Put input x in the box labeled f(x). For finite sets A and B with |A| > |B|, any function f: A → B sends two distinct inputs to the same output. The bars |A| mean the number of elements in A. Such a function cannot be injective, or one-to-one."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A valid box model assigns every object to exactly one of the counted boxes. Extra unused boxes weaken a bound but do not invalidate it. Omitting possible boxes can make a claimed guarantee false."
+        },
+        {
+          "type": "check",
+          "prompt": "Why do 21 learners not force repeated whole-number scores from 0 through 20?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 21 scores, not 20. Give the learners the distinct scores 0, 1, …, 20. This is a concrete arrangement with no collision."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.1, printed pages 421."
+        }
+      ]
+    },
+    {
+      "id": "generalized-bound",
+      "title": "3. Find how many objects must share some box",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Generalized pigeonhole principle",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For N objects in k boxes, where N and k are positive integers, at least one box contains at least ⌈N/k⌉ objects. The ceiling ⌈x⌉ is the smallest integer greater than or equal to x. For example, ⌈4.6⌉ = 5, while ⌈4⌉ = 4."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Twenty-three submissions, five reviewers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Assign each submission to exactly one reviewer. The average load is 23/5 = 4.6. If everyone had at most four, the reviewers would cover at most 5·4 = 20 submissions. Therefore, at least one reviewer must get at least five."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Reviewer",
+            "A possible load"
+          ],
+          "rows": [
+            [
+              "A",
+              "5"
+            ],
+            [
+              "B",
+              "5"
+            ],
+            [
+              "C",
+              "5"
+            ],
+            [
+              "D",
+              "4"
+            ],
+            [
+              "E",
+              "4"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The displayed loads total 23 and none exceeds 5. Thus 5 is the best universal lower bound on the largest load: six might happen, but is not guaranteed. In general, distribute objects as evenly as possible to show that the ceiling bound is sharp when all assignments are allowed."
+        },
+        {
+          "type": "example",
+          "title": "Why the formula always works",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Set t = ⌈N/k⌉. By the definition of ceiling, t − 1 < N/k. If all k boxes had at most t − 1 objects, the total would be at most k(t − 1) < N. That contradicts having N objects. So some box has at least t."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is guaranteed for 24 objects in six boxes? What changes at 25?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "At 24, some box has at least ⌈24/6⌉ = 4. At 25, some box has at least ⌈25/6⌉ = 5. Do not round down when the quotient is not an integer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.2, printed pages 422."
+        }
+      ]
+    },
+    {
+      "id": "minimum-guarantee",
+      "title": "4. Fill every box just short of the target",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A different question asks for the smallest total that forces r objects in some box. Work backward: how many can you place while keeping every box below r?"
+        },
+        {
+          "type": "math",
+          "notation": "N = k(r − 1) + 1",
+          "description": "For k positive boxes and a positive target r, this many objects force at least r in one box, with no further assignment restrictions."
+        },
+        {
+          "type": "example",
+          "title": "Force five submissions for one of four reviewers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To avoid five, each reviewer can receive at most four. Four reviewers can then handle 4·4 = 16 submissions. The seventeenth forces a fifth submission for somebody. Sixteen is not enough because the loads (4, 4, 4, 4) avoid the target."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "The last safe arrangement and the next object",
+          "src": "assets/pigeonhole-threshold.svg",
+          "description": "Three boxes each contain three dots: nine objects can avoid four in a box. Adding a tenth object to any box forces at least four there. The pictured choice gives loads four, three, three."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Boxes k",
+            "Target r in some box",
+            "Largest total avoiding r",
+            "Smallest total forcing r"
+          ],
+          "rows": [
+            [
+              "4",
+              "5",
+              "16",
+              "17"
+            ],
+            [
+              "3",
+              "4",
+              "9",
+              "10"
+            ],
+            [
+              "7",
+              "2",
+              "7",
+              "8"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A minimum needs two arguments",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Show that your proposed number always forces the target. Then give an arrangement with one fewer that avoids it. Showing only that your number works does not prove it is the smallest."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many items force seven into some one of five categories?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The largest avoiding arrangement is six per category: 5·6 = 30. Therefore 31 force seven in a category, and 30 do not."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.2, printed pages 422–423."
+        }
+      ]
+    },
+    {
+      "id": "some-versus-specific",
+      "title": "5. Distinguish some category from a named category",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A bag contains 8 red, 7 blue, and 6 green beads. Draw without replacement and without seeing the colors. We want a guarantee, so consider the most unhelpful possible draw order."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Goal",
+            "Most draws that can avoid it",
+            "First guaranteed total"
+          ],
+          "rows": [
+            [
+              "Three of some color",
+              "2 red + 2 blue + 2 green = 6",
+              "7"
+            ],
+            [
+              "Three blue beads",
+              "8 red + 6 green + 2 blue = 16",
+              "17"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For some color, the three colors are interchangeable boxes: 3(3 − 1) + 1 = 7. For blue specifically, the worst case uses every nonblue bead before finishing the blue target. The existence of a crowded color box does not say that the box is blue."
+        },
+        {
+          "type": "callout",
+          "title": "Check that the target is possible",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The bag has seven blue beads, so a target of three blue is attainable. A request to guarantee eight blue beads is impossible, even after drawing the whole bag. Supply limits can change worst-case arguments."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many draws guarantee two green beads from this bag?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "First allow all 8 red and 7 blue beads, then one green: 16 draws can still avoid two green. The seventeenth guarantees two green. The target is possible because six green beads exist."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.2, printed pages 423."
+        }
+      ]
+    },
+    {
+      "id": "capacity-and-labels",
+      "title": "6. Use capacity to prove a lower bound and then meet it",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Imagine a code made from a prefix followed by six bits. Each bit is 0 or 1. There are 2⁶ = 64 suffixes for each prefix, and all codes assigned to items must be distinct. How many prefixes are needed for 130 items? This is a fictional code format with no reserved values."
+        },
+        {
+          "type": "example",
+          "title": "Prove both necessity and sufficiency",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Two prefixes provide only 2·64 = 128 complete codes. Assigning 130 items to those 128 codes would force a repeated code, so at least three prefixes are necessary. Three also suffice: use 64 suffixes under the first prefix, 64 under the second, and two under the third."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "⌈130/64⌉ = 3",
+          "description": "The minimum number of prefixes is three; an explicit allocation is 64, 64, 2."
+        },
+        {
+          "type": "paragraph",
+          "text": "This is a capacity lower bound plus a construction. A lower bound by itself does not establish that a design exists. Here the construction establishes that the lower bound is achievable."
+        },
+        {
+          "type": "check",
+          "prompt": "If each prefix had only 50 usable suffixes, would three prefixes still suffice for 130 items?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Two provide only 100 codes; three provide 150. Allocate 50, 50, and 30 codes. The minimum is ⌈130/50⌉ = 3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.2, printed pages 423."
+        }
+      ]
+    },
+    {
+      "id": "connection-design",
+      "title": "7. Prove that a connection design is minimal",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Six workstations W1 through W6 need access to four servers S1 through S4. Each cable joins one workstation directly to one server. A server can serve at most one active workstation at a time. Require that every group of at most four workstations can be assigned different directly connected servers."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Workstations",
+            "Connect to",
+            "Number of cables"
+          ],
+          "rows": [
+            [
+              "W1, W2, W3, W4",
+              "W1–S1, W2–S2, W3–S3, W4–S4",
+              "4"
+            ],
+            [
+              "W5 and W6",
+              "Each of S1, S2, S3, S4",
+              "8"
+            ],
+            [
+              "Total",
+              "All the connections above",
+              "12"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Step 1: show that twelve cables work",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "In any active group, give each active workstation among W1–W4 its own server. If a of these four workstations are active, then 4 − a servers remain. There are at most 4 − a other active workstations, each either W5 or W6. They connect to every server, so assign them different remaining servers."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Step 2: show that fewer cannot work",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "With at most 11 cables, some server has at most two workstation neighbors; otherwise all four servers would have at least three and require at least 12 cables. That server has at least 6 − 2 = 4 nonneighbors. Activate four of those nonneighbors. None can use that server, leaving only three servers for four workstations. A collision is unavoidable. Thus fewer than twelve cables fail the requirement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The construction proves an upper bound of 12. The impossibility argument proves a lower bound of 12. Together they establish the exact minimum."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is it insufficient to show that one particular group of four workstations can connect?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The requirement is every group of at most four. A design can work for one group and fail for another. The construction argument above handles any active group, while the lower-bound argument deliberately chooses a group that would fail."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.2, printed pages 423–424."
+        }
+      ]
+    },
+    {
+      "id": "remainder-boxes",
+      "title": "8. Use remainders as boxes",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a positive integer m, division by m gives one of exactly m remainders: 0, 1, …, m − 1. Put each integer into the box labeled by its remainder. This turns a statement about numbers into a statement about a finite number of boxes."
+        },
+        {
+          "type": "example",
+          "title": "Eight integers and seven remainders",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Among any eight integers, two have the same remainder when divided by 7. Call them a and b. Write a = 7q + r and b = 7s + r. Subtracting cancels r, giving a − b = 7(q − s), a multiple of 7."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The integers need not be consecutive or positive. If they are distinct, their difference is nonzero. If repeated values are allowed, two different positions might contain the same integer, giving difference zero, which is still divisible by 7."
+        },
+        {
+          "type": "check",
+          "prompt": "Do equal remainders mean equal integers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. For example, 10 and 24 both leave remainder 3 on division by 7. Their difference is 14. A box records only the remainder, not the whole integer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.1, printed pages 422."
+        }
+      ]
+    },
+    {
+      "id": "zero-one-multiple",
+      "title": "9. Build a decimal multiple using only zeros and ones",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For every positive integer n, some positive multiple of n has a decimal expansion containing only the digits 0 and 1. This is an existence claim; the number need not be small."
+        },
+        {
+          "type": "example",
+          "title": "Choose objects whose difference has the desired shape",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1. Let Rj be the decimal integer made of j ones: R1 = 1, R2 = 11, R3 = 111, and so on. Use the n + 1 integers R1 through R(n+1)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2. Put them into the n remainder boxes for division by n. Two distinct numbers, say Ra and Rb with a > b, have the same remainder. Therefore Ra − Rb is a positive multiple of n."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3. Subtract the shorter string of ones from the longer one. The last b digits become zeros and the preceding a − b digits stay ones. There is no borrowing. The result has only 0s and 1s."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Example with n = 7",
+            "Value",
+            "Remainder on division by 7"
+          ],
+          "rows": [
+            [
+              "R1",
+              "1",
+              "1"
+            ],
+            [
+              "R7",
+              "1111111",
+              "1"
+            ],
+            [
+              "R7 − R1",
+              "1111110",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Indeed, 1111110 = 7·158730. The proof guarantees a suitable pair for every positive n; this table illustrates one such pair. The proof does not say that every pair of strings of ones has equal remainder."
+        },
+        {
+          "type": "check",
+          "prompt": "For n = 5, why do 1 and 11 produce a useful multiple?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They both have remainder 1 on division by 5. Their difference is 10 = 5·2, which uses only the permitted digits. Decimal notation matters here: these are ordinary base-ten integers, not binary representations."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.1, printed pages 422."
+        }
+      ]
+    },
+    {
+      "id": "prefix-totals",
+      "title": "10. Turn a consecutive interval into a difference of totals",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A learner finishes at least one practice task on each of twelve days and at most seventeen tasks overall. Show that some consecutive stretch of days contains exactly six completed tasks."
+        },
+        {
+          "type": "definition",
+          "title": "Cumulative total",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let aj be the total through day j. Because each day contributes at least one task, a1 < a2 < ⋯ < a12, and every aj is an integer between 1 and 17. A difference ai − aj counts tasks on days j + 1 through i."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Create two families that must collide",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1. List the twelve totals a1, …, a12 and the twelve shifted totals a1 + 6, …, a12 + 6."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2. These are 24 entries, all integers between 1 and 23. Treat each possible value as a box. Twenty-four entries in twenty-three boxes force two entries to be equal."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3. Totals within the first family are distinct; shifted totals within the second family are also distinct. Therefore the collision crosses the families: ai = aj + 6."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 4. Since ai > aj and the totals strictly increase, i > j. The consecutive days j + 1 through i contain ai − aj = 6 tasks."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Day",
+            "Tasks that day",
+            "Cumulative total"
+          ],
+          "rows": [
+            [
+              "1",
+              "1",
+              "1"
+            ],
+            [
+              "2",
+              "2",
+              "3"
+            ],
+            [
+              "3",
+              "1",
+              "4"
+            ],
+            [
+              "4",
+              "1",
+              "5"
+            ],
+            [
+              "5",
+              "2",
+              "7"
+            ],
+            [
+              "6",
+              "1",
+              "8"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In this possible beginning of a schedule, a5 − a1 = 7 − 1 = 6, so days 2 through 5 form the desired stretch. The proof covers every schedule satisfying the hypotheses, not just this one."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does the proof require at least one task every day?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It makes the cumulative totals strictly increasing. If zero-task days were allowed, a collision could occur within one family and would not establish a difference of six. In fact, completing one task on day 1 and zero thereafter satisfies a total of at most seventeen but never produces six tasks."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.3, printed pages 424."
+        }
+      ]
+    },
+    {
+      "id": "odd-part-boxes",
+      "title": "11. Group integers by their odd part",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose n + 1 distinct positive integers from {1, 2, …, 2n}, where n is positive. At least one chosen integer divides another. Ordinary remainder boxes are not the useful choice here."
+        },
+        {
+          "type": "definition",
+          "title": "Odd part",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Repeatedly divide a positive integer by 2 while it is even. What remains is its unique odd part q. The original integer has the form 2ᵏq for a nonnegative integer k. For example, 24 = 2³·3 has odd part 3, and 5 = 2⁰·5 has odd part 5."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Why two numbers must be related",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "There are only n possible odd parts up to 2n: 1, 3, …, 2n − 1. Assign each of the n + 1 selected numbers to its odd-part box. Two share an odd part q. Write them as 2ᵃq and 2ᵇq with a < b; their distinctness ensures the exponents differ. The larger is 2ᵇ⁻ᵃ times the smaller, so the smaller divides the larger."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Chosen numbers when n = 5",
+            "Odd-part boxes"
+          ],
+          "rows": [
+            [
+              "2, 4, 8",
+              "1"
+            ],
+            [
+              "3, 6",
+              "3"
+            ],
+            [
+              "10",
+              "5"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These six distinct numbers lie in {1, …, 10}. The table makes the forced relationships visible: 2 divides 4 and 8, and 3 divides 6."
+        },
+        {
+          "type": "check",
+          "prompt": "Does having the same odd part mean that the two numbers differ by 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It means their ratio, with the larger on top, is a power of 2. For example, 6 and 24 share odd part 3, and 24/6 = 4."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.3, printed pages 424."
+        }
+      ]
+    },
+    {
+      "id": "monotone-subsequences",
+      "title": "12. Find order inside a scrambled sequence",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Subsequence and monotonicity",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A subsequence keeps some terms in their original order; they do not have to be consecutive. It is strictly increasing if each retained value is larger than the previous one, and strictly decreasing if each is smaller. You may skip terms, but you may not reorder them."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a positive integer n, every sequence of n² + 1 distinct real numbers has an increasing or decreasing subsequence of length n + 1. For example, any five distinct real numbers force a monotone subsequence of length three."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Term in the sequence 4, 1, 5, 2, 6",
+            "Longest increasing length starting here: I",
+            "Longest decreasing length starting here: D"
+          ],
+          "rows": [
+            [
+              "4",
+              "3",
+              "2"
+            ],
+            [
+              "1",
+              "3",
+              "1"
+            ],
+            [
+              "5",
+              "2",
+              "2"
+            ],
+            [
+              "2",
+              "2",
+              "1"
+            ],
+            [
+              "6",
+              "1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The increasing subsequence 1, 2, 6 skips the 5. The table counts lengths including the starting term itself. For example, 4, 5, 6 has length three."
+        },
+        {
+          "type": "example",
+          "title": "Proof: use pairs of lengths as boxes",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1. Assume, for a contradiction, that no increasing or decreasing subsequence reaches n + 1 terms. For each position, label its term with (I, D), the longest increasing and decreasing lengths starting there. Both lengths are in {1, …, n}, so there are at most n² labels."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2. There are n² + 1 positions, so two positions share a label. Call the earlier value x and the later value y."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3. If x < y, put x before a longest increasing subsequence starting at y. This gives an increasing subsequence starting at x that is one term longer. Their I labels cannot be equal."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 4. If x > y, the same construction with a decreasing subsequence makes the D label at x larger. Distinctness guarantees that one of these two cases applies. Both contradict equal labels, proving the result."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can nine distinct numbers avoid an increasing or decreasing subsequence of length four?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Use 3, 2, 1, 6, 5, 4, 9, 8, 7. An increasing subsequence takes at most one term from each decreasing block, so its length is at most three. A decreasing subsequence stays inside one block because every later block has larger values, so it also has length at most three. Ten distinct terms force length four."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Keep the hypotheses",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Distinctness is necessary for this strict version: a sequence of equal numbers has no strictly increasing or decreasing pair. Also, the theorem guarantees one of the two directions, not necessarily both."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.3, printed pages 424–425."
+        }
+      ]
+    },
+    {
+      "id": "ramsey-triangles",
+      "title": "13. Force a same-color triangle",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Draw six points and connect every pair by exactly one edge. Color each edge red or blue. We will prove that some three points form a triangle whose three edges all have the same color. This is a precise version of the textbook’s mutual-friend or mutual-enemy model; the edges represent symmetric, exhaustive alternatives."
+        },
+        {
+          "type": "example",
+          "title": "Use pigeonhole once, then split into cases",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Pick any point A. Its five edges to the other points use two colors, so at least ⌈5/2⌉ = 3 have the same color. Suppose A connects in red to B, C, and D."
+            },
+            {
+              "type": "paragraph",
+              "text": "If any edge among B, C, and D is red, its endpoints together with A form a red triangle. If none is red, all three edges among B, C, and D are blue, so they form a blue triangle."
+            },
+            {
+              "type": "paragraph",
+              "text": "If the three edges from A were blue instead, interchange red and blue in the argument. Either way a same-color triangle exists."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Five points can still avoid a same-color triangle",
+          "src": "assets/ramsey-five.svg",
+          "description": "Five vertices A, B, C, D, E. The five edges around the outside cycle are solid red. The five remaining edges are dashed blue. Neither color contains a triangle, showing that five vertices do not force one."
+        },
+        {
+          "type": "paragraph",
+          "text": "The diagram proves five points do not suffice. Each color forms a five-edge cycle, which has no triangle. Since six always work and five can fail, the threshold is exactly six."
+        },
+        {
+          "type": "definition",
+          "title": "Ramsey number",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For integers m, n ≥ 2, R(m, n) is the smallest number of vertices that forces either an all-red group of m vertices or an all-blue group of n vertices when every pair is colored. Within such a group, every pair must have the stated color. We have proved R(3, 3) = 6."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Two further facts follow directly: R(m, n) = R(n, m) by swapping colors, and R(2, n) = n. For the second fact, n vertices either contain a red edge or have every edge blue; n − 1 vertices with all edges blue show the lower bound."
+        },
+        {
+          "type": "check",
+          "prompt": "Why are three red edges from A alone insufficient to finish the proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They form a three-armed star. A triangle also needs an edge between two of the outer vertices. The case split examines those missing edges and produces a red triangle or a blue one."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2.3, printed pages 425–426."
+        }
+      ]
+    },
+    {
+      "id": "pigeonhole-recap",
+      "title": "14. Build a guarantee that survives the worst case",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "Method",
+            "What to justify"
+          ],
+          "rows": [
+            [
+              "Must two objects share a category?",
+              "More objects than boxes",
+              "Every object has one of the counted categories."
+            ],
+            [
+              "How crowded must some box be?",
+              "⌈N/k⌉",
+              "Use the ceiling, not rounding to the nearest integer."
+            ],
+            [
+              "Smallest total forcing r in some box?",
+              "k(r − 1) + 1",
+              "Exhibit r − 1 in each box to prove minimality."
+            ],
+            [
+              "Force r in one named category?",
+              "Count all ways to delay that category",
+              "Respect the available supply."
+            ],
+            [
+              "Prove an existence statement about numbers?",
+              "Design remainder, odd-part, total, or label boxes",
+              "Explain what sharing a box implies."
+            ],
+            [
+              "Prove a minimum design size?",
+              "Lower bound plus construction",
+              "Show both impossibility below it and feasibility at it."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Thirty-one tasks are assigned to six teams. What load must some team have?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "At least ⌈31/6⌉ = 6. If every team had at most five, only 30 tasks would be assigned. The loads 6, 5, 5, 5, 5, 5 show that seven is not guaranteed."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many appointments force a repeated day-and-time pair if there are three days and five slots each?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 3·5 = 15 boxes. Sixteen appointments force a collision. Fifteen can avoid one by using every slot exactly once."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The central habit is to name the objects, name the boxes, compare their counts, and translate a collision back into the statement you want. For minimum questions, also show why one fewer can fail."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.2, printed pages 420–426."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="340" viewBox="0 0 760 340" role="img" aria-labelledby="title desc">
+<title id="title">The tenth object forces a box of four</title><desc id="desc">Three boxes can each hold three objects without reaching four. Nine objects can avoid the target. A tenth object in any box forces at least four there.</desc>
+<rect width="760" height="340" rx="16" fill="#f4f7f5"/>
+<text x="380" y="36" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle" fill="#17382d" font-weight="600">Three boxes · target: four in some box</text>
+<text x="180" y="80" font-family="system-ui, sans-serif" font-size="17" text-anchor="middle" fill="#17382d" font-weight="400">9 objects: the target can be avoided</text>
+<rect x="25" y="105" width="96" height="140" rx="12" fill="#fff" stroke="#80988e" stroke-width="2"/>
+<circle cx="53" cy="143" r="12" fill="#28624f"/>
+<circle cx="93" cy="143" r="12" fill="#28624f"/>
+<circle cx="53" cy="187" r="12" fill="#28624f"/>
+<text x="73" y="230" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">3</text>
+<rect x="132" y="105" width="96" height="140" rx="12" fill="#fff" stroke="#80988e" stroke-width="2"/>
+<circle cx="160" cy="143" r="12" fill="#28624f"/>
+<circle cx="200" cy="143" r="12" fill="#28624f"/>
+<circle cx="160" cy="187" r="12" fill="#28624f"/>
+<text x="180" y="230" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">3</text>
+<rect x="239" y="105" width="96" height="140" rx="12" fill="#fff" stroke="#80988e" stroke-width="2"/>
+<circle cx="267" cy="143" r="12" fill="#28624f"/>
+<circle cx="307" cy="143" r="12" fill="#28624f"/>
+<circle cx="267" cy="187" r="12" fill="#28624f"/>
+<text x="287" y="230" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">3</text>
+<text x="180" y="289" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle" fill="#17382d" font-weight="400">3 + 3 + 3 = 9</text>
+<text x="570" y="80" font-family="system-ui, sans-serif" font-size="17" text-anchor="middle" fill="#17382d" font-weight="400">10 objects: the target is forced</text>
+<rect x="415" y="105" width="96" height="140" rx="12" fill="#fff" stroke="#80988e" stroke-width="2"/>
+<circle cx="443" cy="143" r="12" fill="#28624f"/>
+<circle cx="483" cy="143" r="12" fill="#28624f"/>
+<circle cx="443" cy="187" r="12" fill="#28624f"/>
+<circle cx="483" cy="187" r="12" fill="#b36831"/>
+<text x="463" y="230" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">4</text>
+<rect x="522" y="105" width="96" height="140" rx="12" fill="#fff" stroke="#80988e" stroke-width="2"/>
+<circle cx="550" cy="143" r="12" fill="#28624f"/>
+<circle cx="590" cy="143" r="12" fill="#28624f"/>
+<circle cx="550" cy="187" r="12" fill="#28624f"/>
+<text x="570" y="230" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">3</text>
+<rect x="629" y="105" width="96" height="140" rx="12" fill="#fff" stroke="#80988e" stroke-width="2"/>
+<circle cx="657" cy="143" r="12" fill="#28624f"/>
+<circle cx="697" cy="143" r="12" fill="#28624f"/>
+<circle cx="657" cy="187" r="12" fill="#28624f"/>
+<text x="677" y="230" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600">3</text>
+<text x="570" y="289" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle" fill="#17382d" font-weight="400">4 + 3 + 3 = 10</text>
+<text x="380" y="183" font-family="system-ui, sans-serif" font-size="30" text-anchor="middle" fill="#17382d" font-weight="400">→</text>
+<text x="380" y="323" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="400">The extra object could enter any of the three boxes.</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="340" viewBox="0 0 760 340" role="img" aria-labelledby="title desc">
+<title id="title">Six orders, one team</title><desc id="desc">ABC, ACB, BAC, BCA, CAB, and CBA are six ordered selections with the same three members. Forgetting order maps all six to the team {A, B, C}.</desc>
+<rect width="760" height="340" rx="16" fill="#f4f7f5"/>
+<text x="380" y="35" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle" fill="#17382d" font-weight="600">Order creates six descriptions of one team</text>
+<text x="190" y="76" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#17382d" font-weight="400">Ordered selections</text>
+<text x="590" y="76" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#17382d" font-weight="400">Unordered selection</text>
+<rect x="55" y="100" width="125" height="48" rx="9" fill="#fff" stroke="#80988e"/>
+<text x="117.5" y="131" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600">ABC</text>
+<rect x="200" y="100" width="125" height="48" rx="9" fill="#fff" stroke="#80988e"/>
+<text x="262.5" y="131" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600">ACB</text>
+<rect x="55" y="165" width="125" height="48" rx="9" fill="#fff" stroke="#80988e"/>
+<text x="117.5" y="196" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600">BAC</text>
+<rect x="200" y="165" width="125" height="48" rx="9" fill="#fff" stroke="#80988e"/>
+<text x="262.5" y="196" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600">BCA</text>
+<rect x="55" y="230" width="125" height="48" rx="9" fill="#fff" stroke="#80988e"/>
+<text x="117.5" y="261" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600">CAB</text>
+<rect x="200" y="230" width="125" height="48" rx="9" fill="#fff" stroke="#80988e"/>
+<text x="262.5" y="261" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600">CBA</text>
+<text x="393" y="165" font-family="system-ui, sans-serif" font-size="17" text-anchor="middle" fill="#17382d" font-weight="400">Forget</text>
+<text x="393" y="187" font-family="system-ui, sans-serif" font-size="17" text-anchor="middle" fill="#17382d" font-weight="400">the order</text>
+<text x="393" y="225" font-family="system-ui, sans-serif" font-size="36" text-anchor="middle" fill="#17382d" font-weight="400">→</text>
+<rect x="478" y="133" width="224" height="112" rx="14" fill="#dceee5" stroke="#28624f" stroke-width="2"/>
+<text x="590" y="181" font-family="system-ui, sans-serif" font-size="27" text-anchor="middle" fill="#17382d" font-weight="600">{A, B, C}</text>
+<text x="590" y="219" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#17382d" font-weight="400">one team</text>
+<text x="380" y="315" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#17382d" font-weight="400">Every team of three distinct members has exactly 3! = 6 orders.</text>
+</svg>

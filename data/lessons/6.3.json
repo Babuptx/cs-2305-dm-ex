@@ -1,0 +1,942 @@
+{
+  "schemaVersion": 1,
+  "id": "6.3",
+  "title": "Permutations and Combinations",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §6.3.1–§6.3.3, printed pages 428–434 (exposition).",
+    "Original companion explanations, examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "order-test",
+      "title": "1. Ask whether swapping two choices changes the outcome",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Permutations count ordered selections. Combinations count groups whose internal order does not matter. First describe one finished outcome; then decide which count matches it."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Choose two people from A, B, C, and D. For chair and secretary, (A, B) means A is chair and B is secretary. Swapping them changes the assignment. For a two-person study team with no roles, {A, B} and {B, A} describe the same team."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Team with no roles",
+            "Two different chair–secretary assignments"
+          ],
+          "rows": [
+            [
+              "{A, B}",
+              "(A, B), (B, A)"
+            ],
+            [
+              "{A, C}",
+              "(A, C), (C, A)"
+            ],
+            [
+              "{A, D}",
+              "(A, D), (D, A)"
+            ],
+            [
+              "{B, C}",
+              "(B, C), (C, B)"
+            ],
+            [
+              "{B, D}",
+              "(B, D), (D, B)"
+            ],
+            [
+              "{C, D}",
+              "(C, D), (D, C)"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are six teams but twelve role assignments. In both cases people are distinct and nobody is selected twice. We changed only whether roles distinguish the outcomes."
+        },
+        {
+          "type": "check",
+          "prompt": "Does choosing people one at a time automatically make it a permutation problem?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. What matters is what you record at the end. If you record only the team membership, different selection orders describe the same outcome. If you record assigned roles or the order itself, those orders matter."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.1, printed pages 428."
+        }
+      ]
+    },
+    {
+      "id": "permutation-rule",
+      "title": "2. Fill distinct positions without repeating an object",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Permutation and r-permutation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A permutation of n distinct objects is an ordering of all of them. An r-permutation is an ordered selection of r different objects from the n available. P(n, r) denotes the number of these selections."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Three presentation slots, six speakers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Assume each speaker is eligible for every slot and nobody presents twice. There are six choices for the first slot, five remaining for the second, and four remaining for the third. The product rule gives 6·5·4 = 120 ordered schedules."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "P(n, r) = n(n − 1)⋯(n − r + 1)",
+          "description": "For integers n ≥ 1 and 1 ≤ r ≤ n, multiply r consecutive descending factors."
+        },
+        {
+          "type": "paragraph",
+          "text": "The last factor is n − r + 1 because only r − 1 objects have been used before you fill position r. There are exactly r factors, not n factors unless you fill all n positions."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Slot",
+            "Already used",
+            "Available choices"
+          ],
+          "rows": [
+            [
+              "1",
+              "0",
+              "6"
+            ],
+            [
+              "2",
+              "1",
+              "5"
+            ],
+            [
+              "3",
+              "2",
+              "4"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What if the same speaker may fill multiple slots?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Then each of the three slots has six choices, so the count becomes 6³ = 216. The ordinary P(n, r) formula assumes no repeated object."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.2, printed pages 428–430."
+        }
+      ]
+    },
+    {
+      "id": "factorial-boundaries",
+      "title": "3. Understand factorials and the empty arrangement",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Factorial",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For a positive integer n, n! is the product n(n − 1)⋯2·1. Read it as “n factorial.” Define 0! = 1. This matches the fact that there is exactly one way to arrange no objects: the empty list."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "P(n, r) = n! / (n − r)!",
+          "description": "For integers 0 ≤ r ≤ n, cancel the factors belonging to the objects not placed."
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, P(6, 3) = 6!/3! = (6·5·4·3·2·1)/(3·2·1) = 120. The denominator removes unused factors; it is not correcting for different orders of the chosen three. Their different orders are precisely what we count."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Meaning",
+            "Value"
+          ],
+          "rows": [
+            [
+              "P(6, 6) = 6!",
+              "Arrange all six distinct objects",
+              "720"
+            ],
+            [
+              "P(6, 1)",
+              "Choose one object for one slot",
+              "6"
+            ],
+            [
+              "P(6, 0)",
+              "Fill no slots",
+              "1"
+            ],
+            [
+              "P(0, 0)",
+              "Arrange the empty set",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Stay inside the formula’s domain",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If r > n, no ordered selection of r distinct objects is possible, so its count is zero. Do not substitute into the factorial formula and try to evaluate a negative factorial. This lesson uses n and r as nonnegative integers."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is P(6, 0) one rather than zero?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There is one completed choice with no selected objects: the empty list. Zero would mean no outcome exists. An empty outcome is still an outcome."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.2, printed pages 430."
+        }
+      ]
+    },
+    {
+      "id": "roles-and-restrictions",
+      "title": "4. Count distinct roles under a stated restriction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Nine volunteers, including Ava, are eligible for three distinct jobs: chair, secretary, and treasurer. Nobody may hold more than one job. One outcome is a complete assignment of people to those jobs."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Restriction",
+            "Reason",
+            "Count"
+          ],
+          "rows": [
+            [
+              "None",
+              "9 choices, then 8, then 7",
+              "504"
+            ],
+            [
+              "Ava is chair",
+              "Chair fixed; fill two jobs from eight others",
+              "56"
+            ],
+            [
+              "Ava holds some job",
+              "3 choices for her job; then 8·7 for the others",
+              "168"
+            ],
+            [
+              "Ava holds no job",
+              "Fill all three jobs from the other eight",
+              "336"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For “Ava holds some job,” the cases chair, secretary, and treasurer are disjoint because Ava cannot hold two jobs. This justifies 3·8·7 = 168. It also agrees with complement counting: 504 − 336 = 168."
+        },
+        {
+          "type": "check",
+          "prompt": "Would dividing 504 by 3! still count assignments to these three named jobs?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It would count three-person groups, collapsing all six assignments of the same people into one. The jobs distinguish outcomes, so their order must be retained."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.2, printed pages 430."
+        }
+      ]
+    },
+    {
+      "id": "fixed-positions",
+      "title": "5. Remove fixed positions before arranging the rest",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A route visits seven distinct locations exactly once. It must begin at a specified depot, but the other six locations may appear in any order. We count orders of visits, assuming every order is allowed; we are not finding the shortest route."
+        },
+        {
+          "type": "example",
+          "title": "A fixed start",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The depot contributes one choice. The other six locations occupy six distinct positions, giving 6! = 720 visit orders. If the final location is also fixed and differs from the depot, only five positions remain free, giving 5! = 120."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Saying that the route returns to the depot after all visits adds no new choice. Reversing the order of visits generally gives a different route in this model. A problem that identifies reversals or rotations needs its own equivalence rule before any division."
+        },
+        {
+          "type": "check",
+          "prompt": "Six distinct books occupy a row. One specific book must be first. How many arrangements remain?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Fix that book in position one. Arrange the other five in the five remaining positions: 5! = 120. If that same book had to be both first and last in a six-book row, there would be no valid arrangement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.2, printed pages 430."
+        }
+      ]
+    },
+    {
+      "id": "consecutive-blocks",
+      "title": "6. Treat a required consecutive group as one object",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Arrange the seven distinct letters A, B, C, D, E, F, G in a row. A required string means consecutive letters in the stated order, with nothing inserted between them."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Requirement",
+            "Objects to arrange",
+            "Count"
+          ],
+          "rows": [
+            [
+              "Contains the string CDE",
+              "[CDE], A, B, F, G: five objects",
+              "120"
+            ],
+            [
+              "C, D, E together in any internal order",
+              "Five objects, then 3! internal orders",
+              "720"
+            ],
+            [
+              "Contains both AB and FG",
+              "[AB], [FG], C, D, E: five objects",
+              "120"
+            ],
+            [
+              "Contains both BCD and CDE",
+              "[BCDE], A, F, G: four objects",
+              "24"
+            ],
+            [
+              "Contains both AB and AC",
+              "A would need two different immediate successors",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Why compression counts each result once",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For a fixed CDE block, compress those three adjacent letters into one object. Arrange the resulting five distinct objects in 5! = 120 ways, then expand the block. Compression and expansion reverse each other, so every valid arrangement is counted once."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For C, D, E together in any order, each compressed placement allows 3! = 6 internal orders. For BCD and CDE, the shared letters C and D force the combined block BCDE. Treating the two overlapping strings as independent blocks would use those letters twice."
+        },
+        {
+          "type": "check",
+          "prompt": "How many arrangements contain the fixed string CDE and have A first?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Fix A first. Then arrange [CDE], B, F, G in the remaining block positions: 4! = 24. The internal order CDE is fixed, so there is no extra factor of 3!."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.2, printed pages 431."
+        }
+      ]
+    },
+    {
+      "id": "combination-definition",
+      "title": "7. Describe a combination as a subset",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "r-combination",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An r-combination of a set of n distinct objects is a subset containing r of those objects. The subset has no internal order and no repeated element. C(n, r), read “n choose r,” counts these subsets. The notation with n above r in parentheses is another way to write the same binomial coefficient."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "From five people A, B, C, D, E, a three-person team with no assigned roles is a 3-combination. Listing its names in alphabetical order is just a way to write it consistently; it does not give members different jobs."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "All three-person teams from five people"
+          ],
+          "rows": [
+            [
+              "{A, B, C}"
+            ],
+            [
+              "{A, B, D}"
+            ],
+            [
+              "{A, B, E}"
+            ],
+            [
+              "{A, C, D}"
+            ],
+            [
+              "{A, C, E}"
+            ],
+            [
+              "{A, D, E}"
+            ],
+            [
+              "{B, C, D}"
+            ],
+            [
+              "{B, C, E}"
+            ],
+            [
+              "{B, D, E}"
+            ],
+            [
+              "{C, D, E}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are ten teams, so C(5, 3) = 10. The lists A, B, C and C, A, B name the same team. A, A, B is not a three-person team because it names only two distinct people."
+        },
+        {
+          "type": "check",
+          "prompt": "Is selecting two flavors with permission to repeat a flavor an ordinary 2-combination of flavors?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Ordinary combinations select distinct set elements. Repeated selections need a different model, developed in Section 6.5. First state whether repetition is allowed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.3, printed pages 431."
+        }
+      ]
+    },
+    {
+      "id": "divide-by-orders",
+      "title": "8. Explain why the denominator is r factorial",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Start by counting ordered selections, then group together those with the same members. Every group of r distinct members has exactly r! internal orders."
+        },
+        {
+          "type": "diagram",
+          "title": "Six orders describe one three-person team",
+          "src": "assets/permutation-combination.svg",
+          "description": "The ordered lists ABC, ACB, BAC, BCA, CAB, CBA all map to the same unordered team {A, B, C}. The six-to-one relationship is uniform for every team of three distinct people."
+        },
+        {
+          "type": "math",
+          "notation": "P(n, r) = C(n, r) · r!\nC(n, r) = P(n, r)/r! = n! / [r!(n − r)!]",
+          "description": "For nonnegative integers with 0 ≤ r ≤ n, choose a group and order it, or divide the ordered selections by the number of orders per group."
+        },
+        {
+          "type": "example",
+          "title": "Choose three of seven people",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Ordered triples: 7·6·5 = 210. Each three-person team is counted in 3! = 6 orders. Divide by six to get C(7, 3) = 210/6 = 35 teams."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This is the uniform-multiplicity division rule from Section 6.1. Division works because every team, not just a typical team, has exactly six ordered descriptions. Do not divide by r: for three members there are six orders, not three."
+        },
+        {
+          "type": "check",
+          "prompt": "How many four-person groups can be chosen from seven people?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "P(7, 4) = 7·6·5·4 = 840. Each group appears in 4! = 24 orders, so C(7, 4) = 840/24 = 35. Later we explain why choosing three and choosing four from seven give the same count."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.3, printed pages 431–432."
+        }
+      ]
+    },
+    {
+      "id": "compute-combinations",
+      "title": "9. Cancel before multiplying",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Compute C(15, 4)",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Start with 15!/[4!11!]. Cancel 11! to obtain (15·14·13·12)/(4·3·2·1). Cancel 12 against 4·3, and divide 14 by 2. The result is 15·7·13 = 1365."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "C(15, 4) = 1365",
+          "description": "There are 1365 four-element subsets of a fifteen-element set."
+        },
+        {
+          "type": "paragraph",
+          "text": "You do not need to calculate 15! in full. Canceling first keeps the arithmetic smaller. For large computations, use exact integer arithmetic rather than rounding a floating-point factorial quotient."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Reason",
+            "Value"
+          ],
+          "rows": [
+            [
+              "C(15, 0)",
+              "Choose the empty subset",
+              "1"
+            ],
+            [
+              "C(15, 15)",
+              "Choose the entire set",
+              "1"
+            ],
+            [
+              "C(15, 1)",
+              "Choose one member",
+              "15"
+            ],
+            [
+              "C(0, 0)",
+              "The empty set has one subset: itself",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If r > n, there is no r-element subset, so the count is zero. As with permutations, do not use the factorial formula outside 0 ≤ r ≤ n and attempt a negative factorial."
+        },
+        {
+          "type": "check",
+          "prompt": "Calculate C(9, 2) without computing 9!.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Cancel 7! first: C(9, 2) = (9·8)/(2·1) = 36. Each unordered pair has two ordered descriptions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.3, printed pages 432–433."
+        }
+      ]
+    },
+    {
+      "id": "complement-symmetry",
+      "title": "10. Choose who stays or choose who is left out",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "C(n, r) = C(n, n − r)",
+          "description": "Choosing an r-element subset determines exactly which n minus r elements are omitted."
+        },
+        {
+          "type": "example",
+          "title": "Choose ten of twelve people",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A ten-person team is completely determined by the two people left out. Hence C(12, 10) = C(12, 2) = 12·11/2 = 66. You are not subtracting two counts; you are describing the same choice in two ways."
+            }
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Combinatorial proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A combinatorial proof establishes an identity by showing that its two sides count the same outcomes in different ways, or by pairing the counted objects through a bijection. A bijection is a correspondence with exactly one partner in both directions."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "The complement map is a bijection",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let S be a fixed n-element set. Map each r-element subset A to S ∖ A, the subset of elements not in A. Its size is n − r. Taking the complement again gives A, so the map has a unique inverse. Thus the two collections of subsets have equal size."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Selected from {A, B, C, D, E}",
+            "Left out"
+          ],
+          "rows": [
+            [
+              "{A, B}",
+              "{C, D, E}"
+            ],
+            [
+              "{A, C}",
+              "{B, D, E}"
+            ],
+            [
+              "{D, E}",
+              "{A, B, C}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "As a double-counting explanation, count r-person teams directly to get C(n, r), then count the same teams by specifying their omitted n − r members to get C(n, n − r). Algebra confirms it: the factorial denominators differ only in the order of the factors r! and (n − r)!."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does C(15, 11) equal 1365?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Leaving out four people uniquely specifies a team of eleven. Therefore C(15, 11) = C(15, 4) = 1365. Use the smaller selection size to simplify the arithmetic."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.3, printed pages 433–434."
+        }
+      ]
+    },
+    {
+      "id": "bit-positions",
+      "title": "11. Choose positions for the ones",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In a bit string of length n, the positions are distinct. If exactly r positions contain 1, every other position must contain 0. Selecting the r positions therefore determines the entire string."
+        },
+        {
+          "type": "example",
+          "title": "Seven bits with exactly three ones",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Choose a three-element subset of {1, 2, 3, 4, 5, 6, 7}. For example, {2, 4, 7} gives 0101001. There are C(7, 3) = 35 such strings. We choose the positions, not an order for the three identical ones."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Condition on a seven-bit string",
+            "Count by disjoint cases or complement",
+            "Count"
+          ],
+          "rows": [
+            [
+              "Exactly three ones",
+              "C(7, 3)",
+              "35"
+            ],
+            [
+              "At most two ones",
+              "C(7, 0) + C(7, 1) + C(7, 2)",
+              "29"
+            ],
+            [
+              "At least three ones",
+              "2⁷ − [C(7, 0) + C(7, 1) + C(7, 2)]",
+              "99"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "“At most two” includes zero, one, or two ones. These cases are disjoint, so add them. “At least three” is the complement of at most two among all 128 seven-bit strings."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does P(7, 3) overcount the strings with exactly three ones?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It orders the three chosen positions, but the final string does not record that selection order. Each set of three positions occurs in six orders. Divide P(7, 3) = 210 by 3! = 6 to recover 35."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.3, printed pages 434."
+        }
+      ]
+    },
+    {
+      "id": "committee-cases",
+      "title": "12. Combine group selection with product and sum rules",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A club has five designers and six engineers, with nobody in both groups. Form a five-person team containing exactly two designers and three engineers. Members have no assigned roles."
+        },
+        {
+          "type": "example",
+          "title": "Make two subset choices",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Choose two of the five designers in C(5, 2) = 10 ways. For each choice, choose three of the six engineers in C(6, 3) = 20 ways. The groups are disjoint, and each finished team uniquely determines both selections. Multiply to get 10·20 = 200 teams."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Goal",
+            "Calculation",
+            "Count"
+          ],
+          "rows": [
+            [
+              "Exactly two designers and three engineers",
+              "C(5, 2)·C(6, 3)",
+              "200"
+            ],
+            [
+              "At least one designer in a five-person team",
+              "C(11, 5) − C(6, 5)",
+              "456"
+            ],
+            [
+              "Exactly two designers and three engineers, then choose a chair and a different secretary",
+              "200·5·4",
+              "4000"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For “at least one designer,” subtract all-engineer teams from all five-person teams: 462 − 6 = 456. For the two named roles, first choose the team, then assign the roles within it. The final outcome records both membership and roles, so the extra factor 5·4 is necessary."
+        },
+        {
+          "type": "check",
+          "prompt": "Why not use C(11, 5) for the exact two-designer requirement?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It includes every five-person team, regardless of how many designers it contains. The required split needs C(5, 2)·C(6, 3). If people could belong to both categories, that product would need rethinking because selections could overlap."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.3, printed pages 434."
+        }
+      ]
+    },
+    {
+      "id": "separated-positions",
+      "title": "13. Use gaps to keep selected people apart",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Arrange four distinct mentors and three distinct learners in a row, with no two learners adjacent. All seven people are different. This practice application combines permutations with choosing positions."
+        },
+        {
+          "type": "example",
+          "title": "Arrange, choose gaps, then fill them",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1. Arrange the four mentors in 4! = 24 orders."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 2. Around a fixed mentor order there are five gaps: before the first mentor, between each neighboring pair, and after the last. Put at most one learner in each gap. Choose three of the five gaps in C(5, 3) = 10 ways."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step 3. Assign the three distinct learners to those selected gaps in 3! = 6 orders. Multiply: 24·10·6 = 1440 arrangements."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "_ M1 _ M2 _ M3 _ M4 _",
+          "description": "Five available gaps around a fixed ordering of four mentors."
+        },
+        {
+          "type": "paragraph",
+          "text": "This construction is reversible. Given a valid row, remove the learners to recover the mentor order, the occupied gaps, and the learners’ order. So every valid row is counted exactly once."
+        },
+        {
+          "type": "check",
+          "prompt": "What would go wrong with choosing any three of the seven positions for learners?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Some choices place learners next to each other. The gap construction builds the separation rule into the selection. Also, omitting the factor 3! would treat the three learners as indistinguishable, contrary to the problem."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3.2–§6.3.3, printed pages 428–434; original practice applying these methods to separation constraints."
+        }
+      ]
+    },
+    {
+      "id": "permutations-recap",
+      "title": "14. Choose a formula from the outcome, not from a keyword",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "What the outcome records",
+            "Repeated objects allowed?",
+            "Count with all choices allowed"
+          ],
+          "rows": [
+            [
+              "r ordered positions from n distinct objects",
+              "No",
+              "P(n, r) = n!/(n − r)!"
+            ],
+            [
+              "r ordered positions from n choices",
+              "Yes",
+              "nʳ"
+            ],
+            [
+              "An r-element subset of n distinct objects",
+              "No",
+              "C(n, r) = n!/[r!(n − r)!]"
+            ],
+            [
+              "All n distinct objects in a row",
+              "No",
+              "n!"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The factorial formulas assume integers 0 ≤ r ≤ n. Restrictions such as fixed positions, adjacency, or required categories need additional reasoning. An unordered selection with repetition is a separate model, treated in Section 6.5."
+        },
+        {
+          "type": "check",
+          "prompt": "From six distinct books, choose three to take on a trip. Then place those three on a shelf in a specified left-to-right order. What are the two counts?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Choosing only the books gives C(6, 3) = 20. Choosing and arranging them gives C(6, 3)·3! = 20·6 = 120, which equals P(6, 3). The second outcome includes more information."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Choose three people from eight, including a specific person, with no roles. What is the count?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Include the specified person, then choose the remaining two from the other seven: C(7, 2) = 21. There is no need to decide where the specified person goes because the outcome is a group."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Before using a formula, state whether the objects are distinct, whether repetition is allowed, whether swaps change the outcome, and which restrictions apply. Explain why your method includes every valid outcome with the intended multiplicity."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.3, printed pages 428–434."
+        }
+      ]
+    }
+  ]
+}
