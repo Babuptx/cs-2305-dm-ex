@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="350" viewBox="0 0 760 350" role="img" aria-labelledby="title desc">
+<title id="title">Four disjoint regions among 80 learners</title><desc id="desc">27 know only Python, 18 know both Python and Java, 12 know only Java, and 23 know neither. Python totals 45, Java totals 30, and their union totals 57.</desc>
+<rect width="760" height="350" rx="16" fill="#f4f7f5"/>
+<rect x="28" y="55" width="704" height="267" rx="12" fill="#fff" stroke="#80988e"/>
+<g stroke="#28624f" stroke-width="2" fill="#dceee5" fill-opacity="0.75"><ellipse cx="292" cy="183" rx="166" ry="98"/><ellipse cx="468" cy="183" rx="166" ry="98"/></g>
+<g font-family="system-ui, sans-serif" fill="#17382d" text-anchor="middle"><text x="380" y="33" font-size="20" font-weight="600">One group: 80 learners</text><text x="234" y="147" font-size="17">Python only</text><text x="380" y="164" font-size="17">Both</text><text x="526" y="147" font-size="17">Java only</text><text x="234" y="200" font-size="30">27</text><text x="380" y="200" font-size="30">18</text><text x="526" y="200" font-size="30">12</text><text x="380" y="306" font-size="19">Neither: 23</text></g>
+</svg>

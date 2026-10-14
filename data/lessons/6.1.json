@@ -1,0 +1,1036 @@
+{
+  "schemaVersion": 1,
+  "id": "6.1",
+  "title": "The Basics of Counting",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §6.1.1–§6.1.6, printed pages 405–416 (exposition).",
+    "Original companion explanations, worked examples, checks, and diagrams. Fictional code formats are explicitly defined counting models."
+  ],
+  "units": [
+    {
+      "id": "counting-outcomes",
+      "title": "1. Decide what one outcome means",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Counting is more than finding a number. You need a method that includes every allowed outcome and counts each one exactly once, or corrects a known overcount. Most mistakes come from changing what an outcome means halfway through a calculation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Suppose you choose one sandwich from {bean, cheese, egg} and one drink from {tea, juice}. An outcome is a pair: the chosen sandwich and the chosen drink. There are two drink choices for each of three sandwiches, giving 3 × 2 = 6 meals."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Sandwich",
+            "With tea",
+            "With juice"
+          ],
+          "rows": [
+            [
+              "Bean",
+              "(bean, tea)",
+              "(bean, juice)"
+            ],
+            [
+              "Cheese",
+              "(cheese, tea)",
+              "(cheese, juice)"
+            ],
+            [
+              "Egg",
+              "(egg, tea)",
+              "(egg, juice)"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Product rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If a task has n₁ choices for its first stage and exactly n₂ choices for its second stage after every first-stage choice, the number of choice sequences is n₁n₂. For more stages with fixed counts at each stage, multiply all those counts. To count the intended outcomes, each complete choice sequence must represent exactly one outcome, with no outcome represented twice."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The actual options may depend on earlier choices; what matters for this product is that the number of available continuations is the same at the relevant stage. You are not assuming probabilistic independence."
+        },
+        {
+          "type": "check",
+          "prompt": "If you buy either one sandwich or one drink, does 3 × 2 still answer the question?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. That counts pairs containing both. Choosing one item from these disjoint categories gives 3 + 2 = 5 choices. Start by describing one outcome before choosing the arithmetic."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.1–6.1.2, printed pages 405–406."
+        }
+      ]
+    },
+    {
+      "id": "restrictions",
+      "title": "2. Make order and repetition visible in the factors",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Two named tutors need different offices from seven available offices. Choose an office for tutor A in 7 ways, then one for tutor B in 6 ways. There are 7·6 = 42 assignments. Giving A room 1 and B room 2 is different from giving A room 2 and B room 1."
+        },
+        {
+          "type": "paragraph",
+          "text": "Here the second tutor’s actual options depend on the first assignment, but there are always six remaining rooms. That is enough for the product rule. If the offices were allowed to be shared, the count would be 7·7 = 49."
+        },
+        {
+          "type": "example",
+          "title": "A badge format with changing restrictions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A badge consists of two letters from {A, B, C, D, E, F}, followed by three decimal digits from 0 through 9. These are strings, so the digit block may start with 0."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Restriction",
+                "Choices by position",
+                "Count"
+              ],
+              "rows": [
+                [
+                  "Repetition allowed",
+                  "6·6·10·10·10",
+                  "36000"
+                ],
+                [
+                  "Letters distinct; digits may repeat",
+                  "6·5·10·10·10",
+                  "30000"
+                ],
+                [
+                  "Letters distinct; digits distinct",
+                  "6·5·10·9·8",
+                  "21600"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A string of three digits differs from a three-digit positive integer. The string 037 is allowed as a code, but it represents the two-digit integer 37. For a three-digit integer with all digits different: choose the first digit in 9 ways, the second in 9 ways (including 0 but excluding the first), and the third in 8 ways. The count is 9·9·8 = 648."
+        },
+        {
+          "type": "check",
+          "prompt": "Why isn’t the distinct-office count divided by 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The two tutors have different roles in the assignment. Swapping their offices changes the outcome. Division would merge assignments that the problem treats as different."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.2, printed pages 406–408."
+        }
+      ]
+    },
+    {
+      "id": "counting-functions",
+      "title": "3. View a function as one output choice per input",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A function from a finite set A to a finite set B assigns exactly one element of B to each element of A. Let A have m elements and B have n elements, with n ≥ 1. Put the inputs in a fixed order just to organize the choices."
+        },
+        {
+          "type": "math",
+          "notation": "Number of functions A → B = nᵐ",
+          "description": "There are n output choices for each of the m fixed inputs; repeated outputs are allowed."
+        },
+        {
+          "type": "example",
+          "title": "Three jobs assigned to four machines",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let the jobs be J₁, J₂, J₃ and the machines M₁, M₂, M₃, M₄. Each job goes to exactly one machine, and machines may receive several jobs. There are 4·4·4 = 64 functions. Sending all three jobs to M₂ is one valid function."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A one-to-one function, also called an injection, never sends two different inputs to the same output. If m ≤ n, the successive output counts are n, n − 1, …, n − m + 1. If m > n, there are no such functions: there are not enough distinct outputs to give each input its own."
+        },
+        {
+          "type": "math",
+          "notation": "For 0 ≤ m ≤ n: n(n − 1)⋯(n − m + 1) injections\nFor m > n: 0 injections",
+          "description": "Choose a different output for each input. With m equal to zero, the empty product is one."
+        },
+        {
+          "type": "paragraph",
+          "text": "For the three jobs and four machines, requiring distinct machines gives 4·3·2 = 24 assignments. This still does not require every machine to be used. A function that uses every element of the codomain is called onto; that is a different restriction."
+        },
+        {
+          "type": "check",
+          "prompt": "Why not multiply 4³ by 3! to account for the order in which you handle the jobs?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "J₁, J₂, J₃ already identify the input positions. Choosing J₁’s output first or last does not create a new function. Multiplying by the number of processing orders would count the same assignments repeatedly."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many functions have an empty domain and a four-element codomain?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "One: the empty function, which makes no assignments. This agrees with 4⁰ = 1. There is one way to make no choices, not four."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.2, printed pages 407."
+        }
+      ]
+    },
+    {
+      "id": "sets-and-bits",
+      "title": "4. Translate subsets into yes-or-no decisions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a finite set S, |S| means its number of elements. Fix an order of its m distinct elements. To choose a subset, decide for each element whether to include it. Each decision has two options, so the number of subsets is 2ᵐ."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Bit string for the order (a, b, c)",
+            "Subset"
+          ],
+          "rows": [
+            [
+              "000",
+              "∅"
+            ],
+            [
+              "001",
+              "{c}"
+            ],
+            [
+              "010",
+              "{b}"
+            ],
+            [
+              "011",
+              "{b, c}"
+            ],
+            [
+              "100",
+              "{a}"
+            ],
+            [
+              "101",
+              "{a, c}"
+            ],
+            [
+              "110",
+              "{a, b}"
+            ],
+            [
+              "111",
+              "{a, b, c}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A 1 means “include” and a 0 means “leave out.” Every bit string determines exactly one subset, and every subset determines exactly one bit string. This one-to-one correspondence, or bijection, lets us count one collection by counting the other."
+        },
+        {
+          "type": "definition",
+          "title": "Cartesian products",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A × B is the set of ordered pairs (a, b) with a in A and b in B. For finite sets, |A × B| = |A|·|B|. More generally, |A₁ × ⋯ × Aₖ| = |A₁|⋯|Aₖ|. The positions in the tuple are labeled, so changing position can change the outcome."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A string of length m over an alphabet with r symbols is an ordered sequence of m choices. With repetition allowed, it has rᵐ possibilities. For a four-symbol alphabet {A, C, G, T}, there are 4³ = 64 length-three strings. This is a count of abstract strings under the given rules, not a claim that every string serves the same biological role."
+        },
+        {
+          "type": "check",
+          "prompt": "What happens to the subset count when S is empty?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There is one subset, the empty set itself, so 2⁰ = 1. Its code is the empty bit string. Do not confuse a set with zero elements with a collection containing one empty set."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.2, printed pages 406, 408–409."
+        }
+      ]
+    },
+    {
+      "id": "sum-rule",
+      "title": "5. Add alternatives only when they do not overlap",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Sum rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If the outcomes fall into disjoint cases, add the number in each case. Disjoint means no outcome belongs to two cases. With several cases, they must be pairwise disjoint: any two have no common outcome."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Suppose a learner chooses exactly one event from five on-campus sessions or three online sessions. Treat the eight events as distinct, with none listed in both groups. The number of choices is 5 + 3 = 8. Choosing one session of each kind would instead give 5·3 = 15 pairs."
+        },
+        {
+          "type": "math",
+          "notation": "|A ∪ B| = |A| + |B| if A ∩ B = ∅",
+          "description": "For disjoint finite sets, the union has the sum of their sizes. Union means in either set; intersection means in both."
+        },
+        {
+          "type": "paragraph",
+          "text": "For three disjoint project lists with 4, 6, and 3 projects, choosing one project gives 4 + 6 + 3 = 13 options. If a project appears on two lists, adding list lengths counts it twice. You must correct that overlap or reorganize the cases."
+        },
+        {
+          "type": "check",
+          "prompt": "Does the word “or” automatically tell you to add?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It suggests alternative cases, but you must check overlap. “Knows Python or Java” usually includes people who know both, so a person can belong to both sets. Plain addition would double-count them."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.2, printed pages 409–411."
+        }
+      ]
+    },
+    {
+      "id": "loops",
+      "title": "6. Connect counting rules to program structure",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Counting loop-body executions provides a direct connection to algorithms. Inclusive bounds “1 through n” contain n indices. Count the statements being repeated, not just the number of loop headers."
+        },
+        {
+          "type": "example",
+          "title": "Nested loops multiply",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "k := 0\nfor i from 1 through 2:\n  for j from 1 through 3:\n    k := k + 1",
+              "description": "Each of two outer iterations runs all three inner iterations."
+            },
+            {
+              "type": "paragraph",
+              "text": "The increments correspond to the six pairs (1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3). The final k is 2·3 = 6."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Consecutive loops add",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "k := 0\nfor i from 1 through 2:\n  k := k + 1\nfor j from 1 through 3:\n  k := k + 1",
+              "description": "The first loop increments twice, then the second increments three times."
+            },
+            {
+              "type": "paragraph",
+              "text": "The final k is 2 + 3 = 5. These increments are distinct events in different loop executions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A varying inner limit needs more care. If the outer index i runs from 1 through 4 and the inner index runs from 1 through i, the four outer choices have 1, 2, 3, and 4 continuations. The body runs 1 + 2 + 3 + 4 = 10 times, not 4·4. The simple fixed-factor product would include nonexistent pairs such as (1, 4)."
+        },
+        {
+          "type": "check",
+          "prompt": "Three nested loops have independent fixed limits 2, 3, and 4. How many innermost increments occur?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 2·3·4 = 24 index triples. If the loops run consecutively instead, each increment belongs to just one loop, and the total is 2 + 3 + 4 = 9."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.2, printed pages 408, 410."
+        }
+      ]
+    },
+    {
+      "id": "mixed-cases",
+      "title": "7. Multiply within a case and add between cases",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Many counting problems need several rules. A useful approach is to divide the outcomes into disjoint categories, count each category, then add. Length often provides an easy partition because one string cannot have two different lengths."
+        },
+        {
+          "type": "example",
+          "title": "Names in a deliberately small language",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a fictional language allows names of length one or two. Its letters are {A, B, C}, its digits are {0, 1}, and the first character must be a letter. Repetition is allowed. The two names AB and C0 are reserved and cannot be used."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Case",
+                "Count before exclusions",
+                "Excluded names",
+                "Allowed count"
+              ],
+              "rows": [
+                [
+                  "Length 1",
+                  "3",
+                  "None",
+                  "3"
+                ],
+                [
+                  "Length 2",
+                  "3·5 = 15",
+                  "AB and C0",
+                  "13"
+                ],
+                [
+                  "Either allowed length",
+                  "3 + 13",
+                  "—",
+                  "16"
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "For length two, choose one of 3 letters first, then one of 5 letters or digits second. The exclusions are two distinct names that genuinely belong to this case. Remove each once. The two lengths are disjoint, so their counts add."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This is a self-contained syntax model, not a description of a current programming language. The textbook uses a particular BASIC variant to illustrate the same method. Real syntax rules must be specified before counting."
+        },
+        {
+          "type": "check",
+          "prompt": "Should the forbidden string 0A reduce the count by another 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It already violates the first-character rule, so it was never counted. Subtract only outcomes actually present in the collection you counted."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.3, printed pages 411."
+        }
+      ]
+    },
+    {
+      "id": "complement",
+      "title": "8. Count all strings and remove the forbidden ones",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Sometimes the desired condition is awkward to count directly but easy to negate. If U is a finite universe of candidates and F is its forbidden subset, then allowed outcomes number |U| − |F|. This is counting by complement."
+        },
+        {
+          "type": "example",
+          "title": "At least one digit",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "In a toy password model, a string has length 4 or 5, uses 26 uppercase English letters or 10 digits, and must contain at least one digit. Case is fixed and repetition is allowed. There are 36 choices per position."
+            },
+            {
+              "type": "paragraph",
+              "text": "For fixed length ℓ, all candidates number 36^ℓ, where ^ denotes exponentiation. The forbidden candidates have no digits, so every position is a letter, giving 26^ℓ. The desired count is 36^ℓ − 26^ℓ."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Length",
+                "All candidates",
+                "No digits",
+                "At least one digit"
+              ],
+              "rows": [
+                [
+                  "4",
+                  "1679616",
+                  "456976",
+                  "1222640"
+                ],
+                [
+                  "5",
+                  "60466176",
+                  "11881376",
+                  "48584800"
+                ]
+              ]
+            },
+            {
+              "type": "math",
+              "notation": "(36⁴ − 26⁴) + (36⁵ − 26⁵) = 49,807,440",
+              "description": "Add the two disjoint lengths after removing their all-letter strings."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A tempting alternative is to choose a position for a required digit, place a digit there, and fill the other positions freely. For length four that gives 4·10·36³. It overcounts strings with multiple digits: A1B2 can be produced by designating either digit as the required one. There is no single uniform overcount across all allowed strings."
+        },
+        {
+          "type": "check",
+          "prompt": "How many length-four strings have exactly one digit?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Choose the digit’s position in 4 ways, its value in 10 ways, and letters for the other three positions in 26³ ways. The count is 4·10·26³ = 703,040. Every such string has a unique digit position, so it is counted exactly once. “Exactly one” and “at least one” are different conditions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.3, printed pages 411."
+        }
+      ]
+    },
+    {
+      "id": "structured-codes",
+      "title": "9. Count permitted fields inside disjoint formats",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Structured codes combine fixed prefixes with independently chosen fields. A fixed prefix contributes a factor of 1. Different formats can be added only if a complete code cannot belong to two of them."
+        },
+        {
+          "type": "example",
+          "title": "An invented 8-bit address format",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Use these two formats and no others. A bit is either 0 or 1. Format A has prefix 0, a 2-bit group field, and a 5-bit member field. Format B has prefix 10, a 3-bit group field, and a 3-bit member field."
+            },
+            {
+              "type": "paragraph",
+              "text": "In format A, group 11 is forbidden. Both formats forbid the all-zero and all-one member fields. There are no other restrictions, and group choices do not change which member fields are permitted."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Format",
+                "Bits: prefix + group + member",
+                "Allowed groups",
+                "Allowed members per group",
+                "Code count"
+              ],
+              "rows": [
+                [
+                  "A",
+                  "1 + 2 + 5 = 8",
+                  "2² − 1 = 3",
+                  "2⁵ − 2 = 30",
+                  "90"
+                ],
+                [
+                  "B",
+                  "2 + 3 + 3 = 8",
+                  "2³ = 8",
+                  "2³ − 2 = 6",
+                  "48"
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "The prefixes 0 and 10 make the formats disjoint. Add 90 + 48 = 138 permitted codes. Codes beginning 11 are not in either format."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The source’s telephone-number and class-based address examples use this strategy: count the permitted values for each field, then combine the cases. Here the invented format states every restriction needed for the arithmetic; its count is not a claim about currently assignable network addresses or telephone numbers."
+        },
+        {
+          "type": "check",
+          "prompt": "Why subtract 2 from the member-field count rather than from the final combined count?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The two forbidden member values occur for each permitted group. For format A, the excluded code count is 3·2 = 6. Thus 3(32 − 2) = 90, while 3·32 − 2 = 94 would remove only two of the six forbidden complete codes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.2–6.1.3, printed pages 407–408, 412."
+        }
+      ]
+    },
+    {
+      "id": "inclusion-exclusion",
+      "title": "10. Remove one extra copy of the overlap",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For finite sets A and B, their union A ∪ B contains outcomes in A or B or both. Their intersection A ∩ B contains outcomes satisfying both conditions. Adding |A| and |B| counts the intersection twice."
+        },
+        {
+          "type": "math",
+          "notation": "|A ∪ B| = |A| + |B| − |A ∩ B|",
+          "description": "Inclusion–exclusion for two sets: subtract the overlap once to leave each outcome counted once."
+        },
+        {
+          "type": "example",
+          "title": "Bit strings with an allowed beginning or ending",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Count length-six bit strings that start with 1 or end with 00. Let A mean “starts with 1” and B mean “ends with 00.” Repetition is allowed."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Set",
+                "Pattern: * is a free bit",
+                "Free positions",
+                "Count"
+              ],
+              "rows": [
+                [
+                  "A",
+                  "1*****",
+                  "5",
+                  "32"
+                ],
+                [
+                  "B",
+                  "****00",
+                  "4",
+                  "16"
+                ],
+                [
+                  "A ∩ B",
+                  "1***00",
+                  "3",
+                  "8"
+                ],
+                [
+                  "A ∪ B",
+                  "Either condition, including both",
+                  "—",
+                  "40"
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "There are 32 + 16 − 8 = 40 strings. For example, 101100 is in both sets. Plain addition counts that same string twice, so the subtraction removes its extra copy, not the string itself."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Here “or” is inclusive. If the problem asks for exactly one condition, the intersection must be removed entirely. That count is |A| + |B| − 2|A ∩ B|, because plain addition put each overlap outcome in twice."
+        },
+        {
+          "type": "check",
+          "prompt": "How many strings meet exactly one of these two conditions?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 32 + 16 − 2·8 = 32. Equivalently, take the union’s 40 strings and remove its 8 intersection strings. Those 8 satisfy both conditions, so they do not satisfy exactly one."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.4, printed pages 412–413."
+        }
+      ]
+    },
+    {
+      "id": "neither",
+      "title": "11. Separate the overlap before counting neither",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Among 80 learners, 45 know Python, 30 know Java, and 18 know both. Everyone counted belongs to this same group of 80. How many know neither? Start by finding the number who know at least one."
+        },
+        {
+          "type": "math",
+          "notation": "|Python ∪ Java| = 45 + 30 − 18 = 57\nNeither = 80 − 57 = 23",
+          "description": "Subtract the union, not the two overlapping totals separately, from the group size."
+        },
+        {
+          "type": "diagram",
+          "title": "Four disjoint regions of the same group",
+          "src": "assets/counting-regions.svg",
+          "description": "Of 80 learners, 27 know only Python, 18 know both languages, 12 know only Java, and 23 know neither. The first three regions contain 57 learners in the union."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Disjoint region",
+            "Calculation",
+            "Learners"
+          ],
+          "rows": [
+            [
+              "Python only",
+              "45 − 18",
+              "27"
+            ],
+            [
+              "Both",
+              "Given",
+              "18"
+            ],
+            [
+              "Java only",
+              "30 − 18",
+              "12"
+            ],
+            [
+              "Neither",
+              "80 − (27 + 18 + 12)",
+              "23"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The four regions partition the group: 27 + 18 + 12 + 23 = 80. They also recover each reported total: Python has 27 + 18 = 45, and Java has 12 + 18 = 30. These checks help catch arithmetic and modeling errors."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is 80 − 45 − 30 = 5 not the answer?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It subtracts each learner who knows both twice. Add the overlap back once: 80 − 45 − 30 + 18 = 23. This is the same as subtracting the correctly counted union."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.4, printed pages 413–414."
+        }
+      ]
+    },
+    {
+      "id": "division-rule",
+      "title": "12. Divide only when every outcome has the same number of descriptions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Division rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a procedure creates N descriptions, and every desired outcome is represented by exactly d of them, with d a positive integer. The number of desired outcomes is N/d. The constant multiplicity d is what justifies the division."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Choose an unordered pair of different people",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "From six distinct people, an ordered selection of two different people can be made in 6·5 = 30 ways. If we only want the pair, (A, B) and (B, A) describe the same outcome. Every pair has exactly two orders. Therefore there are 30/2 = 15 unordered pairs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In function language, a map from the descriptions to the outcomes is d-to-one when each outcome has exactly d preimages. In set language, the descriptions split into equal-sized, disjoint groups of d. Both viewpoints express the same counting argument."
+        },
+        {
+          "type": "example",
+          "title": "Seat five distinct people around a circle",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Treat rotations as the same arrangement, but clockwise and counterclockwise orders as different. First label five seats and fill them: 5·4·3·2·1 = 120 assignments. Each circular arrangement has exactly five labeled descriptions, one for each rotation. Divide by 5 to get 24 circular arrangements."
+            },
+            {
+              "type": "paragraph",
+              "text": "A direct check is to fix person A as an anchor and arrange the other four clockwise relative to A: 4·3·2·1 = 24. Do not also divide by 2 for reflection; reflection is not declared equivalent here."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If repeated entries are allowed in a two-symbol string over {A, B}, can you ignore order by dividing the four strings by 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. AA and BB each have only one ordered description, while the mixed pair has two: AB and BA. The groups are not all the same size. There are three unordered outcomes, {AA, AB, BB}, not 4/2 = 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.5, printed pages 414–415."
+        }
+      ]
+    },
+    {
+      "id": "counting-trees",
+      "title": "13. Use a tree when the available continuations vary",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A counting tree starts at a root representing no choices yet. Each branch makes one choice; a leaf is a completed outcome. If every allowed outcome follows exactly one root-to-leaf path, counting the leaves counts the outcomes."
+        },
+        {
+          "type": "example",
+          "title": "Length-three bit strings with no adjacent 1s",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "After a 0, the next bit may be 0 or 1. After a 1, the next bit must be 0. The number of options depends on the earlier prefix, so 2·2·2 would count some forbidden strings."
+            },
+            {
+              "type": "diagram",
+              "title": "Five allowed leaves, each a different string",
+              "src": "assets/counting-tree.svg",
+              "description": "Start at the empty string. First choose 0 or 1. Prefix 0 can grow to 00 or 01; prefix 1 can grow only to 10. At length three the allowed leaves are 000, 001, 010, 100, and 101. A 1 is always followed by 0 if another bit is added."
+            },
+            {
+              "type": "paragraph",
+              "text": "The five leaves are 000, 001, 010, 100, and 101. Listing them once makes the restriction and the absence of duplicates easy to inspect."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a longer version, let aₙ be the number of allowed length-n strings. For n ≥ 2, strings ending in 0 arise by appending 0 to any allowed length-(n − 1) string. Strings ending in 1 must end in 01, and arise by appending 01 to any allowed length-(n − 2) string. These two classes are disjoint, so aₙ = aₙ₋₁ + aₙ₋₂, with a₀ = 1 and a₁ = 2."
+        },
+        {
+          "type": "check",
+          "prompt": "How many such strings have length 5?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Starting with a₀ = 1 and a₁ = 2 gives a₂ = 3, a₃ = 5, a₄ = 8, and a₅ = 13. The recurrence counts disjoint ending cases, so it follows from the counting rules and connects back to Chapter 5."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Unequal product choices",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a shop offers 3 colors in size S, 2 in size M, and 1 in size L. A size-color outcome belongs to exactly one size case. The count is 3 + 2 + 1 = 6. Using 3·3 would invent colors that are not offered for every size."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.6, printed pages 415–416."
+        }
+      ]
+    },
+    {
+      "id": "stopping-rules",
+      "title": "14. Stop a branch when the outcome is complete",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Two teams A and B play until one has won two games. There are no ties, and no games are played after a team has won the series. One outcome is the sequence of winners of the games actually played."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Series length",
+            "Complete outcomes",
+            "Count"
+          ],
+          "rows": [
+            [
+              "2 games",
+              "AA, BB",
+              "2"
+            ],
+            [
+              "3 games",
+              "ABA, ABB, BAA, BAB",
+              "4"
+            ],
+            [
+              "Total",
+              "Disjoint lengths",
+              "6"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why not 2³ = 8? That counts winners for three games even when the series has ended after two. Strings AAA and AAB both extend the already finished outcome AA; BBA and BBB similarly extend BB. A counting tree must stop growing those completed branches."
+        },
+        {
+          "type": "check",
+          "prompt": "For a first-to-three-wins series, how many complete sequences have lengths 3, 4, and 5?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Length 3: AAA and BBB, giving 2. Length 4: choose the final winner in 2 ways; among the first three games it has exactly two wins and the loser one. The lone loss has 3 possible positions, giving 2·3 = 6."
+            },
+            {
+              "type": "paragraph",
+              "text": "Length 5: the first four games must contain two wins each. Their six possible prefixes are AABB, ABAB, ABBA, BAAB, BABA, BBAA. Either team may win the fifth game, giving 6·2 = 12. The total is 2 + 6 + 12 = 20."
+            },
+            {
+              "type": "paragraph",
+              "text": "These prefixes cannot already contain three wins for either team, so every counted sequence respects the stopping rule."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A tree is especially helpful when branches have different lengths or different numbers of continuations. It also gives a useful audit: each leaf must be allowed, every allowed result must reach a leaf, and no result should appear twice."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1.6, printed pages 415–416."
+        }
+      ]
+    },
+    {
+      "id": "counting-recap",
+      "title": "15. Choose the rule by checking what is being counted",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Situation",
+            "Rule",
+            "Condition to verify"
+          ],
+          "rows": [
+            [
+              "Several choices make one outcome",
+              "Multiply",
+              "The branch counts are correct at each stage; the encoding counts outcomes once."
+            ],
+            [
+              "An outcome belongs to one of several cases",
+              "Add",
+              "The cases are disjoint and cover all desired outcomes."
+            ],
+            [
+              "The forbidden outcomes are easier to count",
+              "Subtract from the universe",
+              "Every forbidden outcome is in the counted universe."
+            ],
+            [
+              "Two allowed categories overlap",
+              "Inclusion–exclusion",
+              "Count the intersection correctly and remove its extra copy."
+            ],
+            [
+              "Several descriptions represent one outcome",
+              "Divide",
+              "Every outcome has exactly the same number of descriptions."
+            ],
+            [
+              "Choices or stopping times vary",
+              "Draw a tree or split cases",
+              "Count only completed allowed paths."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Before calculating, ask: Are positions or roles distinct? Is repetition allowed? Can a leading zero appear? Are the cases disjoint? Does an outcome have multiple descriptions? When does the process stop? These questions decide the formula."
+        },
+        {
+          "type": "check",
+          "prompt": "Choose exactly one representative from two clubs of sizes 12 and 9, with 4 shared members. What is the count?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The outcome is one person in the union. The count is 12 + 9 − 4 = 17. A shared member is still only one possible representative."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Choose a chair and a different secretary from seven people. What changes?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Now an outcome has two distinct roles. There are 7 choices for chair and 6 remaining choices for secretary, giving 42. Swapping the people changes the assignment, so do not divide by 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A correct count comes with a short explanation of why it covers every allowed outcome exactly once, or why its subtraction or division corrects a precisely identified overcount."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.1, printed pages 405–416."
+        }
+      ]
+    }
+  ]
+}

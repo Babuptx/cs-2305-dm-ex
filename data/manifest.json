@@ -311,8 +311,8 @@
           "id": "6.1",
           "number": "6.1",
           "title": "The Basics of Counting",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/6.1.json",
           "children": []
         },
         {
