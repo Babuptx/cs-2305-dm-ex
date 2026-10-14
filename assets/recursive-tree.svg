@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" viewBox="0 0 760 330" role="img" aria-labelledby="title desc">
+<title id="title">A full binary tree with unequal leaf depths</title><desc id="desc">R has children A and B. A is a leaf. B has children C and D. Five vertices, height two, and every internal vertex has two children.</desc>
+<rect width="760" height="330" rx="16" fill="#f4f7f5"/>
+<g stroke="#597369" stroke-width="3"><path d="M245 70 L145 165 M245 70 L345 165 M345 165 L280 265 M345 165 L410 265" fill="none"/></g>
+<g fill="#ffffff" stroke="#28624f" stroke-width="2"><circle cx="245" cy="70" r="24"/><circle cx="145" cy="165" r="24"/><circle cx="345" cy="165" r="24"/><circle cx="280" cy="265" r="24"/><circle cx="410" cy="265" r="24"/></g>
+<g font-family="system-ui, sans-serif" font-size="18" fill="#17382d" text-anchor="middle"><text x="245" y="77">R</text><text x="145" y="172">A</text><text x="345" y="172">B</text><text x="280" y="272">C</text><text x="410" y="272">D</text></g>
+<g font-family="system-ui, sans-serif" fill="#17382d"><text x="490" y="78" font-size="20" font-weight="600">5 vertices · height 2</text><text x="490" y="125" font-size="17">R and B: two children each</text><text x="490" y="158" font-size="17">A, C, D: leaves</text><text x="490" y="214" font-size="17">Height counts edges,</text><text x="490" y="241" font-size="17">not vertices on the path.</text><text x="36" y="310" font-size="15">Full: every vertex has either zero or two children.</text></g>
+</svg>

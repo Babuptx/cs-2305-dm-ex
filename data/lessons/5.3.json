@@ -1,0 +1,889 @@
+{
+  "schemaVersion": 1,
+  "id": "5.3",
+  "title": "Recursive Definitions and Structural Induction",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §5.3.1–§5.3.5, printed pages 365–378 (exposition).",
+    "Original companion explanations, examples, proofs, checks, and diagrams."
+  ],
+  "units": [
+    {
+      "id": "recursive-idea",
+      "title": "1. Define a big object using smaller pieces",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Start with a recipe",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Imagine building a chain. You specify a starting link and a rule for attaching another link. A recursive definition works in this spirit: give starting objects, then rules that build more objects from ones already defined. Structural induction will prove that every object built by the recipe has a property."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Task",
+            "What it supplies"
+          ],
+          "rows": [
+            [
+              "Recursive definition",
+              "Starting values or objects, plus construction rules."
+            ],
+            [
+              "Inductive proof",
+              "Reasons a property holds for the starting objects and survives every construction."
+            ],
+            [
+              "Recursive algorithm",
+              "Instructions that solve a problem by calling the same procedure on smaller instances."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a sequence, aₙ denotes the value at index n. A subscript is a label, not multiplication. The formula aₙ = 3ⁿ gives a value directly. The rules a₀ = 1 and aₙ₊₁ = 3aₙ give the same sequence by working from a previous value. Here n ranges over nonnegative integers: 0, 1, 2, … ."
+        },
+        {
+          "type": "math",
+          "notation": "a₀ = 1\naₙ₊₁ = 3aₙ for n ≥ 0\nValues: 1, 3, 9, 27, 81, …",
+          "description": "Start with one, then multiply the previous term by three."
+        },
+        {
+          "type": "check",
+          "prompt": "Does aₙ₊₁ = 3aₙ alone specify one sequence?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Starting at 1 gives 1, 3, 9, …; starting at 2 gives 2, 6, 18, … . The starting value is part of the definition."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.1–5.3.2, printed pages 365–367."
+        }
+      ]
+    },
+    {
+      "id": "evaluate-recursion",
+      "title": "2. Read the index before doing the arithmetic",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let f(0) = 2 and f(n + 1) = 3f(n) + 1 for n ≥ 0. The expression f(n) means the previous output. It does not mean n and does not mean f multiplied by n."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Wanted value",
+            "Substitute the previous value",
+            "Result"
+          ],
+          "rows": [
+            [
+              "f(0)",
+              "Starting value",
+              "2"
+            ],
+            [
+              "f(1)",
+              "3·2 + 1",
+              "7"
+            ],
+            [
+              "f(2)",
+              "3·7 + 1",
+              "22"
+            ],
+            [
+              "f(3)",
+              "3·22 + 1",
+              "67"
+            ],
+            [
+              "f(4)",
+              "3·67 + 1",
+              "202"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Connect the recursive rule to a direct formula",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "These values fit f(n) = (5·3ⁿ − 1)/2. To prove it, check the basis: (5·1 − 1)/2 = 2. Assume f(k) = (5·3ᵏ − 1)/2 for an arbitrary k ≥ 0."
+            },
+            {
+              "type": "math",
+              "notation": "f(k + 1) = 3f(k) + 1\n= 3(5·3ᵏ − 1)/2 + 1\n= (5·3ᵏ⁺¹ − 3 + 2)/2\n= (5·3ᵏ⁺¹ − 1)/2",
+              "description": "Use the recursive definition, replace the old value with the inductive hypothesis, and simplify."
+            },
+            {
+              "type": "paragraph",
+              "text": "The last expression is the required formula at k + 1. Induction proves it for every n ≥ 0."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is f(2) not 3·2 + 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "To find f(2), set n + 1 = 2, so n = 1. The rule gives 3f(1) + 1 = 22. Multiplying the index 2 would apply a different rule."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.2, printed pages 367."
+        }
+      ]
+    },
+    {
+      "id": "valid-definitions",
+      "title": "3. Supply enough starting values and valid rules",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A well-defined function gives exactly one output for each allowed input. A safe recursive recipe assigns its bases consistently and computes every other value from already determined smaller inputs. Each calculation must also make sense: no division by zero, missing inputs, or conflicting rules."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Object",
+            "Basis",
+            "Rule and domain"
+          ],
+          "rows": [
+            [
+              "Powers of a fixed nonzero real a",
+              "a⁰ = 1",
+              "aⁿ⁺¹ = a·aⁿ for n ≥ 0."
+            ],
+            [
+              "Partial sums Sₙ of given values a₀, a₁, …",
+              "S₀ = a₀",
+              "Sₙ₊₁ = Sₙ + aₙ₊₁ for n ≥ 0."
+            ],
+            [
+              "Factorials",
+              "0! = 1",
+              "(n + 1)! = (n + 1)n! for n ≥ 0."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "S₀ contains one term, a₀. It is not an empty sum. By contrast, the factorial basis 0! = 1 is a specified starting value. In each rule the earlier value is uniquely determined, so induction guarantees that the next value is too."
+        },
+        {
+          "type": "example",
+          "title": "Locate the first input where a recipe breaks",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose g(0) = 4 and g(n) = g(n − 2) + 1 for n ≥ 1. At n = 1 this requests g(−1), outside the nonnegative domain. A repair is to specify g(1) as well and apply the rule only for n ≥ 2."
+            },
+            {
+              "type": "paragraph",
+              "text": "A different error is declaring h(0) = 1 and h(n) = 2h(n − 1) for n ≥ 0. The rule overlaps the base and requests h(−1). Restricting it to n ≥ 1 fixes that defect."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is f(n) = f(n + 1) + 1 a smaller-input recipe on nonnegative integers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It asks for a later unknown value and never moves toward a supplied base in that direction. Merely mentioning f on both sides does not provide a usable recursive definition."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.2, printed pages 366–368."
+        }
+      ]
+    },
+    {
+      "id": "fibonacci",
+      "title": "4. Two earlier values require two starting cases",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The Fibonacci numbers are F₀ = 0, F₁ = 1, and Fₙ = Fₙ₋₁ + Fₙ₋₂ for n ≥ 2. Each new term needs two previous terms. The first values are 0, 1, 1, 2, 3, 5, 8, 13, 21. The two 1s are different indexed terms, F₁ and F₂."
+        },
+        {
+          "type": "example",
+          "title": "Why the golden ratio appears",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let α = (1 + √5)/2, approximately 1.618. It satisfies α² = α + 1. We will prove Fₙ > αⁿ⁻² for every integer n ≥ 3."
+            },
+            {
+              "type": "paragraph",
+              "text": "Bases: F₃ = 2 > α, and F₄ = 3 > α² = (3 + √5)/2. For the second inequality, √5 < 3, so (3 + √5)/2 < 3."
+            },
+            {
+              "type": "paragraph",
+              "text": "Hypothesis: for an arbitrary k ≥ 4, assume Fⱼ > αʲ⁻² for 3 ≤ j ≤ k. Both k and k − 1 lie in this range."
+            },
+            {
+              "type": "math",
+              "notation": "Fₖ₊₁ = Fₖ + Fₖ₋₁\n> αᵏ⁻² + αᵏ⁻³\n= αᵏ⁻³(α + 1)\n= αᵏ⁻³α² = αᵏ⁻¹",
+              "description": "Apply the hypothesis to both previous Fibonacci numbers and use alpha squared equals alpha plus one."
+            },
+            {
+              "type": "paragraph",
+              "text": "Since (k + 1) − 2 = k − 1, this is the target. Strong induction proves the bound. The step first reaches index 5, so both indices 3 and 4 needed separate bases."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can you use just the basis n = 3 and the same step to prove n = 4?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Computing F₄ uses F₃ and F₂, but the hypothesis only covers indices at least 3. The proof needs the separate basis at 4."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.2, printed pages 368."
+        }
+      ]
+    },
+    {
+      "id": "lame",
+      "title": "5. Use Fibonacci growth to bound Euclidean division",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The greatest common divisor gcd(a, b) is the largest positive integer dividing both a and b. For positive integers a ≥ b, the Euclidean algorithm repeatedly divides and keeps the remainder, stopping when a remainder is zero. Count that final division too."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Division",
+            "Remainder"
+          ],
+          "rows": [
+            [
+              "89 = 1·55 + 34",
+              "34"
+            ],
+            [
+              "55 = 1·34 + 21",
+              "21"
+            ],
+            [
+              "34 = 1·21 + 13",
+              "13"
+            ],
+            [
+              "21 = 1·13 + 8",
+              "8"
+            ],
+            [
+              "13 = 1·8 + 5",
+              "5"
+            ],
+            [
+              "8 = 1·5 + 3",
+              "3"
+            ],
+            [
+              "5 = 1·3 + 2",
+              "2"
+            ],
+            [
+              "3 = 1·2 + 1",
+              "1"
+            ],
+            [
+              "2 = 2·1 + 0",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Lamé’s bound",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If b has d decimal digits, at most 5d divisions are needed. Here b = 55 has two digits, so the bound is 10; the table uses 9. A bound need not be attained."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Read the remainders backward",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose there are t ≥ 3 divisions. Call the last positive remainder rₜ, with r₀ = a and r₁ = b. Then rₜ ≥ 1. The final nonzero division has quotient at least 2, so rₜ₋₁ ≥ 2. Each earlier remainder is at least the sum of the next two, since its quotient is at least 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Reading backward gives lower bounds 1, 2, 3, 5, 8, …, so b ≥ Fₜ₊₁ > αᵗ⁻¹ by the preceding Fibonacci result. Let log₁₀ denote the base-10 logarithm. Taking logarithms preserves the inequality because the logarithm is increasing."
+            },
+            {
+              "type": "math",
+              "notation": "log₁₀ b > (t − 1)log₁₀ α > (t − 1)/5\nb < 10ᵈ implies log₁₀ b < d\nTherefore t − 1 < 5d, so t ≤ 5d.",
+              "description": "Alpha has base-ten logarithm approximately 0.209, greater than one fifth; then use the integer division count."
+            },
+            {
+              "type": "paragraph",
+              "text": "The cases t = 1 and t = 2 already satisfy t ≤ 5d because d ≥ 1. This also covers a = b, which stops after one division."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Thus the number of divisions grows at most proportionally to the number of digits, or O(log b) for b ≥ 2. Big-O describes an upper growth bound. It counts divisions here, not the individual bit operations needed to perform a division."
+        },
+        {
+          "type": "check",
+          "prompt": "Does a 4-digit smaller input require exactly 20 divisions?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It requires at most 20. Some inputs stop after one division; the theorem is a worst-case guarantee."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.2, printed pages 368–370."
+        }
+      ]
+    },
+    {
+      "id": "recursive-sets",
+      "title": "6. Say what belongs and exclude everything else",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a recursively defined set, specify initial members and ways to create members from existing ones. The exclusion rule says that nothing else belongs: every member must have a finite construction from those rules. Equivalently, take the smallest set containing the bases and closed under the rules."
+        },
+        {
+          "type": "example",
+          "title": "A set built from 4 and addition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Define S by: 4 belongs to S; if x and y belong to S, then x + y belongs to S; nothing else belongs. We may use the same element twice. This builds 8 = 4 + 4, 12 = 8 + 4, 16 = 8 + 8, and so on."
+            },
+            {
+              "type": "paragraph",
+              "text": "Claim: S is exactly the positive multiples of 4. This requires two directions."
+            },
+            {
+              "type": "paragraph",
+              "text": "First, every generated member is a positive multiple of 4. The base 4 is one. If x = 4r and y = 4s with positive integers r and s, then x + y = 4(r + s), another positive multiple. Structural induction proves that construction never leaves this class."
+            },
+            {
+              "type": "paragraph",
+              "text": "Second, every positive multiple is generated. Induct on n ≥ 1. The base 4·1 is in S. If 4k is in S, then 4k + 4 = 4(k + 1) is in S by the addition rule. Therefore every 4n with n ≥ 1 belongs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Showing that a construction only produces allowed objects is different from showing it produces all desired objects. Set equality needs both. Neither 0 nor −4 belongs to S, even though each is a multiple of 4."
+        },
+        {
+          "type": "check",
+          "prompt": "If we omit the exclusion rule, do the two remaining statements force S to be exactly the positive multiples of 4?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The set of all integers also contains 4 and is closed under addition. The exclusion rule selects only the elements generated from the given base."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.3–5.3.4, printed pages 370, 374–375."
+        }
+      ]
+    },
+    {
+      "id": "strings",
+      "title": "7. Build strings one symbol at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An alphabet Σ is a set of symbols. A string is a finite ordered list of symbols from that alphabet. Σ* means the set of all such strings, including the empty string λ. The symbol λ names a string with zero symbols; it is not a one-character string."
+        },
+        {
+          "type": "math",
+          "notation": "Basis: λ belongs to Σ*.\nRule: if w belongs to Σ* and a belongs to Σ, then wa belongs to Σ*.",
+          "description": "Append one alphabet symbol to a string. Only strings obtained by finitely many appends belong."
+        },
+        {
+          "type": "paragraph",
+          "text": "For Σ = {a, b}, the strings of length 0 are just λ; those of length 1 are a and b; those of length 2 are aa, ab, ba, bb. Order matters: ab and ba are different strings."
+        },
+        {
+          "type": "definition",
+          "title": "Concatenation and length",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Concatenation u·v joins u followed by v. The dot means joining, not multiplication. Its recursive rules are u·λ = u and u·(wa) = (u·w)a, where a is one symbol. We often omit the dot and write uv."
+            },
+            {
+              "type": "math",
+              "notation": "ℓ(λ) = 0\nℓ(wa) = ℓ(w) + 1",
+              "description": "The length function ell counts symbols; appending one symbol increases the length by one."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Join and count",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If u = ab and v = baa, then uv = abbaa, which has length 5. Swapping them gives vu = baaab, a different string of the same length. Joining the empty string changes nothing: uλ = λu = u."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Over the bit alphabet {0, 1}, what is the difference between λ and 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "λ has length 0. The string 0 contains one symbol and has length 1. The empty string is also different from the empty set: λ is an element of Σ*, whereas the empty set has no elements."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.3, printed pages 370–371."
+        }
+      ]
+    },
+    {
+      "id": "formula-grammar",
+      "title": "8. Separate a valid expression from its meaning",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A recursive grammar gives rules for building expressions. For fully parenthesized propositional formulas, start with T, F, and each propositional variable. T and F are truth constants. If E and G are formulas, form (¬E), (E ∧ G), (E ∨ G), (E → G), or (E ↔ G). The letters E and G stand for whole formulas, not just single variables."
+        },
+        {
+          "type": "example",
+          "title": "Construct a formula from the inside out",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Start with p and q. Build (¬q) using the NOT rule. Then build (p ∨ (¬q)) using the OR rule. Finally combine this with r to obtain ((p ∨ (¬q)) → r). Each application treats earlier formulas as complete pieces."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The string p∧∨q cannot be built by these rules. Balanced parentheses alone do not make a formula valid: (p q) has matching parentheses but lacks an operator. Usual writing conventions may omit some parentheses; here the explicit grammar is the standard for a construction."
+        },
+        {
+          "type": "definition",
+          "title": "Syntax versus meaning",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Syntax asks whether the expression follows the formation rules. Meaning asks what it represents or whether it evaluates to a value. An arithmetic grammar can begin with numerals and variables and combine expressions with +, −, ×, /, and exponentiation."
+            },
+            {
+              "type": "paragraph",
+              "text": "For example, (7/0) follows a grammar allowing division of any two expressions, so it is syntactically well formed. It still has no real-number value. Similarly, a well-formed proposition may be false; grammatical correctness does not guarantee truth."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is (p ∧ (¬p)) invalid because it is always false?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The variable p is a formula, (¬p) is a formula, and the AND rule combines them. It is a valid formula whose truth value is false under every assignment."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.3, printed pages 371–372."
+        }
+      ]
+    },
+    {
+      "id": "tree-structures",
+      "title": "9. Build trees by attaching smaller trees",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A tree consists of vertices, or nodes, joined by edges without cycles and with a path between every pair of vertices. A rooted tree designates one vertex as the root. Children lie one edge below their parent; a leaf has no children. A subtree contains a child and everything below it."
+        },
+        {
+          "type": "paragraph",
+          "text": "Recursive recipe for rooted trees: start with one vertex. Choose finitely many pairwise disjoint rooted trees, add a new root outside them, and connect it to each old root. Disjoint means they share no vertices. This prevents reusing one actual node in two places; identical shapes may still be used as separate copies."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Type used here",
+            "Base",
+            "Construction"
+          ],
+          "rows": [
+            [
+              "Extended binary tree",
+              "The empty tree ∅",
+              "Add a root with a left and a right subtree, either of which may be empty."
+            ],
+            [
+              "Full binary tree",
+              "A single vertex",
+              "Add a root with two nonempty full binary subtrees."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Left and right are distinct positions. An extended binary tree may have zero, one, or two children at a vertex. A full binary tree has exactly zero or two children at every vertex. “Full” does not require all leaves at the same depth or both subtrees to have the same height."
+        },
+        {
+          "type": "diagram",
+          "title": "Full does not mean all leaves have the same depth",
+          "src": "assets/recursive-tree.svg",
+          "description": "A full binary tree with five vertices: root R has a left leaf A and a right child B. B has two leaves C and D. Every internal node has two children. A is at depth one, while C and D are at depth two. The tree has height two."
+        },
+        {
+          "type": "check",
+          "prompt": "Is a root with only a left child a full binary tree?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It is allowed as an extended binary tree, but the full-tree construction requires two nonempty subtrees whenever a new internal root is added."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.3, printed pages 372–374."
+        }
+      ]
+    },
+    {
+      "id": "structural-induction",
+      "title": "10. Let the construction dictate the proof",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Structural induction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Prove the property for every basic object. Then, for each construction rule, assume it for all input objects used by that rule and prove it for the newly constructed object. The exclusion rule ensures there are no other objects to check."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This resembles ordinary induction, but the step may combine several pieces rather than moving from number k to k + 1. For a full binary tree, assume the property for both subtrees. For a formula grammar, handle both the one-input NOT rule and every two-input connective rule."
+        },
+        {
+          "type": "example",
+          "title": "Every generated formula has equally many left and right parentheses",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let L(E) and R(E) count the left and right parentheses in formula E. Bases T, F, and variables have zero of each."
+            },
+            {
+              "type": "paragraph",
+              "text": "Assume L(E) = R(E) and L(G) = R(G). The formula (¬E) has L(E) + 1 left and R(E) + 1 right parentheses, so the counts remain equal. For any binary connective, (E connective G) has L(E) + L(G) + 1 left and R(E) + R(G) + 1 right parentheses. These are equal by the two hypotheses."
+            },
+            {
+              "type": "paragraph",
+              "text": "Every construction rule preserves equality, so structural induction proves the claim for all formulas generated by this grammar."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why this works: each generated object has a finite construction tree. Induct on that tree’s height. Height zero uses a base rule; a construction at greater height uses pieces with smaller construction heights. Thus ordinary induction supports structural induction."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you omit the NOT case because you proved the AND case?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. NOT is a separate construction with one input. A structural proof must cover every rule. One shared argument can cover all binary connectives because they add parentheses in the same way."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.4, printed pages 375–376."
+        }
+      ]
+    },
+    {
+      "id": "length-proof",
+      "title": "11. State which string the induction follows",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We will prove ℓ(uv) = ℓ(u) + ℓ(v) for every pair of strings u and v. The induction follows the construction of the second string v. Define P(v) to mean: for every string u, this length equation holds."
+        },
+        {
+          "type": "example",
+          "title": "A proof using the last appended symbol",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis v = λ: ℓ(uλ) = ℓ(u) = ℓ(u) + 0 = ℓ(u) + ℓ(λ), for every u."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step: assume P(v). Let a be any alphabet symbol and let u be any string. We must prove the result for va."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Equation",
+                "Reason"
+              ],
+              "rows": [
+                [
+                  "ℓ(u(va)) = ℓ((uv)a)",
+                  "Recursive definition of concatenation."
+                ],
+                [
+                  "ℓ((uv)a) = ℓ(uv) + 1",
+                  "Length rule for appending one symbol."
+                ],
+                [
+                  "ℓ(uv) + 1 = ℓ(u) + ℓ(v) + 1",
+                  "IH applied to v and this u."
+                ],
+                [
+                  "ℓ(u) + ℓ(v) + 1 = ℓ(u) + ℓ(va)",
+                  "Length rule again."
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "The equality holds for any u, so P(va) holds. Structural induction proves the claim for every v, and hence every pair u, v."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If u = aba and v = bb, what does the theorem say?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The joined string is ababb. Its length is 5 = 3 + 2. This example illustrates the result; the proof above covers strings of every finite length."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.4, printed pages 376."
+        }
+      ]
+    },
+    {
+      "id": "tree-bound",
+      "title": "12. Use both subtree hypotheses in a size bound",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a nonempty full binary tree T, let N(T) count vertices and h(T) be its height: the greatest number of edges on a path from the root to a leaf. A single vertex has N(T) = 1 and h(T) = 0. If T has subtrees L and R, then:"
+        },
+        {
+          "type": "math",
+          "notation": "N(T) = 1 + N(L) + N(R)\nh(T) = 1 + max(h(L), h(R))",
+          "description": "Count the new root plus both subtrees; height follows the longer branch."
+        },
+        {
+          "type": "example",
+          "title": "Prove N(T) ≤ 2^(h(T) + 1) − 1",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Here ^ denotes exponentiation, so 2^(h(T) + 1) means 2 raised to the power h(T) + 1. Basis: the one-vertex tree satisfies 1 = 2¹ − 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Step: assume the bound for L and R. Write H = max(h(L), h(R)), so h(T) = H + 1. Since powers of 2 increase with their exponent, both subtree bounds are at most 2^(H + 1) − 1."
+            },
+            {
+              "type": "math",
+              "notation": "N(T) = 1 + N(L) + N(R)\n≤ 1 + [2^(h(L) + 1) − 1] + [2^(h(R) + 1) − 1]\n≤ 1 + 2[2^(H + 1) − 1]\n= 2^(H + 2) − 1\n= 2^(h(T) + 1) − 1",
+              "description": "Apply the two inductive hypotheses, bound both subtree heights by H, and substitute the height of the new tree."
+            },
+            {
+              "type": "paragraph",
+              "text": "Structural induction establishes the bound. For the pictured five-vertex tree, h(T) = 2 and the bound is 7, so the inequality is strict."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is N(T) = 2^(h(T) + 1) − 1 not true for every full tree?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Full means every internal vertex has two children; it does not fill every possible position at every level. The five-vertex example has height 2 but fewer than 7 vertices. A tree with every level filled attains the bound."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.4, printed pages 376–377."
+        }
+      ]
+    },
+    {
+      "id": "generalized-induction",
+      "title": "13. Order pairs before using earlier pairs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Induction can also follow a well-ordered set: every nonempty subset must have a least element. On pairs of nonnegative integers, define strict lexicographic order by (a, b) < (m, n) when a < m, or when a = m and b < n. Compare the first coordinate first, as in dictionary order."
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, (1, 100) < (2, 0), and (2, 3) < (2, 4). Every nonempty set of such pairs has a least pair: choose its least first coordinate, then the least second coordinate among pairs with that first coordinate. Notice that (2, 0) has infinitely many earlier pairs; a proof need not compute them all."
+        },
+        {
+          "type": "example",
+          "title": "A recursive array with two kinds of step",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "A(0, 0) = 0\nA(m, 0) = A(m − 1, 0) + 2 for m > 0\nA(m, n) = A(m, n − 1) + (2n − 1) for n > 0",
+              "description": "Move to an earlier row when the second coordinate is zero; otherwise move to an earlier entry in the same row."
+            },
+            {
+              "type": "paragraph",
+              "text": "Claim: A(m, n) = 2m + n². Basis (0, 0) gives 0. Assume the formula for every lexicographically smaller pair."
+            },
+            {
+              "type": "paragraph",
+              "text": "If n = 0 and m > 0, the recursive input (m − 1, 0) is smaller. The IH gives A(m, 0) = 2(m − 1) + 2 = 2m."
+            },
+            {
+              "type": "paragraph",
+              "text": "If n > 0, the input (m, n − 1) is smaller. The IH gives A(m, n) = 2m + (n − 1)² + 2n − 1 = 2m + n². These two cases cover every pair except the basis, so generalized induction proves the formula."
+            },
+            {
+              "type": "paragraph",
+              "text": "For example, A(2, 3) = 2·2 + 3² = 13. Direct construction gives row entries A(2, 0), A(2, 1), A(2, 2), A(2, 3) as 4, 5, 8, 13."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is (m + 1, 0) earlier than (m, 50) in this order?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The first coordinate takes priority, so increasing it makes the pair later regardless of the second coordinate. Always check the actual order before using an IH."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3.5, printed pages 377–378."
+        }
+      ]
+    },
+    {
+      "id": "recursive-definitions-recap",
+      "title": "14. Choose the recipe and the matching proof",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "When you see…",
+            "Ask…"
+          ],
+          "rows": [
+            [
+              "A recurrence",
+              "What is the domain? Are there enough consistent bases?"
+            ],
+            [
+              "A recursively generated set",
+              "What are the bases, constructors, and exclusion rule?"
+            ],
+            [
+              "A structural proof",
+              "Have I checked every constructor and assumed only its input pieces?"
+            ],
+            [
+              "A claim identifying a set",
+              "Have I proved both inclusions?"
+            ],
+            [
+              "A proof on pairs",
+              "Which order makes each dependency earlier?"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Recursion defines objects from earlier pieces. Induction proves properties by following those same dependencies. When the object is a string, formula, or tree, its construction tells you exactly what the basis and the step must look like."
+        },
+        {
+          "type": "check",
+          "prompt": "A proposed full-tree proof checks the single vertex, then adds a root to just one subtree. What is wrong?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "That is not the full-tree constructor. The correct step combines two nonempty full binary trees under a new root, and may use a hypothesis for each. A proof must match the definition it is meant to cover."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.3, printed pages 365–378."
+        }
+      ]
+    }
+  ]
+}

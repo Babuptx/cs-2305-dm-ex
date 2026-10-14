@@ -1,0 +1,983 @@
+{
+  "schemaVersion": 1,
+  "id": "5.4",
+  "title": "Recursive Algorithms",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §5.4.1–§5.4.4, printed pages 381–391 (exposition).",
+    "Original companion explanations, examples, proofs, checks, and diagrams."
+  ],
+  "units": [
+    {
+      "id": "algorithm-idea",
+      "title": "1. Make a smaller request, then use its answer",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A recursive algorithm solves a problem by asking the same procedure to solve a smaller instance. A base case answers directly. When a smaller call returns, the waiting call uses that answer to finish. The question is not just “does this call itself?” but “why does it reach a base, and why does its answer solve the original problem?”"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Think of counting a stack of cards: an empty stack has size 0; otherwise remove one card, count the remaining stack, then add 1. Each request is smaller by one card, and each return adds back exactly the card removed."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Part",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Input domain",
+              "Says which calls the procedure accepts."
+            ],
+            [
+              "Base case",
+              "Returns an answer without another recursive call."
+            ],
+            [
+              "Reduction",
+              "Passes an allowed, strictly smaller instance to the same procedure."
+            ],
+            [
+              "Combination",
+              "Uses the smaller answer to produce the requested answer."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The algorithms below use mathematical pseudocode. “Return” finishes the current call and passes its result to the caller. The symbol := means assignment: calculate the right side, then store it in the variable on the left. Array positions start at 1."
+        },
+        {
+          "type": "check",
+          "prompt": "Is a base case enough to guarantee termination?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Calling Count(n + 1) from Count(n), with a base at n = 0, moves away from that base for positive n. You must show that every recursive path makes progress toward a stopping case."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.1, printed pages 381–382."
+        }
+      ]
+    },
+    {
+      "id": "factorial-calls",
+      "title": "2. Follow calls downward and answers upward",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For nonnegative integers n, n! is the product 1·2·…·n when n ≥ 1, with 0! = 1. Its recursive rule is n! = n(n − 1)! for n ≥ 1."
+        },
+        {
+          "type": "math",
+          "notation": "Factorial(n):\n  if n = 0: return 1\n  return n × Factorial(n − 1)",
+          "description": "For a nonnegative integer n, stop at zero; otherwise multiply n by the factorial of n minus one."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Call",
+            "What it waits for",
+            "Returned value"
+          ],
+          "rows": [
+            [
+              "Factorial(4)",
+              "4 × Factorial(3)",
+              "24"
+            ],
+            [
+              "Factorial(3)",
+              "3 × Factorial(2)",
+              "6"
+            ],
+            [
+              "Factorial(2)",
+              "2 × Factorial(1)",
+              "2"
+            ],
+            [
+              "Factorial(1)",
+              "1 × Factorial(0)",
+              "1"
+            ],
+            [
+              "Factorial(0)",
+              "Nothing: base case",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Read the middle column downward to follow the requests 4 → 3 → 2 → 1 → 0. Then read the final column upward: 1 → 1 → 2 → 6 → 24. The caller keeps its own n while waiting. It does not forget the multiplication still needed."
+        },
+        {
+          "type": "example",
+          "title": "Why the procedure stops and is correct",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Termination: every nonbase call decreases the nonnegative integer n by one. It reaches 0 after n decreases."
+            },
+            {
+              "type": "paragraph",
+              "text": "Correctness: the base returns 0! = 1. Assume Factorial(k) returns k!. At input k + 1 the procedure returns (k + 1)Factorial(k) = (k + 1)k! = (k + 1)!. Induction proves correctness for every allowed input."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This version makes n + 1 calls including the base and performs n multiplications, counting multiplication by 1. Without a compiler optimization it keeps O(n) pending call records. Negative integers are outside its domain."
+        },
+        {
+          "type": "check",
+          "prompt": "Would replacing the base return value 1 by 0 still compute factorials?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Factorial(1) would become 1·0 = 0, and every larger result would also be zero. The base is both the stopping point and the seed of the answer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.1, printed pages 382."
+        }
+      ]
+    },
+    {
+      "id": "power-proof",
+      "title": "3. Match the proof to the recursive call",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a fixed nonzero real number a and a nonnegative integer n, aⁿ = a·aⁿ⁻¹ when n ≥ 1, and a⁰ = 1. This gives a recursive power procedure."
+        },
+        {
+          "type": "math",
+          "notation": "Power(a, n):\n  if n = 0: return 1\n  return a × Power(a, n − 1)",
+          "description": "Compute a power by reducing its nonnegative exponent by one."
+        },
+        {
+          "type": "example",
+          "title": "Trace and prove",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For a = −2 and n = 3, the return values from exponents 0, 1, 2, 3 are 1, −2, 4, −8. The base a may be negative; the exponent still decreases to zero."
+            },
+            {
+              "type": "paragraph",
+              "text": "Basis: Power(a, 0) returns 1 = a⁰ for every a ≠ 0. Hypothesis: for arbitrary k ≥ 0, Power(a, k) terminates and returns aᵏ for every nonzero a. At k + 1 the call uses the same a and exponent k, so the hypothesis applies."
+            },
+            {
+              "type": "math",
+              "notation": "Power(a, k + 1) = a × Power(a, k) = a × aᵏ = aᵏ⁺¹",
+              "description": "The middle equality is exactly where the inductive hypothesis is used."
+            },
+            {
+              "type": "paragraph",
+              "text": "The smaller call terminates, and the remaining multiplication finishes the current call. This proves both termination and the returned value by induction."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Correctness is always relative to stated inputs. This procedure does not handle a negative exponent: decrementing −1 never reaches 0. We exclude a = 0 so that the exponent-zero case does not raise a 0⁰ convention question."
+        },
+        {
+          "type": "check",
+          "prompt": "May the proof assume Power(a, k + 1) already returns aᵏ⁺¹?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. That is the target. The allowed assumption concerns the smaller call Power(a, k), whose result the current call multiplies by a."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.1–5.4.2, printed pages 382, 385."
+        }
+      ]
+    },
+    {
+      "id": "euclidean-recursion",
+      "title": "4. Reduce a pair using the remainder",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For this procedure, a and b are nonnegative integers with a < b, so b is positive. The notation b mod a, used only when a > 0, is the remainder after dividing b by a; it lies between 0 and a − 1."
+        },
+        {
+          "type": "math",
+          "notation": "GCD(a, b):\n  if a = 0: return b\n  return GCD(b mod a, a)",
+          "description": "Return the positive second input when the first is zero; otherwise recurse on remainder and old first input."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Call",
+            "Division explaining next call"
+          ],
+          "rows": [
+            [
+              "GCD(18, 48)",
+              "48 = 2·18 + 12"
+            ],
+            [
+              "GCD(12, 18)",
+              "18 = 1·12 + 6"
+            ],
+            [
+              "GCD(6, 12)",
+              "12 = 2·6 + 0"
+            ],
+            [
+              "GCD(0, 6)",
+              "Return 6"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Preserve the common divisors",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Write b = qa + r. Any common divisor of a and b divides r = b − qa. Conversely, any common divisor of r and a divides b = qa + r. The pairs (a, b) and (r, a) therefore have exactly the same common divisors and the same gcd."
+            },
+            {
+              "type": "paragraph",
+              "text": "Termination: the first input decreases from a to r, where 0 ≤ r < a. The new pair still satisfies its domain, and eventually its first input is zero. The base gcd(0, b) = b is correct for b > 0. Every reduction preserves the gcd, so the final returned value is the requested answer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If your original two positive inputs are equal, their gcd is that shared value. Otherwise put the smaller input first to use this particular procedure. It never computes a remainder with divisor zero, because it checks the base first."
+        },
+        {
+          "type": "check",
+          "prompt": "What does GCD(0, 9) return, and does it evaluate 9 mod 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It returns 9 immediately. The recursive line is not reached, so no division by zero occurs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.1, printed pages 381–383."
+        }
+      ]
+    },
+    {
+      "id": "modular-power",
+      "title": "5. Halve an exponent and reuse the result",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To compute bⁿ mod m, assume integers b ≥ 1, n ≥ 0, m ≥ 2. The result is the unique remainder from 0 to m − 1. Replacing a factor by its remainder does not change a product’s final remainder. This lets us keep intermediate answers small."
+        },
+        {
+          "type": "paragraph",
+          "text": "Write q = ⌊n/2⌋, where floor ⌊x⌋ means the greatest integer at most x. If n is even, n = 2q, so bⁿ = (bᑫ)². If n is odd, n = 2q + 1, so bⁿ = (bᑫ)²b. Compute the smaller power just once and reuse it."
+        },
+        {
+          "type": "math",
+          "notation": "ModPower(b, n, m):\n  if n = 0: return 1\n  q := floor(n / 2)\n  y := ModPower(b, q, m)\n  z := (y × y) mod m\n  if n is even: return z\n  return (z × (b mod m)) mod m",
+          "description": "One recursive call supplies the half-exponent remainder. Square it, then multiply by b once more only for an odd exponent."
+        },
+        {
+          "type": "example",
+          "title": "Compute 3¹³ mod 7",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The requests use exponents 13 → 6 → 3 → 1 → 0. Start with the base value 1, then return upward:"
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Exponent",
+                "Calculation using the smaller result",
+                "Return"
+              ],
+              "rows": [
+                [
+                  "0",
+                  "Base",
+                  "1"
+                ],
+                [
+                  "1",
+                  "(1²·3) mod 7",
+                  "3"
+                ],
+                [
+                  "3",
+                  "(3²·3) mod 7 = 27 mod 7",
+                  "6"
+                ],
+                [
+                  "6",
+                  "6² mod 7 = 36 mod 7",
+                  "1"
+                ],
+                [
+                  "13",
+                  "(1²·3) mod 7",
+                  "3"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For n ≥ 1 there are ⌊log₂ n⌋ + 1 nonbase calls, each using at most two modular multiplications. Here log₂ means base-2 logarithm. The number of such operations is O(log n), compared with n multiplications for the simple power procedure. This counts arithmetic operations, not their bit-level costs. Store y; two independent calls for the same half-exponent would repeat work."
+        },
+        {
+          "type": "check",
+          "prompt": "For an odd exponent n = 9, what is the smaller exponent, and why is one extra factor b needed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "q = floor(9/2) = 4. Squaring b⁴ gives b⁸, so multiplying by b gives b⁹."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.1, printed pages 383–384."
+        }
+      ]
+    },
+    {
+      "id": "modular-proof",
+      "title": "6. Prove both parity branches with strong induction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The claim is: for every allowed b and m and every n ≥ 0, ModPower terminates and returns bⁿ mod m. Strong induction fits because the call uses ⌊n/2⌋, which may be much smaller than n − 1."
+        },
+        {
+          "type": "example",
+          "title": "Basis, smaller input, even case, odd case",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 0: the procedure returns 1, which is b⁰ mod m since m ≥ 2."
+            },
+            {
+              "type": "paragraph",
+              "text": "For n ≥ 1, assume the claim for every smaller nonnegative exponent. Set q = ⌊n/2⌋. Because 0 ≤ q < n, the IH says the call for q terminates and returns y = bᑫ mod m."
+            },
+            {
+              "type": "paragraph",
+              "text": "Even case: n = 2q. Squaring y and reducing modulo m gives the same remainder as (bᑫ)² = b²ᑫ = bⁿ."
+            },
+            {
+              "type": "paragraph",
+              "text": "Odd case: n = 2q + 1. Squaring y, then multiplying by b mod m and reducing again, gives the remainder of b²ᑫb = bⁿ."
+            },
+            {
+              "type": "paragraph",
+              "text": "Each branch performs only finitely many operations after the smaller call returns. Both branches produce a remainder in 0 through m − 1. This completes the strong-induction proof."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why must the base be tested before making the half-exponent call?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "At n = 0, floor(n/2) is still 0. Recursing first would call the same input forever. The strict decrease only holds when n ≥ 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.2, printed pages 385–386."
+        }
+      ]
+    },
+    {
+      "id": "linear-search",
+      "title": "7. Search one remaining position at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let A be a finite array A[1], …, A[N]. We use inclusive bounds i and j: the search interval includes both endpoints. An interval with i > j is empty. Return 0 to mean “not found”; it cannot be confused with a valid position because positions start at 1."
+        },
+        {
+          "type": "math",
+          "notation": "LinearSearch(A, i, j, x):\n  if i > j: return 0\n  if A[i] = x: return i\n  return LinearSearch(A, i + 1, j, x)",
+          "description": "Check the empty interval first; otherwise inspect its first item and recurse on the remaining suffix if needed."
+        },
+        {
+          "type": "example",
+          "title": "Find the first occurrence",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "In A = [8, 3, 6, 3, 9], search for x = 3 with bounds (1, 5). Position 1 contains 8, so recurse with (2, 5). Position 2 contains 3, so return 2. Position 4 also contains 3, but the search stops at the first occurrence."
+            },
+            {
+              "type": "paragraph",
+              "text": "For x = 7, all five equality checks fail. The next call has bounds (6, 5), which are empty, and returns 0. No nonexistent array item is read."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why it works: if the first item matches, it is the earliest position in the interval. If it does not, any match must lie in the remaining suffix. That suffix has one fewer item, so induction on interval length justifies the recursive result and termination. The worst case uses N equality comparisons. Unlike binary search, this procedure needs no sorted order."
+        },
+        {
+          "type": "paragraph",
+          "text": "This companion version makes the empty-interval case explicit, so the initial call (1, 0) also handles an empty array. The textbook presents the nonempty-interval variant."
+        },
+        {
+          "type": "check",
+          "prompt": "Could we use −1 rather than 0 as the failure result?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes, provided the convention is stated and every caller uses it consistently. What matters is choosing a value outside the valid position range."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.1, printed pages 384."
+        }
+      ]
+    },
+    {
+      "id": "binary-search",
+      "title": "8. Discard half only when order justifies it",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Binary search requires A to be sorted in nondecreasing order: A[1] ≤ A[2] ≤ … ≤ A[N]. Duplicates are allowed in this version. It returns a matching position, which need not be the first matching position."
+        },
+        {
+          "type": "math",
+          "notation": "BinarySearch(A, i, j, x):\n  if i > j: return 0\n  mid := i + floor((j − i) / 2)\n  if A[mid] = x: return mid\n  if x < A[mid]:\n    return BinarySearch(A, i, mid − 1, x)\n  return BinarySearch(A, mid + 1, j, x)",
+          "description": "Check the middle of a sorted inclusive interval, then recurse on the appropriate side excluding the middle."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Search 16 in [2, 5, 8, 12, 16, 23, 31]",
+            "Decision"
+          ],
+          "rows": [
+            [
+              "Bounds 1…7, middle 4, value 12",
+              "16 > 12: keep positions 5…7."
+            ],
+            [
+              "Bounds 5…7, middle 6, value 23",
+              "16 < 23: keep position 5."
+            ],
+            [
+              "Bounds 5…5, middle 5, value 16",
+              "Return 5."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Why throwing away a half is safe",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If x < A[mid], every item at or to the right of mid is at least A[mid], so none equals x. A possible match must be to the left. The case x > A[mid] works symmetrically. The selected interval is strictly shorter, and an empty interval correctly returns 0. Strong induction on interval length proves both termination and correctness."
+            },
+            {
+              "type": "paragraph",
+              "text": "For x = 15 in the displayed array, the first two decisions are the same. At position 5, 15 < 16 gives bounds (5, 4), an empty interval, so the answer is 0."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Each unsuccessful middle inspection leaves at most half the old items. For N ≥ 1, at most ⌊log₂ N⌋ + 1 nonempty calls occur. Each call uses a constant number of key comparisons, so the worst-case count is O(log N). Excluding mid is essential: keeping it can repeat a one-item interval forever."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can’t the same procedure reliably search [8, 2, 6]?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The middle value is 2. Searching for 8 would discard the left side, even though 8 is there. Sorted order is the reason a whole half can be ruled out."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.1, printed pages 384–385."
+        }
+      ]
+    },
+    {
+      "id": "fibonacci-work",
+      "title": "9. Notice repeated work in a recursion tree",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A direct translation of the Fibonacci definition is easy to read:"
+        },
+        {
+          "type": "math",
+          "notation": "Fib(n):\n  if n = 0: return 0\n  if n = 1: return 1\n  return Fib(n − 1) + Fib(n − 2)",
+          "description": "For nonnegative integer n, stop at the two bases or add the two smaller Fibonacci values."
+        },
+        {
+          "type": "diagram",
+          "title": "Two branches can ask the same question",
+          "src": "assets/fibonacci-calls.svg",
+          "description": "The call Fib(4) splits into Fib(3) and Fib(2). Fib(3) splits into another Fib(2) and Fib(1). Each Fib(2) splits into Fib(1) and Fib(0). Thus Fib(2) is computed twice. There are nine calls and four additions, returning three."
+        },
+        {
+          "type": "paragraph",
+          "text": "The procedure is correct: its bases match F₀ and F₁, both recursive inputs are smaller for n ≥ 2, and strong induction supplies their correct values. The issue is cost. Fib(4) computes Fib(2) twice instead of remembering its result."
+        },
+        {
+          "type": "example",
+          "title": "Count additions, not just the answer",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let C(n) count additions in this direct procedure. Bases C(0) = C(1) = 0. For n ≥ 2, C(n) = C(n − 1) + C(n − 2) + 1: count both subcalls and the final addition."
+            },
+            {
+              "type": "paragraph",
+              "text": "The formula C(n) = Fₙ₊₁ − 1 holds for n ≥ 0. The two bases give zero. Assuming it for n − 1 and n − 2, the step gives (Fₙ − 1) + (Fₙ₋₁ − 1) + 1 = Fₙ₊₁ − 1."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "n",
+                "Fₙ: returned value",
+                "C(n): additions"
+              ],
+              "rows": [
+                [
+                  "4",
+                  "3",
+                  "4"
+                ],
+                [
+                  "5",
+                  "5",
+                  "7"
+                ],
+                [
+                  "10",
+                  "55",
+                  "88"
+                ],
+                [
+                  "20",
+                  "6765",
+                  "10945"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Fibonacci numbers grow exponentially, so this procedure’s addition count does too. That is a property of this repeated-work implementation, not a rule that every recursive algorithm is slow. Saving already computed results, called memoization, can avoid repeated subproblems."
+        },
+        {
+          "type": "check",
+          "prompt": "Does Fib(4) perform only three additions because it returns 3?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The output is 3, while four nonbase calls each perform an addition. The numerical answer and the amount of work are different quantities."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.3, printed pages 386–387."
+        }
+      ]
+    },
+    {
+      "id": "iteration",
+      "title": "10. Keep the two values you will need next",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Iteration repeats a block using a loop. To compute Fₙ, keep the two most recent Fibonacci values instead of branching into repeated subcalls. This version returns immediately at n = 0."
+        },
+        {
+          "type": "math",
+          "notation": "IterativeFib(n):\n  if n = 0: return 0\n  x := 0\n  y := 1\n  for i from 1 through n − 1:\n    next := x + y\n    x := y\n    y := next\n  return y",
+          "description": "For n at least one, start with F zero and F one, then advance the stored pair n minus one times."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "For n = 6",
+            "x",
+            "y"
+          ],
+          "rows": [
+            [
+              "Before loop",
+              "0",
+              "1"
+            ],
+            [
+              "After iteration 1",
+              "1",
+              "1"
+            ],
+            [
+              "After iteration 2",
+              "1",
+              "2"
+            ],
+            [
+              "After iteration 3",
+              "2",
+              "3"
+            ],
+            [
+              "After iteration 4",
+              "3",
+              "5"
+            ],
+            [
+              "After iteration 5",
+              "5",
+              "8"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "After t iterations, x = Fₜ and y = Fₜ₊₁. It holds initially at t = 0. If it holds for t, the saved sum next is Fₜ + Fₜ₊₁ = Fₜ₊₂, and the assignments advance the pair. At t = n − 1, y = Fₙ. For n = 1 the loop is empty and returns the initial y = 1."
+        },
+        {
+          "type": "paragraph",
+          "text": "This uses n − 1 additions for n ≥ 1 and only a fixed number of numeric variables. These are arithmetic-operation and variable counts: the bit lengths of the stored integers grow with n. Direct recursion and iteration compute the same sequence with very different amounts of repeated work."
+        },
+        {
+          "type": "check",
+          "prompt": "Why save next before setting x := y?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If you set x := y first and then use y := x + y, both operands would be the old y. For example, the initial pair (0, 1) would become (1, 2), skipping the correct pair (1, 1). The saved sum preserves both old values."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.3, printed pages 386–387."
+        }
+      ]
+    },
+    {
+      "id": "merge-sort",
+      "title": "11. Split to single items, then merge upward",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Merge sort orders a finite list by dividing it into two nearly equal parts, sorting each part recursively, and merging the two sorted results. A list of zero or one item is already sorted. “Nondecreasing” allows equal neighboring values."
+        },
+        {
+          "type": "math",
+          "notation": "MergeSort(L):\n  if length(L) ≤ 1: return L\n  mid := floor(length(L) / 2)\n  left := first mid items of L\n  right := remaining items of L\n  return Merge(MergeSort(left), MergeSort(right))",
+          "description": "Split a list of at least two items into two smaller nonempty lists; sort them and merge the results."
+        },
+        {
+          "type": "diagram",
+          "title": "Splitting and merging [7, 2, 5, 1]",
+          "src": "assets/merge-sort.svg",
+          "description": "Split [7, 2, 5, 1] into [7, 2] and [5, 1], then into [7], [2], [5], [1]. Merge the first two to [2, 7] and the last two to [1, 5]. The final merge produces [1, 2, 5, 7]."
+        },
+        {
+          "type": "example",
+          "title": "A correctness proof needs two promises",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "We want a sorted output containing exactly the original items, including every repeated item. Sorting alone would be insufficient: returning an empty list is sorted but loses the input."
+            },
+            {
+              "type": "paragraph",
+              "text": "Bases of length 0 and 1 preserve the list and are sorted. For length N ≥ 2, both halves have lengths between 1 and N − 1. Strong induction says each recursive result is sorted and preserves its half’s items. If Merge correctly combines sorted lists without losing or duplicating items, the final output is sorted and preserves all of L."
+            },
+            {
+              "type": "paragraph",
+              "text": "The smaller lengths also guarantee termination. The next unit supplies the Merge argument needed to finish the proof."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For a list of length 5, what are the two recursive sizes in this version?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They are 2 and 3 because floor(5/2) = 2. Both are smaller than 5. Merge sort does not require a power-of-two input size."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.4, printed pages 388–389."
+        }
+      ]
+    },
+    {
+      "id": "merge",
+      "title": "12. Choose the smaller front item and preserve duplicates",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Given two sorted lists, their smallest remaining item must be at the front of one of them. Compare those two front items, move the smaller one to the output, and repeat. If they are equal, take the left item first. When either list is empty, append all of the other list without more key comparisons."
+        },
+        {
+          "type": "math",
+          "notation": "Merge(left, right):\n  output := empty list\n  while left and right are both nonempty:\n    if first(left) ≤ first(right):\n      move first(left) to end of output\n    else:\n      move first(right) to end of output\n  append all remaining left items to output\n  append all remaining right items to output\n  return output",
+          "description": "Select the smaller current front, choosing the left on ties, then append the untouched remainder when one list is empty."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Merge [2, 7] with [1, 5]",
+            "Action",
+            "Output"
+          ],
+          "rows": [
+            [
+              "Compare 2 and 1",
+              "Take 1 from right",
+              "[1]"
+            ],
+            [
+              "Compare 2 and 5",
+              "Take 2 from left",
+              "[1, 2]"
+            ],
+            [
+              "Compare 7 and 5",
+              "Take 5 from right",
+              "[1, 2, 5]"
+            ],
+            [
+              "Right is empty",
+              "Append remaining 7",
+              "[1, 2, 5, 7]"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why it works: at each step the selected front is no larger than any remaining item in either list. Appending it keeps the output sorted. Moving one item preserves the total collection of items across the output and the two remaining lists. The number of remaining items decreases, so the loop stops. The remaining sorted suffix can then be appended safely. This proves the Merge fact used in the merge-sort proof."
+        },
+        {
+          "type": "example",
+          "title": "Equal keys still represent distinct items",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Merge [2a, 4] with [2b, 3], comparing only the numeric keys and using letters to track identity. The result is [2a, 2b, 3, 4]. Both 2s are kept. Taking the left item on a tie preserves their original relative order when the halves came from one original list. This property is called stability."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If the input lengths are p ≥ 1 and q ≥ 1, at most p + q − 1 key comparisons are needed: each comparison removes one item from the inputs, and once only one remains one list must already be empty. If either input is empty from the start, no key comparisons are needed. The appends belong after the loop so this empty-input case works too."
+        },
+        {
+          "type": "check",
+          "prompt": "Why not take one 2 and discard the other when the fronts are equal?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Sorting must preserve multiplicities: if the input contains two copies of 2, so must the output. A set operation that removes duplicates would solve a different problem."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.4, printed pages 389–390."
+        }
+      ]
+    },
+    {
+      "id": "merge-cost",
+      "title": "13. Count work across the levels",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "First suppose the list length N = 2ʰ, where h ≥ 0 is an integer. Repeated halving gives h merge levels. At the level that produces sorted groups of size 2ʲ, there are N/2ʲ merges and each costs at most 2ʲ − 1 comparisons."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "For N = 8",
+            "Number of merges",
+            "Bound per merge",
+            "Level bound"
+          ],
+          "rows": [
+            [
+              "Groups of size 2",
+              "4",
+              "1",
+              "4"
+            ],
+            [
+              "Groups of size 4",
+              "2",
+              "3",
+              "6"
+            ],
+            [
+              "Groups of size 8",
+              "1",
+              "7",
+              "7"
+            ],
+            [
+              "Total",
+              "—",
+              "—",
+              "17"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "Level j: (N/2ʲ)(2ʲ − 1) = N − N/2ʲ\nTotal for j = 1, …, h: hN − (N − 1)\n= N log₂ N − N + 1",
+          "description": "Sum the work at each level. The number of merges across all levels is N minus one."
+        },
+        {
+          "type": "paragraph",
+          "text": "The sum N/2 + N/4 + … + 1 equals N − 1 when N is a power of two. This gives the displayed bound, including zero comparisons at N = 1. A particular input may use fewer comparisons because one side can empty early."
+        },
+        {
+          "type": "paragraph",
+          "text": "For other positive lengths, the splitting has at most ⌈log₂ N⌉ levels, where ceiling means rounding upward to an integer. At any level, the participating lists contain at most N items in total, so merging costs at most N comparisons. Thus the general comparison bound is O(N log N) for N ≥ 2. The exact expression above was derived only for powers of two."
+        },
+        {
+          "type": "paragraph",
+          "text": "This analysis counts key comparisons. A conventional implementation with index cursors also merges in linear time and uses O(N) auxiliary storage plus O(log N) call depth. Physically shifting an array every time its first item is removed would add avoidable work; “move first” in the pseudocode describes the logical action, not a requirement to shift memory."
+        },
+        {
+          "type": "check",
+          "prompt": "Does O(N log N) mean every input takes exactly N log₂ N comparisons?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Big-O is an asymptotic upper bound, not an exact count. For N = 8, the sharper bound derived here is 17, while N log₂ N = 24."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4.4, printed pages 390–391."
+        }
+      ]
+    },
+    {
+      "id": "recursive-algorithms-recap",
+      "title": "14. Check the domain, the decrease, and the return",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Algorithm",
+            "What decreases?",
+            "What justifies the answer?"
+          ],
+          "rows": [
+            [
+              "Factorial / simple power",
+              "Nonnegative exponent or factorial input",
+              "Multiply the correct smaller result by the missing factor."
+            ],
+            [
+              "Euclidean gcd",
+              "First input",
+              "Replacing by the remainder preserves common divisors."
+            ],
+            [
+              "Modular power",
+              "Exponent halves",
+              "Even and odd exponent identities preserve the remainder."
+            ],
+            [
+              "Linear / binary search",
+              "Remaining interval length",
+              "The discarded positions cannot contain a needed match."
+            ],
+            [
+              "Merge sort",
+              "Sublist length",
+              "Correctly merge two sorted permutations of the halves."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For any recursive algorithm, state its valid inputs, check every base, show every call stays in the domain and gets smaller, and explain how the returned smaller answers yield the current answer. Then analyze work separately: a correct procedure can still repeat expensive computations."
+        },
+        {
+          "type": "check",
+          "prompt": "A recursive sort returns an ordered list but silently drops duplicate values. Is it correct?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The specification requires both order and preservation of all items with their multiplicities. A proof and a test should check both conditions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.4, printed pages 381–391."
+        }
+      ]
+    }
+  ]
+}

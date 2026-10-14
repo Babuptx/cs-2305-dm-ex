@@ -272,16 +272,16 @@
           "id": "5.3",
           "number": "5.3",
           "title": "Recursive Definitions and Structural Induction",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/5.3.json",
           "children": []
         },
         {
           "id": "5.4",
           "number": "5.4",
           "title": "Recursive Algorithms",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/5.4.json",
           "children": []
         },
         {

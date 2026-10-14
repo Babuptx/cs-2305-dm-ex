@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="390" viewBox="0 0 760 390" role="img" aria-labelledby="title desc">
+<title id="title">Repeated work in Fib(4)</title><desc id="desc">Fib(4) calls Fib(3) and Fib(2). Fib(3) calls Fib(2) again and Fib(1). Both Fib(2) calls separately call Fib(1) and Fib(0). Nine calls perform four additions.</desc>
+<rect width="760" height="390" rx="16" fill="#f4f7f5"/>
+<path d="M390 55 L250 140 M390 55 L570 140 M250 140 L150 230 M250 140 L340 230 M570 140 L490 230 M570 140 L650 230 M150 230 L75 320 M150 230 L220 320" stroke="#597369" stroke-width="2" fill="none"/>
+<g stroke="#28624f" stroke-width="2" fill="#fff"><rect x="345" y="32" width="90" height="46" rx="10"/><rect x="205" y="117" width="90" height="46" rx="10"/><rect x="295" y="207" width="90" height="46" rx="10"/><rect x="445" y="207" width="90" height="46" rx="10"/><rect x="605" y="207" width="90" height="46" rx="10"/><rect x="30" y="297" width="90" height="46" rx="10"/><rect x="175" y="297" width="90" height="46" rx="10"/></g>
+<g stroke="#9b5a19" stroke-width="2" fill="#fff0d9"><rect x="525" y="117" width="90" height="46" rx="10"/><rect x="105" y="207" width="90" height="46" rx="10"/></g>
+<g font-family="system-ui, sans-serif" font-size="18" fill="#17382d" text-anchor="middle"><text x="390" y="62">Fib(4)</text><text x="250" y="147">Fib(3)</text><text x="570" y="147">Fib(2)</text><text x="150" y="237">Fib(2)</text><text x="340" y="237">Fib(1)</text><text x="490" y="237">Fib(1)</text><text x="650" y="237">Fib(0)</text><text x="75" y="327">Fib(1)</text><text x="220" y="327">Fib(0)</text></g>
+<g font-family="system-ui, sans-serif" fill="#17382d" font-size="17"><text x="390" y="313">The highlighted calls repeat Fib(2).</text><text x="390" y="343">9 calls · 4 additions · answer 3</text></g>
+</svg>
