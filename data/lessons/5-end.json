@@ -1,0 +1,1028 @@
+{
+  "schemaVersion": 1,
+  "id": "5-end",
+  "title": "End-of-Chapter Material",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, Chapter 5 Key Terms and Results, Review Questions, Supplementary Exercises, Computer Projects, Computations and Explorations, and Writing Projects, printed pages 398–404. Original companion review rather than a reproduction of the numbered exercise lists.",
+    "Original companion explanations, worked examples, practice, and checks."
+  ],
+  "units": [
+    {
+      "id": "chapter-five-map",
+      "title": "1. Bring the chapter’s methods together",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Use this page as your Chapter 5 review",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Start with the key terms, choose a proof method, and attempt each practice problem before opening its explanation. The worked problems and project briefs here are original companion material aligned with the textbook’s review topics. Consult the book for its complete numbered exercise lists."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Section",
+            "Central question",
+            "What to be able to do"
+          ],
+          "rows": [
+            [
+              "5.1 — Mathematical Induction",
+              "Can the next case follow from the preceding case?",
+              "State the basis and IH, then justify the next case."
+            ],
+            [
+              "5.2 — Strong Induction and Well-Ordering",
+              "Which earlier cases or least element do I need?",
+              "Choose enough bases and check every smaller index."
+            ],
+            [
+              "5.3 — Recursive Definitions and Structural Induction",
+              "How is each object constructed?",
+              "Give bases and rules; prove a property for each constructor."
+            ],
+            [
+              "5.4 — Recursive Algorithms",
+              "How does the smaller answer solve this problem?",
+              "Trace calls and returns, prove termination, and count work."
+            ],
+            [
+              "5.5 — Program Correctness",
+              "What remains true as the state changes?",
+              "Use assertions, branch cases, invariants, and termination measures."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The textbook’s end-of-chapter material groups key terms, review questions, supplementary exercises, computer projects, computations and explorations, and writing projects. This page follows those purposes: recall, apply, debug, implement, investigate, and explain."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 5 end-of-chapter material, printed pages 398–404."
+        }
+      ]
+    },
+    {
+      "id": "key-terms",
+      "title": "2. Recall the terms through their jobs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Term",
+            "Meaning in use"
+          ],
+          "rows": [
+            [
+              "Sequence",
+              "A function indexed by integers; aₙ is its value at index n."
+            ],
+            [
+              "Arithmetic / geometric progression",
+              "Add a fixed difference each time / multiply by a fixed ratio each time."
+            ],
+            [
+              "Basis",
+              "Establish the starting case or starting block of a proof."
+            ],
+            [
+              "Inductive hypothesis (IH)",
+              "The earlier claim or claims temporarily assumed while proving the step."
+            ],
+            [
+              "Ordinary induction",
+              "Use P(k) to prove P(k + 1), together with a valid start."
+            ],
+            [
+              "Strong induction",
+              "Use all allowed earlier cases to prove the next case."
+            ],
+            [
+              "Well-ordering",
+              "Every nonempty set of nonnegative integers has a least member."
+            ],
+            [
+              "Structural induction",
+              "Prove the bases and preservation under each construction rule."
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Term",
+            "Meaning in use"
+          ],
+          "rows": [
+            [
+              "Recursive definition",
+              "Starting values or objects plus rules using earlier pieces."
+            ],
+            [
+              "Exclusion rule",
+              "Only objects finitely generated from the specified bases and rules belong."
+            ],
+            [
+              "Recursive algorithm",
+              "Solve smaller instances with the same procedure and combine their answers."
+            ],
+            [
+              "Iteration",
+              "Repeat instructions using a loop."
+            ],
+            [
+              "Merge sort",
+              "Recursively sort halves, then merge the sorted results."
+            ],
+            [
+              "Precondition / postcondition",
+              "What is assumed before execution / what is promised afterward."
+            ],
+            [
+              "Partial / total correctness",
+              "Correct if execution terminates / correct and guaranteed to terminate."
+            ],
+            [
+              "Loop invariant / variant",
+              "A relation restored at each loop head / a measure proving eventual termination."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Which part of a proof lets you replace a sum through k by its claimed formula?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The inductive hypothesis. State it for the exact index and domain you are allowed to use. The formula for k + 1 is the target, not an extra assumption."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does “strong induction” prove more theorems than ordinary induction?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The two principles are equivalent. Strong induction often matches a problem’s dependencies more conveniently, such as a reduction to several different smaller sizes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Key Terms and Results; §§5.1–5.5, printed pages 398–399."
+        }
+      ]
+    },
+    {
+      "id": "choose-method",
+      "title": "3. Choose a method by the dependency",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Problem pattern",
+            "Useful starting method",
+            "First thing to write"
+          ],
+          "rows": [
+            [
+              "Old sum plus one new term",
+              "Ordinary induction",
+              "Separate the new term from the k-term sum."
+            ],
+            [
+              "A size breaks into arbitrary smaller sizes",
+              "Strong induction",
+              "State the entire range available in the IH."
+            ],
+            [
+              "A supposed set of counterexamples",
+              "Well-ordering",
+              "Show the set is nonempty and has a least element."
+            ],
+            [
+              "A string, formula, or tree is built by rules",
+              "Structural induction",
+              "List every base and constructor."
+            ],
+            [
+              "A procedure calls itself",
+              "Induction on a decreasing size",
+              "State correctness and termination for the smaller calls."
+            ],
+            [
+              "A loop updates an accumulator",
+              "Loop invariant plus variant",
+              "Describe what the accumulator means after i steps."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A theorem about an n-vertex object splits it into sizes 3 and n − 3. Is assuming only the theorem at n − 1 the most direct approach?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Usually not. Strong induction gives the claims for both smaller sizes, provided they are in the theorem’s domain. For example, if the domain begins at 3, you must handle cases where n − 3 is below 3 separately."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How would you turn a strong-induction proof into an ordinary-induction proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Let Q(k) mean that all the claims P(b), P(b + 1), …, P(k) hold. Prove Q(b), then use Q(k) to establish P(k + 1), hence Q(k + 1). The stronger bundled statement supplies the earlier cases."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does checking the first 1,000 values prove a formula for every positive integer?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It is evidence for a conjecture. An inductive step, or another general argument, must cover every permitted next case."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions and §§5.1–5.5, printed pages 399."
+        }
+      ]
+    },
+    {
+      "id": "sum-workshop",
+      "title": "4. Practice the old-sum-plus-new-term move",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Original practice: prove 5 + 7 + 9 + ⋯ + (2n + 3) = n(n + 4) for every integer n ≥ 1. There are n terms; the jth term is 2j + 3 for j = 1, …, n."
+        },
+        {
+          "type": "check",
+          "prompt": "Write the basis, hypothesis, new term, and full inductive step before expanding this answer.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 1: the sum is 5, and 1(1 + 4) = 5. Hypothesis: for arbitrary k ≥ 1, the first k terms sum to k(k + 4). The next term is 2(k + 1) + 3 = 2k + 5."
+            },
+            {
+              "type": "math",
+              "notation": "Next sum = k(k + 4) + (2k + 5)\n= k² + 6k + 5\n= (k + 1)(k + 5)\n= (k + 1)((k + 1) + 4)",
+              "description": "Substitute the hypothesis into the old sum, add the new term, and obtain the next claimed expression."
+            },
+            {
+              "type": "paragraph",
+              "text": "This is exactly the formula at n = k + 1. The basis and the step prove the claim for every n ≥ 1."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "Direct sum",
+            "n(n + 4)"
+          ],
+          "rows": [
+            [
+              "1",
+              "5",
+              "5"
+            ],
+            [
+              "2",
+              "12",
+              "12"
+            ],
+            [
+              "3",
+              "21",
+              "21"
+            ],
+            [
+              "4",
+              "32",
+              "32"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is 2k + 3 the wrong term to add?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is the kth term, already included in the old sum. The new term substitutes k + 1 for the whole index j, giving 2k + 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions and supplementary sum exercises; original practice, printed pages 399–400."
+        }
+      ]
+    },
+    {
+      "id": "inequality-divisibility",
+      "title": "5. Practice bounds and multiples",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Original practice A: prove 2ⁿ ≥ 3n for all integers n ≥ 4. The proposed inequality fails at n = 3 because 8 < 9, so the starting point is important."
+        },
+        {
+          "type": "check",
+          "prompt": "What bridges the inductive bound to the next target?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Basis: 2⁴ = 16 ≥ 12. Assume 2ᵏ ≥ 3k for an arbitrary k ≥ 4. Then 2ᵏ⁺¹ = 2·2ᵏ ≥ 6k. Because 6k − 3(k + 1) = 3(k − 1) ≥ 0, we have 6k ≥ 3(k + 1). Thus the next case holds. The bridge is a separate inequality; the IH alone does not finish the proof."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Original practice B: prove 7 divides 8ⁿ − 1 for every integer n ≥ 0. Divisibility means being an integer multiple of 7."
+        },
+        {
+          "type": "check",
+          "prompt": "Expose the previous expression inside the next one.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Basis n = 0: 8⁰ − 1 = 0 = 7·0. Assume 8ᵏ − 1 = 7t for some integer t. Then:"
+            },
+            {
+              "type": "math",
+              "notation": "8ᵏ⁺¹ − 1 = 8(8ᵏ − 1) + 7\n= 8·7t + 7 = 7(8t + 1)",
+              "description": "The new expression is a multiple of the old expression plus an explicit multiple of seven."
+            },
+            {
+              "type": "paragraph",
+              "text": "Because 8t + 1 is an integer, the next value is divisible by 7. Induction proves the claim."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is zero divisible by 7 in the basis?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. The definition asks for an integer t with 0 = 7t, and t = 0 works."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary inequalities and divisibility exercises; original practice, printed pages 400."
+        }
+      ]
+    },
+    {
+      "id": "strong-practice",
+      "title": "6. Check all bases before jumping backward",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Original practice: using bundles of 5 and 8 items, prove that every integer total n ≥ 28 can be formed. A construction that adds 5 will need a block of five consecutive bases."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Total",
+            "Number of 5-item bundles",
+            "Number of 8-item bundles"
+          ],
+          "rows": [
+            [
+              "28",
+              "4",
+              "1"
+            ],
+            [
+              "29",
+              "1",
+              "3"
+            ],
+            [
+              "30",
+              "6",
+              "0"
+            ],
+            [
+              "31",
+              "3",
+              "2"
+            ],
+            [
+              "32",
+              "0",
+              "4"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Finish a strong-induction proof using this base block.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Assume every total from 28 through k can be formed, where k ≥ 32. The next target is k + 1. Its predecessor for this construction is k − 4, because (k − 4) + 5 = k + 1. The index satisfies 28 ≤ k − 4 ≤ k, so the IH provides that total. Add one 5-item bundle. With the five bases, strong induction proves every total n ≥ 28."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is 27 impossible, so the consecutive guaranteed range cannot start there?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If 5a + 8b = 27 with nonnegative integers a and b, then b can only be 0, 1, 2, or 3. The corresponding values 27 − 8b are 27, 19, 11, and 3. None is divisible by 5, so no such a exists."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A well-ordering proof tells the same story through a least counterexample. If some total n ≥ 28 were impossible, take the least such n. The five bases force n ≥ 33. Then n − 5 ≥ 28 is smaller and must be possible; adding 5 contradicts the choice of n."
+        },
+        {
+          "type": "check",
+          "prompt": "Could you check only n = 28 and still use the same “subtract 5” argument for every n ≥ 28?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It would not establish 29 through 32. A step of 5 needs access to the different starting residues; one basis connects only one of those chains."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions on strong induction and well-ordering; original practice, printed pages 399."
+        }
+      ]
+    },
+    {
+      "id": "structural-practice",
+      "title": "7. Prove a fact for every generated shape",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Original practice: in a nonempty full binary tree, let L count leaves and I count internal vertices, meaning vertices with children. Prove L = I + 1. Recall the recipe: a single vertex is full, and joining two nonempty full subtrees under a new root produces another full tree."
+        },
+        {
+          "type": "check",
+          "prompt": "Use one basis and the two-subtree constructor.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Basis: a single vertex has L = 1 and I = 0, so L = I + 1. For the step, suppose the two subtrees satisfy L₁ = I₁ + 1 and L₂ = I₂ + 1. The new root is internal, so the combined tree has I = I₁ + I₂ + 1 and L = L₁ + L₂."
+            },
+            {
+              "type": "math",
+              "notation": "L = (I₁ + 1) + (I₂ + 1)\n= I₁ + I₂ + 2\n= (I₁ + I₂ + 1) + 1 = I + 1",
+              "description": "Apply both subtree hypotheses and count the new internal root."
+            },
+            {
+              "type": "paragraph",
+              "text": "Structural induction covers every tree generated by the full-tree definition. As a consequence the total number of vertices is N = I + L = 2I + 1, always odd."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does the formula hold for a root with just one child?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. That tree has one leaf and one internal vertex, so 1 ≠ 1 + 1. It is not full. The theorem depends on the two-subtree construction."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For strings, a comparable proof follows an append rule; for fully parenthesized formulas, it follows the unary and binary grammar rules. Match the proof cases to the actual construction, rather than treating every object as “add one more item.”"
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions on structural induction and §5.3; original tree practice, printed pages 399."
+        }
+      ]
+    },
+    {
+      "id": "algorithm-practice",
+      "title": "8. Trace an algorithm and explain why it works",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Try these without reading the answers first. Use the procedures and conventions from Section 5.4: one-based array positions, 0 for “not found,” and a base check before a recursive call."
+        },
+        {
+          "type": "check",
+          "prompt": "Compute 2¹¹ mod 5 with the half-exponent method. Which exponents are requested?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The exponents are 11 → 5 → 2 → 1 → 0. Returning upward gives 1 at exponent 0, then 2 at 1, 4 at 2, (4²·2) mod 5 = 2 at 5, and (2²·2) mod 5 = 3 at 11. The final remainder is 3. Each half-exponent result is computed once and reused."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Search for 17 in [1, 4, 7, 10, 13, 16, 19, 22] by binary search. What happens?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Bounds 1…8 give middle 4 with value 10, so keep 5…8. Middle 6 has value 16, so keep 7…8. Middle 7 has value 19, so keep 7…6, an empty interval. Return 0. Sorted order justifies each discarded half; strictly shorter intervals justify termination."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Merge-sort [6, 2, 6, 1]. Keep both copies of 6.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Split into [6, 2] and [6, 1]. Sort these to [2, 6] and [1, 6]. Merge by taking 1, then 2, then the left 6 on a tie, then append the right 6. The result is [1, 2, 6, 6]. It is ordered and preserves all four input items."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For direct recursive Fibonacci, how many additions compute F₈? How many does the iterative version use?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "F₈ = 21. Direct recursion uses F₉ − 1 = 34 − 1 = 33 additions. The iterative procedure uses 8 − 1 = 7 additions. The returned number 21 is neither of those work counts. Repeated subproblems cause the difference."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions on algorithms; original traces, printed pages 399."
+        }
+      ]
+    },
+    {
+      "id": "division-capstone",
+      "title": "9. Combine a loop proof with the division theorem",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Original review task: let A be a nonnegative integer and d a positive integer. Keep these inputs fixed. Compute a quotient q and remainder r by repeated subtraction:"
+        },
+        {
+          "type": "math",
+          "notation": "q := 0\nr := A\nwhile r ≥ d:\n  r := r − d\n  q := q + 1",
+          "description": "Subtract one divisor and increase the quotient once per iteration."
+        },
+        {
+          "type": "paragraph",
+          "text": "Target: A = dq + r with q and r nonnegative integers and 0 ≤ r < d. The useful invariant is A = dq + r, together with q ≥ 0 and r ≥ 0 and integer-valued q, r."
+        },
+        {
+          "type": "check",
+          "prompt": "Prove initialization, preservation, exit, and termination.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Initialization: q = 0 and r = A, so dq + r = d·0 + A = A, with both variables nonnegative integers."
+            },
+            {
+              "type": "paragraph",
+              "text": "Preservation: suppose the old values are q₀ and r₀, with r₀ ≥ d. The new values are q₀ + 1 and r₀ − d. Then d(q₀ + 1) + (r₀ − d) = dq₀ + r₀ = A. The guard gives r₀ − d ≥ 0, and the new quotient is still nonnegative."
+            },
+            {
+              "type": "paragraph",
+              "text": "Exit: the invariant supplies A = dq + r and r ≥ 0. The false guard supplies r < d. Together these are the specification."
+            },
+            {
+              "type": "paragraph",
+              "text": "Termination: r is a nonnegative integer at each loop head and decreases by d ≥ 1 on every iteration. Each body finishes after two assignments, so the loop cannot continue forever."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Trace for A = 29, d = 6",
+            "q",
+            "r",
+            "6q + r"
+          ],
+          "rows": [
+            [
+              "Before loop",
+              "0",
+              "29",
+              "29"
+            ],
+            [
+              "After body 1",
+              "1",
+              "23",
+              "29"
+            ],
+            [
+              "After body 2",
+              "2",
+              "17",
+              "29"
+            ],
+            [
+              "After body 3",
+              "3",
+              "11",
+              "29"
+            ],
+            [
+              "After body 4",
+              "4",
+              "5",
+              "29"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why do we require d > 0, and what happens for A = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If d = 0, the guard r ≥ 0 stays true and subtracting d never decreases r. With A = 0 and d > 0, the guard is false immediately and the result q = 0, r = 0 is correct. Negative A is outside this procedure’s stated domain, even though the general division theorem also covers negative dividends."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5 Exercise 12 and chapter review on program correctness; companion capstone, printed pages 398–399."
+        }
+      ]
+    },
+    {
+      "id": "proof-repair",
+      "title": "10. Find the exact break in a proposed argument",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "A claimed proof of “every n ≥ 1 is even” checks n = 2 and proves that n even implies n + 2 even. Where does it fail?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It never establishes n = 1 or reaches any odd integer. The argument proves only that every positive even integer is even. The claimed domain and the step’s reach do not match."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A proof of a recurrence needing aₙ₋₂ supplies only a₀. What should you inspect first?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Inspect the first input where the rule applies. If it starts at n = 2, then a₁ is missing; if it starts at n = 1, it may request a₋₁ outside the domain. State enough bases and a valid rule range before computing."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A structural proof for formulas checks variables and the AND constructor, then concludes the claim for formulas with NOT, OR, implication, and biconditional too. Is that enough?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Every base and every constructor permitted by the grammar must be covered. One argument may handle several constructors, but you must show that it applies to each of them."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A while-loop proof says “the invariant holds, so the loop ends.” What is missing?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Preservation and termination answer different questions. Supply a well-founded decreasing measure or another termination argument, and explain why each iteration itself finishes."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A binary search recurses on [mid, j] when x > A[mid]. What danger should you test?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A one-item interval has mid = j. Keeping mid repeats the same interval if its value is too small. Recurse on [mid + 1, j] instead, and handle the resulting empty interval."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary proof critique and review topics; original error checks, printed pages 399–403."
+        }
+      ]
+    },
+    {
+      "id": "computer-projects",
+      "title": "11. Build a small program with a precise test plan",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose a project and submit four things: a specification, the procedure, a correctness argument, and tests. Passing tests is useful evidence; explain separately why the algorithm works for its whole input domain."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Project",
+            "Required result",
+            "Tests and proof focus"
+          ],
+          "rows": [
+            [
+              "Reverse a string recursively",
+              "Return the same symbols in reverse order.",
+              "Empty and one-symbol strings; repeated symbols; prove the constructor reverses order."
+            ],
+            [
+              "Compare Fibonacci implementations",
+              "Return Fₙ using direct recursion and iteration; count additions.",
+              "n = 0 and 1; values through a small range; count additions separately from calls."
+            ],
+            [
+              "Recursive search",
+              "Locate a target or report absence using a stated index convention.",
+              "Empty arrays, ends, missing targets, duplicates; require sorting for binary search."
+            ],
+            [
+              "Stable merge sort",
+              "Return sorted items with every original identity preserved.",
+              "Empty list, all equal keys, odd length, repeated keys; verify stability as well as order."
+            ],
+            [
+              "Deficient-board tiling",
+              "Tile a 2ⁿ by 2ⁿ board with one specified missing square, n ≥ 1.",
+              "Every tile is an L of three cells; no overlap; cover all and only available cells."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A starter recurrence for reversal",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let λ be the empty string and let wa mean a string w followed by one symbol a. Define R(λ) = λ and R(wa) = aR(w). The algorithm removes the last symbol, reverses the smaller prefix, and puts the removed symbol in front."
+            },
+            {
+              "type": "paragraph",
+              "text": "For w = cab, R(cab) = bR(ca) = baR(c) = bac. Length drops by one on each call, proving termination. For correctness, assume R(w) is w in reverse order; the reverse of wa starts with a and continues with R(w), exactly as the rule returns."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What would count as a strong test for a sorting project beyond checking adjacent order?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Verify that the output has the same length and item multiplicities as the input. For a stable sort, attach original-position labels to equal keys and check that their order is preserved. An output can be sorted while silently losing data."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Computer Projects; original project briefs and reversal example, printed pages 403–404."
+        }
+      ]
+    },
+    {
+      "id": "computational-explorations",
+      "title": "12. Use computation to form a conjecture, then justify it",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Exploration A: compute factorials using exact integers and record their decimal digit counts. Multiplying successively avoids recomputing earlier products. The table provides checkpoints for an implementation."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "n!",
+            "Decimal digits"
+          ],
+          "rows": [
+            [
+              "5",
+              "120",
+              "3"
+            ],
+            [
+              "10",
+              "3628800",
+              "7"
+            ],
+            [
+              "12",
+              "479001600",
+              "9"
+            ],
+            [
+              "13",
+              "6227020800",
+              "10"
+            ],
+            [
+              "20",
+              "2432902008176640000",
+              "19"
+            ],
+            [
+              "21",
+              "51090942171709440000",
+              "20"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is the largest n for which n! has fewer than 10 decimal digits? Fewer than 20?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The answers are 12 and 20. The table shows the boundary pairs 12!, 13! and 20!, 21!. Factorials are strictly increasing for n ≥ 1 because (n + 1)! = (n + 1)n! with multiplier greater than 1. Once the threshold is reached, no later factorial can fall below it. Use “fewer than,” not “at most,” when comparing digit counts."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Exploration B: list Fibonacci numbers modulo 2, meaning keep only their remainders 0 and 1. Instead of guessing from individual values, track the ordered pair of consecutive remainders. From (u, v), the next pair is (v, (u + v) mod 2)."
+        },
+        {
+          "type": "math",
+          "notation": "(F₀ mod 2, F₁ mod 2) = (0, 1)\n(0, 1) → (1, 1) → (1, 0) → (0, 1)",
+          "description": "The pair returns to its starting state after three transitions, so the same cycle repeats."
+        },
+        {
+          "type": "check",
+          "prompt": "Which Fibonacci indices give even values, and why does the observed pattern continue?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Fₙ is even exactly when n is divisible by 3, including n = 0. The deterministic pair update returns to (0, 1) after three steps, and the first component is zero only in that pair of this cycle. Returning to the same state forces the same subsequent transitions, which proves the repeating pattern."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Exploration C: compare the addition counts for recursive and iterative Fibonacci on the same n values. Fix the counted operation before collecting data. If you measure elapsed time too, describe the machine and implementation; a timing observation is not itself a proof of an asymptotic bound."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Computations and Explorations; original checkpoints and parity investigation, printed pages 404."
+        }
+      ]
+    },
+    {
+      "id": "writing-projects",
+      "title": "13. Explain a method with evidence and limits",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A writing project should make a precise claim, explain a representative example, and cite sources that actually support the claim. These prompts are starting points for your own research; they do not assume that a historical or scientific claim is already established."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Possible essay",
+            "Questions to answer",
+            "Useful evidence"
+          ],
+          "rows": [
+            [
+              "How induction developed",
+              "Which formulation or use are you tracing? What counts as evidence of priority?",
+              "Dated primary texts when accessible and careful historical scholarship; distinguish use from explicit formulation."
+            ],
+            [
+              "Fibonacci in an application",
+              "What exactly is modeled, and which assumptions produce the recurrence?",
+              "A specific scientific source, a worked model, and a case where the model’s assumptions fail."
+            ],
+            [
+              "Triangulation as a computational tool",
+              "What does the algorithm need from the polygon? What does dividing it into triangles enable?",
+              "A drawn example, a clear input domain, and a source describing the application."
+            ],
+            [
+              "Recursion and rapidly growing functions",
+              "Which exact definition are you using? Which calls are earlier under the chosen order?",
+              "An explicitly stated recurrence, small traces, and a proof of well-definedness."
+            ],
+            [
+              "Testing and formal correctness",
+              "What does each method establish, and relative to which specification and execution model?",
+              "One small program analyzed both by tests and by a proof; state what remains outside the argument."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A practical outline is: state the question and definitions; work through one example; present the supporting argument and sources; discuss the limits. For a security-related topic, name the property and assumptions precisely rather than treating “secure” as a single unspecified guarantee."
+        },
+        {
+          "type": "check",
+          "prompt": "Is a list of links enough to support an essay’s claims?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Connect each substantial factual claim to a source that supports it, and explain the reasoning in your own words. A mathematical proof must still be valid even when it appears beside a citation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Writing Projects; original research prompts, printed pages 404."
+        }
+      ]
+    },
+    {
+      "id": "chapter-five-recap",
+      "title": "14. Check whether you can explain the whole chain",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Before moving on, try to explain each statement aloud without reading its answer. Revisit the named section when a distinction is unclear."
+        },
+        {
+          "type": "check",
+          "prompt": "5.1–5.2: What are you allowed to assume in an inductive step?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Exactly the hypothesis for the permitted earlier case or cases. For ordinary induction, that is typically P(k). For strong induction, it is every P(j) within the stated lower bound through k. Neither grants P(k + 1), the target. The bases and step range must connect to all claimed inputs."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5.3: How do recursive definitions and structural induction fit together?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The definition gives bases and construction rules. The proof verifies a property on every base and shows every rule preserves it from its input pieces. The exclusion rule says all members have finite constructions, so those cases cover the whole set."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5.4: Why are “it calls itself” and “it works” different claims?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A correct recursive algorithm needs a valid stopping case, recursive calls on smaller allowed instances, and a combination step that returns the requested result. It also needs a termination argument. Its efficiency then depends on how much work it repeats and performs."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5.5: What four obligations complete a while-loop correctness proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Establish the invariant before the loop; preserve it across one guarded body execution; combine it with the false guard to derive the postcondition; prove termination, including termination of the body. These connect the initial assumptions to an answer that is both correct and actually produced."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Keep one fully justified proof, one recursive trace, and one loop proof in your own notes. For more practice, use the Discrete Mathematics Quiz Site link in the sidebar. Chapter 5’s common pattern is to explain a small valid step and prove that those steps cover every object or execution you claim."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 5 review and end-of-chapter material, printed pages 398–404."
+        }
+      ]
+    }
+  ]
+}

@@ -288,16 +288,16 @@
           "id": "5.5",
           "number": "5.5",
           "title": "Program Correctness",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/5.5.json",
           "children": []
         },
         {
           "id": "5-end",
           "number": null,
           "title": "End-of-Chapter Material",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/5-end.json",
           "children": []
         }
       ]

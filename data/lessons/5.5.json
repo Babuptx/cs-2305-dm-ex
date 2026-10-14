@@ -1,0 +1,855 @@
+{
+  "schemaVersion": 1,
+  "id": "5.5",
+  "title": "Program Correctness",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §5.5.1–§5.5.5, printed pages 393–398; original companion examples and explicitly identified practice extensions.",
+    "Original companion explanations, worked examples, practice, and checks."
+  ],
+  "units": [
+    {
+      "id": "specification",
+      "title": "1. Say what the program promises",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The question this section answers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A program runs and produces a number. How do you know it is the number you wanted? First state what inputs are allowed and what the output must satisfy. Then prove that the instructions meet that promise and finish running."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, a sorting program must return the original items in nondecreasing order. Returning an empty list would satisfy “the result is sorted” but lose the input. A precise specification prevents us from proving a claim that is too weak to describe the task."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Part of the specification",
+            "Meaning",
+            "Example: factorial"
+          ],
+          "rows": [
+            [
+              "Precondition / initial assertion",
+              "What must hold before execution.",
+              "n is a nonnegative integer."
+            ],
+            [
+              "Postcondition / final assertion",
+              "What must hold after execution.",
+              "The returned value is n!."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An assertion is a statement about the current program state, meaning the values of its variables. We use mathematical pseudocode with exact integer arithmetic unless a different domain is stated. These proofs concern that model; a concrete implementation must also respect its numeric representation and input rules."
+        },
+        {
+          "type": "paragraph",
+          "text": "Testing can expose a wrong result. Successful tests on selected inputs do not establish correctness on an infinite input domain. A proof explains why every permitted input is covered, using the structure of the program rather than checking one input at a time."
+        },
+        {
+          "type": "check",
+          "prompt": "A program returns a sorted version of [3, 1, 3] as [1, 3]. Has it met a sorting specification that preserves all items?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. One copy of 3 disappeared. Order and preservation of multiplicities are separate obligations."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.1–§5.5.2, printed pages 393."
+        }
+      ]
+    },
+    {
+      "id": "hoare-triples",
+      "title": "2. Read a Hoare triple as a conditional guarantee",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A Hoare triple packages a precondition p, a program segment S, and a postcondition q. The textbook writes p{S}q. We will write the common equivalent notation {p} S {q}: the assertions go in braces and the program goes between them."
+        },
+        {
+          "type": "definition",
+          "title": "Partial correctness",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The triple {p} S {q} means: whenever S starts in a state satisfying p and terminates, its final state satisfies q. It does not, by itself, promise termination."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "{p} S {q}\nRead: if p holds before S and S finishes, then q holds afterward.",
+          "description": "A Hoare triple relates assertions before and after a program execution."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Claim",
+            "What you must prove"
+          ],
+          "rows": [
+            [
+              "Partial correctness",
+              "Every terminating run that starts under the precondition meets the postcondition."
+            ],
+            [
+              "Termination",
+              "Every run from an allowed starting state finishes."
+            ],
+            [
+              "Total correctness",
+              "Both partial correctness and termination."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A guarantee that never produces an answer",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "x := 0\nwhile x ≥ 0:\n  x := x + 1",
+              "description": "Starting at zero, x increases forever in the mathematical integer model."
+            },
+            {
+              "type": "paragraph",
+              "text": "The loop never finishes. A partial-correctness claim saying “if it finishes, x = −1” has no terminating run that could contradict it. This does not make the program a solution for computing −1; it demonstrates why termination must be proved separately."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The letter T can be used as a precondition meaning “true”: no further restriction beyond the stated variable domains. The symbol ∧ means AND, ¬ means NOT, and → means logical implication. The program segment S is a sequence of instructions, not a true-or-false proposition."
+        },
+        {
+          "type": "check",
+          "prompt": "Does “partially correct” mean correct for only some of the allowed inputs?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It covers every allowed input on which execution terminates. The missing guarantee is that execution actually terminates for every allowed input."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.2, printed pages 393–394."
+        }
+      ]
+    },
+    {
+      "id": "assignment",
+      "title": "3. Track old values and new values explicitly",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The assignment x := E first evaluates expression E using the current values, then stores that result in x. It changes x; it does not assert that x and E were equal beforehand. Other variables retain their values unless another instruction changes them."
+        },
+        {
+          "type": "example",
+          "title": "A short segment with a precise claim",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "y := 4\nz := x + y",
+              "description": "First store four in y, then compute z using x and the new y."
+            },
+            {
+              "type": "paragraph",
+              "text": "Precondition: x = 3. After the first line, x = 3 and y = 4. After the second, z = 3 + 4 = 7. The segment terminates after two assignments, so it is totally correct for the postcondition z = 7."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A statement that sounds contradictory until you read it as assignment",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "{x = 8}\nx := x + 2\n{x = 10}",
+              "description": "Start at eight, calculate eight plus two, and replace the stored value by ten."
+            },
+            {
+              "type": "paragraph",
+              "text": "The equation x = x + 2 has no solution over the integers, but x := x + 2 is a perfectly meaningful state change. We are comparing an old value to a new value, not equating one unchanged number to itself plus two."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Starting with x = 2 and y = 5, do x := y; y := x swap the two values?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The first assignment makes x = 5. The second reads that new x, so y remains 5. To swap, save an original value first: temp := x; x := y; y := temp. The result is x = 5, y = 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.2, printed pages 394."
+        }
+      ]
+    },
+    {
+      "id": "backward-assertions",
+      "title": "4. Work backward to find a sufficient starting assertion",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A useful companion technique is to read an assignment backward from the desired result. For x := E, replace x in the desired postcondition by E, evaluated in the old state. The expression must be defined on the allowed states."
+        },
+        {
+          "type": "example",
+          "title": "Find the assertion needed before an update",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose the desired postcondition is x ≥ 12 after x := x + 5. Before the assignment we need x + 5 ≥ 12, or x ≥ 7. Thus {x ≥ 7} x := x + 5 {x ≥ 12}."
+            },
+            {
+              "type": "paragraph",
+              "text": "A stronger starting condition, such as x ≥ 9, also works because it implies x ≥ 7. A weaker condition, such as x ≥ 0, is insufficient: input x = 0 gives final x = 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "More generally, you may strengthen a precondition or weaken a postcondition of a valid partial-correctness triple. If p₀ → p and {p} S {q}, then {p₀} S {q}. If {p} S {q} and q → q₁, then {p} S {q₁}. The direction of each implication matters."
+        },
+        {
+          "type": "check",
+          "prompt": "If {x ≥ 7} x := x + 5 {x ≥ 12} is valid, can you replace the postcondition by x ≥ 20 without another argument?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. That strengthens the promised result. Input x = 7 produces x = 12, which does not satisfy x ≥ 20. Weakening the postcondition to x ≥ 10 would be valid."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.2–§5.5.3 and §5.5 Exercises 10–11; companion assignment technique, printed pages 393–394, 398."
+        }
+      ]
+    },
+    {
+      "id": "composition",
+      "title": "5. Connect program pieces with a shared assertion",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To prove a longer segment, find an assertion that the first piece establishes and the second piece can use. The semicolon in S₁; S₂ means “execute S₁, then S₂.”"
+        },
+        {
+          "type": "math",
+          "notation": "If {p} S₁ {q} and {q} S₂ {r},\nthen {p} S₁; S₂ {r}.",
+          "description": "The composition rule uses the first segment’s postcondition as the second segment’s precondition."
+        },
+        {
+          "type": "example",
+          "title": "The middle assertion is the handoff",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "x := x + 3\ny := 2 × x",
+              "description": "Increase x by three, then store twice its new value in y."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "Point",
+                "Assertion"
+              ],
+              "rows": [
+                [
+                  "Before the segment",
+                  "x = 4"
+                ],
+                [
+                  "After x := x + 3",
+                  "x = 7"
+                ],
+                [
+                  "After y := 2 × x",
+                  "y = 14"
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "The first triple is {x = 4} x := x + 3 {x = 7}. The second is {x = 7} y := 2 × x {y = 14}. Composition yields {x = 4} whole segment {y = 14}. Both assignments terminate."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An intermediate assertion can include facts that a later segment needs, including values of variables left unchanged. Proving only x ≥ 0 after the first piece would throw away the specific value needed to derive y = 14."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you reverse the two assignments while keeping the same final guarantee?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Starting with x = 4, y := 2 × x gives y = 8; changing x afterward does not retroactively change y. Program order matters."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.3, printed pages 394."
+        }
+      ]
+    },
+    {
+      "id": "if-without-else",
+      "title": "6. Check the path where nothing executes",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For if B then S, the condition B is called the guard. When B is true, execute S. When B is false, skip it. Both paths must satisfy the promised postcondition q."
+        },
+        {
+          "type": "math",
+          "notation": "Executed path: {p ∧ B} S {q}\nSkipped path: p ∧ ¬B → q\nConclusion: {p} if B then S {q}",
+          "description": "Use partial correctness for the executed body and an implication for the unchanged state on the skipped path."
+        },
+        {
+          "type": "example",
+          "title": "Raise a value to a minimum of 10",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "if x < 10:\n  x := 10",
+              "description": "If the current integer x is below ten, replace it by ten; otherwise leave it alone."
+            },
+            {
+              "type": "paragraph",
+              "text": "Precondition: x is an integer. Postcondition: x ≥ 10. If x < 10, the assignment produces x = 10, which satisfies the target. If x < 10 is false, then x ≥ 10 already, so skipping the assignment also satisfies the target."
+            },
+            {
+              "type": "paragraph",
+              "text": "Both paths terminate. The stronger claim “the final x is always 10” would be wrong: an initial value of 13 is left unchanged."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Which path handles x = 10?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The skipped path, because 10 < 10 is false. The unchanged value still satisfies x ≥ 10. Always inspect equality at a branch boundary."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.4, printed pages 394–395."
+        }
+      ]
+    },
+    {
+      "id": "if-else",
+      "title": "7. Prove the same promise in both branches",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For an if/else statement, each branch runs under the precondition plus the information from its guard. The true branch assumes B; the false branch assumes ¬B. Both must establish the same final assertion."
+        },
+        {
+          "type": "math",
+          "notation": "{p ∧ B} S₁ {q}\n{p ∧ ¬B} S₂ {q}\nTherefore {p} if B then S₁ else S₂ {q}.",
+          "description": "The two guarded cases together cover all states satisfying the precondition."
+        },
+        {
+          "type": "example",
+          "title": "Compute the distance between two integers",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "if a ≥ b:\n  gap := a − b\nelse:\n  gap := b − a",
+              "description": "Subtract the smaller integer from the larger, without changing either input."
+            },
+            {
+              "type": "paragraph",
+              "text": "Postcondition: gap = |a − b|, where vertical bars denote absolute value. In the true branch, a − b ≥ 0, so |a − b| = a − b, the assigned value. In the false branch, a < b, so a − b < 0 and |a − b| = −(a − b) = b − a."
+            },
+            {
+              "type": "table",
+              "headers": [
+                "a",
+                "b",
+                "Branch",
+                "gap"
+              ],
+              "rows": [
+                [
+                  "9",
+                  "4",
+                  "a ≥ b",
+                  "5"
+                ],
+                [
+                  "4",
+                  "9",
+                  "a < b",
+                  "5"
+                ],
+                [
+                  "6",
+                  "6",
+                  "a ≥ b",
+                  "0"
+                ],
+                [
+                  "−3",
+                  "2",
+                  "a < b",
+                  "5"
+                ]
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "The branches cover every integer pair, including equality. Each finishes after one assignment. This proves total correctness under the integer-input precondition."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If the false branch mistakenly assigns gap := a − b, which input exposes the error?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For a = 4 and b = 9, it returns −5 even though |4 − 9| = 5. A counterexample refutes the claimed specification; the branch proof pinpoints why it fails."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.4, printed pages 395–396."
+        }
+      ]
+    },
+    {
+      "id": "loop-invariant",
+      "title": "8. Choose a fact that survives one whole iteration",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A while loop checks its guard before each iteration. If the guard is false initially, the body executes zero times. A loop invariant I is an assertion that holds at the loop head before every guard test, including the final test that exits."
+        },
+        {
+          "type": "diagram",
+          "title": "Four obligations around a while loop",
+          "src": "assets/loop-invariant.svg",
+          "description": "Initialization establishes invariant I at the loop head. If guard B is true, run the body and prove that it restores I before returning to the guard. If B is false, use I and not B to establish the postcondition Q. A separate decreasing nonnegative integer measure proves termination."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Obligation",
+            "What to show"
+          ],
+          "rows": [
+            [
+              "Initialization",
+              "The code before the loop establishes I."
+            ],
+            [
+              "Preservation",
+              "Starting with I and a true guard, one completed body restores I."
+            ],
+            [
+              "Exit",
+              "I together with a false guard implies the required postcondition."
+            ],
+            [
+              "Termination",
+              "The loop cannot execute its body forever."
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "{I ∧ B} body {I}\nTherefore {I} while B do body {I ∧ ¬B}.",
+          "description": "The while rule establishes partial correctness. Initialization and the desired postcondition must be connected separately."
+        },
+        {
+          "type": "paragraph",
+          "text": "An invariant is a persistent relationship, not a variable that never changes. For example, total = 3k may stay true while both total and k change. It need not hold between every pair of statements inside the body; preservation concerns the whole body and the next loop head."
+        },
+        {
+          "type": "paragraph",
+          "text": "To discover one, describe what the current accumulator has computed so far. Replace the final target “answer for n” by “answer for the processed amount i,” then add bounds on i that make the exit argument work."
+        },
+        {
+          "type": "check",
+          "prompt": "Can the guard itself always serve as the invariant?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A guard is expected to become false when the loop exits. An invariant must still hold at that final loop head. The guard provides an extra assumption only while proving a body iteration."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.5, printed pages 396–397."
+        }
+      ]
+    },
+    {
+      "id": "factorial-invariant",
+      "title": "9. Prove a factorial loop at its checkpoints",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Here is a factorial loop for any nonnegative integer n, including n = 0. The inputs remain fixed during the loop. The accumulator f stores the product built so far."
+        },
+        {
+          "type": "math",
+          "notation": "i := 0\nf := 1\nwhile i < n:\n  i := i + 1\n  f := f × i",
+          "description": "Increment the processed count, then multiply by the new count. At exit f should equal n factorial."
+        },
+        {
+          "type": "example",
+          "title": "Invariant: f = i! and 0 ≤ i ≤ n, with i an integer",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Initialization: i = 0 and f = 1 = 0!, and 0 ≤ n by the precondition."
+            },
+            {
+              "type": "paragraph",
+              "text": "Preservation: suppose the old count is k, with f = k! and 0 ≤ k < n. The first line makes the new i equal k + 1. The next line multiplies the old f by that new i, giving k!·(k + 1) = (k + 1)!. Because k and n are integers and k < n, k + 1 ≤ n. All parts of the invariant hold again."
+            },
+            {
+              "type": "paragraph",
+              "text": "Exit: the invariant gives i ≤ n, while the false guard gives i ≥ n. Together i = n, so f = i! = n!."
+            },
+            {
+              "type": "paragraph",
+              "text": "Termination: n − i is a nonnegative integer at the loop head and decreases by exactly 1 per iteration. It starts at n and reaches 0 after n iterations. At n = 0, the loop is skipped and correctly returns f = 1."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "For n = 4",
+            "i",
+            "f",
+            "n − i"
+          ],
+          "rows": [
+            [
+              "Before loop",
+              "0",
+              "1",
+              "4"
+            ],
+            [
+              "After body 1",
+              "1",
+              "1",
+              "3"
+            ],
+            [
+              "After body 2",
+              "2",
+              "2",
+              "2"
+            ],
+            [
+              "After body 3",
+              "3",
+              "6",
+              "1"
+            ],
+            [
+              "After body 4",
+              "4",
+              "24",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Notice the timing: between the increment from i = 2 to i = 3 and the multiplication, f is still 2. The invariant is restored after the multiplication, when f becomes 6. This version starts at 0 to handle zero; the textbook’s version starts at 1 for positive n."
+        },
+        {
+          "type": "check",
+          "prompt": "What happens if you swap the two body statements but keep the same initialization?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first iteration multiplies f by i = 0, making f = 0. All later products stay zero. The invariant proof depends on the exact statement order."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.5, printed pages 396–397."
+        }
+      ]
+    },
+    {
+      "id": "termination",
+      "title": "10. Prove progress separately from preservation",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A termination measure, also called a variant, tracks remaining work. One common argument chooses a nonnegative integer that strictly decreases each time the body runs. There cannot be infinitely many strict decreases within the nonnegative integers."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Property",
+            "Job"
+          ],
+          "rows": [
+            [
+              "Invariant",
+              "Keeps the relationship needed for a correct answer true."
+            ],
+            [
+              "Variant",
+              "Shows execution moves toward stopping."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Correct relationship, missing progress",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "i := 0\ns := 0\nwhile i < n:\n  s := s + i",
+              "description": "This faulty loop never changes i."
+            },
+            {
+              "type": "paragraph",
+              "text": "For positive n, i stays 0 and s stays 0 forever. The assertion s = i(i + 1)/2 remains true, but the program never returns an answer. A preserved relation alone cannot prove termination."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A decreasing real number need not reach zero",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Starting at x = 1, the loop “while x > 0: x := x/2” produces 1/2, 1/4, 1/8, … under exact arithmetic. These values are strictly decreasing and positive, yet none is zero. Merely saying “the measure gets smaller” is insufficient; the allowed values must rule out infinite descent."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Also justify that each body execution finishes. A decreasing measure checked after the body would not help if a procedure inside that body could itself run forever. Our worked loops use a finite number of defined arithmetic operations per iteration."
+        },
+        {
+          "type": "check",
+          "prompt": "Would n − i prove termination if the loop body changes i to i − 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. That would increase n − i. You must calculate the effect of the actual update, not assume that a counter is moving the right way."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.2 and §5.5.5; companion termination examples, printed pages 393, 396–398."
+        }
+      ]
+    },
+    {
+      "id": "signed-multiply",
+      "title": "11. Combine branches, initialization, a loop, and a final sign",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We can multiply integers m and n using repeated addition. Because a loop needs a nonnegative repetition count, first compute a = |n|. Keep m and n unchanged. After adding m exactly a times, use the sign of n to choose the result."
+        },
+        {
+          "type": "math",
+          "notation": "if n < 0:\n  a := −n\nelse:\n  a := n\nk := 0\nx := 0\nwhile k < a:\n  x := x + m\n  k := k + 1\nif n < 0:\n  product := −x\nelse:\n  product := x",
+          "description": "Use the absolute value of n as the number of additions and correct the final sign when n is negative."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Segment",
+            "Assertion established"
+          ],
+          "rows": [
+            [
+              "Choose a",
+              "a = |n|, so a is a nonnegative integer."
+            ],
+            [
+              "Initialize k and x",
+              "k = 0 and x = 0 = m·k."
+            ],
+            [
+              "Run the loop",
+              "x = m·k and 0 ≤ k ≤ a persist; on exit k = a."
+            ],
+            [
+              "Choose final sign",
+              "product = m·n."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Supply the missing proof details",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Loop invariant: x = m·k, 0 ≤ k ≤ a, k is an integer, and a = |n|. Initialization satisfies it. For preservation, write the old count as j. The new x is m·j + m = m(j + 1), and the new k is j + 1. The true guard j < a gives j + 1 ≤ a. The inputs m, n and a remain unchanged."
+            },
+            {
+              "type": "paragraph",
+              "text": "At exit, k ≤ a and k ≥ a imply k = a, so x = ma. The nonnegative integer a − k decreases by 1 per iteration, proving termination."
+            },
+            {
+              "type": "paragraph",
+              "text": "If n < 0, then a = −n and product = −x = −m(−n) = mn. Otherwise a = n and product = x = mn. Composition joins these guarantees into a proof of the full procedure. Negative m causes no difficulty: the loop counts additions, not the sign of the accumulated value."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Trace for m = −4, n = −3",
+            "k",
+            "x"
+          ],
+          "rows": [
+            [
+              "After initialization, a = 3",
+              "0",
+              "0"
+            ],
+            [
+              "After body 1",
+              "1",
+              "−4"
+            ],
+            [
+              "After body 2",
+              "2",
+              "−8"
+            ],
+            [
+              "After body 3",
+              "3",
+              "−12"
+            ],
+            [
+              "Sign correction: product = 12",
+              "3",
+              "−12"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What if n = 0, or m = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If n = 0, a = 0 and the loop executes zero times; product is 0. If m = 0, each addition leaves x = 0 while k still advances to a; product is again 0. Both cases terminate."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5.5, printed pages 397–398."
+        }
+      ]
+    },
+    {
+      "id": "correctness-recap",
+      "title": "12. Use a proof checklist tied to the code",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Code structure",
+            "Proof obligation"
+          ],
+          "rows": [
+            [
+              "Assignment",
+              "Evaluate the right side in the old state and track the update."
+            ],
+            [
+              "Sequence",
+              "Connect the pieces with an adequate intermediate assertion."
+            ],
+            [
+              "If without else",
+              "Check the executed path and the unchanged skipped path."
+            ],
+            [
+              "If/else",
+              "Both guarded branches must establish the same result."
+            ],
+            [
+              "While",
+              "Initialize and preserve an invariant, combine it with exit, and prove termination."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The recurring question is “what may I assume at this point, and what does this exact instruction establish?” A program proof connects those local facts until the final specification follows. The invariant supplies the meaning of the progress; the termination argument ensures the progress finishes."
+        },
+        {
+          "type": "check",
+          "prompt": "A factorial proof establishes f = i! at exit but never proves i = n. Is the proof finished?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. You still need to connect the current count to the requested count. The bound i ≤ n from the invariant and i ≥ n from the false guard supply i = n. Without that connection, f = i! is not yet f = n!."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §5.5, printed pages 393–398."
+        }
+      ]
+    }
+  ]
+}
