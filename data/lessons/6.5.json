@@ -1,0 +1,1006 @@
+{
+  "schemaVersion": 1,
+  "id": "6.5",
+  "title": "Generalized Permutations and Combinations",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §6.5.1–§6.5.5, printed pages 445–454 (exposition).",
+    "Original companion explanations, worked examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "repetition-models",
+      "title": "1. Decide what information an outcome keeps",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Allowing repetition changes the count. So does treating objects or boxes as identical. Before choosing a formula, decide which differences remain visible in the finished outcome."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Choose three from four types",
+            "Repetition?",
+            "Order matters?",
+            "Count"
+          ],
+          "rows": [
+            [
+              "Three different types in ordered positions",
+              "No",
+              "Yes",
+              "24"
+            ],
+            [
+              "A set of three different types",
+              "No",
+              "No",
+              "4"
+            ],
+            [
+              "Three ordered positions, any type in each",
+              "Yes",
+              "Yes",
+              "64"
+            ],
+            [
+              "Only the quantity of each type is recorded",
+              "Yes",
+              "No",
+              "20"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The four answers are P(4, 3), C(4, 3), 4³, and C(6, 3). This section explains the last two and then studies arrangements with prescribed repeated quantities and distributions into boxes."
+        },
+        {
+          "type": "callout",
+          "title": "Two meanings of repetition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Selecting with repetition lets you choose how many of each type appear, subject to the total. Rearranging a fixed collection with identical members starts with those quantities already prescribed. These are different counting tasks."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does “three scoops of ice cream” determine the counting model?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Not by itself. Specify whether flavors may repeat, whether scoop order matters, whether individual scoops are distinguishable, and whether enough of each flavor is available."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.1, printed pages 445–446."
+        }
+      ]
+    },
+    {
+      "id": "ordered-repetition",
+      "title": "2. Keep every choice available at every position",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Ordered selections with repetition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n ≥ 1 choices and r ≥ 0 positions, with all choices allowed independently at each position, there are nʳ sequences. Each position has n choices, even after earlier choices have been made."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Five symbols from a four-symbol alphabet",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Using A, B, C, D with repetition, a five-position code has 4⁵ = 1024 possible strings. If the code must contain A at least once, remove the strings using only B, C, D: 4⁵ − 3⁵ = 1024 − 243 = 781."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A four-character string over digits 0, 1, 2, 3 has 4⁴ = 256 possibilities. A four-digit integer using those digits cannot start with 0, so it has 3·4³ = 192 possibilities. Repetition is allowed in both models; the leading-position restriction differs."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the count when r = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There is one sequence of length zero, the empty sequence. This agrees with n⁰ = 1 for n ≥ 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.2, printed pages 446."
+        }
+      ]
+    },
+    {
+      "id": "unordered-repetition",
+      "title": "3. Record quantities instead of selection order",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose five scoops from vanilla, chocolate, and mango, with enough of every flavor. Only the number of scoops of each flavor matters. Record an outcome as (v, c, m), where v + c + m = 5 and each entry is a nonnegative integer."
+        },
+        {
+          "type": "definition",
+          "title": "Multiset",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A multiset records which types occur and how many times each occurs. It does not record an order. The outcome (3, 2, 0) means three vanilla and two chocolate scoops, regardless of the order in which they were selected."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are 21 such quantity triples. One way to check this small case is to fix v: for v = 0, 1, …, 5, the remaining two quantities have 6, 5, …, 1 possibilities. Their sum is 21. Next we derive a general formula."
+        },
+        {
+          "type": "callout",
+          "title": "Why dividing ordered strings by 5! fails",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Five vanilla scoops have only one flavor sequence: VVVVV. Three vanilla and two chocolate scoops have ten sequences, one for each choice of the two chocolate positions. Different multisets have different numbers of ordered descriptions, so there is no uniform factor of 5! to divide out."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Do the tuples (3, 2, 0) and (2, 3, 0) represent the same choice?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The tuple positions have fixed flavor meanings. One has three vanilla scoops; the other has three chocolate scoops. Ignoring scoop order does not erase flavor identities."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.3, printed pages 446–448."
+        }
+      ]
+    },
+    {
+      "id": "stars-and-bars",
+      "title": "4. Encode quantities with stars and separators",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose seven items from four types A, B, C, D, recording only the quantity of each type. Represent each item by a star and separate the four categories with three bars. The fixed category order is A, then B, then C, then D."
+        },
+        {
+          "type": "diagram",
+          "title": "Seven items, four categories, three separators",
+          "src": "assets/stars-and-bars.svg",
+          "description": "The string **||***|** represents quantities 2, 0, 3, 2 in categories A, B, C, D. It contains seven stars and three bars, for ten positions. Adjacent bars encode the empty B category."
+        },
+        {
+          "type": "math",
+          "notation": "**||***|**  ↔  (2, 0, 3, 2)",
+          "description": "Stars before the first bar count A, then stars between bars count B and C, and stars after the last bar count D."
+        },
+        {
+          "type": "example",
+          "title": "Count the encodings",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "There are seven stars and three bars, making ten positions. Choose the three bar positions in C(10, 3) = 120 ways; the remaining positions are stars. Equivalently, choose the seven star positions in C(10, 7) = 120 ways."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "C(n + r − 1, r) = C(n + r − 1, n − 1)",
+          "description": "For n ≥ 1 types and r ≥ 0 items, unordered selections with repetition correspond to r stars and n minus one bars."
+        },
+        {
+          "type": "paragraph",
+          "text": "Every quantity tuple has exactly one encoding, and every encoding recovers exactly one tuple. Bars at an end or next to each other are allowed: they represent zero in a category. We assume each type has enough supply; finite upper limits need additional work."
+        },
+        {
+          "type": "check",
+          "prompt": "Why are there n − 1 bars rather than n bars?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A row of n compartments needs only n − 1 internal separators. Using n bars would create n + 1 categories and count a different problem."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.3, printed pages 447–448."
+        }
+      ]
+    },
+    {
+      "id": "nonnegative-solutions",
+      "title": "5. Translate a sum equation into a distribution",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A solution of x1 + x2 + x3 + x4 = 9 in nonnegative integers is a way to distribute nine identical units among four named variables. Zero is allowed; negative values and fractions are not."
+        },
+        {
+          "type": "example",
+          "title": "Count all solutions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Use nine stars and three bars, so there are twelve positions. The number of solutions is C(12, 3) = 220. A tuple such as (0, 4, 1, 4) is one solution; exchanging two entries can change the solution because the variable names matter."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "x1 + ⋯ + xn = r,  xi ≥ 0\nNumber of integer solutions = C(r + n − 1, n − 1)",
+          "description": "For n positive variables and a nonnegative integer total r, use stars and bars."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Boundary case",
+            "Count",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "r = 0, n ≥ 1",
+              "1",
+              "Every variable is zero."
+            ],
+            [
+              "n = 1, r ≥ 0",
+              "1",
+              "The single variable must equal r."
+            ],
+            [
+              "A negative required total",
+              "0",
+              "Nonnegative variables cannot sum to a negative number."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many nonnegative integer triples sum to five?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "C(5 + 3 − 1, 3 − 1) = C(7, 2) = 21, matching the five-scoop example."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.3, printed pages 448–449."
+        }
+      ]
+    },
+    {
+      "id": "lower-bounds",
+      "title": "6. Satisfy minimum requirements before distributing the rest",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Now impose x1 ≥ 1, x2 ≥ 2, x3 ≥ 0, and x4 ≥ 1 while keeping x1 + x2 + x3 + x4 = 9. Reserve the required minimum in each variable first."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Original variable",
+            "New variable",
+            "Minimum removed"
+          ],
+          "rows": [
+            [
+              "x1",
+              "y1 = x1 − 1",
+              "1"
+            ],
+            [
+              "x2",
+              "y2 = x2 − 2",
+              "2"
+            ],
+            [
+              "x3",
+              "y3 = x3",
+              "0"
+            ],
+            [
+              "x4",
+              "y4 = x4 − 1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Shift to nonnegative variables",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The minima use 1 + 2 + 0 + 1 = 4 units, leaving 9 − 4 = 5. The new equation is y1 + y2 + y3 + y4 = 5 with all yi ≥ 0. It has C(8, 3) = 56 solutions. Adding the removed minima reverses the transformation, so no solutions are lost or duplicated."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Generally, if integer lower bounds are ai ≥ 0 and their sum is A, let yi = xi − ai. If r ≥ A, the count is C(r − A + n − 1, n − 1). If r < A, the count is zero. Requiring every variable to be positive removes one unit from each and gives C(r − 1, n − 1) when r ≥ n."
+        },
+        {
+          "type": "check",
+          "prompt": "How many positive integer quadruples sum to nine?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Reserve one unit for each of four variables. The remaining five units are unrestricted, giving C(8, 3) = 56. The same count as the preceding example arises because both sets of minima total four."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.3, printed pages 449."
+        }
+      ]
+    },
+    {
+      "id": "upper-bounds",
+      "title": "7. Remove solutions that exceed a capacity",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Stars and bars permits arbitrarily large entries up to the total. An upper bound such as x1 ≤ 2 is not enforced by the basic formula."
+        },
+        {
+          "type": "example",
+          "title": "A single upper bound",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For x1 + x2 + x3 = 8 with all entries nonnegative, there are C(10, 2) = 45 solutions. The forbidden solutions have x1 ≥ 3. Replace x1 by y1 + 3; then y1 + x2 + x3 = 5 has C(7, 2) = 21 solutions. Subtract to obtain 45 − 21 = 24 solutions with x1 ≤ 2."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Several upper bounds can overlap",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose all three variables must be at most three. Each violation xi ≥ 4 leaves four units, so each forbidden set has C(6, 2) = 15 solutions. Two violations use at least eight units and have exactly one solution for each pair of variables. All three violations would require twelve units and are impossible."
+            },
+            {
+              "type": "paragraph",
+              "text": "Subtract the three forbidden sets, then restore the three pairwise overlaps: 45 − 3·15 + 3·1 = 3. The solutions are (2, 3, 3), (3, 2, 3), and (3, 3, 2)."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Do not subtract overlapping cases just once each",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The second example uses inclusion–exclusion: a solution violating two bounds was removed twice, so one copy must be added back. More extensive inclusion–exclusion is developed later in the book."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the forbidden threshold x1 ≥ 3 when the requirement is x1 ≤ 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For an integer, the first value exceeding two is three. Removing only x1 ≥ 4 would incorrectly keep solutions with x1 = 3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.3, printed pages 448–449; original capacity practice extending the stars-and-bars model with subtraction and overlap correction."
+        }
+      ]
+    },
+    {
+      "id": "nested-selection-loops",
+      "title": "8. Count sorted index choices in nested loops",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "k := 0\nfor i from 1 through 4:\n  for j from 1 through i:\n    for h from 1 through j:\n      k := k + 1",
+          "description": "Each execution increments k for one triple with one less than or equal to h less than or equal to j less than or equal to i less than or equal to four."
+        },
+        {
+          "type": "paragraph",
+          "text": "The visited triples satisfy 1 ≤ h ≤ j ≤ i ≤ 4. Each multiset of three values from {1, 2, 3, 4} has exactly one arrangement in this nonincreasing order (i, j, h). Thus k finishes at C(4 + 3 − 1, 3) = C(6, 3) = 20."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Outer value i",
+            "Number of (j, h) choices"
+          ],
+          "rows": [
+            [
+              "1",
+              "1"
+            ],
+            [
+              "2",
+              "3"
+            ],
+            [
+              "3",
+              "6"
+            ],
+            [
+              "4",
+              "10"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The direct loop count is 1 + 3 + 6 + 10 = 20. More generally, m nested inclusive loops satisfying 1 ≤ im ≤ ⋯ ≤ i1 ≤ n count C(n + m − 1, m) for positive integers n and m."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is this not 4³?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The inner bounds depend on earlier choices. A triple such as (1, 4, 2) is never visited. Only the sorted representative of each multiset is counted; repeated index values are allowed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.3, printed pages 449–450."
+        }
+      ]
+    },
+    {
+      "id": "identical-permutations",
+      "title": "9. Divide out swaps that leave the visible arrangement unchanged",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Rearrange the six letters of BANANA. There are three As, two Ns, and one B. Every letter is used, and copies of the same letter are indistinguishable."
+        },
+        {
+          "type": "example",
+          "title": "Temporarily label the identical copies",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Pretend the letters are A1, A2, A3, N1, N2, B, all distinct. They have 6! = 720 arrangements. After erasing the labels, every visible string has 3! ways to assign the A labels and 2! ways to assign the N labels. Every string therefore has exactly 3!·2! = 12 labeled descriptions. Divide: 720/12 = 60."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "N! / (n1! n2! ⋯ nk!)",
+          "description": "For N objects with fixed nonnegative type counts n1 through nk summing to N, divide by the factorial of each indistinguishable type count."
+        },
+        {
+          "type": "paragraph",
+          "text": "A second derivation chooses positions: place the three As in C(6, 3) = 20 ways, then the two Ns in C(3, 2) = 3 ways, then B in the last position. The product is 60. This generalizes by choosing positions for each type in turn."
+        },
+        {
+          "type": "check",
+          "prompt": "Why not use the unordered-selection formula C(n + r − 1, r) here?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The counts of A, N, and B are already fixed, and their positions in the string matter. Stars and bars would choose quantities while ignoring their arrangement, which is a different task."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.4, printed pages 450–451."
+        }
+      ]
+    },
+    {
+      "id": "four-box-models",
+      "title": "10. Ask whether objects and boxes have identities",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In a distribution, every object goes into exactly one box, and order within a box does not matter. Two separate questions decide what counts as a different outcome: can we tell the objects apart, and can we tell the boxes apart? Empty boxes are allowed in the following comparison."
+        },
+        {
+          "type": "diagram",
+          "title": "Three objects in two boxes: four different models",
+          "src": "assets/box-models.svg",
+          "description": "With three distinct objects and two labeled boxes there are eight assignments. With identical objects and labeled boxes there are four quantity pairs. With distinct objects and unlabeled boxes there are four set partitions into at most two groups. With identical objects and unlabeled boxes there are two size patterns: three, or two plus one."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Objects",
+            "Boxes",
+            "Three objects, two boxes"
+          ],
+          "rows": [
+            [
+              "Distinct",
+              "Labeled",
+              "8"
+            ],
+            [
+              "Identical",
+              "Labeled",
+              "4"
+            ],
+            [
+              "Distinct",
+              "Unlabeled",
+              "4"
+            ],
+            [
+              "Identical",
+              "Unlabeled",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Labeled boxes can be named recipients or categories, even if their physical containers look identical. Unlabeled boxes mean that swapping entire boxes does not create a new outcome. The two counts of four in the table count different collections; their equality is incidental."
+        },
+        {
+          "type": "check",
+          "prompt": "If two employees named Ada and Bo each receive items, are their boxes labeled?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. The recipients distinguish the boxes. Giving an item to Ada rather than Bo changes the outcome, even if both use identical envelopes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.5, printed pages 451–454."
+        }
+      ]
+    },
+    {
+      "id": "distinct-labeled",
+      "title": "11. Distribute distinct objects to named recipients",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "If N distinct objects may each go freely into any of k labeled boxes, the count is kᴺ. Each object independently chooses a box. For example, eight distinct cards distributed among three named boxes have 3⁸ = 6561 unrestricted assignments."
+        },
+        {
+          "type": "example",
+          "title": "Prescribe the box sizes",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Instead, give Ada two cards, Bo three cards, and leave the other three undealt. Choose Ada’s cards in C(8, 2) = 28 ways, then Bo’s from the remaining six in C(6, 3) = 20 ways. The remaining three are determined. The count is 28·20 = 560."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "8! / (2!3!3!) = 560",
+          "description": "The undealt cards form a third labeled category; order inside each category is ignored."
+        },
+        {
+          "type": "paragraph",
+          "text": "In general, prescribed sizes n1, …, nk summing to N give N!/(n1!⋯nk!). It is the same formula as arranging repeated types, for a different reason: order the distinct objects once, then record the destination label for each object. Those label strings have fixed multiplicities and correspond one-to-one to the distributions."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is there no extra division by 2! for swapping Ada and Bo?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Ada and Bo are different recipients. Swapping their holdings changes the distribution. Only order inside each holding is ignored."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.5, printed pages 451–452."
+        }
+      ]
+    },
+    {
+      "id": "identical-labeled",
+      "title": "12. Distribute identical objects by counting occupancies",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Seven identical tokens go into four labeled boxes. An outcome is an occupancy tuple (x1, x2, x3, x4) summing to seven. The token identities do not matter; the box labels do."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Requirement",
+            "Calculation",
+            "Count"
+          ],
+          "rows": [
+            [
+              "Empty boxes allowed",
+              "C(7 + 4 − 1, 4 − 1)",
+              "120"
+            ],
+            [
+              "Every box nonempty",
+              "C(7 − 1, 4 − 1)",
+              "20"
+            ],
+            [
+              "Occupancies fixed as (2, 0, 3, 2)",
+              "No choice remains",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "With empty boxes allowed, this is stars and bars. With every box nonempty, reserve one token in each box and distribute the remaining three: C(6, 3) = 20. With all occupancies prescribed, moving identical tokens among identical positions inside a box does not create a new distribution."
+        },
+        {
+          "type": "check",
+          "prompt": "How many ways put one identical token into one of four labeled boxes?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Four. The occupancy tuples are (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), and (0, 0, 0, 1). This agrees with C(4, 3) = 4."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.5, printed pages 452."
+        }
+      ]
+    },
+    {
+      "id": "set-partitions",
+      "title": "13. Forget box names while retaining object identities",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Set partition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A set partition divides a set into nonempty, disjoint groups whose union is the whole set. Neither the order of the groups nor the order within a group matters. Distinct objects in unlabeled boxes correspond to a set partition; unused boxes can be omitted."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Distribute five distinct objects A, B, C, D, E into three unlabeled boxes, allowing empty boxes. Classify by the sizes of the nonempty groups."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Nonempty group sizes",
+            "How to count",
+            "Count"
+          ],
+          "rows": [
+            [
+              "5",
+              "Keep all objects together",
+              "1"
+            ],
+            [
+              "4 + 1",
+              "Choose the singleton",
+              "5"
+            ],
+            [
+              "3 + 2",
+              "Choose the pair",
+              "10"
+            ],
+            [
+              "3 + 1 + 1",
+              "Choose the triple",
+              "10"
+            ],
+            [
+              "2 + 2 + 1",
+              "Choose the singleton, then split four into two pairs",
+              "15"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For 2 + 2 + 1, choose the singleton in five ways. The other four objects have C(4, 2)/2 = 3 divisions into two unlabeled pairs: choosing one pair also specifies the other, so each division was counted twice. This case gives 5·3 = 15."
+        },
+        {
+          "type": "paragraph",
+          "text": "The total is 1 + 5 + 10 + 10 + 15 = 41. If all three boxes must be nonempty, keep only the 3 + 1 + 1 and 2 + 2 + 1 cases, giving 25."
+        },
+        {
+          "type": "check",
+          "prompt": "Are {{A, B}, {C, D, E}} and {{C, D, E}, {A, B}} different?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. They list the same two groups in a different order. But replacing the groups by {A, C} and {B, D, E} changes which objects are together, so that is a different partition."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.5, printed pages 452–453."
+        }
+      ]
+    },
+    {
+      "id": "stirling-counts",
+      "title": "14. Count exact numbers of nonempty unlabeled groups",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Stirling number of the second kind",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "S(N, j) counts partitions of an N-element set into exactly j nonempty groups. For N > 0, distribution into k unlabeled boxes with empty boxes allowed has count S(N, 1) + ⋯ + S(N, min(k, N))."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The preceding example gives S(5, 1) = 1, S(5, 2) = 15, and S(5, 3) = 25. Adding them gives 41 for at most three nonempty groups."
+        },
+        {
+          "type": "example",
+          "title": "A recursive way to compute",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Focus on one distinguished object. If it is alone, partition the other N − 1 objects into j − 1 groups. Otherwise, partition them into j groups and choose which of those j groups receives the distinguished object. Thus S(N, j) = S(N − 1, j − 1) + j·S(N − 1, j). Use S(0, 0) = 1, S(N, 0) = 0 for N > 0, and S(N, j) = 0 when j > N."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "S(N, j) = (1/j!) ∑ᵢ₌₀ʲ⁻¹ (−1)ⁱC(j, i)(j − i)ᴺ",
+          "description": "For positive integers N and 1 ≤ j ≤ N, inclusion–exclusion counts assignments using all j labeled boxes, and division by j factorial forgets their names."
+        },
+        {
+          "type": "paragraph",
+          "text": "The sum starts with all assignments jᴺ, subtracts those missing one label, restores those missing two, and continues. Every partition into exactly j nonempty groups has j! labelings. For instance, S(5, 3) = (3⁵ − 3·2⁵ + 3·1⁵)/3! = (243 − 96 + 3)/6 = 25. The book returns to general inclusion–exclusion in Chapter 8; the recursive argument above gives another way to compute these counts."
+        },
+        {
+          "type": "callout",
+          "title": "Do not divide all assignments by k! when boxes may be empty",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "With three distinct objects and three labeled boxes, there are 27 assignments. But 27/3! is not an integer. A single occupied unlabeled group has three labelings; two occupied groups have six, and three have six. The multiplicity varies when empty boxes are allowed."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many partitions of three distinct objects have any number of nonempty groups?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "S(3, 1) + S(3, 2) + S(3, 3) = 1 + 3 + 1 = 5. The corresponding labeled assignments number 1·3 + 3·6 + 1·6 = 27, explaining the nonuniform overcount."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.5, printed pages 453."
+        }
+      ]
+    },
+    {
+      "id": "integer-partitions",
+      "title": "15. Forget object identities and box names",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Put seven identical tokens into three unlabeled boxes, allowing empty boxes. Only the multiset of nonempty box sizes remains visible. Write these sizes in nonincreasing order to record each outcome once."
+        },
+        {
+          "type": "definition",
+          "title": "Integer partition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An integer partition of a positive integer N expresses N as a sum of positive integers without regard to order. A nonincreasing list provides a unique representation. At most k parts corresponds to k unlabeled boxes with empty boxes allowed."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "All partitions of seven into at most three parts"
+          ],
+          "rows": [
+            [
+              "7"
+            ],
+            [
+              "6 + 1"
+            ],
+            [
+              "5 + 2"
+            ],
+            [
+              "5 + 1 + 1"
+            ],
+            [
+              "4 + 3"
+            ],
+            [
+              "4 + 2 + 1"
+            ],
+            [
+              "3 + 3 + 1"
+            ],
+            [
+              "3 + 2 + 2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are eight outcomes. Exactly three nonempty boxes require exactly three parts, leaving four outcomes. For instance, 4 + 2 + 1 and 2 + 4 + 1 describe the same outcome; sorting eliminates that duplicate."
+        },
+        {
+          "type": "paragraph",
+          "text": "A set partition tracks which objects are together; an integer partition tracks only sizes. If tokens were distinct, a two-token group containing A and B would differ from one containing A and C. With identical tokens, both are just a box of size two."
+        },
+        {
+          "type": "check",
+          "prompt": "How many ways put seven identical tokens into two unlabeled boxes, allowing an empty box?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Four: 7; 6 + 1; 5 + 2; 4 + 3. Reversing the two sizes does not create another outcome."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5.5, printed pages 454."
+        }
+      ]
+    },
+    {
+      "id": "generalized-recap",
+      "title": "16. Choose the model before choosing the formula",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Situation",
+            "Count",
+            "Assumptions"
+          ],
+          "rows": [
+            [
+              "r ordered positions from n types, repetition allowed",
+              "nʳ",
+              "n ≥ 1; each type available at every position"
+            ],
+            [
+              "r unordered items from n types",
+              "C(n + r − 1, n − 1)",
+              "n ≥ 1; enough supply; zero quantities allowed"
+            ],
+            [
+              "Arrange N objects with fixed identical-type counts",
+              "N!/(n1!⋯nk!)",
+              "Counts sum to N; row positions matter"
+            ],
+            [
+              "N distinct objects, k labeled boxes, no size restrictions",
+              "kᴺ",
+              "k ≥ 1; empty boxes allowed"
+            ],
+            [
+              "N distinct objects, labeled boxes with fixed sizes",
+              "N!/(n1!⋯nk!)",
+              "Sizes sum to N; order inside a box ignored"
+            ],
+            [
+              "N identical objects, k labeled boxes",
+              "C(N + k − 1, k − 1)",
+              "k ≥ 1; empty boxes allowed"
+            ],
+            [
+              "N distinct objects, exactly j unlabeled nonempty boxes",
+              "S(N, j)",
+              "Object identities retained"
+            ],
+            [
+              "N identical objects, k unlabeled boxes",
+              "Partitions of N into at most k parts",
+              "Only nonempty sizes retained"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For nonnegative item totals, an empty selection or distribution has one outcome when empty boxes are permitted. If all boxes must be nonempty, there must be at least as many objects as boxes. Supply limits, upper bounds, and unequal minimum requirements need their own checks."
+        },
+        {
+          "type": "check",
+          "prompt": "Select eight identical-in-type pastries from five flavors with at least one of each, ignoring selection order. Assume enough supply. How many choices?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Reserve one pastry of each flavor, leaving three pastries to distribute among five flavors. The count is C(3 + 5 − 1, 5 − 1) = C(7, 4) = 35."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Rearrange A, A, B, B, C, C in a row. What count applies?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The multiplicities are fixed and positions matter: 6!/(2!2!2!) = 90. This is not a stars-and-bars selection of quantities."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "State the identities and restrictions in ordinary words first. Then explain why your encoding is reversible or why every overcounted outcome has the same number of descriptions. That explanation is what makes the formula appropriate."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.5, printed pages 445–454."
+        }
+      ]
+    }
+  ]
+}

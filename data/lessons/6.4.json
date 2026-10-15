@@ -1,0 +1,939 @@
+{
+  "schemaVersion": 1,
+  "id": "6.4",
+  "title": "Binomial Coefficients and Identities",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §6.4.1–§6.4.3, printed pages 437–443 (exposition).",
+    "Original companion explanations, worked examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "coefficient-choices",
+      "title": "1. See a coefficient as a count of choices",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A coefficient tells you how many contributions combine into the same term. In a power such as (1 + t)³, each contribution comes from choosing one term from each factor. Binomial coefficients count which factors supply t."
+            }
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Binomial coefficient",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "C(n, k), read “n choose k,” counts the k-element subsets of an n-element set. The textbook also writes it with n above k inside parentheses. For integers 0 ≤ k ≤ n, C(n, k) = n!/[k!(n − k)!]. A binomial is a sum of two terms."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Write (1 + t)³ as (1 + t)(1 + t)(1 + t). Temporarily distinguish the three factor positions. Taking t from the first factor and 1 from the other two produces t; taking t from the second instead also produces t. These contributions add."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Number of factors supplying t",
+            "Choices of factor positions",
+            "Contribution after collecting"
+          ],
+          "rows": [
+            [
+              "0",
+              "∅",
+              "1"
+            ],
+            [
+              "1",
+              "{1}, {2}, {3}",
+              "3t"
+            ],
+            [
+              "2",
+              "{1, 2}, {1, 3}, {2, 3}",
+              "3t²"
+            ],
+            [
+              "3",
+              "{1, 2, 3}",
+              "t³"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "(1 + t)³ = 1 + 3t + 3t² + t³",
+          "description": "The coefficients one, three, three, one count the choices of factor positions."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the coefficient of t² three, not six?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Choose the two factors that supply t. The sets {1, 2} and {2, 1} are the same choice of factors. There are C(3, 2) = 3 choices; ordering the selected factors would overcount."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 437–438."
+        }
+      ]
+    },
+    {
+      "id": "binomial-theorem",
+      "title": "2. Read the binomial theorem one term at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "(x + y)ⁿ = ∑ⱼ₌₀ⁿ C(n, j)xⁿ⁻ʲyʲ",
+          "description": "For a nonnegative integer n, add the term C(n, j) times x to the power n minus j times y to the power j for j from zero through n."
+        },
+        {
+          "type": "paragraph",
+          "text": "The symbol ∑ means add all the terms over the stated index range. Here j is the number of factors supplying y. The remaining n − j factors supply x. The exponent pair is therefore (n − j, j), and C(n, j) counts the choices of the j factors."
+        },
+        {
+          "type": "example",
+          "title": "Why this proves the formula",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Expanding a product means choosing one summand from each factor and adding all resulting products. Each selection has exactly one value of j, from 0 through n. For a fixed j, every selection gives xⁿ⁻ʲyʲ, and there are C(n, j) selections. These cases cover every selection once, so adding their contributions gives the theorem."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For n = 0, the empty product is the constant polynomial 1, and the formula has just its j = 0 term. For symbolic x and y and n ≥ 0, there are n + 1 monomials after collecting like terms. Particular numerical substitutions can make terms vanish."
+        },
+        {
+          "type": "check",
+          "prompt": "Which term in (x + y)⁸ contains x³y⁵?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Set j = 5, because five factors must supply y. The term is C(8, 5)x³y⁵ = 56x³y⁵. The exponents add to eight."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 437–438."
+        }
+      ]
+    },
+    {
+      "id": "expansion-table",
+      "title": "3. Build an expansion without skipping powers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To expand (u + v)⁵, let the exponent of v increase from 0 to 5 while the exponent of u decreases from 5 to 0. Keep the coefficient attached to the correct exponent pair."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "j",
+            "C(5, j)",
+            "u exponent",
+            "v exponent",
+            "Term"
+          ],
+          "rows": [
+            [
+              "0",
+              "1",
+              "5",
+              "0",
+              "u⁵"
+            ],
+            [
+              "1",
+              "5",
+              "4",
+              "1",
+              "5u⁴v"
+            ],
+            [
+              "2",
+              "10",
+              "3",
+              "2",
+              "10u³v²"
+            ],
+            [
+              "3",
+              "10",
+              "2",
+              "3",
+              "10u²v³"
+            ],
+            [
+              "4",
+              "5",
+              "1",
+              "4",
+              "5uv⁴"
+            ],
+            [
+              "5",
+              "1",
+              "0",
+              "5",
+              "v⁵"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "(u + v)⁵ = u⁵ + 5u⁴v + 10u³v² + 10u²v³ + 5uv⁴ + v⁵",
+          "description": "Each term has total degree five, and the coefficients are symmetric."
+        },
+        {
+          "type": "paragraph",
+          "text": "Two quick checks help catch mistakes: every exponent pair adds to five, and the coefficients read the same in either direction because C(5, j) = C(5, 5 − j). Neither check replaces deriving the terms, but both expose common errors."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the coefficient of u²v³? What is the whole term?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The coefficient is C(5, 3) = 10. The whole term is 10u²v³. A coefficient is the numerical factor multiplying the specified monomial."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 438."
+        }
+      ]
+    },
+    {
+      "id": "scaled-and-negative",
+      "title": "4. Raise the constants and keep the signs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Treat (2x − y)⁶ as (2x + (−y))⁶. The theorem applies to the complete summands 2x and −y, including their constants and signs."
+        },
+        {
+          "type": "math",
+          "notation": "Term j = C(6, j)(2x)⁶⁻ʲ(−y)ʲ",
+          "description": "The coefficient of x to the power six minus j times y to the power j is C(6, j) times 2 to the power six minus j times negative one to the power j."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "j",
+            "Monomial",
+            "Coefficient calculation",
+            "Coefficient"
+          ],
+          "rows": [
+            [
+              "0",
+              "x⁶",
+              "1·2⁶",
+              "64"
+            ],
+            [
+              "1",
+              "x⁵y",
+              "6·2⁵·(−1)",
+              "−192"
+            ],
+            [
+              "2",
+              "x⁴y²",
+              "15·2⁴",
+              "240"
+            ],
+            [
+              "3",
+              "x³y³",
+              "20·2³·(−1)",
+              "−160"
+            ],
+            [
+              "4",
+              "x²y⁴",
+              "15·2²",
+              "60"
+            ],
+            [
+              "5",
+              "xy⁵",
+              "6·2·(−1)",
+              "−12"
+            ],
+            [
+              "6",
+              "y⁶",
+              "1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "The binomial coefficient is only one factor",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For x⁴y² the answer is 240, not merely C(6, 2) = 15. The four chosen 2x factors contribute 2⁴. Odd powers of −y make the coefficient negative; even powers make it positive."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find the coefficient of x²y³ in (3x − 2y)⁵.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The y exponent requires j = 3. The coefficient is C(5, 3)·3²·(−2)³ = 10·9·(−8) = −720."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 438."
+        }
+      ]
+    },
+    {
+      "id": "matching-exponents",
+      "title": "5. Solve for the index before calculating the coefficient",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "When a summand already contains a power, match the resulting exponent rather than assuming that the exponent itself equals j."
+        },
+        {
+          "type": "example",
+          "title": "Find the coefficient of x⁶ in (x² + 3)⁵",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The jth term is C(5, j)(x²)⁵⁻ʲ3ʲ = C(5, j)3ʲx¹⁰⁻²ʲ. To obtain x⁶, solve 10 − 2j = 6, giving j = 2. The coefficient is C(5, 2)·3² = 90."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There is no x⁵ term because 10 − 2j is always even for integer j. Its coefficient is zero. A proposed index must be an integer in the allowed range, 0 through n."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the coefficient of x⁴y² in (x + 2y)⁷?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Zero. Every term has total degree seven, but x⁴y² has total degree six. Equivalently, j = 2 would give x⁵y², not x⁴y²."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Use a short sequence: write the general term, match all exponents, verify the index is allowed, then calculate the constant. This prevents doing accurate arithmetic for the wrong term."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 438."
+        }
+      ]
+    },
+    {
+      "id": "sum-of-row",
+      "title": "6. Count every subset by its size",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "∑ₖ₌₀ⁿ C(n, k) = 2ⁿ",
+          "description": "For n nonnegative, the sum of all binomial coefficients in row n equals two to the power n."
+        },
+        {
+          "type": "example",
+          "title": "An algebraic proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Set x = 1 and y = 1 in the binomial theorem. Every power of 1 is 1, so the right side becomes the sum of the coefficients and the left side is (1 + 1)ⁿ = 2ⁿ."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A counting proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A set of n elements has 2ⁿ subsets because each element is either included or excluded. Classify those subsets by size. There are C(n, k) subsets of size k. Sizes 0 through n are disjoint cases covering all subsets, so their counts add to 2ⁿ."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For n = 6, the row sum is 1 + 6 + 15 + 20 + 15 + 6 + 1 = 64. The first 1 counts the empty subset; omitting it would count only nonempty subsets."
+        },
+        {
+          "type": "check",
+          "prompt": "How many nonempty subsets does a seven-element set have?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The sum over all sizes is 2⁷ = 128. Remove the single empty subset to get 127."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 439."
+        }
+      ]
+    },
+    {
+      "id": "even-and-odd",
+      "title": "7. Pair even-sized and odd-sized subsets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "∑ₖ₌₀ⁿ (−1)ᵏC(n, k) = 0  for n ≥ 1",
+          "description": "The alternating sum is zero because the total for even sizes equals the total for odd sizes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Set x = 1 and y = −1 in the binomial theorem. For positive n, the left side is (1 − 1)ⁿ = 0. Even k contributes positively and odd k negatively, so the two groups of coefficients have equal sums."
+        },
+        {
+          "type": "example",
+          "title": "A bijection you can see",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Fix one distinguished element a of a nonempty set. Toggle its membership: add a if it is absent, or remove a if it is present. This changes an even-sized subset into an odd-sized one and vice versa. Toggling again restores the original subset, so it pairs the two collections exactly."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Five-element set",
+            "Counts by size",
+            "Total"
+          ],
+          "rows": [
+            [
+              "Even-sized subsets",
+              "C(5, 0) + C(5, 2) + C(5, 4) = 1 + 10 + 5",
+              "16"
+            ],
+            [
+              "Odd-sized subsets",
+              "C(5, 1) + C(5, 3) + C(5, 5) = 5 + 10 + 1",
+              "16"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Combining equal counts with the total 2ⁿ shows that each count is 2ⁿ⁻¹ for n ≥ 1. The empty set has one even-sized subset and no odd-sized subsets, so the positive-n condition matters."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does the toggle argument fail when n = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There is no element a to toggle. The only subset is the empty subset, which has even size. The alternating sum is then C(0, 0) = 1, not zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 439."
+        }
+      ]
+    },
+    {
+      "id": "weighted-subsets",
+      "title": "8. Explain a weighted sum through extra choices",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "∑ₖ₌₀ⁿ 2ᵏC(n, k) = 3ⁿ",
+          "description": "Choose a subset, then give each selected element one of two colors."
+        },
+        {
+          "type": "example",
+          "title": "Three states per item",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose each of n distinct items is either unused, marked green, or marked orange. There are 3ⁿ outcomes. Alternatively, choose the k marked items in C(n, k) ways and color them in 2ᵏ ways. Add over k = 0 through n. Both methods count the same markings."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Marked items k, with n = 4",
+            "C(4, k)",
+            "Colorings of those items",
+            "Contribution"
+          ],
+          "rows": [
+            [
+              "0",
+              "1",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "4",
+              "2",
+              "8"
+            ],
+            [
+              "2",
+              "6",
+              "4",
+              "24"
+            ],
+            [
+              "3",
+              "4",
+              "8",
+              "32"
+            ],
+            [
+              "4",
+              "1",
+              "16",
+              "16"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The contributions sum to 81 = 3⁴. Algebraically, set x = 1 and y = 2 in the binomial theorem. More generally, replacing two colors by a positive integer a colors gives the sum of aᵏC(n, k) as (1 + a)ⁿ."
+        },
+        {
+          "type": "check",
+          "prompt": "What does ∑ₖ₌₀⁵ 3ᵏC(5, k) count, and what is its value?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Choose which of five items are marked, then give each marked item one of three colors. Each item has four states including unused, so the value is 4⁵ = 1024."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.1, printed pages 440."
+        }
+      ]
+    },
+    {
+      "id": "pascal-cases",
+      "title": "9. Split subsets by one distinguished member",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "C(n + 1, k) = C(n, k − 1) + C(n, k)",
+          "description": "For 1 ≤ k ≤ n, count k-element subsets according to whether they include one distinguished element."
+        },
+        {
+          "type": "example",
+          "title": "Choose three people from eight, including or excluding Bea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Count all teams directly: C(8, 3) = 56. Teams containing Bea need two more people from the other seven: C(7, 2) = 21. Teams without Bea need three from those seven: C(7, 3) = 35. The cases do not overlap and cover every team, so 56 = 21 + 35."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This reasoning works for any n + 1 distinct elements and any allowed k. It is Pascal’s identity. The boundary values C(n, 0) = C(n, n) = 1 supply the edges when we build a triangle of coefficients."
+        },
+        {
+          "type": "check",
+          "prompt": "Split C(9, 4) using Pascal’s identity.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Choose a distinguished person. Teams including that person contribute C(8, 3) = 56; teams excluding that person contribute C(8, 4) = 70. Their sum is C(9, 4) = 126."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.2, printed pages 440–441."
+        }
+      ]
+    },
+    {
+      "id": "pascal-triangle",
+      "title": "10. Build each row from the row above",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Number Pascal’s triangle from row 0. Row n contains C(n, 0), C(n, 1), …, C(n, n). Put 1 at both ends of every row. Each interior entry is the sum of the two entries immediately above it."
+        },
+        {
+          "type": "diagram",
+          "title": "Pascal’s triangle through row six",
+          "src": "assets/pascal-counts.svg",
+          "description": "Rows zero through six are shown. The two tens C(5, 2) and C(5, 3) point to their sum C(6, 3) = 20. Row six is 1, 6, 15, 20, 15, 6, 1."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Row n",
+            "Coefficients"
+          ],
+          "rows": [
+            [
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "1, 1"
+            ],
+            [
+              "2",
+              "1, 2, 1"
+            ],
+            [
+              "3",
+              "1, 3, 3, 1"
+            ],
+            [
+              "4",
+              "1, 4, 6, 4, 1"
+            ],
+            [
+              "5",
+              "1, 5, 10, 10, 5, 1"
+            ],
+            [
+              "6",
+              "1, 6, 15, 20, 15, 6, 1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This gives a recursive computation using integer additions instead of large factorials. Keep the previous row available while constructing the next one so that newly computed entries do not accidentally replace the inputs you still need."
+        },
+        {
+          "type": "check",
+          "prompt": "What is row seven?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Place 1 at each end and add adjacent entries of row six: 1, 7, 21, 35, 35, 21, 7, 1. Its sum is 128, and it is symmetric."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.2, printed pages 440–442."
+        }
+      ]
+    },
+    {
+      "id": "vandermonde",
+      "title": "11. Count a mixed team by its contribution from each group",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Two disjoint clubs have four and five members. Choose a three-person team from their nine members. Split the outcomes by k, the number chosen from the five-member club."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "k from the five-member club",
+            "From the four-member club",
+            "Count"
+          ],
+          "rows": [
+            [
+              "0",
+              "3",
+              "4"
+            ],
+            [
+              "1",
+              "2",
+              "30"
+            ],
+            [
+              "2",
+              "1",
+              "40"
+            ],
+            [
+              "3",
+              "0",
+              "10"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For instance, the k = 2 case has C(5, 2)·C(4, 1) = 10·4 = 40 teams. The four disjoint cases total 4 + 30 + 40 + 10 = 84, agreeing with C(9, 3)."
+        },
+        {
+          "type": "math",
+          "notation": "C(m + n, r) = ∑ₖ₌₀ʳ C(m, r − k)C(n, k)",
+          "description": "Vandermonde’s identity counts r-element subsets from two disjoint sets of sizes m and n."
+        },
+        {
+          "type": "paragraph",
+          "text": "For each k, independently choose r − k members of the first set and k of the second. The selections uniquely determine a team; each team uniquely determines its value of k. This proves the identity by product and sum rules."
+        },
+        {
+          "type": "callout",
+          "title": "Keep impossible cases at zero",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The textbook states the identity with r no larger than either group size. It also works for nonnegative m, n and 0 ≤ r ≤ m + n if C(a, b) is defined as zero when b < 0 or b > a. Then impossible cases contribute zero. Without that convention, sum only from max(0, r − m) to min(r, n)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Choose four people from disjoint groups of sizes two and three. Which values of k from the second group are possible?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Only k = 2 or k = 3. The counts are C(2, 2)C(3, 2) = 3 and C(2, 1)C(3, 3) = 2. Their sum is 5 = C(5, 4)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.3, printed pages 442."
+        }
+      ]
+    },
+    {
+      "id": "sum-of-squares",
+      "title": "12. Recognize a square as two independent subset choices",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "∑ₖ₌₀ⁿ C(n, k)² = C(2n, n)",
+          "description": "For nonnegative n, choose n members from two disjoint groups of n members each."
+        },
+        {
+          "type": "paragraph",
+          "text": "Apply Vandermonde with both group sizes equal to n and team size also n. A team with k members from the second group has n − k from the first. Its case count is C(n, n − k)C(n, k). Symmetry changes the first factor to C(n, k), producing the square."
+        },
+        {
+          "type": "example",
+          "title": "Two groups of four",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Choosing four from all eight gives C(8, 4) = 70. The split cases give 1² + 4² + 6² + 4² + 1² = 1 + 16 + 36 + 16 + 1 = 70."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does the square mean that you choose the same subset twice?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The two selections come from different, disjoint groups. The two factors have equal numerical values, but their choices are independent and can involve different members."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.3, printed pages 443."
+        }
+      ]
+    },
+    {
+      "id": "diagonal-sum",
+      "title": "13. Classify a bit string by its final one",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "∑ⱼ₌ᵣⁿ C(j, r) = C(n + 1, r + 1)",
+          "description": "For integers 0 ≤ r ≤ n, a diagonal sum of binomial coefficients equals the next coefficient at its end."
+        },
+        {
+          "type": "paragraph",
+          "text": "This is often called the hockey-stick identity because of its shape in Pascal’s triangle. To prove it, count bit strings of length n + 1 with exactly r + 1 ones."
+        },
+        {
+          "type": "example",
+          "title": "Why the last one determines a case",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The final 1 can occur in position j + 1 for j = r, …, n. Before it, choose r positions for the other ones among the first j positions: C(j, r) choices. After it, all bits must be zero. These cases are disjoint and cover all strings, whose total is C(n + 1, r + 1)."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Final 1 position in a seven-bit string with three ones",
+            "Choices for the first two ones",
+            "Count"
+          ],
+          "rows": [
+            [
+              "3",
+              "C(2, 2)",
+              "1"
+            ],
+            [
+              "4",
+              "C(3, 2)",
+              "3"
+            ],
+            [
+              "5",
+              "C(4, 2)",
+              "6"
+            ],
+            [
+              "6",
+              "C(5, 2)",
+              "10"
+            ],
+            [
+              "7",
+              "C(6, 2)",
+              "15"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The table gives 1 + 3 + 6 + 10 + 15 = 35 = C(7, 3). The strings have length seven throughout; the varying index describes where the final 1 occurs, not a change in string length."
+        },
+        {
+          "type": "check",
+          "prompt": "What happens when r = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Each summand C(j, 0) is 1, and there are n + 1 summands from j = 0 to n. The result is n + 1 = C(n + 1, 1), counting the possible positions of the single 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4.3, printed pages 443."
+        }
+      ]
+    },
+    {
+      "id": "binomial-recap",
+      "title": "14. Choose the identity by naming what is counted",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Pattern",
+            "Meaning",
+            "Tool"
+          ],
+          "rows": [
+            [
+              "Coefficient in a power of two summands",
+              "Which factors supply each summand?",
+              "Binomial theorem"
+            ],
+            [
+              "All subset sizes",
+              "Classify subsets by size",
+              "Row sum equals 2ⁿ"
+            ],
+            [
+              "Even versus odd subset sizes",
+              "Toggle one fixed element",
+              "Alternating sum is zero for n ≥ 1"
+            ],
+            [
+              "Include or exclude one member",
+              "Two disjoint cases",
+              "Pascal’s identity"
+            ],
+            [
+              "Select from two disjoint groups",
+              "Split by the number taken from one group",
+              "Vandermonde’s identity"
+            ],
+            [
+              "A sum along a diagonal",
+              "Fix the location of the final 1",
+              "Hockey-stick identity"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is the coefficient of x³ in (1 + 2x)⁵?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Select 2x from three factors: C(5, 3)·2³ = 10·8 = 80. The coefficient counts factor choices and includes the constants contributed by those choices."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Explain C(10, 4) = C(9, 3) + C(9, 4) without factorials.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A four-person team from ten people either includes a chosen distinguished person, leaving three to choose from nine, or excludes that person, leaving four to choose from nine. These cases cover every team once."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A combinatorial proof names one collection of outcomes and explains both counts of it. Numerical checks are useful for catching errors, but a general proof must work for every value in the stated domain."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.4, printed pages 437–443."
+        }
+      ]
+    }
+  ]
+}

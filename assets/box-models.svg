@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="470" viewBox="0 0 760 470" role="img" aria-labelledby="title desc">
+<title id="title">Four models for three objects and two boxes</title><desc id="desc">Empty boxes are allowed and order within a box is ignored. Distinct objects in labeled boxes give eight assignments. Identical objects in labeled boxes give four occupancies. Distinct objects in unlabeled boxes give four partitions. Identical objects in unlabeled boxes give two size patterns.</desc>
+<rect width="760" height="470" rx="16" fill="#f4f7f5"/>
+<text x="380" y="34" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle" fill="#17382d" font-weight="600" >Same totals, different meanings of an outcome</text>
+<rect x="25" y="61" width="340" height="173" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="195" y="89" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="600" >Distinct objects · labeled boxes</text>
+<text x="195" y="128" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600" >8 assignments</text>
+<text x="195" y="165" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >A, B, C each choose Left or Right.</text>
+<text x="195" y="192" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >Example: Left {A, C}, Right {B}.</text>
+<rect x="395" y="61" width="340" height="173" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="565" y="89" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="600" >Identical objects · labeled boxes</text>
+<text x="565" y="128" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600" >4 occupancy pairs</text>
+<text x="565" y="165" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >(3, 0), (2, 1), (1, 2), (0, 3)</text>
+<text x="565" y="192" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >The first entry always means Left.</text>
+<rect x="25" y="253" width="340" height="173" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="195" y="281" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="600" >Distinct objects · unlabeled boxes</text>
+<text x="195" y="320" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600" >4 set partitions</text>
+<text x="195" y="357" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >{ABC}; {A}{BC}; {B}{AC}; {C}{AB}</text>
+<text x="195" y="384" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >Group order is ignored.</text>
+<rect x="395" y="253" width="340" height="173" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="565" y="281" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="600" >Identical objects · unlabeled boxes</text>
+<text x="565" y="320" font-family="system-ui, sans-serif" font-size="23" text-anchor="middle" fill="#17382d" font-weight="600" >2 size patterns</text>
+<text x="565" y="357" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >3 or 2 + 1</text>
+<text x="565" y="384" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle" fill="#17382d" font-weight="400" >Reversing box sizes changes nothing.</text>
+<text x="380" y="454" font-family="system-ui, sans-serif" font-size="17" text-anchor="middle" fill="#17382d" font-weight="400" >Empty boxes allowed · order inside each box ignored</text>
+</svg>

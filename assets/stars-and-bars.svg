@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="340" viewBox="0 0 760 340" role="img" aria-labelledby="title desc">
+<title id="title">Stars and bars encode a quantity tuple</title><desc id="desc">Seven stars and three bars encode quantities two, zero, three, two in four labeled categories. Adjacent bars encode zero in category B.</desc>
+<rect width="760" height="340" rx="16" fill="#f4f7f5"/>
+<text x="380" y="35" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle" fill="#17382d" font-weight="600" >Seven items in four labeled categories</text>
+<rect x="30" y="63" width="151" height="111" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="105.5" y="91" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600" >A</text>
+<text x="105.5" y="133" font-family="system-ui, sans-serif" font-size="21" text-anchor="middle" fill="#17382d" font-weight="400" >★ ★ </text>
+<text x="105.5" y="161" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="400" >2</text>
+<rect x="213" y="63" width="151" height="111" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="288.5" y="91" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600" >B</text>
+<text x="288.5" y="133" font-family="system-ui, sans-serif" font-size="21" text-anchor="middle" fill="#17382d" font-weight="400" >empty</text>
+<text x="288.5" y="161" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="400" >0</text>
+<rect x="396" y="63" width="151" height="111" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="471.5" y="91" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600" >C</text>
+<text x="471.5" y="133" font-family="system-ui, sans-serif" font-size="21" text-anchor="middle" fill="#17382d" font-weight="400" >★ ★ ★ </text>
+<text x="471.5" y="161" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="400" >3</text>
+<rect x="579" y="63" width="151" height="111" rx="12" fill="#fff" stroke="#80988e"/>
+<text x="654.5" y="91" font-family="system-ui, sans-serif" font-size="19" text-anchor="middle" fill="#17382d" font-weight="600" >D</text>
+<text x="654.5" y="133" font-family="system-ui, sans-serif" font-size="21" text-anchor="middle" fill="#17382d" font-weight="400" >★ ★ </text>
+<text x="654.5" y="161" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle" fill="#17382d" font-weight="400" >2</text>
+<text x="380" y="213" font-family="system-ui, sans-serif" font-size="17" text-anchor="middle" fill="#17382d" font-weight="400" >Keep the category order A, B, C, D</text>
+<text x="380" y="257" font-family="system-ui, sans-serif" font-size="34" text-anchor="middle" fill="#17382d" font-weight="600" data-encoding="stars-bars">**||***|**</text>
+<text x="380" y="298" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#17382d" font-weight="400" >7 stars + 3 bars = 10 positions</text>
+<text x="380" y="325" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#17382d" font-weight="400" >Choose the bar positions: C(10, 3) = 120</text>
+</svg>

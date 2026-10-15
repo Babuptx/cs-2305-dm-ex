@@ -335,16 +335,16 @@
           "id": "6.4",
           "number": "6.4",
           "title": "Binomial Coefficients and Identities",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/6.4.json",
           "children": []
         },
         {
           "id": "6.5",
           "number": "6.5",
           "title": "Generalized Permutations and Combinations",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/6.5.json",
           "children": []
         },
         {
