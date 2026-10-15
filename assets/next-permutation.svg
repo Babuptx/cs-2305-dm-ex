@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="350" viewBox="0 0 760 350" role="img" aria-labelledby="title desc"><title id="title">The next permutation: preserve, swap, reverse</title><desc id="desc">The initial list 2, 4, 1, 6, 5, 3 has pivot 1. Swapping with 3 gives 2, 4, 3, 6, 5, 1. Reversing the last three entries gives 2, 4, 3, 1, 5, 6.</desc>
+<rect width="760" height="350" rx="16" fill="#f4f7f5"/>
+<text x="380" y="35" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle" font-weight="600" fill="#17382d">The next permutation: preserve, swap, reverse</text>
+<text x="32" y="105" font-family="system-ui, sans-serif" font-size="17" text-anchor="start" font-weight="400" fill="#17382d">Pivot: 1</text>
+<rect x="245" y="74" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="274.5" y="106" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">2</text>
+<rect x="321" y="74" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="350.5" y="106" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">4</text>
+<rect x="397" y="74" width="59" height="49" rx="9" fill="#dceee5" stroke="#28624f"/>
+<text x="426.5" y="106" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">1</text>
+<rect x="473" y="74" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="502.5" y="106" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">6</text>
+<rect x="549" y="74" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="578.5" y="106" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">5</text>
+<rect x="625" y="74" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="654.5" y="106" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">3</text>
+<text x="32" y="181" font-family="system-ui, sans-serif" font-size="17" text-anchor="start" font-weight="400" fill="#17382d">Swap 1 and 3</text>
+<rect x="245" y="150" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="274.5" y="182" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">2</text>
+<rect x="321" y="150" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="350.5" y="182" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">4</text>
+<rect x="397" y="150" width="59" height="49" rx="9" fill="#dceee5" stroke="#28624f"/>
+<text x="426.5" y="182" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">3</text>
+<rect x="473" y="150" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="502.5" y="182" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">6</text>
+<rect x="549" y="150" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="578.5" y="182" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">5</text>
+<rect x="625" y="150" width="59" height="49" rx="9" fill="#dceee5" stroke="#28624f"/>
+<text x="654.5" y="182" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">1</text>
+<text x="32" y="257" font-family="system-ui, sans-serif" font-size="17" text-anchor="start" font-weight="400" fill="#17382d">Reverse the suffix</text>
+<rect x="245" y="226" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="274.5" y="258" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">2</text>
+<rect x="321" y="226" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="350.5" y="258" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">4</text>
+<rect x="397" y="226" width="59" height="49" rx="9" fill="#fff" stroke="#28624f"/>
+<text x="426.5" y="258" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">3</text>
+<rect x="473" y="226" width="59" height="49" rx="9" fill="#dceee5" stroke="#28624f"/>
+<text x="502.5" y="258" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">1</text>
+<rect x="549" y="226" width="59" height="49" rx="9" fill="#dceee5" stroke="#28624f"/>
+<text x="578.5" y="258" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">5</text>
+<rect x="625" y="226" width="59" height="49" rx="9" fill="#dceee5" stroke="#28624f"/>
+<text x="654.5" y="258" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" font-weight="600" fill="#17382d">6</text>
+<text x="380" y="320" font-family="system-ui, sans-serif" font-size="17" text-anchor="middle" font-weight="400" fill="#17382d">The prefix 2, 4 stays fixed; the new suffix is as small as possible.</text>
+</svg>

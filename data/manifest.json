@@ -351,16 +351,16 @@
           "id": "6.6",
           "number": "6.6",
           "title": "Generating Permutations and Combinations",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/6.6.json",
           "children": []
         },
         {
           "id": "6-end",
           "number": null,
           "title": "End-of-Chapter Material",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/6-end.json",
           "children": []
         }
       ]

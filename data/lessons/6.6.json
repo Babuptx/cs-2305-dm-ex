@@ -1,0 +1,722 @@
+{
+  "schemaVersion": 1,
+  "id": "6.6",
+  "title": "Generating Permutations and Combinations",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §6.6.1–§6.6.3, printed pages 457–460. Guarded JavaScript implementations and explicit boundary cases are companion additions.",
+    "Original companion explanations, worked examples, checks, and diagrams."
+  ],
+  "units": [
+    {
+      "id": "count-versus-generate",
+      "title": "1. Move from how many to which ones",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Counting gives the number of possible outcomes. Generating produces the outcomes themselves so that you can inspect, test, or use each one. A good generator includes every valid outcome exactly once and knows when it has finished."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Task",
+            "Count",
+            "Why generate?"
+          ],
+          "rows": [
+            [
+              "Order four distinct visits",
+              "4! = 24",
+              "Evaluate the cost of each visit order."
+            ],
+            [
+              "Choose any subset of four numbers",
+              "2⁴ = 16",
+              "Test each subset against a desired sum."
+            ],
+            [
+              "Choose three people from six",
+              "C(6, 3) = 20",
+              "Check which teams have the required skills."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, knowing that {4, 7, 11, 16} has sixteen subsets does not identify a subset summing to eighteen. Generating and checking the subsets finds {7, 11}. Exhaustive search is a useful baseline when the candidate set is small."
+        },
+        {
+          "type": "check",
+          "prompt": "Does a count of twenty teams prove that one team has all the needed skills?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It only counts candidates. You must inspect the skills or give a separate existence argument. A generator supplies candidates; the application decides which ones qualify."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.1, printed pages 457."
+        }
+      ]
+    },
+    {
+      "id": "lexicographic-order",
+      "title": "2. Compare the first position that differs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Lexicographic order",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Compare two equal-length lists from left to right. At their first different position, the list with the smaller entry comes first. Later entries do not affect that comparison. This is dictionary order relative to an agreed order on the symbols."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "First list",
+            "Second list",
+            "Which comes first, and why?"
+          ],
+          "rows": [
+            [
+              "(2, 4, 1, 3)",
+              "(2, 4, 3, 1)",
+              "The first: 1 < 3 in position three."
+            ],
+            [
+              "(2, 10, 1)",
+              "(2, 3, 10)",
+              "The second: compare the numbers 3 and 10."
+            ],
+            [
+              "(1, 4, 3, 2)",
+              "(2, 1, 3, 4)",
+              "The first: its first entry is smaller."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Use actual entries, not concatenated decimal text. If values can have multiple digits, a list such as (2, 10, 1) should not become an ambiguous character string. Here the examples use numeric comparisons."
+        },
+        {
+          "type": "paragraph",
+          "text": "Any finite set of distinct objects with a chosen order can be labeled 1 through n. Generate permutations of those labels and map them back to the objects."
+        },
+        {
+          "type": "check",
+          "prompt": "Which comes first: (3, 1, 4, 2) or (3, 2, 1, 4)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first list. The first entries agree, then 1 < 2. The remaining positions do not matter."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.2, printed pages 457–458."
+        }
+      ]
+    },
+    {
+      "id": "permutation-trace",
+      "title": "3. Change the rightmost position that can increase",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To find the immediate next permutation, preserve as much of the beginning as possible. Scan from the right for the last adjacent rise. The entry just before that rise is the pivot. Everything to its right is a decreasing suffix, already as large as possible using those entries."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step",
+            "State",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "Start",
+              "2, 4, 1, 6, 5, 3",
+              "The suffix 6, 5, 3 is decreasing."
+            ],
+            [
+              "Choose pivot",
+              "1 in position 3",
+              "This is the rightmost entry followed by a larger one."
+            ],
+            [
+              "Swap",
+              "2, 4, 3, 6, 5, 1",
+              "3 is the smallest suffix entry greater than 1."
+            ],
+            [
+              "Reverse suffix",
+              "2, 4, 3, 1, 5, 6",
+              "Put the remaining suffix entries in increasing order."
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "One immediate successor in three stages",
+          "src": "assets/next-permutation.svg",
+          "description": "Start with 2, 4, 1, 6, 5, 3. The pivot is 1. Swap it with 3 to obtain 2, 4, 3, 6, 5, 1. Reverse the suffix to obtain the immediate next permutation 2, 4, 3, 1, 5, 6."
+        },
+        {
+          "type": "check",
+          "prompt": "Why not swap the pivot 1 with 5?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "That would increase the first changed position more than necessary. Permutations starting with (2, 4, 3) would be skipped. Use the smallest suffix value greater than the pivot."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.2, printed pages 458–459."
+        }
+      ]
+    },
+    {
+      "id": "successor-proof",
+      "title": "4. Explain why no permutation is skipped",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Three minimal choices establish the next result",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "First, a decreasing suffix is the greatest ordering of its entries. Rearranging only that suffix cannot make the whole permutation larger. Therefore a larger permutation must change the pivot or an earlier position."
+            },
+            {
+              "type": "paragraph",
+              "text": "Second, changing the pivot preserves more of the prefix than changing any earlier position. Increase it to the smallest available larger value. Any larger replacement would skip a possible prefix."
+            },
+            {
+              "type": "paragraph",
+              "text": "Third, after fixing that new prefix, arrange the remaining entries in increasing order. This is the smallest possible suffix. Together these choices give the smallest permutation greater than the original."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The rightmost suffix entry larger than the pivot is the smallest suitable entry because the suffix is decreasing. After the swap the suffix is still decreasing, so reversing it puts it in increasing order without a general sort."
+        },
+        {
+          "type": "check",
+          "prompt": "What if there is no adjacent rise anywhere?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The entire permutation is decreasing. It is the last permutation in lexicographic order, so there is no successor. The algorithm must stop rather than scan past the start."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.2, printed pages 458–459."
+        }
+      ]
+    },
+    {
+      "id": "permutation-code",
+      "title": "5. Use a successor function with an explicit stopping result",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Here is an executable JavaScript version. Its input is an array of distinct numbers in the desired numeric order system. It returns a new array for the successor, or null when no successor exists. The original input is preserved. Array indices start at zero."
+        },
+        {
+          "type": "math",
+          "notation": "function nextPermutation(values) {\n  const a = [...values];\n  let pivot = a.length - 2;\n  while (pivot >= 0 && a[pivot] >= a[pivot + 1]) {\n    pivot--;\n  }\n  if (pivot < 0) return null;\n  let next = a.length - 1;\n  while (a[next] <= a[pivot]) next--;\n  [a[pivot], a[next]] = [a[next], a[pivot]];\n  for (let left = pivot + 1, right = a.length - 1;\n       left < right; left++, right--) {\n    [a[left], a[right]] = [a[right], a[left]];\n  }\n  return a;\n}",
+          "description": "JavaScript nextPermutation copies its input, finds a rightmost pivot, swaps with the least larger suffix value, reverses the suffix, and returns null at the last arrangement."
+        },
+        {
+          "type": "paragraph",
+          "text": "The guard pivot >= 0 is checked before reading neighboring entries. Unlike the textbook procedure, which assumes a nonfinal input, this version handles the final permutation, a one-element array, and an empty array. Each has no successor in its own family when already last."
+        },
+        {
+          "type": "check",
+          "prompt": "What do nextPermutation([3, 2, 1]) and nextPermutation([1]) return?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both return null. Each input is already the largest permutation of its elements. The function does not wrap around to the first permutation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.2, printed pages 459."
+        }
+      ]
+    },
+    {
+      "id": "list-permutations",
+      "title": "6. Emit the first arrangement before advancing",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Start with (1, 2, …, n), the smallest permutation. Emit it, ask for its successor, and repeat until the successor is null. This includes the first and last outcomes exactly once."
+        },
+        {
+          "type": "math",
+          "notation": "function* permutations(n) {\n  let current = Array.from({length: n}, (_, i) => i + 1);\n  while (current !== null) {\n    yield current.slice();\n    current = nextPermutation(current);\n  }\n}",
+          "description": "JavaScript generator permutations yields every permutation of one through n, starting in increasing order and stopping at null. Use nextPermutation from the preceding unit."
+        },
+        {
+          "type": "paragraph",
+          "text": "The input n must be a nonnegative integer. In JavaScript, function* creates a generator, and yield supplies one result at a time. A caller can iterate with for…of. The slice() creates a separate snapshot so that changing a yielded array does not alter the generator’s current state."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "All permutations for n = 3"
+          ],
+          "rows": [
+            [
+              "1, 2, 3"
+            ],
+            [
+              "1, 3, 2"
+            ],
+            [
+              "2, 1, 3"
+            ],
+            [
+              "2, 3, 1"
+            ],
+            [
+              "3, 1, 2"
+            ],
+            [
+              "3, 2, 1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The immediate-successor argument guarantees no gaps. Strict increase guarantees no repeats. Starting at the minimum and stopping at the maximum therefore visits all n! permutations. For n = 0, emit the empty array once, agreeing with 0! = 1."
+        },
+        {
+          "type": "check",
+          "prompt": "What goes wrong if you advance before emitting the initial arrangement?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "You omit (1, 2, …, n). For n = 0 or n = 1, there is no successor, so you would mistakenly emit nothing instead of the single valid outcome."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.2, printed pages 458–459."
+        }
+      ]
+    },
+    {
+      "id": "subset-bit-map",
+      "title": "7. Encode a subset with one membership bit per element",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Fix an element order, such as (red, green, blue). Use 1 when an element belongs to the subset and 0 when it does not. The leftmost bit refers to red in this example."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Bits",
+            "Subset"
+          ],
+          "rows": [
+            [
+              "000",
+              "∅"
+            ],
+            [
+              "001",
+              "{blue}"
+            ],
+            [
+              "010",
+              "{green}"
+            ],
+            [
+              "011",
+              "{green, blue}"
+            ],
+            [
+              "100",
+              "{red}"
+            ],
+            [
+              "101",
+              "{red, blue}"
+            ],
+            [
+              "110",
+              "{red, green}"
+            ],
+            [
+              "111",
+              "{red, green, blue}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Each subset gives exactly one bit string, and each bit string recovers exactly one subset. Listing all fixed-width binary strings therefore lists all subsets, including the empty set and the full set. This is a bijection, a correspondence unique in both directions."
+        },
+        {
+          "type": "check",
+          "prompt": "Why must the association between bit positions and elements remain fixed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Changing it midway would change the meaning of a string. A consistent element order makes the encoding reversible and prevents missed or duplicated subsets."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.3, printed pages 459–460."
+        }
+      ]
+    },
+    {
+      "id": "binary-successor",
+      "title": "8. Carry through the trailing ones",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Binary increment works like decimal increment, using only digits 0 and 1. Change trailing ones to zeros, then change the first zero to their left into one. For example, 010111 becomes 011000."
+        },
+        {
+          "type": "math",
+          "notation": "function nextBits(bits) {\n  const b = [...bits];\n  let i = b.length - 1;\n  while (i >= 0 && b[i] === 1) {\n    b[i] = 0;\n    i--;\n  }\n  if (i < 0) return null;\n  b[i] = 1;\n  return b;\n}",
+          "description": "JavaScript nextBits returns the next fixed-width binary string as an array of bits, or null if the string is all ones. It copies the input and carries from right to left."
+        },
+        {
+          "type": "paragraph",
+          "text": "The input is an array whose entries are 0 or 1, ordered from most significant to least significant bit. The last array position is therefore the first position scanned. A null result means there is no larger string of this width; adding another bit would change the problem."
+        },
+        {
+          "type": "check",
+          "prompt": "What follows 00111? What follows 11111 at width five?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "00111 becomes 01000. The all-ones input has no fixed-width successor, so the function returns null. It does not return 100000 or wrap to 00000."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.3, printed pages 459–460."
+        }
+      ]
+    },
+    {
+      "id": "enumerate-subsets",
+      "title": "9. Use binary counting to search every subset",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Begin with n zero bits. Emit the represented subset, then repeatedly call nextBits until it returns null. The binary values increase from 0 through 2ⁿ − 1, giving exactly 2ⁿ subsets."
+        },
+        {
+          "type": "example",
+          "title": "Search a small set for a target sum",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Use element order (4, 7, 11, 16). The bit string 0110 selects 7 and 11 and has sum eighteen. Testing all sixteen bit strings finds this subset. If the task asks for every solution, continue after finding it; if it asks only whether a solution exists, a first match suffices."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For n = 0, start with the empty bit array and emit the empty subset once. Calling nextBits on it returns null. This agrees with 2⁰ = 1."
+        },
+        {
+          "type": "check",
+          "prompt": "Is this a fast method for a set with one hundred elements?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It still has to consider 2¹⁰⁰ subsets in the worst case. The encoding makes the search systematic; it does not remove exponential growth. A practical application may need a more specialized method."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.1 and §6.6.3, printed pages 457, 459–460."
+        }
+      ]
+    },
+    {
+      "id": "fixed-size-representation",
+      "title": "10. Keep a combination in increasing order",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To generate only r-element subsets of {1, …, n}, represent each subset as a strictly increasing list (a1, …, ar). This listing order is a canonical representation; it does not give the chosen elements different roles."
+        },
+        {
+          "type": "math",
+          "notation": "1 ≤ a1 < a2 < ⋯ < ar ≤ n\nai ≤ n − r + i",
+          "description": "Using one-based mathematical positions, entry i cannot exceed n minus r plus i because the later entries still need room."
+        },
+        {
+          "type": "paragraph",
+          "text": "The first list is (1, 2, …, r). The last is (n − r + 1, …, n). For n = 8 and r = 4, the position maxima are 5, 6, 7, 8. An entry cannot be increased once it has reached its maximum unless an earlier position changes."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the maximum first entry five for a four-element subset of {1, …, 8}?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If the first entry were six, only seven and eight would remain larger than it, giving too few values for the other three positions. Starting at five leaves six, seven, and eight."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.3, printed pages 460."
+        }
+      ]
+    },
+    {
+      "id": "combination-trace",
+      "title": "11. Increase one entry and refill the tail minimally",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Step for n = 8, r = 4",
+            "List",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "Start",
+              "2, 4, 7, 8",
+              "The last two entries are at their position maxima."
+            ],
+            [
+              "Find the movable entry",
+              "4 in position 2",
+              "Its maximum is six, so it can increase."
+            ],
+            [
+              "Increase by one",
+              "2, 5, 7, 8",
+              "Preserve the longest possible prefix."
+            ],
+            [
+              "Refill the tail",
+              "2, 5, 6, 7",
+              "Use consecutive values immediately above five."
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "The next fixed-size subset",
+          "src": "assets/next-combination.svg",
+          "description": "For n equals eight and r equals four, position maxima are five, six, seven, eight. Starting at two, four, seven, eight, increment the second entry to five and reset the last two entries to six and seven, giving two, five, six, seven."
+        },
+        {
+          "type": "paragraph",
+          "text": "Every position to the right of the chosen entry is already at its maximum, so none can independently increase. Increasing the chosen entry by one gives the smallest larger prefix, and filling the tail consecutively gives the smallest compatible suffix. Therefore the result is the immediate lexicographic successor."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is (2, 5, 7, 8) not the immediate next combination?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is valid but skips smaller combinations with the same new prefix, beginning with (2, 5, 6, 7). Incrementing the pivot is only half the job; reset the suffix too."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.3, printed pages 460."
+        }
+      ]
+    },
+    {
+      "id": "combination-code",
+      "title": "12. Stop when every position is at its maximum",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This JavaScript function accepts an increasing array of r distinct integers from 1 through n, where n is nonnegative and 0 ≤ r ≤ n. It returns a new array, or null when there is no next combination."
+        },
+        {
+          "type": "math",
+          "notation": "function nextCombination(values, n) {\n  const a = [...values];\n  const r = a.length;\n  let i = r - 1;\n  while (i >= 0 && a[i] === n - r + i + 1) {\n    i--;\n  }\n  if (i < 0) return null;\n  a[i]++;\n  for (let j = i + 1; j < r; j++) {\n    a[j] = a[j - 1] + 1;\n  }\n  return a;\n}",
+          "description": "JavaScript nextCombination scans backward past entries at their maximum, increments the last movable entry, and resets each later entry to one more than its predecessor."
+        },
+        {
+          "type": "paragraph",
+          "text": "The formula n − r + i + 1 uses a zero-based JavaScript index i. It is the same bound as n − r + i in the preceding one-based mathematics. Mixing these conventions causes an off-by-one error."
+        },
+        {
+          "type": "paragraph",
+          "text": "To list every r-combination, start at [1, …, r], emit it, and repeatedly advance until null. When r = 0, emit [] once. When r = n, emit [1, …, n] once. These single-outcome cases need no special successor beyond the null guard."
+        },
+        {
+          "type": "check",
+          "prompt": "What follows [3, 4, 5] when n = 5 and r = 3?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Nothing: every entry is at its maximum. The function returns null without reading a position before the start of the array."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.3, printed pages 460."
+        }
+      ]
+    },
+    {
+      "id": "different-list-orders",
+      "title": "13. Distinguish subset order from representation order",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Method for two-element subsets of {1, 2, 3, 4}",
+            "Output order"
+          ],
+          "rows": [
+            [
+              "Increasing-list lexicographic generation",
+              "12, 13, 14, 23, 24, 34"
+            ],
+            [
+              "Binary counting, keeping only two-one strings",
+              "34, 24, 23, 14, 13, 12"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In the second row, the leftmost bit corresponds to element 1. For example, 0011 represents {3, 4}. Both methods generate the same six subsets. They order different representations, so their output sequences need not match. The shorthand 12 means {1, 2} here, not the integer twelve."
+        },
+        {
+          "type": "paragraph",
+          "text": "Filtering all 2ⁿ bit strings is simple, but directly generating the C(n, r) increasing lists avoids visiting other subset sizes. Count the intended output family before choosing a generation strategy."
+        },
+        {
+          "type": "check",
+          "prompt": "Does generating a combination as an increasing list turn it into an r-permutation?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Only one order is used to represent each subset. An r-permutation family would include every allowed ordering of its selected elements."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6.3, printed pages 459–460."
+        }
+      ]
+    },
+    {
+      "id": "generation-recap",
+      "title": "14. Check validity, coverage, uniqueness, and termination",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Family",
+            "First state",
+            "Stopping state",
+            "Total"
+          ],
+          "rows": [
+            [
+              "Permutations of 1 through n",
+              "Increasing order",
+              "Decreasing order",
+              "n!"
+            ],
+            [
+              "All subsets via bits",
+              "All zero bits",
+              "All one bits",
+              "2ⁿ"
+            ],
+            [
+              "r-combinations",
+              "1, …, r",
+              "n − r + 1, …, n",
+              "C(n, r)"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For each generator, verify four things: every emitted outcome is valid, every desired outcome appears, no outcome repeats, and the process stops. The immediate-successor proof supplies coverage and uniqueness; the finite maximum supplies termination."
+        },
+        {
+          "type": "paragraph",
+          "text": "A successor scan and suffix update take O(n) time for a permutation or n-bit string, and O(r) for an r-combination. The displayed functions copy their inputs, so their extra storage is O(n) or O(r), respectively. An in-place version can use constant extra working storage, excluding the stored arrangement."
+        },
+        {
+          "type": "paragraph",
+          "text": "Writing every n-entry permutation explicitly already requires Θ(n·n!) entry writes for n ≥ 1. Likewise, writing all full-width bit strings requires Θ(n·2ⁿ), and writing all r-entry combinations requires Θ(r·C(n, r)) for r ≥ 1. Streaming saves storage compared with collecting every result, but it does not eliminate the output cost."
+        },
+        {
+          "type": "check",
+          "prompt": "A program emits the correct number of outcomes. Is that enough to establish correctness?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It might omit one valid outcome and repeat another, or emit invalid outcomes. Check validity, uniqueness, endpoints, and agreement with an independent small-case enumeration in addition to the count."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6, printed pages 457–460."
+        }
+      ]
+    }
+  ]
+}

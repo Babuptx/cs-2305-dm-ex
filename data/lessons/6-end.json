@@ -1,0 +1,970 @@
+{
+  "schemaVersion": 1,
+  "id": "6-end",
+  "title": "End-of-Chapter Material",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, Chapter 6 Key Terms and Results, Review Questions, Supplementary Exercises, Computer Projects, Computations and Explorations, and Writing Projects, printed pages 461–467. Original companion review, not a reproduction or full solution bank for the numbered exercise lists.",
+    "Original companion explanations, worked examples, checks, and diagrams."
+  ],
+  "units": [
+    {
+      "id": "chapter-six-map",
+      "title": "1. Bring the counting methods together",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Use this page as your Chapter 6 review",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Try each check before opening its explanation. This page provides original practice and project briefs aligned with the textbook’s end-of-chapter categories. Consult the book for its full numbered exercise lists."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Section",
+            "Main question",
+            "Habit to retain"
+          ],
+          "rows": [
+            [
+              "6.1",
+              "How can choices be combined?",
+              "Define an outcome; justify products, disjoint sums, subtraction, and division."
+            ],
+            [
+              "6.2",
+              "What must happen in every arrangement?",
+              "Name objects and boxes, then translate a collision."
+            ],
+            [
+              "6.3",
+              "Does order matter?",
+              "Distinguish roles and lists from subsets."
+            ],
+            [
+              "6.4",
+              "Why do two counting expressions agree?",
+              "Count the same objects in two ways."
+            ],
+            [
+              "6.5",
+              "What changes with repetition or indistinguishability?",
+              "State which identities remain visible."
+            ],
+            [
+              "6.6",
+              "How can every outcome be produced?",
+              "Use a canonical representation and a stopping rule."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A formula is the end of a modeling decision. Begin by describing one outcome in ordinary words, then state the restrictions and explain why each result is counted with the intended multiplicity."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Key Terms and Results and Review Questions, printed pages 461–463."
+        }
+      ]
+    },
+    {
+      "id": "counting-glossary",
+      "title": "2. Recall the terms together with their conditions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Term or result",
+            "Meaning or formula",
+            "Condition"
+          ],
+          "rows": [
+            [
+              "Product rule",
+              "Multiply the number of continuations at each stage",
+              "The stated branch count holds after every earlier choice."
+            ],
+            [
+              "Sum rule",
+              "Add case counts",
+              "Cases are disjoint and cover the outcomes."
+            ],
+            [
+              "Inclusion–exclusion for two sets",
+              "|A ∪ B| = |A| + |B| − |A ∩ B|",
+              "Correct the overlap."
+            ],
+            [
+              "Division rule",
+              "Divide description count by multiplicity",
+              "Every outcome has the same multiplicity."
+            ],
+            [
+              "Pigeonhole bound",
+              "Some box has at least ⌈N/k⌉ objects",
+              "N objects, k ≥ 1 boxes."
+            ],
+            [
+              "Permutation",
+              "Ordered selection: P(n, r) = n!/(n − r)!",
+              "Distinct objects; 0 ≤ r ≤ n."
+            ],
+            [
+              "Combination",
+              "Subset: C(n, r) = n!/[r!(n − r)!]",
+              "No repetition; 0 ≤ r ≤ n."
+            ],
+            [
+              "Multiset",
+              "A selection retaining type quantities",
+              "Order is ignored; repetitions may occur."
+            ],
+            [
+              "Set partition",
+              "Nonempty disjoint groups covering a set",
+              "Object identities remain; group order does not."
+            ],
+            [
+              "Integer partition",
+              "A nonincreasing list of positive parts with a given sum",
+              "Only sizes remain visible."
+            ],
+            [
+              "Lexicographic successor",
+              "The smallest valid list greater than the current one",
+              "An agreed order on entries and a fixed family."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What extra condition makes dividing by r! legitimate when converting permutations to combinations?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Every selected group must contain r distinct objects. Then each group has exactly r! orders. For arbitrary multisets the number of orders varies with the multiplicities."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Key Terms and Results, printed pages 461–462."
+        }
+      ]
+    },
+    {
+      "id": "four-selection-practice",
+      "title": "3. Change one assumption and watch the answer change",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Select three items from five available types. Assume sufficient supply when repetition is allowed. For the no-repetition models, the five choices are distinct objects."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Order matters?",
+            "Repetition allowed?",
+            "Count",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "Yes",
+              "No",
+              "60",
+              "5·4·3"
+            ],
+            [
+              "No",
+              "No",
+              "10",
+              "C(5, 3)"
+            ],
+            [
+              "Yes",
+              "Yes",
+              "125",
+              "5³"
+            ],
+            [
+              "No",
+              "Yes",
+              "35",
+              "C(7, 3)"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A three-position code uses five symbols, but no symbol may repeat. Which model applies?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Ordered without repetition: 5·4·3 = 60. Different positions distinguish outcomes."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A bag contains three items chosen from five types, with only type quantities recorded. Which model applies?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Unordered with repetition, assuming enough supply. Three stars and four bars give C(7, 3) = 35 quantity choices."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Review Questions and Supplementary Exercises, printed pages 462–463."
+        }
+      ]
+    },
+    {
+      "id": "union-practice",
+      "title": "4. Use the counted universe to manage overlaps",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "How many eight-bit strings start with 01 or end with 10? How many satisfy neither condition?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The start condition leaves six free bits: 2⁶ = 64. The end condition also leaves six free bits. Both together leave four free middle bits: 2⁴ = 16. Inclusive OR therefore gives 64 + 64 − 16 = 112 strings. Of all 2⁸ = 256 strings, the remaining 144 satisfy neither."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many four-character strings over {A, B, C, D, E} contain A at least once?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Count all 5⁴ = 625 strings, then remove the 4⁴ = 256 strings using only the other letters. The answer is 369. Choosing a special position for A would count strings with several As more than once."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For prefix and suffix conditions, first check whether they overlap in positions. In the eight-bit example they use disjoint positions, so both fixed patterns can coexist. Conflicting requirements on the same position would make the intersection empty."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Review Questions and Supplementary Exercises, printed pages 462–464."
+        }
+      ]
+    },
+    {
+      "id": "guarantee-practice",
+      "title": "5. Separate a worst-case guarantee from an exact count",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "An event uses four days and three time slots each day. How many appointments force at least four into some day-and-time slot?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 4·3 = 12 boxes. Three appointments in each slot avoid four, totaling 36. A thirty-seventh appointment forces four in some slot. The arrangement with three per slot proves that 36 does not suffice."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A consecutive-sum guarantee",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For any sequence of m integers with m ≥ 1, some nonempty consecutive segment has sum divisible by m. Define S0 = 0 and Sj as the sum of the first j entries. The m + 1 prefix totals have only m possible remainders modulo m. Two, Si and Sj with i < j, share a remainder. Their difference Sj − Si is divisible by m and is exactly the sum of entries i + 1 through j."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Prefix index",
+            "Total for (3, −1, 4, 2, 6)",
+            "Remainder modulo 5"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "1",
+              "3",
+              "3"
+            ],
+            [
+              "2",
+              "2",
+              "2"
+            ],
+            [
+              "3",
+              "6",
+              "1"
+            ],
+            [
+              "4",
+              "8",
+              "3"
+            ],
+            [
+              "5",
+              "14",
+              "4"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The repeated remainder 3 at indices 1 and 4 gives −1 + 4 + 2 = 5. Including the zero prefix also allows a qualifying segment to begin at the first entry. The entries may be negative; strict increase of totals is not needed because distinct prefix indices still give a nonempty interval."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Supplementary Exercises, printed pages 464."
+        }
+      ]
+    },
+    {
+      "id": "roles-practice",
+      "title": "6. Count a team before adding its roles",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "Choose a four-person team from nine people, then appoint one team member as chair. How many outcomes are there?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Choose the team in C(9, 4) = 126 ways and the chair in four ways: 504. Alternatively, choose the chair in nine ways and the other three members in C(8, 3) = 56 ways: 9·56 = 504. Both describe a team with one distinguished member."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Assigning four different jobs instead would give P(9, 4) = 3024. The one-chair problem does not distinguish the three nonchair members by roles, so those assignments would overcount it by 3!."
+        },
+        {
+          "type": "check",
+          "prompt": "How many four-person teams from nine include a specified person, with no roles?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Include that person and choose three more from the other eight: C(8, 3) = 56. Do not multiply by four, because the specified person’s membership does not create a new choice of role."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Review Questions and Supplementary Exercises, printed pages 462–465."
+        }
+      ]
+    },
+    {
+      "id": "identity-practice",
+      "title": "7. Explain a coefficient and a double count",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "Find the coefficient of x⁵y² in (2x + y)⁷.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Choose the two factors supplying y in C(7, 2) = 21 ways. The other five supply 2x and contribute 2⁵ = 32. The coefficient is 21·32 = 672."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "∑ₖ₌₁ⁿ kC(n, k) = n·2ⁿ⁻¹  for n ≥ 1",
+          "description": "Count nonempty subsets with a distinguished member."
+        },
+        {
+          "type": "example",
+          "title": "Why the identity holds",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "On the left, choose a k-element subset in C(n, k) ways and distinguish one of its k members. Sum over k. On the right, choose the distinguished member first in n ways, then freely include or exclude each of the other n − 1 elements. Both count the same subset-and-member pairs."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the right side not n·2ⁿ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The distinguished member is already included. Only the remaining n − 1 membership decisions are free. Counting a second include/exclude choice for that member would change the outcome model."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Review Questions and Supplementary Exercises, printed pages 462–465."
+        }
+      ]
+    },
+    {
+      "id": "bounded-repetition-practice",
+      "title": "8. Combine lower and upper bounds in one model",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "Count nonnegative integer solutions of x1 + x2 + x3 + x4 = 10 with x1 ≥ 2 and x2 ≤ 3.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Remove the minimum two from x1, leaving eight units among four variables. The unrestricted count is C(11, 3) = 165. The forbidden cases have x2 ≥ 4; remove four more units, leaving four, with C(7, 3) = 35 solutions. The valid count is 165 − 35 = 130."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many distinct strings rearrange LEVEL? How many start with L?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "LEVEL has two Ls, two Es, and one V. All arrangements: 5!/(2!2!) = 30. Fix an L first; the remaining letters L, E, E, V have 4!/2! = 12 arrangements."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In the equation, quantities vary and variable names distinguish categories. In the word, quantities are fixed and positions matter. Both involve repeated types, but the counted outcomes are different."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Review Questions and Supplementary Exercises, printed pages 463–465."
+        }
+      ]
+    },
+    {
+      "id": "box-review",
+      "title": "9. Compare all four distribution models on the same totals",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Put four objects into two boxes. Ignore order inside a box. The table changes only whether objects and boxes have identities."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Objects",
+            "Boxes",
+            "Empty boxes allowed",
+            "Both boxes nonempty"
+          ],
+          "rows": [
+            [
+              "Distinct",
+              "Labeled",
+              "16",
+              "14"
+            ],
+            [
+              "Identical",
+              "Labeled",
+              "5",
+              "3"
+            ],
+            [
+              "Distinct",
+              "Unlabeled",
+              "8",
+              "7"
+            ],
+            [
+              "Identical",
+              "Unlabeled",
+              "3",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Read each row",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Distinct objects and labeled boxes: 2⁴ = 16 assignments; remove the two constant assignments to require both boxes. Identical objects and labeled boxes: the occupancies (0, 4) through (4, 0) give five choices, or three if both counts are positive."
+            },
+            {
+              "type": "paragraph",
+              "text": "Distinct objects and unlabeled boxes: one partition keeps everyone together, and seven partitions use two groups, giving eight or seven. Identical objects and unlabeled boxes: the size patterns are 4, 3 + 1, and 2 + 2, giving three or two."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why do the labeled and unlabeled counts differ even though the physical boxes could look the same?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The model decides whether destinations are distinguishable. If the boxes belong to different people, their labels matter. If swapping whole boxes changes nothing about the outcome, their labels do not matter."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Supplementary Exercises, printed pages 465."
+        }
+      ]
+    },
+    {
+      "id": "generation-capstone",
+      "title": "10. Generate candidates and apply a separate filter",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Generate the three-element subsets of {1, 2, 3, 4, 5} in increasing-list lexicographic order, then keep those whose sum is nine."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Combination",
+            "Sum",
+            "Keep?"
+          ],
+          "rows": [
+            [
+              "1, 2, 3",
+              "6",
+              "No"
+            ],
+            [
+              "1, 2, 4",
+              "7",
+              "No"
+            ],
+            [
+              "1, 2, 5",
+              "8",
+              "No"
+            ],
+            [
+              "1, 3, 4",
+              "8",
+              "No"
+            ],
+            [
+              "1, 3, 5",
+              "9",
+              "Yes"
+            ],
+            [
+              "1, 4, 5",
+              "10",
+              "No"
+            ],
+            [
+              "2, 3, 4",
+              "9",
+              "Yes"
+            ],
+            [
+              "2, 3, 5",
+              "10",
+              "No"
+            ],
+            [
+              "2, 4, 5",
+              "11",
+              "No"
+            ],
+            [
+              "3, 4, 5",
+              "12",
+              "No"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are C(5, 3) = 10 candidates and two matches. Generation correctness concerns the ten candidates; filter correctness concerns deciding which sums equal nine. Keep those responsibilities separate."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the next permutation after (3, 1, 4, 2)? What is the next five-bit string after 10111?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The permutation pivot is 1; swap with 2 and reverse the suffix to obtain (3, 2, 1, 4). Binary carry changes 10111 to 11000."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §6.6 and Chapter 6 Computer Projects, printed pages 457–460, 466."
+        }
+      ]
+    },
+    {
+      "id": "repair-counting",
+      "title": "11. Find the missing justification in a tempting shortcut",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Claim to repair",
+            "Problem",
+            "Repair"
+          ],
+          "rows": [
+            [
+              "At least one A: choose its position, then fill the rest freely.",
+              "Strings with multiple As get several descriptions.",
+              "Count all strings minus those with no A."
+            ],
+            [
+              "Unordered repeated choices: divide nʳ by r!.",
+              "Different multiplicities give different numbers of orders.",
+              "Use a quantity encoding such as stars and bars."
+            ],
+            [
+              "A generator emitted n! results, so it is correct.",
+              "It may repeat some and omit others.",
+              "Check validity, uniqueness, ordering, and endpoints."
+            ],
+            [
+              "Next combination: just increment the rightmost movable entry.",
+              "The suffix may not be the smallest compatible one.",
+              "Refill the suffix with consecutive values."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For n = 6 and r = 3, why does changing (1, 5, 6) to (2, 5, 6) skip outcomes?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "After increasing the first entry to 2, the smallest valid suffix is (3, 4). The immediate next combination is (2, 3, 4), not (2, 5, 6)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A useful proof repair identifies precisely where information was lost, counted repeatedly, or omitted. Naming the error is more valuable than replacing a formula without explanation."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Review Questions and Supplementary Exercises, printed pages 462–466."
+        }
+      ]
+    },
+    {
+      "id": "counting-projects",
+      "title": "12. Build small programs with independent checks",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "These are learner project briefs. Start with small inputs that can be checked by listing outcomes, then compare larger counts using exact integer arithmetic."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Project",
+            "Input and output",
+            "Verification target"
+          ],
+          "rows": [
+            [
+              "Counting calculator",
+              "n, r and order/repetition choices → exact count",
+              "At n = 5, r = 3, obtain 60, 10, 125, 35 for the four models."
+            ],
+            [
+              "Lexicographic generators",
+              "n and optionally r → permutations, subsets, or combinations",
+              "Correct first/last state, strict order, no duplicates, correct count; include empty cases."
+            ],
+            [
+              "Partial ordered selections",
+              "n, r → r-permutations with and without repetition",
+              "Choose unused values recursively when repetition is forbidden; compare P(n, r) or nʳ."
+            ],
+            [
+              "Quantity generator",
+              "Number of types and total → all nonnegative tuples",
+              "Compare C(n + r − 1, n − 1); encode each tuple with stars and bars."
+            ],
+            [
+              "Constrained-sum search",
+              "Total and per-variable bounds → all valid tuples",
+              "Check every bound and compare an independently derived count such as 130 above."
+            ],
+            [
+              "Monotone subsequences",
+              "A list → longest increasing and decreasing subsequences",
+              "Preserve original positions; compare with exhaustive subsequences for short lists."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For repeated unordered selections, generate nondecreasing lists or quantity tuples. Sorting arbitrary ordered strings and deduplicating is a useful small-case oracle, but it can spend substantial work generating duplicates. For long runs, stream results instead of retaining all of them."
+        },
+        {
+          "type": "check",
+          "prompt": "Why use exact integer arithmetic for the counting calculator?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Factorials and powers quickly exceed exact floating-point integer range. An apparently plausible rounded answer is not an exact count. Use arbitrary-precision integers and operations that preserve exactness."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Computer Projects, printed pages 466."
+        }
+      ]
+    },
+    {
+      "id": "counting-explorations",
+      "title": "13. Use experiments to find patterns and then explain them",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Stop a series as soon as a team wins",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "In a two-team series where the first to t wins is champion, a finished sequence has t + ℓ games, with 0 ≤ ℓ ≤ t − 1 losses for the winner. Choose the winner in two ways; its final game is a win. Among the preceding t + ℓ − 1 games choose the ℓ losses. There are 2C(t + ℓ − 1, ℓ) sequences of that length. The prefix has only t − 1 winner wins and fewer than t loser wins, so the series cannot have ended earlier."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Target wins t",
+            "Complete series sequences"
+          ],
+          "rows": [
+            [
+              "1",
+              "2"
+            ],
+            [
+              "2",
+              "6"
+            ],
+            [
+              "3",
+              "20"
+            ],
+            [
+              "4",
+              "70"
+            ],
+            [
+              "5",
+              "252"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Summing by ℓ and using the diagonal-sum identity gives 2C(2t − 1, t − 1). A full 2t − 1 game bit string would incorrectly include games after the champion was already determined."
+        },
+        {
+          "type": "example",
+          "title": "Odd coefficients in Pascal’s triangle",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For rows n = 0 through 7, the counts of odd entries are 1, 2, 2, 4, 2, 4, 4, 8. Compare these with the binary digits of n. The pattern is 2 to the number of 1 bits in n."
+            },
+            {
+              "type": "paragraph",
+              "text": "Why? In arithmetic modulo 2, repeated squaring gives (1 + x)^(2^j) = 1 + x^(2^j). Write n as a sum of distinct powers of two and multiply the corresponding factors. Each choice of those powers produces a unique exponent by binary uniqueness, so exactly 2 to the number of selected binary positions coefficients are odd."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Another exploration is to factor central binomial coefficients C(2n, n) using exact integers and record square divisors. For n = 1, 2, 3, 4, 5 the values are 2, 6, 20, 70, 252; the third and fifth have square divisor 4, while the others do not. State the tested range and distinguish evidence from a proof of a general conjecture."
+        },
+        {
+          "type": "check",
+          "prompt": "Can the series generator keep appending games after one team reaches the target?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Its leaves are completed series. Stop each branch immediately at the target or the counted objects will include impossible extra games."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Computations and Explorations, printed pages 466."
+        }
+      ]
+    },
+    {
+      "id": "counting-writing",
+      "title": "14. Explain a model and support any outside claims",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose one writing project, define its mathematical model, work a small original example, and cite the sources supporting any external facts. A current-research topic requires current sources; a textbook’s historical snapshot is not a live status report."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Theme",
+            "Suggested focus"
+          ],
+          "rows": [
+            [
+              "Pigeonhole history",
+              "Find a documented early application and translate its objects and boxes."
+            ],
+            [
+              "Numbering systems",
+              "Define a hypothetical identifier format, count its capacity, and distinguish it from current industry rules."
+            ],
+            [
+              "Sequence reconstruction",
+              "Model short symbolic fragments and discuss when several originals fit the same data; source any biological claims."
+            ],
+            [
+              "Combinatorial identities",
+              "Choose an additional identity and present both an algebraic proof and a counting proof."
+            ],
+            [
+              "Particle-counting models",
+              "Explain which identities and occupancy restrictions a chosen physical model retains, citing a suitable physics source."
+            ],
+            [
+              "Stirling numbers",
+              "Compare set partitions with cycle decompositions; use examples to distinguish the two kinds."
+            ],
+            [
+              "Ramsey research",
+              "Report a dated value or bound from a primary mathematical source, distinguishing upper bounds, lower bounds, and exact values."
+            ],
+            [
+              "Generation methods",
+              "Compare lexicographic generation with another algorithm using a stated cost model."
+            ],
+            [
+              "Integer partitions",
+              "Describe a duplicate-free generator for nonincreasing positive parts and justify its coverage."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For the signless Stirling numbers of the first kind, c(n, k) counts permutations decomposed into k disjoint cycles. Cyclic order inside a group matters, while the order of the cycles does not. This differs from S(n, k), which only groups set elements. A project can explain why inserting a new element into a cycle leads to c(n + 1, k) = c(n, k − 1) + n·c(n, k)."
+        },
+        {
+          "type": "check",
+          "prompt": "What should a claim that an algorithm is faster specify?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The input size, what operations are counted, whether outputs are copied or streamed, and whether the comparison concerns worst-case, average, or total time. A generator cannot avoid the cost of explicitly writing the outputs it promises."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 Writing Projects and Supplementary Exercises, printed pages 465, 467."
+        }
+      ]
+    },
+    {
+      "id": "chapter-six-recap",
+      "title": "15. Finish with a complete counting argument",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Before the calculation",
+            "After the calculation"
+          ],
+          "rows": [
+            [
+              "Define one outcome and all restrictions.",
+              "State the number with its interpretation."
+            ],
+            [
+              "Decide whether roles, positions, repetition, and labels matter.",
+              "Check small and boundary cases."
+            ],
+            [
+              "Choose disjoint cases or a reversible encoding.",
+              "Explain coverage and uniqueness."
+            ],
+            [
+              "Identify any overcount and its multiplicity.",
+              "Justify every subtraction or division."
+            ],
+            [
+              "For guarantees, choose objects and boxes.",
+              "For a minimum, show one fewer can fail."
+            ],
+            [
+              "For generation, choose a canonical representation.",
+              "Verify the first state, immediate successor, and stopping state."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Choose two distinct leaders from seven people, with different jobs. Then choose an unordered four-item snack selection from three types with sufficient supply. How many combined outcomes?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Leader assignments: 7·6 = 42. Snack quantities: C(3 + 4 − 1, 4) = C(6, 4) = 15. Every leader assignment permits every snack choice, so multiply: 42·15 = 630."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is the difference between a pigeonhole argument and an enumeration formula?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A pigeonhole argument guarantees some repeated or sufficiently crowded category in every assignment. An enumeration formula counts the allowed assignments or selections. One proves an unavoidable property; the other gives a total."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "You have now covered all six sections of Chapter 6. Return to the model or proof step that felt uncertain, and use the quiz site to practice choosing methods without being told the formula in advance."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 6 review material, printed pages 461–467."
+        }
+      ]
+    }
+  ]
+}
