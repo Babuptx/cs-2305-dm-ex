@@ -1,0 +1,906 @@
+{
+  "schemaVersion": 1,
+  "id": "1.8",
+  "title": "Proof Methods and Strategy",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.8.1–§1.8.10, printed pages 96–113 (exposition).",
+    "Original companion explanations, worked practice, and project briefs; not a complete solution bank for the textbook exercises."
+  ],
+  "units": [
+    {
+      "id": "strategy-start",
+      "title": "1. Choose a starting point from the shape of the claim",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Proof strategy is deciding what would be enough to establish the claim, then finding justified steps that get you there. A failed attempt can reveal a missing hypothesis, a useful case split, or a counterexample."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Target",
+            "What would finish the proof?"
+          ],
+          "rows": [
+            [
+              "For every x, P(x)",
+              "A proof for an arbitrary allowed x, with all cases covered."
+            ],
+            [
+              "There exists an x with P(x)",
+              "A checked witness, or an argument that rules out nonexistence."
+            ],
+            [
+              "Exactly one x has P(x)",
+              "Existence plus a proof that any two solutions coincide."
+            ],
+            [
+              "If p, then q",
+              "A direct proof, a contrapositive proof, or a contradiction from p and ¬q."
+            ],
+            [
+              "p if and only if q",
+              "Both directions, possibly using different methods."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Write the domain and definitions before choosing a technique. Exploration and a finished proof serve different purposes: scratch work may start from the desired result, but the final argument must justify it without assuming it."
+        },
+        {
+          "type": "check",
+          "prompt": "If a proof attempt fails, has the statement been disproved?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Failure to find a proof is not a counterexample. Check whether your assumptions were sufficient and whether a different method helps. A disproof must show that the claim actually fails."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.1 and §1.8.5, printed pages 96–97 and 104–106."
+        }
+      ]
+    },
+    {
+      "id": "finite-exhaustion",
+      "title": "2. Know when checking examples really is a proof",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Exhaustive proof checks every allowed possibility. Claim: for integers n with 1 ≤ n ≤ 5, n² + 4 ≥ 4n. Because the domain contains exactly five integers, the following table settles this particular claim."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "n² + 4",
+            "4n",
+            "Inequality holds?"
+          ],
+          "rows": [
+            [
+              "1",
+              "5",
+              "4",
+              "T"
+            ],
+            [
+              "2",
+              "8",
+              "8",
+              "T"
+            ],
+            [
+              "3",
+              "13",
+              "12",
+              "T"
+            ],
+            [
+              "4",
+              "20",
+              "16",
+              "T"
+            ],
+            [
+              "5",
+              "29",
+              "20",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This table alone does not prove the statement for every integer. For the larger claim, use n² + 4 − 4n = (n − 2)² ≥ 0, which is valid for every real n. State which domain your evidence covers."
+        },
+        {
+          "type": "check",
+          "prompt": "Does testing one million inputs prove a statement about all positive integers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. There are positive integers outside the tested range. A finite test can prove a claim whose entire domain is finite and fully checked, but a larger infinite-domain claim needs a general argument."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.2, printed pages 97–98."
+        }
+      ]
+    },
+    {
+      "id": "cases-cover",
+      "title": "3. Split the domain into cases that cover it",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "((p ∨ q) → r) ↔ ((p → r) ∧ (q → r))",
+          "description": "If the possibilities p and q cover the hypothesis, proving r in each case proves r throughout that hypothesis."
+        },
+        {
+          "type": "paragraph",
+          "text": "Case coverage is essential. Cases may overlap; overlap is harmless if every argument is correct. For real x, |x| means x when x ≥ 0 and −x when x < 0."
+        },
+        {
+          "type": "example",
+          "title": "A complete two-case proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Claim: |x| ≥ x for every real x. If x ≥ 0, then |x| = x. If x < 0, then |x| = −x > x because −2x > 0. These two cases cover every real number, including zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For an integer n, n(n + 1) is even. If n = 2k, then n(n + 1) = 2[k(2k + 1)]. If n = 2k + 1, then n(n + 1) = 2[(2k + 1)(k + 1)]. The bracketed expressions are integers in both cases. Every integer is even or odd, so the proof is complete."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is “x is positive or negative” not an exhaustive split of the real numbers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It omits x = 0. For example, both nonzero cases give x² > 0, but the universal statement “x² > 0 for every real x” is false at zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.2, printed pages 98–101."
+        }
+      ]
+    },
+    {
+      "id": "residue-cases",
+      "title": "4. Reduce infinitely many integers to finitely many forms",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Every integer n can be written n = 10a + b, with a an integer and b one of 0 through 9. The quotient a need not be positive. This representation lets us study the last digit of the nonnegative square n²."
+        },
+        {
+          "type": "math",
+          "notation": "n² = (10a + b)² = 10(10a² + 2ab) + b²",
+          "description": "The first term is divisible by 10, so n² and b² have the same remainder after division by 10."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "b",
+            "b²",
+            "Last digit of n²"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "1",
+              "1",
+              "1"
+            ],
+            [
+              "2",
+              "4",
+              "4"
+            ],
+            [
+              "3",
+              "9",
+              "9"
+            ],
+            [
+              "4",
+              "16",
+              "6"
+            ],
+            [
+              "5",
+              "25",
+              "5"
+            ],
+            [
+              "6",
+              "36",
+              "6"
+            ],
+            [
+              "7",
+              "49",
+              "9"
+            ],
+            [
+              "8",
+              "64",
+              "4"
+            ],
+            [
+              "9",
+              "81",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Thus a square ends in 0, 1, 4, 5, 6, or 9. The table covers ten remainder classes, each containing infinitely many integers; the algebra connects every integer to one of those rows. An integer ending in 2, 3, 7, or 8 cannot be a square."
+        },
+        {
+          "type": "check",
+          "prompt": "Does ending in 9 prove that a positive integer is a square?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The condition is necessary, not sufficient. For example, 19 ends in 9 but lies strictly between 4² = 16 and 5² = 25."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.2, printed page 99."
+        }
+      ]
+    },
+    {
+      "id": "bounded-search",
+      "title": "5. Prove that a search range is exhaustive",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Claim: x² + 2y² = 7 has no integer solutions. The squares are nonnegative. Any solution must satisfy x² ≤ 7 and 2y² ≤ 7, so |x| ≤ 2 and |y| ≤ 1. Values outside these bounds cannot work."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "y²",
+            "Required x² = 7 − 2y²",
+            "Why impossible"
+          ],
+          "rows": [
+            [
+              "0",
+              "7",
+              "The only squares at most 7 are 0, 1, and 4."
+            ],
+            [
+              "1",
+              "5",
+              "5 is not among those squares either."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The bounds include negative x and y; using squares combines sign cases without deleting them. The table checks every remaining possibility for y² and rules it out. A computer search becomes a proof here only when its finite search bounds and coverage are justified."
+        },
+        {
+          "type": "check",
+          "prompt": "Would searching only x, y from 0 to 10 be enough without explanation?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. You must explain why negative values or larger magnitudes cannot change the result. Here sign symmetry and the bounds |x| ≤ 2, |y| ≤ 1 provide that justification."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.2, printed pages 99–101."
+        }
+      ]
+    },
+    {
+      "id": "symmetry-wlog",
+      "title": "6. Use symmetry without dropping a different case",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "“Without loss of generality,” abbreviated WLOG, means that the omitted cases can be transformed into the handled case while preserving the hypotheses and target. Name the transformation rather than treating the phrase as permission to assume whatever is convenient."
+        },
+        {
+          "type": "example",
+          "title": "A justified swap",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Claim: if integers x and y have opposite parity, then x + y is odd. The hypothesis and conclusion are unchanged when x and y swap roles. WLOG let x = 2a be even and y = 2b + 1 be odd. Then x + y = 2(a + b) + 1 is odd. The other parity arrangement follows by swapping the names."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A swap that changes the problem",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For the statement “x − y is positive,” swapping x and y changes the sign. You cannot assume x > y WLOG when no such hypothesis was given. The pair x = 1, y = 4 is not covered by a proof restricted to x > y."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For a claim about x + y and xy, why is swapping x and y often useful?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both expressions remain unchanged. But you must also check every other hypothesis and the precise conclusion; symmetry of one expression alone is not enough."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.2, printed page 100."
+        }
+      ]
+    },
+    {
+      "id": "constructive-existence",
+      "title": "7. Exhibit a witness and verify all its properties",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A constructive existence proof supplies an object and checks it. Claim: there is a positive integer expressible as a sum of two positive integer squares in two different unordered ways."
+        },
+        {
+          "type": "math",
+          "notation": "65 = 1² + 8² = 4² + 7²",
+          "description": "Both decompositions use positive integers, and the unordered pairs {1, 8} and {4, 7} differ."
+        },
+        {
+          "type": "paragraph",
+          "text": "This proves existence without proving that 65 is the smallest example. The search that found the witness is separate from its verification. Merely reversing 1 and 8 would not give a different unordered representation."
+        },
+        {
+          "type": "example",
+          "title": "Construct an object from given inputs",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Given rational numbers r < s, their midpoint t = (r + s)/2 is rational and satisfies r < t < s. Rationality follows from closure under addition and division by the nonzero rational 2. Also t − r = (s − r)/2 > 0 and s − t = (s − r)/2 > 0. This gives a witness for every allowed pair r, s."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does finding two witnesses refute “there exists a witness”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Existence allows one or many. Two distinct witnesses refute uniqueness, not existence."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.3, printed pages 101–102."
+        }
+      ]
+    },
+    {
+      "id": "nonconstructive-existence",
+      "title": "8. Prove existence without selecting the successful candidate",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A nonconstructive argument establishes that some witness exists without identifying which candidate satisfies the claim. For example, among any three nonzero real numbers, two have a positive product: at least two must share a sign. This argument does not need to know which pair shares that sign."
+        },
+        {
+          "type": "example",
+          "title": "An irrational-power example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let a = √2. This number is irrational: a lowest-terms equation √2 = u/v gives u² = 2v²; an odd square is odd, so u is even. Substitution then makes v even too, contradicting lowest terms. Now consider t = a^a, where ^ denotes exponentiation of a positive real base."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Case",
+            "Choice of x and y",
+            "Result"
+          ],
+          "rows": [
+            [
+              "t is rational",
+              "x = a, y = a",
+              "x and y are irrational, and x^y = t is rational."
+            ],
+            [
+              "t is irrational",
+              "x = t, y = a",
+              "Both are irrational, and x^y = (a^a)^a = a^(a²) = a² = 2."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Either case supplies irrational x and y whose power x^y is rational. The argument does not determine which of the two candidates works; it proves that a successful pair exists. The exponent law is used with positive real bases, so these powers are well defined."
+        },
+        {
+          "type": "check",
+          "prompt": "Does a proof by contradiction automatically fail to be constructive?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The key question is whether the argument actually provides a witness, not simply which proof label appears. Here the two-case argument deliberately leaves the successful candidate undecided."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.3, printed pages 101–102."
+        }
+      ]
+    },
+    {
+      "id": "chomp-strategy",
+      "title": "9. Understand what strategy stealing proves",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Chomp starts with a finite rectangular grid of cookies. Index rows and columns from the top left, starting at 0. The cookie (0, 0) is poisoned. Choosing (r, c) removes that cookie and every remaining cookie (i, j) with i ≥ r and j ≥ c. A player who eats the poisoned cookie loses. Players alternate; every move removes at least one cookie, so the game ends and has no draw."
+        },
+        {
+          "type": "callout",
+          "title": "Exclude the exceptional board",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Assume the initial rectangle has at least two cookies. A one-cookie board contains only poison, so its first player loses. The existence argument below does not cover that board."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "The strategy-stealing argument",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "First imagine removing only the bottom-right cookie, which is safe on a rectangle with at least two cookies. If that leaves a losing position for the opponent, it is a winning first move."
+            },
+            {
+              "type": "paragraph",
+              "text": "Otherwise the opponent has a safe response that leaves a losing position for the player to move. Make that response directly as the first move on the original full rectangle. Every move from a rectangle removes its bottom-right cookie as part of the southeast region, so the resulting board is exactly the board reached after the two imagined moves. The opponent now faces that same losing position."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The finite game tree justifies the win/lose alternatives: working backward from terminal positions, a position is winning if some safe move reaches a losing position, and losing if no safe move does. The argument above proves that some winning first move exists. It does not tell you which response to choose on an arbitrary large rectangle."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can you not use this argument unchanged for an arbitrary partially eaten board?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The move used as the imagined opening and the claim that every response also removes that same corner rely on the full-rectangle structure. A changed shape needs a new argument; the conclusion does not follow merely because the game still ends."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.3, printed pages 102–103."
+        }
+      ]
+    },
+    {
+      "id": "existence-uniqueness",
+      "title": "10. Prove existence and uniqueness separately",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "∃x (P(x) ∧ ∀y (P(y) → y = x))",
+          "description": "Exactly one object has property P: a witness exists, and every other candidate with P equals it."
+        },
+        {
+          "type": "paragraph",
+          "text": "Claim: for real a, b, and c with a ≠ 0, there is exactly one real x satisfying ax + b = c."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Obligation",
+            "Proof"
+          ],
+          "rows": [
+            [
+              "Existence",
+              "Take x = (c − b)/a. It is defined because a ≠ 0, and a[(c − b)/a] + b = c."
+            ],
+            [
+              "Uniqueness",
+              "Suppose x and y both satisfy the equation. Then ax + b = ay + b, so a(x − y) = 0. Since a ≠ 0, x = y."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Showing any two solutions equal proves at most one, not at least one. If a = 0 and b ≠ c, there is no solution. If a = 0 and b = c, every real x is a solution. The nonzero condition excludes both failures of “exactly one.”"
+        },
+        {
+          "type": "check",
+          "prompt": "For 4x + 3 = 19, give the witness and explain uniqueness.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The witness is x = 4 because 4·4 + 3 = 19. If y is another solution, subtract the two equations to get 4(y − 4) = 0, and hence y = 4."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.4, printed pages 103–104."
+        }
+      ]
+    },
+    {
+      "id": "backward-forward",
+      "title": "11. Discover backward, then justify forward",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Backward reasoning asks what would be sufficient for the target. Suppose the target is (x + y)² ≤ 2(x² + y²) for real x and y. Expanding and rearranging suggests the simpler statement (x − y)² ≥ 0."
+        },
+        {
+          "type": "math",
+          "notation": "2(x² + y²) − (x + y)² = (x − y)²",
+          "description": "The difference between the right side and the left side is a nonnegative square."
+        },
+        {
+          "type": "example",
+          "title": "The finished forward proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For real x and y, (x − y)² ≥ 0. Expanding gives x² − 2xy + y² ≥ 0. Add (x + y)² to both sides to obtain 2(x² + y²) ≥ (x + y)². Equality holds exactly when x = y."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "It would not be enough to derive a true fact using the desired inequality in a direction you cannot reverse. To prove q, find a proved statement p with p → q. A necessary consequence q → p plus p alone does not establish q."
+        },
+        {
+          "type": "check",
+          "prompt": "From the desired claim x = 3 you derive x² = 9, and you know x² = 9. Have you proved x = 3?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. x = −3 also satisfies x² = 9. Squaring supplied a necessary consequence, not an equivalent condition unless you also control the sign."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.5, printed pages 104–106."
+        }
+      ]
+    },
+    {
+      "id": "backward-game",
+      "title": "12. Turn backward game analysis into a playable strategy",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Two players take turns removing 1, 2, 3, or 4 counters from a pile of 18. A move cannot remove more counters than remain. Whoever takes the last counter wins."
+        },
+        {
+          "type": "example",
+          "title": "Work backward from the finish",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A player facing 1 through 4 counters can win immediately. Facing 5, every move leaves 1 through 4 to the opponent. That suggests leaving multiples of 5. From 18, remove 3 to leave 15. Whenever the opponent removes k counters, remove 5 − k. Each pair of moves removes exactly 5."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Opponent removes k",
+            "Your response 5 − k",
+            "Pair total"
+          ],
+          "rows": [
+            [
+              "1",
+              "4",
+              "5"
+            ],
+            [
+              "2",
+              "3",
+              "5"
+            ],
+            [
+              "3",
+              "2",
+              "5"
+            ],
+            [
+              "4",
+              "1",
+              "5"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The opponent successively receives piles of 15, 10, and 5. When they move from 5, the response 5 − k takes every remaining counter. Each response is legal: 1 ≤ 5 − k ≤ 4, and at least 5 − k counters remain. This proves victory against every legal opponent sequence, not just one cooperative example."
+        },
+        {
+          "type": "check",
+          "prompt": "If the initial pile is 20, can the first player use the same opening to leave a multiple of 5?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No legal opening removes 0 or 5. From 20, the second player can answer each first-player move k with 5 − k and keep giving back smaller multiples of 5. The starting condition changes who has the winning strategy."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.5, printed page 106."
+        }
+      ]
+    },
+    {
+      "id": "adapt-and-refute",
+      "title": "13. Adapt the reason, not just the symbols",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "When adapting a proof, identify the fact that made it work. The √3 irrationality argument in Section 1.7 relied on “if 3 divides a², then 3 divides a.” Replacing 3 by 4 breaks that fact: 4 divides 2², but 4 does not divide 2. Indeed, √4 = 2 is rational."
+        },
+        {
+          "type": "example",
+          "title": "A counterexample search that ends with a proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Conjecture: every nonnegative integer is a sum of three integer squares. The value 7 is a counterexample. Any square in such a sum must be at most 7, so it is 0, 1, or 4. With no 4, the total is at most 3; with one 4, at most 6; with at least two 4s, at least 8. Thus no three squares sum to 7."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The failed search suggested 7, but the bounded argument proved failure. This is the exploration cycle: test examples, formulate a claim, try a proof, test the weak spots, and revise the claim when evidence requires it."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does “every checked case worked” still leave room for a counterexample?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The unchecked domain may contain a different obstruction. Your proof must explain why the mechanism covers that domain, rather than assuming the observed pattern continues."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.5–§1.8.7, printed pages 106–108."
+        }
+      ]
+    },
+    {
+      "id": "domino-obstruction",
+      "title": "14. Use a coloring to rule out every possible tiling",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A domino covers two edge-adjacent unit squares. A tiling covers every square exactly once, with no overlap or overhang. A full 6 × 6 board can be tiled by placing three horizontal dominoes in each row, for 18 dominoes total."
+        },
+        {
+          "type": "paragraph",
+          "text": "Remove the upper-left and lower-right corners. There are 34 squares left, which is even. Even area is necessary for a domino tiling, but it is not sufficient."
+        },
+        {
+          "type": "diagram",
+          "title": "Two missing corners leave unequal color counts",
+          "src": "assets/domino-obstruction.svg",
+          "description": "A 6 by 6 checkerboard has 18 squares of each color. Removing the two opposite corners of color A leaves 16 A squares and 18 B squares. Every domino covers one of each, so no tiling exists."
+        },
+        {
+          "type": "example",
+          "title": "The impossibility proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Color square (r, c) A when r + c is even and B when r + c is odd, using indices 0 through 5. Edge-adjacent squares have opposite colors. Every domino therefore covers one A and one B. Both removed corners are A, so the remaining counts are 16 A and 18 B. A tiling would use 17 dominoes and cover 17 of each color, a contradiction."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This argument accounts for every arrangement without listing it. If only one square were removed, the remaining odd area would already rule out a tiling. A color count gives a stronger obstruction for the two-corner board."
+        },
+        {
+          "type": "check",
+          "prompt": "Does equal color count guarantee that every arbitrary board shape can be tiled?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. For instance, two isolated squares of opposite colors have equal counts but cannot be covered by a domino, since they are not edge-adjacent. Necessary conditions are not automatically sufficient."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.8, printed pages 108–110."
+        }
+      ]
+    },
+    {
+      "id": "triomino-coloring",
+      "title": "15. Match the coloring to the shape of the tile",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A polyomino is built from unit squares joined along edges. A straight triomino has three squares in a line; an L-shaped triomino has a bend. Rotation is allowed, but those two shapes are different. A coloring argument must fit the permitted tile."
+        },
+        {
+          "type": "paragraph",
+          "text": "Take a 5 × 5 board and remove its upper-left corner. Its area is 24, divisible by 3. To test tiling by straight triominoes, give square (r, c) the color numbered by the remainder of r + c after division by 3, with indices 0 through 4."
+        },
+        {
+          "type": "diagram",
+          "title": "Three colors reveal an obstruction that area misses",
+          "src": "assets/triomino-obstruction.svg",
+          "description": "The full 5 by 5 board has color counts 8, 9, and 8 for colors 0, 1, and 2. Removing the upper-left color-0 square leaves 7, 9, and 8. Every horizontal or vertical straight triomino covers one of each color, but eight tiles would require 8, 8, and 8."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Color",
+            "Full board",
+            "After removing (0, 0)",
+            "Needed for 8 tiles"
+          ],
+          "rows": [
+            [
+              "0",
+              "8",
+              "7",
+              "8"
+            ],
+            [
+              "1",
+              "9",
+              "9",
+              "8"
+            ],
+            [
+              "2",
+              "8",
+              "8",
+              "8"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Every three consecutive horizontal or vertical squares have all three remainders, so every straight triomino covers one of each color. Eight tiles would cover eight of each color, contradicting the actual counts. Thus no straight-triomino tiling exists."
+        },
+        {
+          "type": "check",
+          "prompt": "Does this proof also prohibit an L-shaped triomino tiling?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. An L at (0, 0), (1, 0), and (0, 1) has colors 0, 1, and 1, so the one-of-each premise fails for that tile shape. The proof makes no conclusion about L-shaped tilings."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.8, printed pages 110–111."
+        }
+      ]
+    },
+    {
+      "id": "strategy-recap",
+      "title": "16. Separate a finite computation from a universal theorem",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A problem can be easy to state and still demand ideas far beyond its statement. The textbook discusses Fermat’s last theorem as a historical example: for integer n > 2, xⁿ + yⁿ = zⁿ has no solution in nonzero integers x, y, z. Its proof required much more than testing many triples."
+        },
+        {
+          "type": "paragraph",
+          "text": "The textbook also uses the Collatz rule to illustrate exploration: for a positive integer x, replace it by x/2 when x is even and 3x + 1 when x is odd. Starting at 9 gives the trace below. Stop when 1 is first reached."
+        },
+        {
+          "type": "math",
+          "notation": "9 → 28 → 14 → 7 → 22 → 11 → 34 → 17 → 52 → 26 → 13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1",
+          "description": "This calculation establishes arrival at 1 for the starting value 9 only."
+        },
+        {
+          "type": "paragraph",
+          "text": "Do not infer a claim about every positive starting integer from this trace or any fixed finite collection of traces. In a program, use exact integers and a step limit; reaching the limit means “not resolved within this run,” not “the process never reaches 1.”"
+        },
+        {
+          "type": "callout",
+          "title": "What to carry forward",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Make cases exhaustive. Verify witnesses. Separate existence from uniqueness. Justify every symmetry reduction and every search bound. Match invariants to allowed moves. Rewrite exploratory work into a forward argument the reader can check."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A game search finds no winning move within a chosen depth. Is that a proof of losing?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Only if you have proved the search covers every legal continuation to termination. A cutoff can hide a later win. For a finite game such as Chomp, a complete recursive evaluation is possible in principle, but a partial search has a narrower conclusion."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Later chapters add induction, structural induction, diagonal arguments, and counting proofs. Chapter 1 gives the logical discipline those methods share; it does not provide a mechanical recipe that discovers every proof."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.8.9–§1.8.10, printed pages 111–113."
+        }
+      ]
+    }
+  ]
+}

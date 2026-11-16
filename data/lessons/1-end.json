@@ -1,0 +1,947 @@
+{
+  "schemaVersion": 1,
+  "id": "1-end",
+  "title": "End-of-Chapter Material",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, Chapter 1 Key Terms and Results, Review Questions, Supplementary Exercises, Computer Projects, Computations and Explorations, and Writing Projects, printed pages 115–120.",
+    "Original companion explanations, worked practice, and project briefs; not a complete solution bank for the textbook exercises."
+  ],
+  "units": [
+    {
+      "id": "chapter-one-map",
+      "title": "1. Connect the chapter into one reasoning process",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Use this review actively",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Try each question before opening its explanation. For a missed question, identify whether the difficulty was translation, truth evaluation, witness scope, or proof structure, then return to the corresponding lesson."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Section",
+            "Skill to retrieve"
+          ],
+          "rows": [
+            [
+              "1.1",
+              "Read connectives, truth values, and conditional language."
+            ],
+            [
+              "1.2",
+              "Translate specifications and puzzles into an explicit logical model."
+            ],
+            [
+              "1.3",
+              "Rewrite equivalent formulas and test satisfiability."
+            ],
+            [
+              "1.4",
+              "Track domains, scope, and single quantifiers."
+            ],
+            [
+              "1.5",
+              "Track quantifier order and dependent witnesses."
+            ],
+            [
+              "1.6",
+              "Build a valid argument or give a countermodel."
+            ],
+            [
+              "1.7",
+              "Write a direct, contrapositive, contradiction, or equivalence proof."
+            ],
+            [
+              "1.8",
+              "Use exhaustive cases, existence, uniqueness, symmetry, and invariants."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The chapter moves from sentences to formulas, from formulas to valid deductions, and from deductions to proofs. The practice here uses original examples across that whole sequence."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the difference between a conjecture and a theorem?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A conjecture is proposed as true but has not been established. A theorem has a proof based on its mathematical assumptions. Many examples can motivate a conjecture without turning it into a theorem."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "connective-retrieval",
+      "title": "2. Retrieve the truth rules without guessing from English",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let p mean “the sensor is active” and q mean “the log is open.” OR is inclusive unless explicitly stated otherwise. A programming command that changes the log is an action; the proposition “the log is open” is true or false."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p ∧ q",
+            "p ∨ q",
+            "p ⊕ q",
+            "p → q",
+            "p ↔ q"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T",
+              "T",
+              "F",
+              "T",
+              "T"
+            ],
+            [
+              "T",
+              "F",
+              "F",
+              "T",
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "F",
+              "T",
+              "T",
+              "T",
+              "F"
+            ],
+            [
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "T",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If the sensor is inactive and the log is closed, is p → q false?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Here p = F and q = F, so the conditional is true. The single false row for implication is p = T and q = F. This does not claim a cause-and-effect relationship."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Classify p ∨ ¬p, p ∧ ¬p, and p → q.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first is a tautology, the second a contradiction, and the third a contingency: its value varies with the assignment. Negation flips a proposition’s truth value."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "translation-practice",
+      "title": "3. Translate only if, unless, and exactly one",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let e mean “entry is allowed,” b mean “a badge is valid,” and g mean “a guest pass is valid.” Interpret the rule as a fictional access specification."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Sentence",
+            "Formula"
+          ],
+          "rows": [
+            [
+              "Entry is allowed only if a badge is valid.",
+              "e → b"
+            ],
+            [
+              "A valid badge is sufficient for entry.",
+              "b → e"
+            ],
+            [
+              "Entry is forbidden unless a guest pass is valid.",
+              "¬g → ¬e"
+            ],
+            [
+              "Exactly one of badge and guest pass is valid.",
+              "(b ∨ g) ∧ ¬(b ∧ g)"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Give the converse, inverse, and contrapositive of e → b. Which is equivalent to the original?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Converse: b → e. Inverse: ¬e → ¬b. Contrapositive: ¬b → ¬e. Only the contrapositive is always equivalent to the original; the converse and inverse are equivalent to each other."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does “Entry is forbidden unless a guest pass is valid” promise entry to every pass holder?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It says a valid guest pass is necessary for entry: e → g. It does not supply g → e. Other conditions may still prevent entry."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "equivalence-practice",
+      "title": "4. Simplify and explain each replacement",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Simplify ¬(p → q) ∨ (p ∧ q). Try a law-based derivation before checking a table."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "¬(p → q) ∨ (p ∧ q)",
+              "Starting expression"
+            ],
+            [
+              "¬(¬p ∨ q) ∨ (p ∧ q)",
+              "Replace implication"
+            ],
+            [
+              "(p ∧ ¬q) ∨ (p ∧ q)",
+              "De Morgan and double negation"
+            ],
+            [
+              "p ∧ (¬q ∨ q)",
+              "Distributive law"
+            ],
+            [
+              "p",
+              "Excluded middle and identity"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Equivalence means the expressions agree on every assignment, not merely one satisfying row. A truth table can independently verify this two-variable derivation."
+        },
+        {
+          "type": "check",
+          "prompt": "Are p → q and ¬p → ¬q equivalent?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Take p = F and q = T. Then p → q is true while ¬p → ¬q is false. This single differing row disproves equivalence."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "model-consistency",
+      "title": "5. Check whether a specification can be satisfied",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let u mean “upload starts,” c mean “connection is available,” and m mean “maintenance is active.” Require u → c, m → ¬c, and m. These rules alone do not require an upload."
+        },
+        {
+          "type": "check",
+          "prompt": "Give a satisfying assignment and a justified conclusion.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "u = F, c = F, m = T satisfies all three requirements. From m and m → ¬c infer ¬c; then from u → c and ¬c infer ¬u. Thus the rules force no upload, but are consistent."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What happens if u is added as a fourth requirement?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The system becomes inconsistent. From u → c and u obtain c, but the maintenance premises already give ¬c. No assignment satisfies all four requirements."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A small truth-teller model",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Two fictional people are each either always truthful or always lying. Ada says “Ben is truthful.” Ben says “Ada and I are different types.” Let a and b mean that Ada and Ben are truthful. Require a ↔ b and b ↔ (a ⊕ b). The only model is a = F, b = F. Both statements are then false, consistent with both speakers being liars."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A satisfiable model establishes logical consistency under the supplied rules. It does not establish that the fictional rules accurately describe any real person or system."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "normal-forms",
+      "title": "6. Build a formula from the true rows",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Disjunctive normal form, or DNF, is an OR of AND terms. For each true row of a Boolean function, form an AND term that is true exactly on that row, then OR those terms together."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "Desired output"
+          ],
+          "rows": [
+            [
+              "F",
+              "F",
+              "T"
+            ],
+            [
+              "F",
+              "T",
+              "F"
+            ],
+            [
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "T",
+              "T",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "(¬p ∧ ¬q) ∨ (p ∧ q)",
+          "description": "The two true rows produce a formula for the biconditional."
+        },
+        {
+          "type": "paragraph",
+          "text": "This construction shows that AND, OR, and NOT can express every finite Boolean truth table. If no rows are true, use a contradiction such as p ∧ ¬p. “Functionally complete” means a collection of connectives can express every such Boolean function."
+        },
+        {
+          "type": "paragraph",
+          "text": "NAND, written p ↑ q, means ¬(p ∧ q). It alone is functionally complete: NOT p is p ↑ p; p AND q is (p ↑ q) ↑ (p ↑ q); p OR q is (p ↑ p) ↑ (q ↑ q). These replacements give gates for the same truth behavior."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does a DNF row term contain ¬p when that row has p = F?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The literal must be true on the selected row. If p is false, ¬p is true. Using p instead would select the wrong assignments."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "single-quantifier-review",
+      "title": "7. Keep the domain and eligibility condition visible",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let the domain be employees in a specified office. T(x) means x is trained and A(x) means x has access."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "English",
+            "Formula"
+          ],
+          "rows": [
+            [
+              "Every trained employee has access.",
+              "∀x (T(x) → A(x))"
+            ],
+            [
+              "Some trained employee has access.",
+              "∃x (T(x) ∧ A(x))"
+            ],
+            [
+              "No trained employee has access.",
+              "∀x (T(x) → ¬A(x))"
+            ],
+            [
+              "Not every trained employee has access.",
+              "∃x (T(x) ∧ ¬A(x))"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Negate “Some trained employee has access” and explain the result.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "¬∃x (T(x) ∧ A(x)) is equivalent to ∀x (¬T(x) ∨ ¬A(x)), or ∀x (T(x) → ¬A(x)). It says no employee has both properties. It does not say no employees are trained."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If the employee domain is empty, which of the four table statements are true?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first and third universal statements are true. The second and fourth existential statements are false. Do not infer existence from a universal claim without a nonempty-domain assumption."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "In (∀x P(x)) ∨ Q(x), which occurrences of x are bound?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The x inside P(x) is bound by ∀x. The x in Q(x) is free. The parentheses stop the quantifier’s scope before the OR."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "nested-quantifier-review",
+      "title": "8. Test whether one witness must serve everyone",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let R(s, t) mean student s reviewed topic t. Students are Ana and Bo; topics are Logic and Proofs."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Student",
+            "Logic",
+            "Proofs"
+          ],
+          "rows": [
+            [
+              "Ana",
+              "T",
+              "F"
+            ],
+            [
+              "Bo",
+              "F",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Claim",
+            "Truth in this model"
+          ],
+          "rows": [
+            [
+              "∀s ∃t R(s, t)",
+              "T"
+            ],
+            [
+              "∃t ∀s R(s, t)",
+              "F"
+            ],
+            [
+              "∀s ∀t R(s, t)",
+              "F"
+            ],
+            [
+              "∃s ∃t R(s, t)",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Negate ∀s ∃t R(s, t), keeping negations next to predicates.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The negation is ∃s ∀t ¬R(s, t): some student reviewed no topic. Flip each quantifier in order and negate the predicate. The student appears before the topic because the original order is preserved."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Write: every student reviewed some topic in every chapter. Use R(s, t) and In(t, c).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "With s over students, c over chapters, and t over topics: ∀s ∀c ∃t (In(t, c) ∧ R(s, t)). The topic may depend on both the student and the chapter. Moving ∃t to the front would demand one topic for all those choices."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "inference-review",
+      "title": "9. Trace a valid deduction and expose an invalid one",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose p → q, q → r, and ¬r. Prove ¬p without a full truth table."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Line",
+            "Statement",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "1",
+              "q → r",
+              "Premise"
+            ],
+            [
+              "2",
+              "¬r",
+              "Premise"
+            ],
+            [
+              "3",
+              "¬q",
+              "Modus tollens, 1 and 2"
+            ],
+            [
+              "4",
+              "p → q",
+              "Premise"
+            ],
+            [
+              "5",
+              "¬p",
+              "Modus tollens, 4 and 3"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If the third premise were r instead of ¬r, would p follow?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Set p = F, q = F, r = T. Both implications and r are true, but p is false. Reversing the chain without justification affirms its conclusion."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "All calibrated sensors are tested, and all tested sensors are logged. Sensor d is not logged. What follows?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Instantiate both universal rules at the same sensor d. Not logged implies not tested by modus tollens; not tested then implies not calibrated. The domain must include d."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Some sensor is calibrated and some sensor is logged. Must one sensor be both?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The two existential witnesses may differ. Use two sensors, one calibrated only and the other logged only, as a countermodel."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "proof-review",
+      "title": "10. Write complete proofs with integer witnesses",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "Prove directly that the product of two odd integers is odd.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Let m = 2a + 1 and n = 2b + 1, with integers a and b. Then mn = 4ab + 2a + 2b + 1 = 2(2ab + a + b) + 1. The expression 2ab + a + b is an integer, so mn is odd."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Prove by contraposition: if n² is even, then n is even.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For integer n, suppose n is not even, so n = 2k + 1 for an integer k. Then n² = 2(2k² + 2k) + 1 is odd, hence not even. This proves the contrapositive and therefore the original implication."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Prove: if r is rational and t is irrational, then t − r is irrational.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Suppose for contradiction that s = t − r is rational. Then t = s + r is rational: if s = a/b and r = c/d with nonzero integer denominators, s + r = (ad + bc)/(bd), a rational number. This contradicts t being irrational."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does either direction alone prove that n is even if and only if n² is even?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The reverse implication was proved above. The forward implication also needs justification: n = 2k gives n² = 2(2k²), which is even. Together the two directions prove the biconditional."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "strategy-review",
+      "title": "11. Practice cases, existence, uniqueness, and obstruction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "Prove |x| = |−x| for every real x using cases.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If x ≥ 0, then |x| = x and |−x| = x. If x < 0, then |x| = −x and |−x| = −x. The cases cover every real number, including zero."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find the unique real solution of 3x − 2 = 10 and prove both obligations.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Existence: x = 4 gives 3·4 − 2 = 10. Uniqueness: if y also solves it, subtract to get 3(y − 4) = 0, so y = 4."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A board has 10 dark squares and 12 light squares. Every legal tile covers one of each. Can it be tiled?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Any number of such tiles covers equal counts of the two colors. The unequal counts are an obstruction independent of how you place the tiles."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is wrong with proving x² > 0 by checking only x > 0 and x < 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The real domain also contains zero, where x² = 0. The two cases are not exhaustive, and the claimed strict inequality is false at the omitted point."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    },
+    {
+      "id": "logic-program-project",
+      "title": "12. Build a truth-table and bit-operation checker",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Project: implement AND, OR, XOR, implication, and biconditional on Boolean inputs. The following small JavaScript functions provide a starting point. Treat their input contract seriously: p and q must be Boolean values, and bit strings must be nonempty, equally long strings of 0 and 1."
+        },
+        {
+          "type": "math",
+          "notation": "function connectives(p, q) {\n  if (typeof p !== \"boolean\" || typeof q !== \"boolean\") throw new TypeError(\"Boolean inputs required\");\n  return {and: p && q, or: p || q, xor: p !== q, implies: !p || q, iff: p === q};\n}\nfunction bitwise(a, b) {\n  if (typeof a !== \"string\" || typeof b !== \"string\" || !/^[01]+$/.test(a) || !/^[01]+$/.test(b) || a.length !== b.length) throw new TypeError(\"Equal nonempty bit strings required\");\n  const result = {and: \"\", or: \"\", xor: \"\"};\n  for (let i = 0; i < a.length; i++) {\n    const row = connectives(a[i] === \"1\", b[i] === \"1\");\n    for (const key of [\"and\", \"or\", \"xor\"]) result[key] += row[key] ? \"1\" : \"0\";\n  }\n  return result;\n}",
+          "description": "Executable JavaScript. String operations preserve leading zeros and avoid fixed-width numeric bitwise coercion."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Inputs",
+            "AND",
+            "OR",
+            "XOR"
+          ],
+          "rows": [
+            [
+              "10110 and 01101",
+              "00100",
+              "11111",
+              "11011"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Deliver a four-row Boolean table, tests for all pairs of short bit strings, and rejected-input tests. Extension: represent formulas as a small expression tree, enumerate all 2ᵏ assignments for k variables, and return a satisfying assignment or report that none exists. Do not equate one failed assignment with unsatisfiability."
+        },
+        {
+          "type": "check",
+          "prompt": "How would you extend this to the common fuzzy AND/OR convention?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For values in [0, 1], use min for AND and max for OR, explicitly labeling that convention. For 0.3 and 0.8, the outputs are 0.3 and 0.8. This is a different model from ordinary Boolean logic; do not silently mix the two."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Computer Projects, printed page 119."
+        }
+      ]
+    },
+    {
+      "id": "search-projects",
+      "title": "13. Explore games and tilings with verifiable search",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Game project: encode a Chomp board as nonincreasing row lengths, with poison at the first square of the first row. A safe move at (r, c) shortens every row i ≥ r to min(oldLength[i], c), using zero-based coordinates. Skip the poison move. The position [1] is losing; any position with a safe move to a losing position is winning. Cache repeated positions."
+        },
+        {
+          "type": "check",
+          "prompt": "Evaluate the small boards [1], [2], [2, 1], and [2, 2].",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "[1] is losing. [2] is winning because its safe move leaves [1]. [2, 1] is losing because either safe move leaves a two-cookie line, which is winning. [2, 2] is winning because removing its bottom-right cookie leaves [2, 1]."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Tiling project: store the remaining board squares. Choose the first uncovered square and try every allowed tile placement covering it. Reject overlaps and out-of-board squares; recurse on the remaining squares. An empty board is success. If every legal placement fails, report failure. Record actual placements so another program can check the result."
+        },
+        {
+          "type": "paragraph",
+          "text": "Exploration extensions: search for integers with two unordered square-sum representations; generate small polyominoes and identify shapes under translation, rotation, and reflection; compare area and color obstructions with exhaustive tiling results. State bounds and duplicate rules explicitly."
+        },
+        {
+          "type": "check",
+          "prompt": "What must accompany a reported tiling?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A list of tile placements and a separate check that each tile has an allowed shape, lies on the board, and covers each required square exactly once. A picture or a “success” message alone is weaker evidence."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Computer Projects and Computations and Explorations, printed page 119."
+        }
+      ]
+    },
+    {
+      "id": "writing-and-modeling",
+      "title": "14. Explain a model and audit a proof",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose one short writing project. State the precise question, define the terms, include a small worked example, and cite the sources you actually use. Keep a theorem, an experimental result, and a conjecture clearly distinguished."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Project",
+            "Concrete deliverable"
+          ],
+          "rows": [
+            [
+              "Model a scheduling or puzzle constraint with satisfiability.",
+              "Define variables, encode at-least-one and at-most-one constraints, and exhibit a model or explain a contradiction."
+            ],
+            [
+              "Compare ordinary and fuzzy logic.",
+              "State the selected fuzzy operators, compute a numerical example, and explain what the values mean."
+            ],
+            [
+              "Audit a flawed proof or a logical paradox.",
+              "Identify the earliest unjustified inference or inconsistent modeling assumption; repair it if possible."
+            ],
+            [
+              "Investigate Prolog, resolution, or automated proof.",
+              "Show a tiny example, explain what the system establishes, and separate proof search from proof checking."
+            ],
+            [
+              "Explain a game or tiling argument.",
+              "Specify legal moves or tile shapes, prove the key invariant or strategy, and state its limitations."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How would you encode exactly one of three choices a, b, c?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Use (a ∨ b ∨ c) ∧ (¬a ∨ ¬b) ∧ (¬a ∨ ¬c) ∧ (¬b ∨ ¬c). The first clause requires a choice; the other three forbid every pair from being selected together. Omitting the first clause permits none."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "When writing about the current state of an open problem or a software tool, verify it with a dated primary source. A textbook’s historical description or a search experiment is not automatically current evidence."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Writing Projects, printed page 120."
+        }
+      ]
+    },
+    {
+      "id": "chapter-one-recap",
+      "title": "15. Run a final self-check before sets and functions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "You are ready to move on when…",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "You can translate a statement with its domain, negate it without changing its meaning, tell whether witnesses may differ, justify an inference, and write a short proof whose assumptions and conclusion are explicit."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A team claims: “Every student has solved some problem, so some problem was solved by everyone.” What is the error?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It swaps ∀s∃p for ∃p∀s. Ana solving only A and Bo solving only B is a countermodel. Each student has a witness, but there is no shared witness."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A proof says two hypothetical solutions must be equal. Has it established exactly one solution?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It has established at most one. It still needs existence, either by giving a valid solution or by another existence argument."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A program checked every input in its documented finite domain and found a property true. Is that merely sampling?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If coverage, the implementation, and the interpretation of the property are justified, it is exhaustive verification for that finite domain. It says nothing automatically about inputs outside that domain."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Chapter 2 reuses this language for sets, functions, sequences, and matrices. Membership statements become predicates; set identities become equivalences; claims about functions require quantifiers and proofs. Keep the domain-and-witness habits from this chapter."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 1 Key Terms and Results, Review Questions, and Supplementary Exercises, printed pages 115–119."
+        }
+      ]
+    }
+  ]
+}

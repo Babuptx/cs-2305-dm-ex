@@ -68,16 +68,16 @@
           "id": "1.8",
           "number": "1.8",
           "title": "Proof Methods and Strategy",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/1.8.json",
           "children": []
         },
         {
           "id": "1-end",
           "number": null,
           "title": "End-of-Chapter Material",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/1-end.json",
           "children": []
         }
       ]

@@ -33,3 +33,7 @@ For quantified statements, declare each variable's domain and argument role, sho
 November 15, 2026 continuation: the owner requested the next two sections after 1.4 and 1.5, authorizing Sections 1.6 and 1.7 under the established publication workflow. Next are Section 1.8 and the Chapter 1 review.
 
 For inference and proof lessons, distinguish validity from true premises, show the supporting lines of a derivation, and keep fresh witnesses separate from arbitrary objects. State the assumptions and endpoint of each proof method. Justify witness integrality, denominator restrictions, inequality boundaries, and any helper lemma. Explain that a faulty proof does not necessarily mean a false theorem, and finite tests do not prove infinite-domain claims.
+
+November 16, 2026: after Sections 1.6 and 1.7 were published, the owner authorized the next two entries while away: Section 1.8 and the Chapter 1 review. The next pair is Sections 2.1 and 2.2.
+
+For proof strategy, justify case coverage, search bounds, symmetry reductions, and witness conditions. Separate existence from uniqueness, a necessary condition from a sufficient one, and finite computation from an infinite-domain proof. For games, specify terminal conditions and prove a response handles every legal move. For tilings, state tile shapes and check that the coloring property holds for every allowed orientation.

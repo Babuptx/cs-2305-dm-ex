@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="410" viewBox="0 0 800 410" role="img" aria-labelledby="title desc"><title id="title">Straight triominoes need all three colors</title><desc id="desc">Full board: 8, 9, 8, Remove the color-0 corner:, 7, 9, 8 remain, 8 straight triominoes would need:, 8, 8, 8, Area alone does not settle tiling.</desc><rect width="800" height="410" rx="14" fill="#f5f8fc"/><g font-family="Segoe UI,Arial,sans-serif" fill="#14334b"><text x="25" y="38" font-size="22" font-weight="700">Straight triominoes need all three colors</text>
+<rect data-row="0" data-col="0" data-color="0" data-removed="true" x="30" y="70" width="48" height="48" fill="#ffffff" stroke="#8da4b5"/>
+<path d="M42 82 l24 24 M66 82 l-24 24" stroke="#9f4c24" stroke-width="3"/>
+<rect data-row="0" data-col="1" data-color="1" data-removed="false" x="78" y="70" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="102" y="101" text-anchor="middle" font-size="20">1</text>
+<rect data-row="0" data-col="2" data-color="2" data-removed="false" x="126" y="70" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="150" y="101" text-anchor="middle" font-size="20">2</text>
+<rect data-row="0" data-col="3" data-color="0" data-removed="false" x="174" y="70" width="48" height="48" fill="#dcefe8" stroke="#8da4b5"/>
+<text x="198" y="101" text-anchor="middle" font-size="20">0</text>
+<rect data-row="0" data-col="4" data-color="1" data-removed="false" x="222" y="70" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="246" y="101" text-anchor="middle" font-size="20">1</text>
+<rect data-row="1" data-col="0" data-color="1" data-removed="false" x="30" y="118" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="54" y="149" text-anchor="middle" font-size="20">1</text>
+<rect data-row="1" data-col="1" data-color="2" data-removed="false" x="78" y="118" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="102" y="149" text-anchor="middle" font-size="20">2</text>
+<rect data-row="1" data-col="2" data-color="0" data-removed="false" x="126" y="118" width="48" height="48" fill="#dcefe8" stroke="#8da4b5"/>
+<text x="150" y="149" text-anchor="middle" font-size="20">0</text>
+<rect data-row="1" data-col="3" data-color="1" data-removed="false" x="174" y="118" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="198" y="149" text-anchor="middle" font-size="20">1</text>
+<rect data-row="1" data-col="4" data-color="2" data-removed="false" x="222" y="118" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="246" y="149" text-anchor="middle" font-size="20">2</text>
+<rect data-row="2" data-col="0" data-color="2" data-removed="false" x="30" y="166" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="54" y="197" text-anchor="middle" font-size="20">2</text>
+<rect data-row="2" data-col="1" data-color="0" data-removed="false" x="78" y="166" width="48" height="48" fill="#dcefe8" stroke="#8da4b5"/>
+<text x="102" y="197" text-anchor="middle" font-size="20">0</text>
+<rect data-row="2" data-col="2" data-color="1" data-removed="false" x="126" y="166" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="150" y="197" text-anchor="middle" font-size="20">1</text>
+<rect data-row="2" data-col="3" data-color="2" data-removed="false" x="174" y="166" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="198" y="197" text-anchor="middle" font-size="20">2</text>
+<rect data-row="2" data-col="4" data-color="0" data-removed="false" x="222" y="166" width="48" height="48" fill="#dcefe8" stroke="#8da4b5"/>
+<text x="246" y="197" text-anchor="middle" font-size="20">0</text>
+<rect data-row="3" data-col="0" data-color="0" data-removed="false" x="30" y="214" width="48" height="48" fill="#dcefe8" stroke="#8da4b5"/>
+<text x="54" y="245" text-anchor="middle" font-size="20">0</text>
+<rect data-row="3" data-col="1" data-color="1" data-removed="false" x="78" y="214" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="102" y="245" text-anchor="middle" font-size="20">1</text>
+<rect data-row="3" data-col="2" data-color="2" data-removed="false" x="126" y="214" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="150" y="245" text-anchor="middle" font-size="20">2</text>
+<rect data-row="3" data-col="3" data-color="0" data-removed="false" x="174" y="214" width="48" height="48" fill="#dcefe8" stroke="#8da4b5"/>
+<text x="198" y="245" text-anchor="middle" font-size="20">0</text>
+<rect data-row="3" data-col="4" data-color="1" data-removed="false" x="222" y="214" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="246" y="245" text-anchor="middle" font-size="20">1</text>
+<rect data-row="4" data-col="0" data-color="1" data-removed="false" x="30" y="262" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="54" y="293" text-anchor="middle" font-size="20">1</text>
+<rect data-row="4" data-col="1" data-color="2" data-removed="false" x="78" y="262" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="102" y="293" text-anchor="middle" font-size="20">2</text>
+<rect data-row="4" data-col="2" data-color="0" data-removed="false" x="126" y="262" width="48" height="48" fill="#dcefe8" stroke="#8da4b5"/>
+<text x="150" y="293" text-anchor="middle" font-size="20">0</text>
+<rect data-row="4" data-col="3" data-color="1" data-removed="false" x="174" y="262" width="48" height="48" fill="#dae7fc" stroke="#8da4b5"/>
+<text x="198" y="293" text-anchor="middle" font-size="20">1</text>
+<rect data-row="4" data-col="4" data-color="2" data-removed="false" x="222" y="262" width="48" height="48" fill="#ffe4bf" stroke="#8da4b5"/>
+<text x="246" y="293" text-anchor="middle" font-size="20">2</text>
+<text x="370" y="90" font-size="18" font-weight="400">Full board: 8, 9, 8</text>
+<text x="370" y="134" font-size="18" font-weight="400">Remove the color-0 corner:</text>
+<text x="370" y="178" font-size="18" font-weight="700">7, 9, 8 remain</text>
+<text x="370" y="222" font-size="18" font-weight="400">8 straight triominoes would need:</text>
+<text x="370" y="266" font-size="18" font-weight="700">8, 8, 8</text>
+<text x="370" y="310" font-size="18" font-weight="400">Area alone does not settle tiling.</text>
+<text x="30" y="387" font-size="16">Crossed squares are removed. Tiles may rotate, with no overlap or overhang.</text></g></svg>
