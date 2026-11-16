@@ -36,16 +36,16 @@
           "id": "1.4",
           "number": "1.4",
           "title": "Predicates and Quantifiers",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/1.4.json",
           "children": []
         },
         {
           "id": "1.5",
           "number": "1.5",
           "title": "Nested Quantifiers",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/1.5.json",
           "children": []
         },
         {

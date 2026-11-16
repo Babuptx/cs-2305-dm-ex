@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440" role="img" aria-labelledby="title desc">
+<title id="title">Each student has a module, but no module works for everyone</title>
+<desc id="desc">Rows are Ada, Bo, and Cy. Columns are Logic, Coding, and Data. Ada has T F F; Bo F T F; Cy T T F. Each row has a true cell. No column is true in every row; the Data column is all false.</desc>
+<rect width="900" height="440" rx="18" fill="#f5f8fc"/>
+<g font-family="Segoe UI, Arial, sans-serif" fill="#182b43">
+<text x="30" y="40" font-size="23" font-weight="700">Completed(student, module)</text>
+<text x="180" y="86" font-size="20">Logic</text><text x="305" y="86" font-size="20">Coding</text><text x="445" y="86" font-size="20">Data</text>
+<text x="45" y="142" font-size="21">Ada</text><text x="45" y="220" font-size="21">Bo</text><text x="45" y="298" font-size="21">Cy</text>
+<g stroke="#c3d0df">
+<rect x="145" y="103" width="115" height="60" rx="8" fill="#dbf1e8"/><rect x="275" y="103" width="115" height="60" rx="8" fill="#fff"/><rect x="405" y="103" width="115" height="60" rx="8" fill="#fff"/>
+<rect x="145" y="181" width="115" height="60" rx="8" fill="#fff"/><rect x="275" y="181" width="115" height="60" rx="8" fill="#dbf1e8"/><rect x="405" y="181" width="115" height="60" rx="8" fill="#fff"/>
+<rect x="145" y="259" width="115" height="60" rx="8" fill="#dbf1e8"/><rect x="275" y="259" width="115" height="60" rx="8" fill="#dbf1e8"/><rect x="405" y="259" width="115" height="60" rx="8" fill="#fff"/>
+</g>
+<g font-size="26" text-anchor="middle"><text x="202" y="142">T</text><text x="332" y="142">F</text><text x="462" y="142">F</text><text x="202" y="220">F</text><text x="332" y="220">T</text><text x="462" y="220">F</text><text x="202" y="298">T</text><text x="332" y="298">T</text><text x="462" y="298">F</text></g>
+<text x="555" y="136" font-size="20" font-weight="700" fill="#1f6c50">∀s ∃m Completed(s, m): TRUE</text>
+<text x="555" y="165" font-size="17">Each row contains a T.</text>
+<text x="555" y="218" font-size="20" font-weight="700" fill="#914c21">∃m ∀s Completed(s, m): FALSE</text>
+<text x="555" y="247" font-size="17">No column contains only T.</text>
+<text x="555" y="300" font-size="17">The module may vary by student.</text>
+<rect x="30" y="346" width="840" height="68" rx="10" fill="#e4efff"/>
+<text x="47" y="374" font-size="18">A witness in every row does not guarantee a shared witness column.</text>
+<text x="47" y="400" font-size="16">T = completed; F = not completed. All three modules belong to the domain.</text>
+</g></svg>

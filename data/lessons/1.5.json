@@ -1,0 +1,980 @@
+{
+  "schemaVersion": 1,
+  "id": "1.5",
+  "title": "Nested Quantifiers",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.5.1–§1.5.7, printed pages 60–68 (exposition; calculus extensions identified separately).",
+    "Original companion explanations, worked examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "nested-meaning",
+      "title": "1. Read one quantified statement inside another",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "“Every student has read a book” does not say “There is one book every student has read.” In the first statement, different students may have different books. In the second, one book must work for everyone. Nested quantifiers make that difference explicit."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A quantifier is nested when it appears inside the scope of another. Let Read(s, b) mean student s has read book b; s ranges over the students in a specified class and b over books in a specified collection."
+        },
+        {
+          "type": "math",
+          "notation": "∀s ∃b Read(s, b)",
+          "description": "For every student s, there exists a book b that s has read."
+        },
+        {
+          "type": "example",
+          "title": "Unpack it in two layers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "First fix a student s. The inner statement ∃b Read(s, b) says this particular student has read at least one book. Then ∀s requires that inner statement to be true for every student. If Q(s) abbreviates ∃b Read(s, b), the entire sentence is simply ∀s Q(s)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The formula does not require different students to choose different books. It permits different witnesses; it does not demand them. It also does not mean every student read every book."
+        },
+        {
+          "type": "check",
+          "prompt": "If Ava read only book A and Ben read only book B, has each student read a book? Has one book necessarily been read by both?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Each student has a witness, so the first claim is true. If A and B are different and neither student read the other book, no common book exists. The second claim is false."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.1–§1.5.2, printed pages 60–62."
+        }
+      ]
+    },
+    {
+      "id": "relation-grid",
+      "title": "2. Read quantified relationships from a grid",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let Completed(s, m) mean student s completed module m. Students are Ada, Bo, and Cy; modules are Logic, Coding, and Data. Each cell supplies one truth value for one ordered pair."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Student / module",
+            "Logic",
+            "Coding",
+            "Data"
+          ],
+          "rows": [
+            [
+              "Ada",
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "Bo",
+              "F",
+              "T",
+              "F"
+            ],
+            [
+              "Cy",
+              "T",
+              "T",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Different promises inspect different parts of the same grid",
+          "src": "assets/quantifier-grid.svg",
+          "description": "Ada completed Logic only; Bo completed Coding only; Cy completed Logic and Coding. Each student row has a true cell, but there is no module column true for every student. The Data column has no true cells."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Formula",
+            "Meaning",
+            "Here"
+          ],
+          "rows": [
+            [
+              "∀s ∀m Completed(s, m)",
+              "Every student completed every module.",
+              "F"
+            ],
+            [
+              "∀s ∃m Completed(s, m)",
+              "Every student completed at least one module.",
+              "T"
+            ],
+            [
+              "∃s ∀m Completed(s, m)",
+              "Some student completed every module.",
+              "F"
+            ],
+            [
+              "∃s ∃m Completed(s, m)",
+              "Some student completed some module.",
+              "T"
+            ],
+            [
+              "∃m ∀s Completed(s, m)",
+              "One module was completed by every student.",
+              "F"
+            ],
+            [
+              "∀m ∃s Completed(s, m)",
+              "Every module was completed by some student.",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Look at the variables, not just the symbols. ∃s∀m asks for a full row; ∃m∀s asks for a full column. ∀s∃m needs one true cell in each row, but those cells can lie in different columns."
+        },
+        {
+          "type": "check",
+          "prompt": "Which single row or column defeats ∀m∃s Completed(s, m)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The Data column: it is false for all three students. Ada’s failure in Coding alone would not defeat this claim, because Bo or Cy can witness Coding."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.2–§1.5.3, printed pages 61–63."
+        }
+      ]
+    },
+    {
+      "id": "dependent-witness",
+      "title": "3. Ask when a witness is allowed to be chosen",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The order ∀x∃y lets y depend on the already chosen x. The order ∃y∀x requires choosing y first and then keeping it fixed as x varies. This is a logical dependency, not a claim that a physical event must happen at a particular time."
+        },
+        {
+          "type": "example",
+          "title": "A witness that changes with the input",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let x and y range over all integers and let R(x, y) mean y = x + 2. For ∀x∃y R(x, y), choose y = x + 2 for whichever integer x is given. This is always an integer and satisfies R."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Given x",
+            "Choose y",
+            "Check y = x + 2"
+          ],
+          "rows": [
+            [
+              "−3",
+              "−1",
+              "−1 = −3 + 2"
+            ],
+            [
+              "0",
+              "2",
+              "2 = 0 + 2"
+            ],
+            [
+              "4",
+              "6",
+              "6 = 4 + 2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Now try ∃y∀x R(x, y). If one fixed y works when x = 0, then y must equal 2. If that same y works when x = 1, it must equal 3. One integer cannot equal both, so the reversed statement is false."
+        },
+        {
+          "type": "paragraph",
+          "text": "A common witness is stronger than a separate witness for each input: ∃y∀x R(x, y) implies ∀x∃y R(x, y). Use the same common y for every x. The example above proves the converse is not generally valid."
+        },
+        {
+          "type": "check",
+          "prompt": "Does ∀x∃y R(x, y) require y to be different for different x?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It only allows y to depend on x. A single y may happen to work for everyone, but the formula does not require a common witness."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.3, printed pages 62–63."
+        }
+      ]
+    },
+    {
+      "id": "quantifier-order",
+      "title": "4. Swap like quantifiers without swapping argument roles",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "∀x ∀y P(x, y) ≡ ∀y ∀x P(x, y)\n∃x ∃y P(x, y) ≡ ∃y ∃x P(x, y)",
+          "description": "Two universal quantifiers can swap order; two existential quantifiers can swap order."
+        },
+        {
+          "type": "paragraph",
+          "text": "With fixed domains for x and y, both universal orders inspect every pair. Both existential orders ask whether a successful pair exists. Changing the order of inspecting pairs does not change the collection of pairs. Keep each variable attached to its own domain."
+        },
+        {
+          "type": "callout",
+          "title": "Swapping quantifiers is not swapping predicate arguments",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "P(x, y) must remain P(x, y). If Sent(a, b) means a sent a message to b, Sent(a, b) and Sent(b, a) are different relationships. Reordering ∀a∀b does not declare messaging symmetric."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Mixed quantifiers cannot be swapped as a general equivalence. They may happen to have the same truth value in a particular model, but Section 1.5’s dependency example shows why they need not. In a longer prefix, exchanging adjacent like quantifiers is different from moving them past an intervening unlike quantifier."
+        },
+        {
+          "type": "check",
+          "prompt": "Is ∃x∃y(x < y) equivalent to ∃y∃x(x < y), using integers for both domains?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Both ask for an ordered pair with first component less than second. For instance x = 1, y = 4 works in both. There is no change to the inequality’s argument positions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.3, printed pages 62–64."
+        }
+      ]
+    },
+    {
+      "id": "finite-nested-search",
+      "title": "5. Finish the inner search before deciding the outer claim",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For finite domains, nested quantifiers can be evaluated by nested searches. The following JavaScript functions return truth values. Inputs xs and ys are finite arrays, and predicate(x, y) must return a Boolean without side effects."
+        },
+        {
+          "type": "math",
+          "notation": "function everySome(xs, ys, predicate) {\n  return xs.every(x => ys.some(y => predicate(x, y)));\n}\n\nfunction commonWitness(xs, ys, predicate) {\n  return ys.some(y => xs.every(x => predicate(x, y)));\n}",
+          "description": "everySome evaluates for every x there exists y. commonWitness evaluates there exists y for every x."
+        },
+        {
+          "type": "paragraph",
+          "text": "In everySome, the inner search starts afresh for each x. A success in Ada’s row cannot satisfy Bo’s row. In commonWitness, choose a candidate y and test it against every x; if it fails, try another y. Returning true after seeing one successful pair would answer only ∃x∃y."
+        },
+        {
+          "type": "example",
+          "title": "Empty domains expose the difference",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If xs is empty and ys is also empty, everySome returns true: there is no x that fails its inner requirement. commonWitness returns false: there is no y to select. If xs is nonempty and ys is empty, both return false. If xs is empty but ys is nonempty, both return true."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These are exact finite-domain checks, not a way to exhaust the integers or real numbers. On an infinite domain, use a proof, a witness rule, or a counterexample argument. Testing many values is supporting evidence only."
+        },
+        {
+          "type": "check",
+          "prompt": "In the module grid, what would happen if the program returned true as soon as Ada passed Logic, without checking Bo or Cy?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It would only establish a successful pair. To verify ∀s∃m, it must still find a module for each remaining student."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.2, printed pages 61–62."
+        }
+      ]
+    },
+    {
+      "id": "mathematical-translations",
+      "title": "6. Make hidden mathematical quantifiers explicit",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Many mathematical sentences leave “for every” unstated. Translate the intended claim, including its conditions and domains."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "English",
+            "Domains",
+            "Translation"
+          ],
+          "rows": [
+            [
+              "The product of two positive real numbers is positive.",
+              "x, y: real numbers",
+              "∀x∀y ((x > 0 ∧ y > 0) → xy > 0)"
+            ],
+            [
+              "Every nonzero real number has a reciprocal.",
+              "x, y: real numbers",
+              "∀x (x ≠ 0 → ∃y (xy = 1))"
+            ],
+            [
+              "The sum of any two integers is an integer.",
+              "x, y, z: integers",
+              "∀x∀y∃z (z = x + y)"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Find the witness inside the allowed domain",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For the reciprocal statement, fix a nonzero real x and choose y = 1/x. Then xy = 1. If the domain for y were restricted to integers, x = 2 would fail because 1/2 is not an integer. The domain is part of the reasoning, not just a label."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In the sum statement, z may depend on both x and y because it is chosen after both. The formula ∃z∀x∀y(z = x + y) would require one fixed total for every pair. Pairs (0, 0) and (0, 1) already make that impossible."
+        },
+        {
+          "type": "check",
+          "prompt": "Why use an implication in the reciprocal formula rather than ∀x(x ≠ 0 ∧ ∃y(xy = 1))?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The conjunction would assert that every real x is nonzero, which fails at 0. The implication restricts the reciprocal requirement to nonzero x."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.3–§1.5.4, printed pages 63–65."
+        }
+      ]
+    },
+    {
+      "id": "nested-to-english",
+      "title": "7. Translate from the innermost relationship outward",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let the domain be members of a study group. C(x) means x is certified, and H(y, x) means y helps x. The order of H’s inputs matters: helper first, recipient second."
+        },
+        {
+          "type": "math",
+          "notation": "∀x (C(x) ∨ ∃y (C(y) ∧ H(y, x)))",
+          "description": "Every member is certified or has a certified member who helps them."
+        },
+        {
+          "type": "example",
+          "title": "Unpack three layers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Inner layer: C(y) ∧ H(y, x) says y is certified and y helps x. Middle layer: ∃y asks for at least one such helper for the current x. Outer layer: every member x must either be certified already or have such a helper. The OR is inclusive, so a certified person may also have a certified helper."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "It does not say one certified helper serves everyone. It also does not demand a helper for members who are already certified: their C(x) branch is enough. A noncertified member with no certified helper is a counterexample."
+        },
+        {
+          "type": "check",
+          "prompt": "If H(x, y) replaced H(y, x), would the meaning stay the same?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The changed formula would say that each member is certified or helps a certified member. Helping someone and being helped by someone are different relationships."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.5, printed pages 65."
+        }
+      ]
+    },
+    {
+      "id": "english-to-nested",
+      "title": "8. Keep requirements inside the scope of the right person",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Translate: “Every active user can access an available server.” Let u range over users and s over servers. Active(u), Available(s), and CanAccess(u, s) have their literal meanings in a fixed system snapshot."
+        },
+        {
+          "type": "math",
+          "notation": "∀u (Active(u) → ∃s (Available(s) ∧ CanAccess(u, s)))",
+          "description": "For each active user, at least one server is both available and accessible to that user."
+        },
+        {
+          "type": "paragraph",
+          "text": "The same server must satisfy both inner requirements, but different users may have different servers. Compare the stronger requirement “There is one available server that every active user can access.”"
+        },
+        {
+          "type": "math",
+          "notation": "∃s (Available(s) ∧ ∀u (Active(u) → CanAccess(u, s)))",
+          "description": "One available server works for every active user."
+        },
+        {
+          "type": "example",
+          "title": "A small model separates the claims",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Two active users, Ana and Ben, can access available servers A and B respectively. Ana cannot access B and Ben cannot access A. The first requirement is true; the shared-server requirement is false. Availability somewhere in the system alone would be weaker still: a user might have no access to that server."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Moving a quantifier can add an existence requirement",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If there are no active users and no servers, the first formula is true but the shared-server formula is false. Even the rewrite ∀u∃s(Active(u) → (Available(s) ∧ CanAccess(u, s))) requires a nonempty server domain when users exist. Do not move ∃ across an implication without checking the domain assumptions."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Which formula guarantees that an available server actually exists, even if nobody is active?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The shared-server formula starts with ∃s and explicitly requires Available(s). The first formula can be vacuously true when no users are active."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.6, printed pages 66–67."
+        }
+      ]
+    },
+    {
+      "id": "distinct-objects",
+      "title": "9. Say other when you need two different objects",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let F(x, y) mean x follows y, with a domain of account holders. Do not assume following is symmetric. Also decide whether following oneself is allowed in the model; the symbols alone do not rule it out."
+        },
+        {
+          "type": "math",
+          "notation": "∀x ∃y (y ≠ x ∧ F(x, y))",
+          "description": "Every account holder follows at least one other account holder."
+        },
+        {
+          "type": "paragraph",
+          "text": "Without y ≠ x, a model where every person follows only themself would satisfy ∀x∃y F(x, y). The word “other” is therefore a real logical constraint, not decorative English."
+        },
+        {
+          "type": "example",
+          "title": "Unpack a more complicated relationship",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "∃x ∀y∀z ((F(x, y) ∧ F(x, z) ∧ y ≠ z) → ¬F(y, z))",
+              "description": "Some person follows a collection of accounts in which no distinct followed account follows another."
+            },
+            {
+              "type": "paragraph",
+              "text": "Choose x. For any two distinct people y and z followed by x, y does not follow z. Because every ordered pair y, z is considered, the condition also rules out the reverse direction. A person following nobody satisfies the condition vacuously; add an existence clause if at least one follow is intended."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can a one-person domain satisfy “Everyone follows someone else”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. There is no y distinct from x. It could satisfy “Everyone follows someone” if that one person follows themself, but the extra inequality prevents that witness."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.5–§1.5.6, printed pages 65–66."
+        }
+      ]
+    },
+    {
+      "id": "exactly-one-nested",
+      "title": "10. Write existence and uniqueness as separate obligations",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let d range over documents and p and q over people. Owns(d, p) means p is the assigned owner of document d. “Every document has exactly one owner” combines a witness with a restriction on all possible alternatives."
+        },
+        {
+          "type": "math",
+          "notation": "∀d ∃p (Owns(d, p) ∧ ∀q (Owns(d, q) → q = p))",
+          "description": "Every document has an owner p, and any owner q of that document equals p."
+        },
+        {
+          "type": "paragraph",
+          "text": "The first conjunct supplies an owner. The second says no different person can also be an owner. Dropping the first part would permit ownerless documents: “any owner equals p” can be true when there are no owners at all."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Owners of one document",
+            "At least one?",
+            "Exactly one?"
+          ],
+          "rows": [
+            [
+              "None",
+              "F",
+              "F"
+            ],
+            [
+              "Ana only",
+              "T",
+              "T"
+            ],
+            [
+              "Ana and Ben",
+              "T",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An equivalent uniqueness condition is ∀q(q ≠ p → ¬Owns(d, q)). The shorthand is ∀d∃!p Owns(d, p). The p chosen for one document may differ from the p chosen for another; there need not be one person who owns every document."
+        },
+        {
+          "type": "check",
+          "prompt": "What does ∃p∀d Owns(d, p) say? Does it say every document has exactly one owner?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It says a common owner p is assigned to every document. It does not prohibit additional owners. It is also stronger about sharing a witness across documents, so it is not the exactly-one-per-document claim."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.6, printed pages 66."
+        }
+      ]
+    },
+    {
+      "id": "three-quantifiers",
+      "title": "11. Track what stays fixed across three choices",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Translate: “There is a learner who submitted a project for every module.” Let s range over learners, m over modules, and p over projects. Submitted(s, p) says s submitted p; Covers(p, m) says p is for module m."
+        },
+        {
+          "type": "math",
+          "notation": "∃s ∀m ∃p (Submitted(s, p) ∧ Covers(p, m))",
+          "description": "Choose one learner s. For each module m, find a project p that this learner submitted and that covers the module."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Project",
+            "Submitted by",
+            "Module covered"
+          ],
+          "rows": [
+            [
+              "p1",
+              "Ana",
+              "Logic"
+            ],
+            [
+              "p2",
+              "Ana",
+              "Coding"
+            ],
+            [
+              "p3",
+              "Ben",
+              "Logic"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Take learners Ana and Ben, modules Logic and Coding, and projects p1, p2, p3 as the complete model. Ana witnesses the outer ∃s. For Logic use p1; for Coding use p2. The learner stays fixed, while the project may depend on the module. Ben has no witness for Coding."
+        },
+        {
+          "type": "paragraph",
+          "text": "Moving ∃p before ∀m would demand one project covering every module. Moving ∃s after ∀m would allow a different learner for each module. Neither rewrite preserves the original requirement in general. A project can be reused for multiple modules only if Covers actually holds for each."
+        },
+        {
+          "type": "check",
+          "prompt": "Remove p2 and add p4, submitted by Ben for Coding. Does every module still have a submission? Is there still one learner with a submission for every module?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Each module still has a submission: Ana or Ben for Logic, Ben for Coding. Ben already submitted p3 for Logic, so in this particular edited model Ben is a common learner and the original remains true. To make it false while keeping each module covered, also remove p3: then Ana covers only Logic and Ben only Coding."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.3 and §1.5.6, printed pages 63–64, 66–67."
+        }
+      ]
+    },
+    {
+      "id": "negating-nested",
+      "title": "12. Move NOT inward one quantifier at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use the Section 1.4 laws repeatedly. Each crossed ∀ becomes ∃, each crossed ∃ becomes ∀, and the final predicate is negated. Keep the original quantifier order; do not reverse the list."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Original",
+            "Negation"
+          ],
+          "rows": [
+            [
+              "∀x∀y P(x, y)",
+              "∃x∃y ¬P(x, y)"
+            ],
+            [
+              "∀x∃y P(x, y)",
+              "∃x∀y ¬P(x, y)"
+            ],
+            [
+              "∃x∀y P(x, y)",
+              "∀x∃y ¬P(x, y)"
+            ],
+            [
+              "∃x∃y P(x, y)",
+              "∀x∀y ¬P(x, y)"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Negate a promise of an option for everyone",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "¬∀s∃m Completed(s, m)\n≡ ∃s ¬∃m Completed(s, m)\n≡ ∃s∀m ¬Completed(s, m)",
+              "description": "Not every student completed some module means there is a student who completed no module."
+            },
+            {
+              "type": "paragraph",
+              "text": "One student with a row of all false entries defeats the original. One false cell does not: that student might have completed a different module."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Likewise, ¬∃m∀s Completed(s, m) becomes ∀m∃s ¬Completed(s, m). Every module has some student who did not complete it. Those students need not all be the same person."
+        },
+        {
+          "type": "check",
+          "prompt": "Does “No one completed every module” mean “Everyone completed no modules”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The first is ∀s∃m ¬Completed(s, m): each student misses at least one module. The second is ∀s∀m ¬Completed(s, m): nobody completed anything. The module grid satisfies the first but not the second."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.7, printed pages 67."
+        }
+      ]
+    },
+    {
+      "id": "negating-nested-rules",
+      "title": "13. Preserve eligibility while negating the promised witness",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Negate the active-user requirement from earlier. Keep the domains fixed: users u and servers s."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "¬∀u (Active(u) → ∃s(Available(s) ∧ CanAccess(u, s)))",
+              "Negate the entire requirement."
+            ],
+            [
+              "∃u ¬(Active(u) → ∃s(Available(s) ∧ CanAccess(u, s)))",
+              "Flip the outer universal."
+            ],
+            [
+              "∃u (Active(u) ∧ ¬∃s(Available(s) ∧ CanAccess(u, s)))",
+              "Negate the implication."
+            ],
+            [
+              "∃u (Active(u) ∧ ∀s(¬Available(s) ∨ ¬CanAccess(u, s)))",
+              "Flip the existential and apply De Morgan to AND."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In words: there is an active user for whom every server is either unavailable or inaccessible. It does not require all servers to be unavailable; an available server can still fail to help this user because access is denied."
+        },
+        {
+          "type": "math",
+          "notation": "¬∃s∀m∃p (Submitted(s, p) ∧ Covers(p, m))\n≡ ∀s∃m∀p (¬Submitted(s, p) ∨ ¬Covers(p, m))",
+          "description": "Every learner has a module for which none of their submitted projects provides coverage."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the triple negation, s, m, p keep their order. The missing module may depend on the learner. The OR inside the negation means each candidate project fails at least one requirement; it need not fail both."
+        },
+        {
+          "type": "check",
+          "prompt": "If every server is available, can the negated active-user requirement still be true?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. One active user might be unable to access any server. Then ¬CanAccess(u, s) is true for every server, so the inner OR holds throughout."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.7, printed pages 67–68."
+        }
+      ]
+    },
+    {
+      "id": "optional-limit",
+      "title": "14. Optional calculus bridge: choose a tolerance before the inputs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "You can read the logic without knowing calculus",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "This textbook extension illustrates three quantifier levels. The essential idea is a dependency rule: after an output tolerance is specified, choose one input tolerance that works for all sufficiently nearby inputs. The rest of Section 1.5 does not require calculus."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Let f be a real-valued function defined on the real numbers near a, and let L be a proposed limit. ε (epsilon) is a positive allowed output error. δ (delta) is a positive allowed input distance. Absolute value |t| measures distance from zero."
+        },
+        {
+          "type": "math",
+          "notation": "∀ε > 0 ∃δ > 0 ∀x (0 < |x − a| < δ → |f(x) − L| < ε)",
+          "description": "For every positive output tolerance epsilon, choose a positive input tolerance delta such that every x within delta of a, except a itself, has output within epsilon of L."
+        },
+        {
+          "type": "paragraph",
+          "text": "δ may depend on ε, the fixed function f, and the fixed values a and L. It cannot be chosen separately for each x after x is selected. The condition 0 < |x − a| excludes the point a itself. For a function with a restricted domain, x must range only over that domain and a must be an accumulation point for the usual limit definition."
+        },
+        {
+          "type": "example",
+          "title": "A complete witness rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For f(x) = 3x, a = 2, and L = 6, choose δ = ε/3. Then δ > 0. If 0 < |x − 2| < δ, multiplying by 3 gives |3x − 6| = 3|x − 2| < 3δ = ε. This algebra works for every ε > 0 and every eligible x; it is not merely a list of numerical tests."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For ε = 0.3, what δ does this rule choose? Does the claim require x = 2.1 to pass its premise?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It chooses δ = 0.1. The premise uses a strict inequality |x − 2| < 0.1, so x = 2.1 is on the excluded boundary. An interior value such as x = 2.05 gives output error 0.15 < 0.3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.4, printed pages 64–65."
+        }
+      ]
+    },
+    {
+      "id": "optional-limit-negation",
+      "title": "15. Optional calculus bridge: distinguish a wrong candidate from no limit",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "With the same real-valued-function assumptions as the previous unit, negate the assertion that one fixed candidate L is the limit. Flip the quantifiers in place, and replace the negated implication by a true premise and a false conclusion."
+        },
+        {
+          "type": "math",
+          "notation": "∃ε > 0 ∀δ > 0 ∃x (0 < |x − a| < δ ∧ |f(x) − L| ≥ ε)",
+          "description": "There is a positive error threshold epsilon such that however small a positive delta is chosen, some nearby x still has output error at least epsilon."
+        },
+        {
+          "type": "paragraph",
+          "text": "This says the particular L fails. To say there is no finite real limit, every real candidate L must fail. Add ∀L at the front. The resulting ε can depend on L, and x can depend on both the candidate and the chosen δ."
+        },
+        {
+          "type": "math",
+          "notation": "∀L ∃ε > 0 ∀δ > 0 ∃x (0 < |x − a| < δ ∧ |f(x) − L| ≥ ε)",
+          "description": "Every finite real candidate L fails the limit requirement."
+        },
+        {
+          "type": "example",
+          "title": "Why disproving one candidate is not enough",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For f(x) = 3x at a = 2, the candidate L = 7 fails: choose ε = 1/2. Given any δ > 0, let h be the smaller of δ/2 and 1/12, and choose x = 2 + h. Then 0 < |x − 2| = h < δ, while |3x − 7| = 1 − 3h ≥ 3/4 > 1/2. Nevertheless the previous unit proved that L = 6 is the limit. A wrong candidate is not evidence that all candidates fail."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "“No finite real limit” also includes cases where a function grows without bound; it is more precise here than claiming that every possible notion of an infinite limit has been ruled out."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the final comparison ≥ ε instead of > ε?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Because it negates the strict comparison |f(x) − L| < ε. Equality at ε is already a failure of that strict requirement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5.7, printed pages 67–68."
+        }
+      ]
+    },
+    {
+      "id": "nested-recap",
+      "title": "16. State who chooses what and how the claim can fail",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Claim shape",
+            "What must work",
+            "How to refute it"
+          ],
+          "rows": [
+            [
+              "∀x∀y P(x, y)",
+              "Every pair",
+              "One failing pair"
+            ],
+            [
+              "∀x∃y P(x, y)",
+              "At least one y for each x",
+              "One x for which every y fails"
+            ],
+            [
+              "∃x∀y P(x, y)",
+              "One x for every y",
+              "For each x, find a failing y"
+            ],
+            [
+              "∃x∃y P(x, y)",
+              "At least one pair",
+              "Every pair fails"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Before deciding truth, declare the domain of every variable, define the order of the predicate’s arguments, mark the scope, and identify which existential witnesses may depend on earlier choices. State distinctness or uniqueness explicitly when the English requires it."
+        },
+        {
+          "type": "example",
+          "title": "A final distinction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "“Every document has a reviewer” is ∀d∃r Reviews(r, d). “Some reviewer reviews every document” is ∃r∀d Reviews(r, d). “Every document has exactly one reviewer” adds uniqueness separately. These three claims answer different questions."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Ava reviews document A only, and Ben reviews document B only. The domain contains exactly these two reviewers and two documents. Which of the three claims above hold?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Every document has a reviewer: true. A common reviewer for every document: false. Exactly one reviewer per document: true. Existence, shared witnesses, and uniqueness must be checked separately."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "You can now translate and negate both single and nested quantifiers. Section 1.6 will use statements like these as premises in formal reasoning."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.5, printed pages 60–68."
+        }
+      ]
+    }
+  ]
+}

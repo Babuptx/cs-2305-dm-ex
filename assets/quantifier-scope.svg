@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+<title id="title">The boundary of a quantifier's scope</title>
+<desc id="desc">In (for all x P(x)) or Q(x), only x inside P is bound; x in Q is free. In for all x (P(x) or Q(x)), both occurrences are bound.</desc>
+<rect width="900" height="360" rx="18" fill="#f5f8fc"/>
+<g font-family="Segoe UI, Arial, sans-serif" fill="#182b43">
+<text x="32" y="40" font-size="23" font-weight="700">Parentheses show where the promise applies</text>
+<rect x="32" y="65" width="836" height="115" rx="12" fill="#fff" stroke="#cbd7e5"/>
+<rect x="55" y="82" width="255" height="50" rx="8" fill="#e4efff"/>
+<text x="72" y="117" font-size="31">(∀x P(x))</text><text x="333" y="117" font-size="31">∨ Q(x)</text>
+<text x="60" y="161" font-size="18" fill="#235d9f">Bound: x in P(x)</text><text x="333" y="161" font-size="18" fill="#914c21">Free: x in Q(x)</text>
+<text x="574" y="109" font-size="17">Q(x) is outside</text><text x="574" y="135" font-size="17">this quantifier's scope.</text>
+<rect x="32" y="197" width="836" height="115" rx="12" fill="#fff" stroke="#cbd7e5"/>
+<rect x="55" y="215" width="430" height="50" rx="8" fill="#e4efff"/>
+<text x="72" y="250" font-size="31">∀x (P(x) ∨ Q(x))</text>
+<text x="60" y="292" font-size="18" fill="#235d9f">Bound: both occurrences of x</text>
+<text x="574" y="242" font-size="17">Both predicates are inside</text><text x="574" y="268" font-size="17">this quantifier's scope.</text>
+<text x="32" y="341" font-size="16" fill="#52677e">A matching variable name does not extend a quantifier beyond its boundary.</text>
+</g></svg>

@@ -1,0 +1,1097 @@
+{
+  "schemaVersion": 1,
+  "id": "1.4",
+  "title": "Predicates and Quantifiers",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.4.1–§1.4.13, printed pages 40–56 (exposition).",
+    "Original companion explanations, worked examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "predicate-slots",
+      "title": "1. Turn a sentence with a blank into a proposition",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "“This device is charged” talks about one device. “Every device is charged” talks about a whole collection. Predicate logic lets us name a property, specify which objects we mean, and say how many of them must have that property."
+            }
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Predicate and domain",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A predicate describes a property or relationship. P(x) means that property applied to an input x; it is also called a propositional function. The domain is the collection of allowed inputs. An open formula with an unspecified free variable is not yet a closed proposition, although it has a truth value once an assignment is supplied."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Let the domain be the integers and let P(x) mean “x is greater than 5.” The notation P is a name for the test; it is not multiplication. Substitute an input before deciding whether the resulting statement is true."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "After substitution",
+            "Truth value"
+          ],
+          "rows": [
+            [
+              "P(8)",
+              "8 > 5",
+              "T"
+            ],
+            [
+              "P(5)",
+              "5 > 5",
+              "F"
+            ],
+            [
+              "P(−2)",
+              "−2 > 5",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are two important ways to finish an open statement: supply values for its free variables, or quantify them. Quantifying means making a claim about all, or at least one, of the allowed values. We will build those claims carefully."
+        },
+        {
+          "type": "check",
+          "prompt": "If E(x) means “x is even,” is E(6) the number 6?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. E(6) is the proposition “6 is even,” which is true. The input is a number; the result of this predicate test is a truth value."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.1–§1.4.2, printed pages 40–41."
+        }
+      ]
+    },
+    {
+      "id": "predicate-arguments",
+      "title": "2. Keep track of what each input position means",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A relationship can need two or more inputs. Let R(x, y) mean “x is at least twice y,” with both inputs integers. Substitute into the correct position; swapping the inputs can change the truth value."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Test",
+            "Truth value"
+          ],
+          "rows": [
+            [
+              "R(8, 3)",
+              "8 ≥ 2 · 3",
+              "T"
+            ],
+            [
+              "R(3, 8)",
+              "3 ≥ 2 · 8",
+              "F"
+            ],
+            [
+              "R(6, 3)",
+              "6 ≥ 2 · 3",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Different input domains",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let Enrolled(s, c) mean “student s is enrolled in course c.” The first input ranges over students and the second over courses. Enrolled(Amira, logic) is meaningful in this model; Enrolled(logic, Amira) puts the wrong kinds of objects into the positions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A three-place predicate might be Sum(a, b, c): “a + b = c.” Sum(2, 5, 7) is true. Sum(2, 5, 8) is false. If only a and b have values, the expression may still depend on c. The word arity simply means the number of input places."
+        },
+        {
+          "type": "check",
+          "prompt": "For R(x, y) above, what does R(x, 4) say, and is x still free?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It says x ≥ 8. The second input is fixed, but x remains free until it is assigned a value or bound by a quantifier."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.2, printed pages 41–42."
+        }
+      ]
+    },
+    {
+      "id": "predicates-in-programs",
+      "title": "3. Separate a condition from the action it controls",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A program can evaluate a predicate using the current values of its variables. Consider integer variables score and bonus. The instruction below tests score and may update bonus."
+        },
+        {
+          "type": "math",
+          "notation": "if score ≥ 10 then bonus := bonus + 2",
+          "description": "If score is at least ten, add two to the current bonus and store the result back in bonus."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Before: score, bonus",
+            "Condition",
+            "After: score, bonus"
+          ],
+          "rows": [
+            [
+              "12, 3",
+              "12 ≥ 10 is true",
+              "12, 5"
+            ],
+            [
+              "7, 3",
+              "7 ≥ 10 is false",
+              "7, 3"
+            ],
+            [
+              "10, 0",
+              "10 ≥ 10 is true",
+              "10, 2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The predicate score ≥ 10 has a truth value once score is known. The assignment bonus := bonus + 2 is an action, not a proposition. A programming if-statement decides whether to perform that action; a logical implication relates truth-valued statements."
+        },
+        {
+          "type": "definition",
+          "title": "Precondition and postcondition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A precondition states what must hold before execution. A postcondition states what should hold after it. For the straight-line program count := count + 1; doubled := 2 · count, take the precondition count = n, with n a fixed integer recording the old value. The postcondition is count = n + 1 and doubled = 2(n + 1)."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Trace the values, not just the symbols",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1: count starts at n. Step 2: the first assignment makes count equal n + 1. Step 3: the second assignment reads this new count, so doubled becomes 2(n + 1). This reasoning covers every integer n in an ideal exact-integer model; bounded machine integers would also need an overflow condition."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If count starts at 4, does doubled become 8 or 10?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It becomes 10. count is updated to 5 before the second assignment reads it. The final state is count = 5 and doubled = 10."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.2, printed pages 42–43."
+        }
+      ]
+    },
+    {
+      "id": "universal-quantifier",
+      "title": "4. Read for every as a promise with no exceptions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "The universal quantifier",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "∀x P(x) means “For every x in the stated domain, P(x) is true.” The symbol ∀ is read “for all” or “for every.” A counterexample is one allowed value that makes P false."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Suppose the domain is the devices on a particular desk and Charged(d) means device d is charged. ∀d Charged(d) promises that no device on that desk fails the test. One uncharged device refutes it. One charged device does not establish it."
+        },
+        {
+          "type": "example",
+          "title": "The same formula can change truth when the domain changes",
+          "blocks": [
+            {
+              "type": "math",
+              "notation": "∀x (x² ≥ 1)",
+              "description": "Every allowed x has a square at least one."
+            },
+            {
+              "type": "paragraph",
+              "text": "Over the positive integers, the statement is true: x ≥ 1 implies x² ≥ 1. Over all integers, it is false because x = 0 gives 0 ≥ 1, which is false. Over positive real numbers, x = 1/2 is a counterexample because its square is 1/4."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A valid counterexample must be in the domain. Using x = 0 against a claim restricted to positive integers would not work. Testing a long list of successful cases also does not prove a claim about an infinite domain."
+        },
+        {
+          "type": "check",
+          "prompt": "To refute “Every integer has a positive square,” must you show that every integer fails?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The single integer 0 is enough: 0² = 0 is not positive. Refuting “every” requires one failure, not universal failure."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.3, printed pages 44–45."
+        }
+      ]
+    },
+    {
+      "id": "existence-and-uniqueness",
+      "title": "5. Find a witness and distinguish some from exactly one",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "The existential quantifier",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "∃x P(x) means “There is at least one x in the domain for which P(x) is true.” The symbol ∃ is read “there exists.” A value that works is called a witness. There may be several witnesses."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Existence depends on the domain too",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Consider ∃x (2x = 5). Over the real numbers, x = 5/2 is a witness because 2 · (5/2) = 5. Over the integers it is false: twice an integer is even and cannot equal the odd integer 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "To disprove an existential statement, explain why no allowed value can work. A few unsuccessful attempts are not enough. For example, x² = −1 has no real solution because real squares are nonnegative."
+        },
+        {
+          "type": "definition",
+          "title": "The uniqueness quantifier",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "∃!x P(x) means “Exactly one x satisfies P.” It combines existence with uniqueness. Over the reals, ∃x (x² = 9) is true but ∃!x (x² = 9) is false: both 3 and −3 work. Over the positive reals, the unique solution is 3."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If exactly two devices are charged, is “Some device is charged” true?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. In this logic, “some” means at least one; it does not mean exactly one, and it does not mean some but not all. The separate claim “Exactly one device is charged” would be false."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.3, printed pages 45–46."
+        }
+      ]
+    },
+    {
+      "id": "finite-quantifiers",
+      "title": "6. Evaluate finite quantifiers as AND and OR",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a finite domain, we can list every case. Let D = {−2, 0, 3} and let P(x) mean x² ≥ 4. Here D is simply a name for the collection; the braces list its elements."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "x",
+            "x²",
+            "P(x): x² ≥ 4"
+          ],
+          "rows": [
+            [
+              "−2",
+              "4",
+              "T"
+            ],
+            [
+              "0",
+              "0",
+              "F"
+            ],
+            [
+              "3",
+              "9",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "∀x P(x) ≡ P(−2) ∧ P(0) ∧ P(3) = F\n∃x P(x) ≡ P(−2) ∨ P(0) ∨ P(3) = T",
+          "description": "Over D, the universal statement is the AND of the three test results, while the existential statement is their OR."
+        },
+        {
+          "type": "paragraph",
+          "text": "To evaluate “every,” search for a failure and stop as soon as you find one. To evaluate “some,” search for a success and stop as soon as you find one. Only an exhausted finite search justifies “there were no failures” or “there were no successes.” An infinite domain cannot be exhausted by an ordinary finite loop."
+        },
+        {
+          "type": "callout",
+          "title": "What if the domain has no elements?",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The empty-domain universal statement is true: there is no counterexample. The empty-domain existential statement is false: there is no witness. This is called vacuous truth for the universal case. The textbook generally assumes nonempty domains unless stated otherwise. In particular, ∀x P(x) implies ∃x P(x) only when the domain is nonempty."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "An empty folder contains no files. Is “Every file in it is encrypted” true? Does that show an encrypted file exists?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The universal statement is vacuously true. The existence claim is false. Nothing in the empty folder witnesses it."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.3–§1.4.4, printed pages 44, 46–47."
+        }
+      ]
+    },
+    {
+      "id": "restricted-domains",
+      "title": "7. Use implication for all and conjunction for some",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose the domain is all people in a small model. S(x) means x is a student and L(x) means x has a library card. “Every student has a library card” talks only about the students, even though the domain also includes nonstudents."
+        },
+        {
+          "type": "math",
+          "notation": "∀x (S(x) → L(x))\n∃x (S(x) ∧ L(x))",
+          "description": "Every student has a library card. Some student has a library card."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Person",
+            "S",
+            "L",
+            "S → L",
+            "S ∧ L"
+          ],
+          "rows": [
+            [
+              "Ada",
+              "T",
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "Bo",
+              "T",
+              "F",
+              "F",
+              "F"
+            ],
+            [
+              "Cy",
+              "F",
+              "F",
+              "T",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For the universal statement, a nonstudent is not a violation: the implication is true when S is false. Bo is a counterexample because Bo is a student without a card. For the existential statement, one person must satisfy both requirements; Ada is a witness."
+        },
+        {
+          "type": "callout",
+          "title": "Two tempting but incorrect translations",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "∀x (S(x) ∧ L(x)) says everybody is a student with a card. ∃x (S(x) → L(x)) can be satisfied by a nonstudent, so it does not establish a student with a card. These mistakes change the meaning, even when a particular model happens to make the right and wrong formulas agree."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Restricted notation is shorthand: ∀x>0 P(x) means ∀x (x > 0 → P(x)); ∃x>0 P(x) means ∃x (x > 0 ∧ P(x)), using the same ambient numeric domain. State that domain and make sure the predicate is meaningful there."
+        },
+        {
+          "type": "check",
+          "prompt": "Suppose Cy is the only person in the domain and is not a student. Compare ∃x(S(x) → L(x)) with ∃x(S(x) ∧ L(x)).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The implication version is true because S(Cy) is false. The conjunction version is false because no student exists. That one-person model demonstrates why the implication version is the wrong existence translation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.5 and §1.4.10, printed pages 48, 51–53."
+        }
+      ]
+    },
+    {
+      "id": "scope-and-binding",
+      "title": "8. Draw the boundary of each quantifier",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Scope, bound occurrences, and free occurrences",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The scope of a quantifier is the expression it governs. An occurrence of a variable is bound if an enclosing quantifier binds that variable. Otherwise it is free. The same letter can have a bound occurrence in one part of a formula and a free occurrence elsewhere."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Bound occurrences",
+            "Still free"
+          ],
+          "rows": [
+            [
+              "∃x (x + y = 6)",
+              "x inside the parentheses",
+              "y"
+            ],
+            [
+              "(∀x P(x)) ∨ Q(x)",
+              "x inside P(x)",
+              "x inside Q(x)"
+            ],
+            [
+              "∀x (P(x) ∨ Q(x))",
+              "Both occurrences of x",
+              "None"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Under the book’s precedence convention, ∀x P(x) ∨ Q(x) means (∀x P(x)) ∨ Q(x). It does not automatically place Q(x) in the quantifier’s scope. This companion uses parentheses to make that boundary visible."
+        },
+        {
+          "type": "diagram",
+          "title": "A quantifier binds only inside its scope",
+          "src": "assets/quantifier-scope.svg",
+          "description": "In (for all x P(x)) or Q(x), the quantifier binds x inside P, while x in Q is free. In for all x (P(x) or Q(x)), the same quantifier binds both occurrences."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bound variable names can be changed consistently to a fresh name: ∃x (x + y = 6) can become ∃z (z + y = 6). Renaming x to y would instead capture the previously free y, producing a different statement. Keep free variables free."
+        },
+        {
+          "type": "check",
+          "prompt": "In ∀x (R(x, y) → ∃z S(y, z)), which variable remains free?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "y remains free in both R and S. x is bound by ∀x and z by ∃z. The formula needs a value or an enclosing quantifier for y before it is a closed proposition."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.6–§1.4.7, printed pages 48–49."
+        }
+      ]
+    },
+    {
+      "id": "quantified-equivalences",
+      "title": "9. Check whether the same objects must satisfy both parts",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Logical equivalence means matching truth values for every allowed interpretation, with corresponding domains kept the same. A single matching example is not enough. Two useful laws follow directly from what “every” and “some” mean."
+        },
+        {
+          "type": "math",
+          "notation": "∀x (P(x) ∧ Q(x)) ≡ (∀x P(x)) ∧ (∀x Q(x))\n∃x (P(x) ∨ Q(x)) ≡ (∃x P(x)) ∨ (∃x Q(x))",
+          "description": "Universal quantification distributes over AND; existential quantification distributes over OR."
+        },
+        {
+          "type": "paragraph",
+          "text": "For the first law, if everyone satisfies both tests, everyone satisfies each test separately. Conversely, if everyone passes P and everyone passes Q, each individual passes both. For the second law, a witness for P or Q is a witness for at least one of the two tests, and either such witness also satisfies their OR."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Object",
+            "P",
+            "Q",
+            "P ∨ Q",
+            "P ∧ Q"
+          ],
+          "rows": [
+            [
+              "a",
+              "T",
+              "F",
+              "T",
+              "F"
+            ],
+            [
+              "b",
+              "F",
+              "T",
+              "T",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In this two-object model, ∀x(P(x) ∨ Q(x)) is true, but (∀x P(x)) ∨ (∀x Q(x)) is false. Also, (∃x P(x)) ∧ (∃x Q(x)) is true, but ∃x(P(x) ∧ Q(x)) is false. The two existential witnesses may be different objects; combining them into one witness is an unjustified extra requirement."
+        },
+        {
+          "type": "check",
+          "prompt": "A club has one pianist who cannot swim and one swimmer who cannot play piano. Does “Someone plays piano and someone swims” imply “Someone does both”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The premises have separate witnesses; neither person satisfies both predicates. This is the second failed distribution above."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.8, printed pages 49."
+        }
+      ]
+    },
+    {
+      "id": "negating-quantifiers",
+      "title": "10. Turn not every into one counterexample",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "¬∀x P(x) ≡ ∃x ¬P(x)\n¬∃x P(x) ≡ ∀x ¬P(x)",
+          "description": "Not everyone passes means someone fails. No one passes means everyone fails."
+        },
+        {
+          "type": "paragraph",
+          "text": "These are De Morgan’s laws for quantifiers. To deny a universal promise, find an exception. To deny existence, rule out every possible witness. The negation flips the quantifier and negates the entire expression it governed."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Formula",
+            "Plain meaning"
+          ],
+          "rows": [
+            [
+              "∀x P(x)",
+              "Every object passes."
+            ],
+            [
+              "∃x P(x)",
+              "At least one object passes."
+            ],
+            [
+              "∃x ¬P(x)",
+              "At least one object fails; not every object passes."
+            ],
+            [
+              "∀x ¬P(x)",
+              "Every object fails; no object passes."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Not all is weaker than none",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If two of three devices are charged and one is not, “Not every device is charged” is true. “No device is charged” is false. One exception defeats “every,” but it does not show everybody fails."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Over the real numbers, the negation of ∀x (x² > 4) is ∃x (x² ≤ 4). Negate the inequality too: “not greater than” means “less than or equal to,” not merely “less than.” The value x = 2 belongs on the equality boundary."
+        },
+        {
+          "type": "check",
+          "prompt": "Negate “There is a file whose size is greater than 20 MB.”",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Every file has size at most 20 MB. If Size(f) is its size, ¬∃f(Size(f) > 20) ≡ ∀f(Size(f) ≤ 20). An empty file collection also satisfies this negation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.9, printed pages 49–51."
+        }
+      ]
+    },
+    {
+      "id": "negating-universal-rules",
+      "title": "11. Find the exact way an all-if-then rule can fail",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let S(x) mean “x is a student” and L(x) mean “x has a library card,” with all people as the domain. Negate “Every student has a card” one step at a time."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "¬∀x (S(x) → L(x))",
+              "Start by negating the whole assertion."
+            ],
+            [
+              "∃x ¬(S(x) → L(x))",
+              "Move NOT through ∀, turning it into ∃."
+            ],
+            [
+              "∃x (S(x) ∧ ¬L(x))",
+              "An implication fails exactly when its condition is true and its conclusion is false."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The result says “Some student lacks a library card.” It does not say “Every student lacks a card,” and it does not say “Some nonstudent has a card.” The failure must satisfy the rule’s eligibility condition."
+        },
+        {
+          "type": "example",
+          "title": "A numeric boundary",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Over the reals, negate ∀x (x > 2 → x² > 10). The result is ∃x (x > 2 ∧ x² ≤ 10). The value x = 3 witnesses the negation: 3 > 2 and 9 ≤ 10. A value such as x = 0 is irrelevant because it does not meet x > 2."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Negate “Every submitted form is signed,” using Submitted(f) and Signed(f).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "∃f (Submitted(f) ∧ ¬Signed(f)). We need a submitted form that is unsigned. A form that was never submitted does not violate the rule."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.9, printed pages 51."
+        }
+      ]
+    },
+    {
+      "id": "english-with-one-quantifier",
+      "title": "12. Translate the domain before choosing the connective",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use this routine: identify the objects being discussed, declare their domain, define the predicates, choose the quantifier, and read the result back into ordinary English. Let T(x) mean “x is trained” and E(x) mean “x may enter the lab,” with all people as the domain."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "English",
+            "Translation"
+          ],
+          "rows": [
+            [
+              "Every trained person may enter.",
+              "∀x (T(x) → E(x))"
+            ],
+            [
+              "Some trained person may enter.",
+              "∃x (T(x) ∧ E(x))"
+            ],
+            [
+              "No trained person may enter.",
+              "∀x (T(x) → ¬E(x))"
+            ],
+            [
+              "Not every trained person may enter.",
+              "∃x (T(x) ∧ ¬E(x))"
+            ],
+            [
+              "Only trained people may enter.",
+              "∀x (E(x) → T(x))"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "“Only trained people may enter” makes training necessary for entry. It does not promise that every trained person may enter. That is why its arrow points in the reverse direction from the first row."
+        },
+        {
+          "type": "example",
+          "title": "Change the domain, then simplify",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If the domain already consists only of trained people, “Every trained person may enter” becomes ∀x E(x). If the domain is all people, retain T(x) → E(x). A shorter formula is useful only when its domain still captures the intended statement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Use precise wording where English is ambiguous. “All people are not trained” can be read as “none are trained” or “not everyone is trained.” Write the intended meaning explicitly. Unless stated otherwise, “or” is inclusive: satisfying both alternatives is allowed."
+        },
+        {
+          "type": "check",
+          "prompt": "Translate “Some trained person may not enter.” Does it say no trained person may enter?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "∃x (T(x) ∧ ¬E(x)). It reports at least one excluded trained person. Other trained people might be allowed to enter."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.10, printed pages 51–53."
+        }
+      ]
+    },
+    {
+      "id": "quantified-specifications",
+      "title": "13. Write requirements that say exactly what is promised",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Predicates make software requirements precise. Fix one system snapshot. Let Large(f) mean a file exceeds a chosen size threshold and Compressed(f) mean the file is compressed, with files as the domain."
+        },
+        {
+          "type": "math",
+          "notation": "∀f (Large(f) → Compressed(f))",
+          "description": "Every file above the threshold is compressed."
+        },
+        {
+          "type": "paragraph",
+          "text": "This rule allows small files to be compressed too. It does not say that every file is large, or that compressed files must be large. To detect a violation, search for a large file that is not compressed."
+        },
+        {
+          "type": "paragraph",
+          "text": "Now let Active(u) describe users and Available(l) describe links. Interpret “If any user is active, some link is available” as a global availability rule:"
+        },
+        {
+          "type": "math",
+          "notation": "(∃u Active(u)) → (∃l Available(l))",
+          "description": "If at least one active user exists, at least one available link exists."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "An active user exists",
+            "An available link exists",
+            "Requirement holds"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "T",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "T"
+            ],
+            [
+              "F",
+              "F",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Do not add an unstated guarantee",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "This formula does not say that each active user can access a suitable link. That stronger requirement needs a relationship between a user and a link, with nested quantifiers as developed in Section 1.5. Nor does a snapshot formula by itself express “eventually”; time would need to be modeled."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "There are no active users and no available links. Does the global implication fail?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Its antecedent is false, so the implication is true. If the design also requires a link to exist even when nobody is active, state ∃l Available(l) as an additional requirement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.11, printed pages 53."
+        }
+      ]
+    },
+    {
+      "id": "quantified-arguments",
+      "title": "14. Keep the same witness through a short argument",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The textbook uses Lewis Carroll’s logic puzzles to show how ordinary sentences become quantified premises and conclusions. Here is an original example. The domain is all devices. R(x) means robot, C(x) means rechargeable, and W(x) means waterproof."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Role",
+            "English",
+            "Formula"
+          ],
+          "rows": [
+            [
+              "Premise 1",
+              "Every robot is rechargeable.",
+              "∀x (R(x) → C(x))"
+            ],
+            [
+              "Premise 2",
+              "Some robot is not waterproof.",
+              "∃x (R(x) ∧ ¬W(x))"
+            ],
+            [
+              "Conclusion",
+              "Some rechargeable device is not waterproof.",
+              "∃x (C(x) ∧ ¬W(x))"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Follow the particular object",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Step 1: the second premise supplies a robot, call it d, that is not waterproof. Step 2: the first premise applies to that same d, so d is rechargeable. Step 3: d is now a witness for the conclusion. We did not invent a second device or silently change witnesses."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A universal rule alone does not establish that robots exist. If there are no robots, “Every robot is rechargeable” is vacuously true. The existence premise is what supplies d. Section 1.6 will formalize these reasoning steps."
+        },
+        {
+          "type": "check",
+          "prompt": "May we conclude that every rechargeable device is a robot?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The first premise gives R → C, not C → R. A rechargeable flashlight that is not a robot is compatible with both premises."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.12, printed pages 54–55."
+        }
+      ]
+    },
+    {
+      "id": "logic-programming",
+      "title": "15. Read facts and rules as a small knowledge base",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Logic programming describes facts and rules, then asks queries. In this small Prolog-style example, a mentor leads a workshop and a learner attends it. Facts use lowercase names for particular objects; uppercase names stand for variables."
+        },
+        {
+          "type": "math",
+          "notation": "leads(lee, logic).\nleads(omar, coding).\nattends(ava, logic).\nattends(ava, coding).\nattends(ben, logic).\n\nmentors(M, S) :- leads(M, W), attends(S, W).",
+          "description": "Two workshop leaders, three attendance facts, and a rule: M mentors S if some workshop W is both led by M and attended by S."
+        },
+        {
+          "type": "paragraph",
+          "text": "Read the rule right to left: if leads(M, W) and attends(S, W) can both be satisfied with the same workshop W, infer mentors(M, S). The comma joins the two requirements with AND; :- introduces the rule’s condition. The rule is an implication, not an assertion that no other mentoring relationships could exist in a larger model."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Query",
+            "Answers in this finite knowledge base"
+          ],
+          "rows": [
+            [
+              "?- attends(S, logic).",
+              "S = ava; S = ben"
+            ],
+            [
+              "?- mentors(M, ava).",
+              "M = lee; M = omar"
+            ],
+            [
+              "?- mentors(omar, ben).",
+              "No derivation succeeds from these facts and this rule."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A failed query says that this program could not establish the claim. It is not automatically a proof that the corresponding real-world relationship is impossible. Treat the example as a small specified knowledge base, not as a complete account of a real school."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can we not combine leads(omar, coding) with attends(ben, logic) to derive mentors(omar, ben)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The rule uses the same variable W in both places. coding and logic are different workshop names, so these two facts cannot satisfy that shared requirement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4.13, printed pages 55–56."
+        }
+      ]
+    },
+    {
+      "id": "predicates-recap",
+      "title": "16. Check the domain, scope, and witness before deciding",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Question to ask",
+            "What it prevents"
+          ],
+          "rows": [
+            [
+              "What is the domain?",
+              "Using an inadmissible witness or counterexample."
+            ],
+            [
+              "What does each argument position mean?",
+              "Reversing a relationship."
+            ],
+            [
+              "Which occurrences are free?",
+              "Treating an open formula as a closed proposition."
+            ],
+            [
+              "Does “some” need one object with both properties?",
+              "Combining different witnesses without justification."
+            ],
+            [
+              "What is the actual negation?",
+              "Confusing not all with none."
+            ],
+            [
+              "Did a universal rule supply existence?",
+              "Assuming an object exists merely because a rule describes it."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Put the pieces together",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Domain: people. V(x) means volunteer and B(x) means badge holder. “Every volunteer has a badge” is ∀x(V(x) → B(x)). Its negation is ∃x(V(x) ∧ ¬B(x)). In a model containing one volunteer without a badge and two nonvolunteers, the original is false and its negation is true. The nonvolunteers do not repair the volunteer’s failure."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Translate and negate “Some volunteer has a badge.”",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Original: ∃x(V(x) ∧ B(x)). Negation: ∀x¬(V(x) ∧ B(x)), equivalently ∀x(V(x) → ¬B(x)). In words, no volunteer has a badge."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The next section introduces relationships where different variables each have their own quantifier. Keep this question ready: must one witness work for everyone, or may the witness depend on the person being considered?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.4, printed pages 40–56."
+        }
+      ]
+    }
+  ]
+}
