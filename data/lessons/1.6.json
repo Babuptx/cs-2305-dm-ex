@@ -1,0 +1,1104 @@
+{
+  "schemaVersion": 1,
+  "id": "1.6",
+  "title": "Rules of Inference",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.6.1–§1.6.8, printed pages 73–82 (exposition).",
+    "Original companion explanations, worked examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "argument-meaning",
+      "title": "1. Ask whether the conclusion must follow",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A valid argument cannot start with all true premises and end with a false conclusion. Rules of inference are small, reliable patterns for moving from statements you have to statements that must follow."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A premise is a statement supplied as a starting point. The conclusion is what the argument claims follows. The symbol ∴ means “therefore.” Here p and q stand for complete propositions, each of which is true or false."
+        },
+        {
+          "type": "example",
+          "title": "A fictional workshop rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose every reserved seat has a name card, and this seat is reserved. Then this seat has a name card. With p = “This seat is reserved” and q = “This seat has a name card,” the premises are p → q and p, and the conclusion is q."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "What it checks"
+          ],
+          "rows": [
+            [
+              "Is the argument valid?",
+              "Could all its premises be true while its conclusion is false? If no, it is valid."
+            ],
+            [
+              "Are the premises actually true?",
+              "Whether the starting statements hold in the situation being discussed."
+            ],
+            [
+              "Is it sound?",
+              "A sound argument is valid and has true premises, so its conclusion is true."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Validity checks the logical connection, not the accuracy of the starting information. An invalid argument can happen to end with a true conclusion; that does not repair its reasoning."
+        },
+        {
+          "type": "check",
+          "prompt": "Consider: “If 4 is odd, then 8 is odd. 4 is odd. Therefore 8 is odd.” Is its form valid?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. It has the same valid pattern p → q, p, therefore q. But the premise “4 is odd” is false, and so is the conclusion. This argument is not sound. A valid rule preserves truth when all premises are true; it does not make false premises true."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.1–§1.6.2, printed pages 73–74."
+        }
+      ]
+    },
+    {
+      "id": "truth-table-validity",
+      "title": "2. Look for the one kind of row that would break an argument",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For premises p → q and p, examine only rows where both premises are true. A counterexample to validity must make every premise true and the conclusion false in the same row."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p",
+            "q",
+            "p → q",
+            "Both premises true?",
+            "Conclusion q"
+          ],
+          "rows": [
+            [
+              "T",
+              "T",
+              "T",
+              "T",
+              "T"
+            ],
+            [
+              "T",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "T",
+              "F",
+              "T"
+            ],
+            [
+              "F",
+              "F",
+              "T",
+              "F",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Only the first row has both premises true, and q is true there. The second and fourth rows have a false conclusion, but neither is a counterexample: at least one premise fails."
+        },
+        {
+          "type": "math",
+          "notation": "((p → q) ∧ p) → q",
+          "description": "This conditional is a tautology: it is true for every assignment of truth values."
+        },
+        {
+          "type": "paragraph",
+          "text": "In general, join all premises with AND and make that conjunction imply the conclusion. The argument form is valid exactly when the resulting conditional is a tautology. A table with k variables has 2ᵏ rows; reusable rules save us from rebuilding large tables."
+        },
+        {
+          "type": "check",
+          "prompt": "If the premises are p and ¬p, can a truth-table row make both true? What does that mean for validity?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No row satisfies both premises. In classical logic, these inconsistent premises validly imply any conclusion, because no row has all premises true and the conclusion false. This gives no sound argument: the premises cannot all be true."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.2–§1.6.3, printed pages 74–75."
+        }
+      ]
+    },
+    {
+      "id": "modus-rules",
+      "title": "3. Use a conditional in the two justified ways",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Rule",
+            "Premises",
+            "Conclusion",
+            "Plain meaning"
+          ],
+          "rows": [
+            [
+              "Modus ponens",
+              "p → q; p",
+              "q",
+              "The condition is met, so its promised consequence holds."
+            ],
+            [
+              "Modus tollens",
+              "p → q; ¬q",
+              "¬p",
+              "The consequence failed, so the condition could not have held."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "An indicator in a simplified model",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Assume “If the charger is connected, the indicator is lit.” If the charger is connected, infer that the indicator is lit by modus ponens. If the indicator is not lit, infer that the charger is not connected by modus tollens. The deductions rely on that model premise being true."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Modus tollens uses the contrapositive ¬q → ¬p. It does not run the original arrow backward as q → p. The rule also works when p or q is itself compound: treat the entire expression as one matching piece."
+        },
+        {
+          "type": "check",
+          "prompt": "From (a ∧ b) → c and ¬c, what follows?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "¬(a ∧ b) follows by modus tollens. By De Morgan’s law this is ¬a ∨ ¬b. You cannot conclude that both a and b are false."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.3, printed pages 75–76."
+        }
+      ]
+    },
+    {
+      "id": "chains-and-alternatives",
+      "title": "4. Connect arrows and eliminate an alternative",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "((p → q) ∧ (q → r)) → (p → r)",
+          "description": "Hypothetical syllogism chains two implications through the same middle statement."
+        },
+        {
+          "type": "example",
+          "title": "A chain of workshop guarantees",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If a badge is verified, admission is allowed. If admission is allowed, a seat is assigned. Therefore, if a badge is verified, a seat is assigned. This proves a conditional; it does not establish that any badge has actually been verified."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "((p ∨ q) ∧ ¬p) → q",
+          "description": "Disjunctive syllogism removes a false alternative from an inclusive OR."
+        },
+        {
+          "type": "example",
+          "title": "Two possible storage locations",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a backup is on the laptop or the server, and it is not on the laptop. Then it is on the server. The OR allows both locations, but the second premise rules out the laptop."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "From p ∨ q and p, can you infer ¬q?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Inclusive OR permits p and q both to be true. To exclude q after establishing p, you would need an additional “not both” condition, such as an exclusive OR."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.3, printed pages 76–77."
+        }
+      ]
+    },
+    {
+      "id": "combine-and-weaken",
+      "title": "5. Keep AND and OR operations separate",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Rule",
+            "Start with",
+            "You may infer"
+          ],
+          "rows": [
+            [
+              "Simplification",
+              "p ∧ q",
+              "p (or q)"
+            ],
+            [
+              "Conjunction",
+              "p; q",
+              "p ∧ q"
+            ],
+            [
+              "Addition",
+              "p",
+              "p ∨ q"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Simplification extracts something already guaranteed by AND. Conjunction combines two established statements. Addition makes a weaker claim: if p is true, then at least one of p and q is true regardless of q."
+        },
+        {
+          "type": "example",
+          "title": "What addition does not prove",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "From “The file is encrypted,” you may infer “The file is encrypted or compressed.” You have not proved that the file is compressed. The new OR statement simply retains the already true alternative."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A learner extracts p from p ∨ q and calls it simplification. Find a counterexample.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Take p = F and q = T. The premise p ∨ q is true, while the proposed conclusion p is false. Simplification applies to AND, not OR."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.3, printed pages 75–76."
+        }
+      ]
+    },
+    {
+      "id": "inference-reference",
+      "title": "6. Read the complete propositional rule toolkit",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A semicolon in the premises column separates statements that must all be available. Each letter may stand for a compound proposition, but its replacement must stay consistent throughout the rule."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Rule",
+            "Premises",
+            "Conclusion"
+          ],
+          "rows": [
+            [
+              "Modus ponens",
+              "p; p → q",
+              "q"
+            ],
+            [
+              "Modus tollens",
+              "¬q; p → q",
+              "¬p"
+            ],
+            [
+              "Hypothetical syllogism",
+              "p → q; q → r",
+              "p → r"
+            ],
+            [
+              "Disjunctive syllogism",
+              "p ∨ q; ¬p",
+              "q"
+            ],
+            [
+              "Addition",
+              "p",
+              "p ∨ q"
+            ],
+            [
+              "Simplification",
+              "p ∧ q",
+              "p"
+            ],
+            [
+              "Conjunction",
+              "p; q",
+              "p ∧ q"
+            ],
+            [
+              "Resolution",
+              "p ∨ q; ¬p ∨ r",
+              "q ∨ r"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Equivalence laws from Section 1.3 can rewrite a statement without changing its truth value. Inference rules justify drawing a conclusion from premises. Keep the role of each step visible: “rewrite using De Morgan” and “infer by modus ponens” give different reasons."
+        },
+        {
+          "type": "check",
+          "prompt": "If p is replaced by a ∨ b in modus ponens, what must the matching premise look like?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "You need a ∨ b and (a ∨ b) → q. Knowing only a → q does not match that rule with p = a ∨ b."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.3, printed page 76, Table 1."
+        }
+      ]
+    },
+    {
+      "id": "annotated-argument",
+      "title": "7. Build an argument one justified line at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In a fictional repair process, p means “the repair is remote,” q means “the repair is onsite,” r means “a technician is assigned,” s means “a part is ready,” and t means “work can begin.” Premises: the repair is remote or onsite; it is not remote; onsite repair implies an assigned technician; an assigned technician together with a ready part permits work; and a part is ready."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Line",
+            "Statement",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "1",
+              "p ∨ q",
+              "Premise"
+            ],
+            [
+              "2",
+              "¬p",
+              "Premise"
+            ],
+            [
+              "3",
+              "q",
+              "Disjunctive syllogism, 1 and 2"
+            ],
+            [
+              "4",
+              "q → r",
+              "Premise"
+            ],
+            [
+              "5",
+              "r",
+              "Modus ponens, 3 and 4"
+            ],
+            [
+              "6",
+              "s",
+              "Premise"
+            ],
+            [
+              "7",
+              "r ∧ s",
+              "Conjunction, 5 and 6"
+            ],
+            [
+              "8",
+              "(r ∧ s) → t",
+              "Premise"
+            ],
+            [
+              "9",
+              "t",
+              "Modus ponens, 7 and 8"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Trace which statements support the conclusion",
+          "src": "assets/inference-dependencies.svg",
+          "description": "The first two premises give q. Together with q → r this gives r. Combine r with s, then apply (r ∧ s) → t to obtain t. Each arrow represents a justified dependency."
+        },
+        {
+          "type": "paragraph",
+          "text": "At each line, use only premises or earlier established lines. The conclusion t is the target; it cannot be borrowed as a starting fact. Writing line numbers makes missing support easier to see."
+        },
+        {
+          "type": "check",
+          "prompt": "If the premise s is removed, must t still follow?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Set p = F, q = T, r = T, s = F, and t = F. Every remaining premise is true, including (r ∧ s) → t because its hypothesis is false. The conclusion is false. This is a counterexample to the shortened argument."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.4, printed pages 77–78."
+        }
+      ]
+    },
+    {
+      "id": "resolution-clauses",
+      "title": "8. Resolve complementary alternatives",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A literal is a variable or its negation, such as p or ¬p. A clause is an OR of literals. Resolution combines two clauses containing complementary literals, one p and one ¬p, and keeps the remaining alternatives."
+        },
+        {
+          "type": "math",
+          "notation": "((p ∨ q) ∧ (¬p ∨ r)) → (q ∨ r)",
+          "description": "The conclusion q ∨ r is the resolvent."
+        },
+        {
+          "type": "paragraph",
+          "text": "Why is this safe? If p is false, the first clause forces q. If p is true, the second clause forces r. Either way, q ∨ r holds. Resolution does not assert which alternative holds, nor does it allow arbitrary cancellation inside AND expressions."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Statement",
+            "Equivalent clause form"
+          ],
+          "rows": [
+            [
+              "p → q",
+              "¬p ∨ q"
+            ],
+            [
+              "p ∨ (q ∧ r)",
+              "(p ∨ q) ∧ (p ∨ r)"
+            ],
+            [
+              "¬(p ∨ q)",
+              "¬p ∧ ¬q"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Line",
+            "Clause or conclusion",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "1",
+              "p ∨ q",
+              "Premise"
+            ],
+            [
+              "2",
+              "¬p ∨ r",
+              "Premise"
+            ],
+            [
+              "3",
+              "¬q ∨ r",
+              "Premise"
+            ],
+            [
+              "4",
+              "q ∨ r",
+              "Resolution, 1 and 2, on p"
+            ],
+            [
+              "5",
+              "r ∨ r",
+              "Resolution, 4 and 3, on q"
+            ],
+            [
+              "6",
+              "r",
+              "Idempotent law, 5"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Each conjunct in a clause form is a separate requirement. This way of organizing statements helps automated reasoning systems apply the same small rule repeatedly."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does resolving p ∨ q with ¬p ∨ q give q rather than two different facts?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The resolvent is q ∨ q, which is equivalent to q. Repeating an alternative in OR does not change its truth value."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.5, printed page 78."
+        }
+      ]
+    },
+    {
+      "id": "conditional-fallacies",
+      "title": "9. Diagnose arguments that reverse the guarantee",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Invalid pattern",
+            "Premises",
+            "Proposed conclusion",
+            "Counterexample"
+          ],
+          "rows": [
+            [
+              "Affirming the conclusion",
+              "p → q; q",
+              "p",
+              "p = F, q = T"
+            ],
+            [
+              "Denying the hypothesis",
+              "p → q; ¬p",
+              "¬q",
+              "p = F, q = T"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "One sufficient reason is not the only reason",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Assume “If a parcel is express, it has tracking.” A tracked parcel need not be express; standard parcels might also have tracking. Likewise, a non-express parcel need not lack tracking. The premise guarantees tracking for express parcels without excluding other routes to tracking."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A counterexample must preserve every premise. In both patterns above, p → q is true, and the extra premise is true, yet the proposed conclusion is false. This proves the patterns invalid; merely saying “the conclusion feels wrong” would not."
+        },
+        {
+          "type": "check",
+          "prompt": "Can a biconditional repair these two particular deductions?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. If p ↔ q is given, it supplies both p → q and q → p. Then q gives p by modus ponens, and ¬p gives ¬q by modus tollens applied to q → p. The extra reverse implication is essential."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.6, printed page 79."
+        }
+      ]
+    },
+    {
+      "id": "universal-instantiation",
+      "title": "10. Apply a general rule to a named object",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Universal instantiation takes ∀x P(x) and concludes P(a), where a denotes an object in the stated domain. It substitutes the same object at every free occurrence of x in P."
+        },
+        {
+          "type": "paragraph",
+          "text": "Let the domain be devices in a particular lab. Let A(x) mean “x is approved” and L(x) mean “x is listed.” The lab rule says all approved devices are listed."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Line",
+            "Statement",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "1",
+              "∀x (A(x) → L(x))",
+              "Premise"
+            ],
+            [
+              "2",
+              "A(d)",
+              "Premise; d is a lab device"
+            ],
+            [
+              "3",
+              "A(d) → L(d)",
+              "Universal instantiation, 1"
+            ],
+            [
+              "4",
+              "L(d)",
+              "Modus ponens, 2 and 3"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The combined move is called universal modus ponens. With ¬L(d) instead of A(d), universal instantiation followed by modus tollens gives ¬A(d); this is universal modus tollens."
+        },
+        {
+          "type": "check",
+          "prompt": "Does the lab rule alone show that every lab device is listed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It says A(d) → L(d) for each device, not L(d) by itself. A device might be neither approved nor listed. Also, a rule restricted to lab devices cannot automatically be applied to a device outside the lab."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.7–§1.6.8, printed pages 79–82."
+        }
+      ]
+    },
+    {
+      "id": "arbitrary-generalization",
+      "title": "11. Prove a fact about an arbitrary object",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Universal generalization concludes ∀x P(x) after P(c) has been established for an arbitrary c in the domain. “Arbitrary” means the proof did not rely on a special property that distinguishes c from the other objects."
+        },
+        {
+          "type": "example",
+          "title": "A legitimate generalization",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Choose an arbitrary integer c. Since 2c is twice the integer c, it is even. No step required c to be positive, small, or even. Therefore 2x is even for every integer x."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "An illegitimate shortcut",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The integer 6 is even. It does not follow that every integer is even. The calculation used a specific value; the argument did not work for an arbitrary integer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In a formal proof, the arbitrary name must not occur in an undischarged assumption that singles it out. If you temporarily assume A(c), prove B(c), and close that assumption, you can establish A(c) → B(c) for arbitrary c. You cannot simply erase the assumption and generalize B(c) alone."
+        },
+        {
+          "type": "check",
+          "prompt": "After choosing an arbitrary integer c and then assuming c > 0, you prove c + 1 > 1. What may you generalize?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "You may conclude ∀x (x > 0 → x + 1 > 1). You may not conclude ∀x (x + 1 > 1), because the proof depended on positivity. The counterexample x = 0 defeats that stronger statement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.7, printed pages 79–80."
+        }
+      ]
+    },
+    {
+      "id": "existential-witnesses",
+      "title": "12. Name an existing witness without inventing its identity",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Rule",
+            "Starting point",
+            "Permitted move"
+          ],
+          "rows": [
+            [
+              "Existential instantiation",
+              "∃x P(x)",
+              "Introduce a fresh name c for some witness with P(c)."
+            ],
+            [
+              "Existential generalization",
+              "P(c), for an object c in the domain",
+              "Conclude ∃x P(x)."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A fresh name has not already been assigned to a particular object in the argument. From “Some ticket won,” you can say “Let w be a winning ticket.” You cannot decide that ticket 17 won. The witness is specific but may be unknown; it is not an arbitrary object."
+        },
+        {
+          "type": "paragraph",
+          "text": "Keep that witness inside its reasoning scope. A conclusion drawn from an existential witness must not depend on its newly chosen name or an extra property you assigned to it. Typically you finish by making an existential claim, or another statement that no longer mentions the fresh name."
+        },
+        {
+          "type": "example",
+          "title": "Two existence claims may have different witnesses",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose ∃x Red(x) and ∃x Blue(x). Name a red witness a and a blue witness b separately. These objects might coincide, but the premises do not guarantee that they do. You cannot simply write Red(a) ∧ Blue(a)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "An integer solution of x + 4 = 11 is x = 7. Which existence statement follows?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "∃x (x + 4 = 11), with x ranging over integers. The checked witness 7 justifies existence. It does not by itself justify “every integer solves the equation.”"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.7, printed page 80."
+        }
+      ]
+    },
+    {
+      "id": "combined-witness-proof",
+      "title": "13. Carry the same witness through a quantified argument",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let the domain be files in one archive. D(x) means “x is a document,” C(x) means “x is cached,” and B(x) means “x is backed up.” Suppose some document is cached, and every document is backed up. Show that some backed-up file is cached."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Line",
+            "Statement",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "1",
+              "∃x (D(x) ∧ C(x))",
+              "Premise"
+            ],
+            [
+              "2",
+              "∀x (D(x) → B(x))",
+              "Premise"
+            ],
+            [
+              "3",
+              "D(w) ∧ C(w)",
+              "Name a fresh witness w for 1"
+            ],
+            [
+              "4",
+              "D(w)",
+              "Simplification, 3"
+            ],
+            [
+              "5",
+              "C(w)",
+              "Simplification, 3"
+            ],
+            [
+              "6",
+              "D(w) → B(w)",
+              "Universal instantiation, 2"
+            ],
+            [
+              "7",
+              "B(w)",
+              "Modus ponens, 4 and 6"
+            ],
+            [
+              "8",
+              "B(w) ∧ C(w)",
+              "Conjunction, 7 and 5"
+            ],
+            [
+              "9",
+              "∃x (B(x) ∧ C(x))",
+              "Existential generalization, 8; discharge witness w"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The document, cached file, and backed-up file in this proof are the same w. That identity is the reason the two properties can be joined. The final conclusion contains no w, so it makes no claim about a preselected named file."
+        },
+        {
+          "type": "check",
+          "prompt": "Replace the first premise by “Some file is cached,” leaving the document backup rule. Must some backed-up file be cached?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. In a two-file archive, let a be cached but not a document and not backed up. Let b be a backed-up document but not cached. Both new premises hold, yet no file is both cached and backed up."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.7, printed pages 80–81."
+        }
+      ]
+    },
+    {
+      "id": "universal-chain",
+      "title": "14. Combine general rules without assuming an object qualifies",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose all certified tools are inspected, and all inspected tools are logged. With one fixed domain of tools, let C, I, and L denote those three properties. We want a conditional for every tool, not a claim that every tool is certified."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Line",
+            "Statement",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "1",
+              "∀x (C(x) → I(x))",
+              "Premise"
+            ],
+            [
+              "2",
+              "∀x (I(x) → L(x))",
+              "Premise"
+            ],
+            [
+              "3",
+              "C(a) → I(a)",
+              "Instantiate 1 at arbitrary tool a"
+            ],
+            [
+              "4",
+              "I(a) → L(a)",
+              "Instantiate 2 at the same a"
+            ],
+            [
+              "5",
+              "C(a) → L(a)",
+              "Hypothetical syllogism, 3 and 4"
+            ],
+            [
+              "6",
+              "∀x (C(x) → L(x))",
+              "Universal generalization; a was arbitrary"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The name a is arbitrary here, unlike the existential witness w in the previous unit. This proof does not establish that any certified tool exists. Over an empty tool domain the universal conclusion is true as well; there is no actual object to instantiate."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you combine “Every student has a mentor” with “Some mentor knows Python” to conclude “Every student has a mentor who knows Python”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The knowledgeable mentor need not be any particular student’s mentor. For example, one student may have only mentor A, who does not know Python, while mentor B knows Python but mentors nobody in the class. The witnesses and relationships must match."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.8, printed pages 81–82."
+        }
+      ]
+    },
+    {
+      "id": "quantifier-fallacies",
+      "title": "15. Test the identity and scope of every witness",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use the two-object domain {a, b}. Let P hold only for a and Q hold only for b. This small model exposes several tempting errors."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Object",
+            "P",
+            "Q"
+          ],
+          "rows": [
+            [
+              "a",
+              "T",
+              "F"
+            ],
+            [
+              "b",
+              "F",
+              "T"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Invalid inference",
+            "Why the model breaks it"
+          ],
+          "rows": [
+            [
+              "∃x P(x); ∃x Q(x) ⇒ ∃x (P(x) ∧ Q(x))",
+              "Each property has a witness, but no object has both."
+            ],
+            [
+              "P(a) ⇒ ∀x P(x)",
+              "P(a) is true but P(b) is false."
+            ],
+            [
+              "∀x (P(x) ∨ Q(x)) ⇒ (∀x P(x)) ∨ (∀x Q(x))",
+              "Every object has one property, but neither property holds for all."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Here ⇒ is being used to display a proposed inference, not to assert its validity. Domain membership, a fresh witness name, and arbitrariness are different requirements. Keeping them separate prevents mistakes that resemble ordinary substitution."
+        },
+        {
+          "type": "check",
+          "prompt": "Does ∀x P(x) always give ∃x P(x)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Only if the domain is nonempty. If it is nonempty, instantiate P at an actual member and then generalize existentially. Over an empty domain the universal statement is true and the existential statement is false."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.7–§1.6.8, printed pages 79–82."
+        }
+      ]
+    },
+    {
+      "id": "inference-recap",
+      "title": "16. Practice choosing a rule and checking its limits",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "A working routine",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Translate the premises and conclusion. Match a rule exactly. Record which earlier lines it uses. For quantifiers, track domain, witness identity, and whether the object is arbitrary. To disprove validity, find one interpretation with all premises true and the conclusion false."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Given p → q, q → r, and ¬r, prove ¬p.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "First chain p → q and q → r to obtain p → r by hypothetical syllogism. Then use ¬r and p → r to infer ¬p by modus tollens. Alternatively, use modus tollens twice to obtain ¬q and then ¬p."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "All checked devices are labeled. Some checked device is portable. Must some labeled device be portable?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Name a fresh witness w that is both checked and portable. Instantiate the universal labeling rule at w; modus ponens gives that w is labeled. Combine labeled and portable for the same w, then existentially generalize."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If you cannot find a proof quickly, have you proved the argument invalid?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Failure to find a proof is not a counterexample. You need either a valid derivation or a model that makes all premises true and the conclusion false. For a finite propositional argument, an exhaustive truth table can settle the question."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Section 1.7 uses these rules inside mathematical proofs. The focus shifts from naming every rule to explaining why a statement holds for every object its hypotheses describe."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.6.1–§1.6.8, printed pages 73–82."
+        }
+      ]
+    }
+  ]
+}

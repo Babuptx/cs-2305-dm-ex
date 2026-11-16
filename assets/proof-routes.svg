@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="435" viewBox="0 0 800 435" role="img" aria-labelledby="title desc">
+<title id="title">Three ways to prove p implies q</title>
+<desc id="desc">Direct proof: assume p, derive q. Contraposition: assume not q, derive not p. Contradiction: assume p and not q, derive an impossibility. The assumptions differ, but all three methods establish the same conditional.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#286653" stroke-width="1.5"/></marker></defs>
+<rect width="800" height="435" rx="14" fill="#f5f8fc"/>
+<g font-family="Segoe UI,Arial,sans-serif" fill="#14334b">
+<text x="28" y="38" font-size="23" font-weight="700">The goal is always p → q</text>
+<g fill="#fff" stroke="#cbd9e5"><rect x="25" y="65" width="750" height="90" rx="10"/><rect x="25" y="170" width="750" height="90" rx="10"/><rect x="25" y="275" width="750" height="90" rx="10"/></g>
+<g font-size="19" font-weight="700"><text x="45" y="99">Direct</text><text x="45" y="204">Contraposition</text><text x="45" y="309">Contradiction</text></g>
+<g font-size="22"><text x="265" y="107">Assume p</text><text x="540" y="107">Establish q</text><text x="265" y="212">Assume ¬q</text><text x="540" y="212">Establish ¬p</text><text x="265" y="317">Assume p ∧ ¬q</text><text x="540" y="317">Impossibility</text></g>
+<g font-size="15" fill="#476177"><text x="265" y="135">Work from the hypothesis.</text><text x="265" y="240">Prove the equivalent reverse-negated conditional.</text><text x="265" y="345">Rule out exactly the case that would make p → q false.</text></g>
+<g stroke="#286653" stroke-width="2" marker-end="url(#arrow)"><path d="M440 100 H515"/><path d="M440 205 H515"/><path d="M440 310 H515"/></g>
+<text x="28" y="401" font-size="17">State the method first, so the reader knows which assumptions are temporary.</text>
+</g></svg>

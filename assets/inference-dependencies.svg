@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+<title id="title">Follow the dependencies of a valid argument</title>
+<desc id="desc">p or q and not p give q. q and q implies r give r. r and s give r and s. That conjunction and the conditional from r and s to t give t.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#286653" stroke-width="1.5"/></marker></defs>
+<rect width="800" height="500" rx="14" fill="#f5f8fc"/>
+<g font-family="Segoe UI,Arial,sans-serif" fill="#14334b">
+<text x="28" y="36" font-size="22" font-weight="700">Every conclusion has visible support</text>
+<g fill="#fff" stroke="#cbd9e5"><rect x="30" y="65" width="170" height="54" rx="9"/><rect x="240" y="65" width="170" height="54" rx="9"/><rect x="135" y="167" width="170" height="54" rx="9"/><rect x="405" y="167" width="170" height="54" rx="9"/><rect x="270" y="269" width="170" height="54" rx="9"/><rect x="590" y="269" width="170" height="54" rx="9"/><rect x="430" y="371" width="170" height="54" rx="9"/></g>
+<g font-size="23" text-anchor="middle"><text x="115" y="99">p ∨ q</text><text x="325" y="99">¬p</text><text x="220" y="202">q</text><text x="490" y="202">q → r</text><text x="355" y="304">r</text><text x="675" y="304">s</text><text x="515" y="406">r ∧ s</text></g>
+<g fill="none" stroke="#286653" stroke-width="2" marker-end="url(#arrow)"><path d="M115 119 L195 164"/><path d="M325 119 L245 164"/><path d="M220 221 L330 266"/><path d="M490 221 L380 266"/><path d="M355 323 L485 368"/><path d="M675 323 L545 368"/></g>
+<g font-size="15" fill="#286653"><text x="345" y="148">Disjunctive syllogism</text><text x="445" y="250">Modus ponens</text><text x="615" y="352">Conjunction</text></g>
+<rect x="30" y="437" width="740" height="43" rx="8" fill="#dcefe8"/>
+<text x="48" y="464" font-size="19">Final step: r ∧ s, together with (r ∧ s) → t, gives t.</text>
+</g></svg>

@@ -1,0 +1,991 @@
+{
+  "schemaVersion": 1,
+  "id": "1.7",
+  "title": "Introduction to Proofs",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §1.7.1–§1.7.9, printed pages 84–95 (exposition).",
+    "Original companion explanations, worked examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "proof-purpose",
+      "title": "1. Turn a convincing example into a justified general claim",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A proof explains why a statement must be true under its stated assumptions. Examples help you discover a pattern, but a proof must account for every case the statement includes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A mathematical proof uses definitions, permitted assumptions, axioms, and previously proved results, linked by valid reasoning. A formal proof spells out each rule. An ordinary written proof may combine routine steps, but each omitted step must still be justifiable."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Term",
+            "Role"
+          ],
+          "rows": [
+            [
+              "Axiom or postulate",
+              "A starting statement accepted in the mathematical system."
+            ],
+            [
+              "Theorem",
+              "A statement established by proof."
+            ],
+            [
+              "Proposition",
+              "Often a smaller theorem; the word also means a true-or-false statement in logic."
+            ],
+            [
+              "Lemma",
+              "A proved result used to help prove another result."
+            ],
+            [
+              "Corollary",
+              "A result that follows readily from an established theorem."
+            ],
+            [
+              "Conjecture",
+              "A proposed claim awaiting proof or disproof."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Evidence suggests a target",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n = 1, 3, and 5, the expression 3n + 5 gives 8, 14, and 20, all even. This suggests that 3n + 5 is even whenever n is odd. Three calculations motivate the claim; they do not cover all odd integers, including negative ones."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does calling a statement a lemma allow you to use it without proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A lemma needs a proof or must already be an established result you are permitted to use. The label describes its role, not a weaker standard of justification."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.1–§1.7.2, printed pages 84–85."
+        }
+      ]
+    },
+    {
+      "id": "read-the-target",
+      "title": "2. Identify the domain, hypothesis, and exact target",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "“If n is odd, then 3n + 5 is even,” with n an integer, normally hides a universal quantifier. The intended statement is about every integer satisfying the hypothesis."
+        },
+        {
+          "type": "math",
+          "notation": "∀n (Odd(n) → Even(3n + 5))",
+          "description": "The domain of n is the integers. Odd is the hypothesis; Even(3n + 5) is the conclusion."
+        },
+        {
+          "type": "paragraph",
+          "text": "Begin: “Let n be an arbitrary integer, and suppose n is odd.” The assumption is legitimate because you are proving a conditional. You must derive the conclusion from it; you are not claiming every integer is odd."
+        },
+        {
+          "type": "example",
+          "title": "The domain can change whether a claim is true",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For nonnegative real x and y, x > y implies x² > y²: the difference x² − y² = (x − y)(x + y) is positive. For unrestricted real numbers it fails: x = −1 and y = −3 satisfy x > y, but x² = 1 < 9 = y²."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "To refute ∀n (P(n) → Q(n)), is an n with P(n) false enough?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. You need an allowed n with P(n) true and Q(n) false. Otherwise the conditional is true at that n, regardless of Q(n)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.3–§1.7.4, printed pages 85–86."
+        }
+      ]
+    },
+    {
+      "id": "direct-parity",
+      "title": "3. Prove a conditional directly by expanding its definition",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An integer n is even when n = 2k for some integer k, and odd when n = 2k + 1 for some integer k. Every integer is exactly one of even and odd. Integers have the same parity if both are even or both odd. These definitions include zero and negative integers: −5 = 2(−3) + 1 is odd."
+        },
+        {
+          "type": "paragraph",
+          "text": "Claim: if n is an odd integer, then 3n + 5 is even. A direct proof starts with the hypothesis and builds the desired conclusion."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step",
+            "Statement",
+            "Why it is justified"
+          ],
+          "rows": [
+            [
+              "1",
+              "Let n be an arbitrary odd integer.",
+              "Assume the hypothesis for a general integer."
+            ],
+            [
+              "2",
+              "n = 2k + 1 for some integer k.",
+              "Definition of odd."
+            ],
+            [
+              "3",
+              "3n + 5 = 3(2k + 1) + 5 = 6k + 8.",
+              "Substitution and arithmetic."
+            ],
+            [
+              "4",
+              "3n + 5 = 2(3k + 4).",
+              "Factor out 2."
+            ],
+            [
+              "5",
+              "3k + 4 is an integer, so 3n + 5 is even.",
+              "Integer closure and the definition of even."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The integer 3k + 4 is the witness required by the definition of even. Stopping at “it has a factor of 2” without checking that the other factor is an integer would leave the essential detail unstated."
+        },
+        {
+          "type": "check",
+          "prompt": "For the negative odd integer n = −5, what k and evenness witness does this proof use?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "k = −3 because −5 = 2(−3) + 1. The witness is 3k + 4 = −5, so 3n + 5 = −10 = 2(−5). The same proof handles this case without an extra assumption of positivity."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.5, printed pages 86–87."
+        }
+      ]
+    },
+    {
+      "id": "independent-witnesses",
+      "title": "4. Give different inputs their own witnesses",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Claim: the sum of an even integer and an odd integer is odd. Let m and n be arbitrary integers, with m even and n odd. Write m = 2a and n = 2b + 1 for integers a and b. These witnesses need not be equal."
+        },
+        {
+          "type": "math",
+          "notation": "m + n = 2a + (2b + 1) = 2(a + b) + 1",
+          "description": "Because a + b is an integer, the sum has the definition of an odd integer."
+        },
+        {
+          "type": "paragraph",
+          "text": "Reusing a single k in m = 2k and n = 2k + 1 would silently require n = m + 1. The theorem allows, for example, m = 8 and n = 15. Separate names preserve that freedom."
+        },
+        {
+          "type": "example",
+          "title": "The same discipline with perfect squares",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An integer is a perfect square if it equals the square of an integer. If m = a² and n = b² for integers a and b, then 4mn = 4a²b² = (2ab)². Since 2ab is an integer, 4mn is a perfect square. The proof gives the required square root witness explicitly; it also includes m = 0 or n = 0."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Show directly that the difference of two odd integers is even.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Write m = 2a + 1 and n = 2b + 1 with a and b integers. Then m − n = 2(a − b). Since a − b is an integer, the difference is even. Do not assume the two odd integers have the same witness."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.5, printed page 87."
+        }
+      ]
+    },
+    {
+      "id": "rational-direct",
+      "title": "5. Check every part of a definition, including the denominator",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A real number is rational if it can be written a/b with integers a and b and b ≠ 0. An irrational number is a real number that is not rational. The nonzero denominator is part of the definition, not an optional detail."
+        },
+        {
+          "type": "paragraph",
+          "text": "Claim: the difference of two rational numbers is rational. Let r = a/b and s = c/d, where a, b, c, d are integers and b ≠ 0, d ≠ 0."
+        },
+        {
+          "type": "math",
+          "notation": "r − s = a/b − c/d = (ad − bc)/(bd)",
+          "description": "The proposed integer numerator is ad − bc, and the proposed denominator is bd."
+        },
+        {
+          "type": "paragraph",
+          "text": "Products and differences of integers are integers, so ad − bc and bd are integers. Because b and d are nonzero, bd ≠ 0. The displayed fraction therefore satisfies every requirement of rationality. It need not be in lowest terms for this proof."
+        },
+        {
+          "type": "check",
+          "prompt": "Does the same reasoning show that the quotient of any two rational numbers is rational?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "You need the extra condition s ≠ 0. Then c ≠ 0, and r/s = ad/(bc), with a nonzero integer denominator. Division by s = 0 is undefined, so the unqualified claim is not acceptable."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.6, printed pages 89–90."
+        }
+      ]
+    },
+    {
+      "id": "contraposition-proof",
+      "title": "6. When the target is awkward, prove its contrapositive",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "(p → q) ↔ (¬q → ¬p)",
+          "description": "A statement and its contrapositive have the same truth value."
+        },
+        {
+          "type": "paragraph",
+          "text": "Claim: if n is an integer and 5n + 4 is odd, then n is odd. A direct start gives 5n + 4 = 2k + 1, but solving for n does not immediately give an integer oddness witness. Try the contrapositive instead."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Part",
+            "What it says"
+          ],
+          "rows": [
+            [
+              "Original hypothesis p",
+              "5n + 4 is odd."
+            ],
+            [
+              "Original conclusion q",
+              "n is odd."
+            ],
+            [
+              "Contrapositive hypothesis ¬q",
+              "n is not odd, so n is even."
+            ],
+            [
+              "Contrapositive target ¬p",
+              "5n + 4 is not odd, so it is even."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Complete proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose n is even. Write n = 2k for an integer k. Then 5n + 4 = 5(2k) + 4 = 2(5k + 2), which is even because 5k + 2 is an integer. Thus if n is not odd, 5n + 4 is not odd. By contraposition, if 5n + 4 is odd, n is odd."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The step “not odd means even” uses the integer domain. It is not a valid replacement for arbitrary real numbers. Also, contraposition reverses the arrow and negates both parts; reversing the arrow alone would prove the converse."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the contrapositive of “If n² is even, then n is even,” for integers n?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If n is odd, then n² is odd. Write n = 2k + 1; then n² = 2(2k² + 2k) + 1, an odd integer. This establishes the original implication by contraposition."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.6, printed pages 87–90."
+        }
+      ]
+    },
+    {
+      "id": "compound-contrapositive",
+      "title": "7. Negate the whole conclusion before starting",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Claim: for real x and y, if x + y ≥ 10, then x ≥ 5 or y ≥ 5. The conclusion is an inclusive OR. Its negation must say both alternatives fail."
+        },
+        {
+          "type": "math",
+          "notation": "¬((x ≥ 5) ∨ (y ≥ 5)) ≡ (x < 5) ∧ (y < 5)",
+          "description": "Use De Morgan’s law, then negate each inequality with the correct boundary."
+        },
+        {
+          "type": "example",
+          "title": "Proof by contraposition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose x < 5 and y < 5. Adding gives x + y < 10. This is the negation of the original hypothesis. Therefore, if x + y ≥ 10, at least one of x or y is at least 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "“At least one” does not mean exactly one. At x = y = 5, both alternatives hold. Replacing < with ≤ in the contrapositive assumption would include x = y = 5 and would no longer force x + y < 10."
+        },
+        {
+          "type": "check",
+          "prompt": "Can the conclusion be strengthened to “x ≥ 5 and y ≥ 5”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Take x = 12 and y = −2. Their sum is 10, satisfying the hypothesis, but y < 5. The original OR conclusion still holds because x ≥ 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.6, printed page 88."
+        }
+      ]
+    },
+    {
+      "id": "vacuous-trivial",
+      "title": "8. Recognize two short ways a conditional can be true",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Method",
+            "What you establish",
+            "Why p → q follows"
+          ],
+          "rows": [
+            [
+              "Vacuous proof",
+              "p is false.",
+              "The only false implication case, p true and q false, cannot occur."
+            ],
+            [
+              "Trivial proof",
+              "q is true.",
+              "The conclusion cannot be false, regardless of p."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Vacuous proof over a specified range",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Claim: every integer n with 5 ≤ n ≤ 8 that is a perfect square is also a perfect cube. No perfect square lies in this range: integer squares jump from 2² = 4 to 3² = 9. There is no integer satisfying the full hypothesis, so the conditional is true for every integer. This does not assert that any of 5, 6, 7, or 8 is a cube."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Trivial proof with an automatically true conclusion",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For every real x, if x > 100, then x² + 1 > 0. The conclusion holds for all real x because x² ≥ 0 and hence x² + 1 ≥ 1 > 0. The assumption x > 100 is unnecessary for this proof."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "At n = 0, is “If n > 3, then n < 0” true? Is n < 0 itself true?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The conditional is true vacuously because 0 > 3 is false. Its conclusion 0 < 0 is false. Proving a conditional does not assert its conclusion when its hypothesis fails."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.6, printed pages 88–89."
+        }
+      ]
+    },
+    {
+      "id": "contradiction-count",
+      "title": "9. Assume the exact negation and reach an impossibility",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To prove a statement S by contradiction, suppose ¬S and derive a contradiction, such as both R and ¬R. The contradiction must follow from the permitted assumptions, not from an arithmetic error or an extra invented condition."
+        },
+        {
+          "type": "example",
+          "title": "Thirteen files in four folders",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose 13 distinct files are assigned to four folders, with each file assigned to exactly one folder. Claim: at least one folder contains at least 4 files. Assume the negation: every folder contains at most 3 files. The total would then be at most 4 × 3 = 12. But the total is 13. This contradiction proves the claim."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The negation of “at least one folder has at least 4” is “every folder has fewer than 4,” which here means at most 3. It is not “every folder has more than 4.” The contradiction is 13 ≤ 12, not merely an outcome we find inconvenient."
+        },
+        {
+          "type": "check",
+          "prompt": "Would the same guarantee hold for 12 files in four folders?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The distribution 3, 3, 3, 3 has 12 files and no folder with 4. This boundary example shows why the thirteenth file matters. It also connects this proof to the pigeonhole principle in Section 6.2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.7, printed pages 90–91."
+        }
+      ]
+    },
+    {
+      "id": "irrationality-proof",
+      "title": "10. See a contradiction proof with its supporting lemma",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We will prove √3 is irrational. First we need a lemma: if an integer a has a square divisible by 3, then a itself is divisible by 3. Here “divisible by 3” means equal to 3 times an integer."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Possible form of a",
+            "Form of a²",
+            "Remainder after division by 3"
+          ],
+          "rows": [
+            [
+              "3k",
+              "3(3k²)",
+              "0"
+            ],
+            [
+              "3k + 1",
+              "3(3k² + 2k) + 1",
+              "1"
+            ],
+            [
+              "3k + 2",
+              "3(3k² + 4k + 1) + 1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Every integer has exactly one of these forms for an integer k, including negative integers. If a is not divisible by 3, its square leaves remainder 1, so its square is not divisible by 3. Contraposition proves the lemma. This short case check supplies the fact used next."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step",
+            "Reasoning"
+          ],
+          "rows": [
+            [
+              "1",
+              "Suppose √3 is rational. Write √3 = a/b in lowest terms, with integers a, b and b ≠ 0."
+            ],
+            [
+              "2",
+              "Squaring and multiplying by b² gives a² = 3b². Hence a² is divisible by 3."
+            ],
+            [
+              "3",
+              "By the lemma, a = 3c for some integer c."
+            ],
+            [
+              "4",
+              "Substitute: 9c² = 3b², so b² = 3c²."
+            ],
+            [
+              "5",
+              "The lemma now shows that b is divisible by 3 as well."
+            ],
+            [
+              "6",
+              "Thus a and b share a factor 3, contradicting the choice of a/b in lowest terms. Therefore √3 is irrational."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "We use the standard fact that any rational number has a lowest-terms fraction representation. The contradiction is specifically “a and b have no common positive factor greater than 1” versus “3 divides both.” Simply discovering a fraction with a common factor would not be contradictory without the lowest-terms assumption."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can a finite search through decimal approximations never establish this irrationality?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No finite list exhausts all possible integer numerators and nonzero denominators. The proof starts with an arbitrary hypothetical rational representation and rules out every such representation by the same argument."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.7, printed pages 90–91."
+        }
+      ]
+    },
+    {
+      "id": "compare-proof-methods",
+      "title": "11. Separate contraposition from contradiction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "diagram",
+          "title": "Three routes to the same conditional",
+          "src": "assets/proof-routes.svg",
+          "description": "To prove p → q: a direct proof assumes p and establishes q; contraposition assumes ¬q and establishes ¬p; contradiction assumes p and ¬q together and derives an impossibility."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Method for p → q",
+            "Temporary starting assumption",
+            "Target"
+          ],
+          "rows": [
+            [
+              "Direct",
+              "p",
+              "q"
+            ],
+            [
+              "Contraposition",
+              "¬q",
+              "¬p"
+            ],
+            [
+              "Contradiction",
+              "p ∧ ¬q",
+              "A contradiction"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "(p → q) ↔ ((p ∧ ¬q) → F)",
+          "description": "The negation of a conditional is precisely the case p true and q false; F denotes false."
+        },
+        {
+          "type": "example",
+          "title": "Rewrite the earlier parity proof as contradiction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Assume 5n + 4 is odd and n is not odd, for an integer n. Then n = 2k for an integer k, so 5n + 4 = 2(5k + 2) is even. It cannot be both odd and even. The contradiction rules out the hypothesis being true while the conclusion is false."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The algebra is the same as in the contrapositive proof. What changes is the starting assumption and the stated endpoint. Contradiction also applies to statements that are not presented as conditionals, such as “√3 is irrational.”"
+        },
+        {
+          "type": "check",
+          "prompt": "To prove p → q by contradiction, may you assume ¬p ∧ q as the negation?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The negation is p ∧ ¬q. The combination ¬p ∧ q actually makes p → q true. Starting from the wrong negation would address the wrong statement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.7, printed pages 91–92."
+        }
+      ]
+    },
+    {
+      "id": "biconditional-proof",
+      "title": "12. Prove both directions of if and only if",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "(p ↔ q) ↔ ((p → q) ∧ (q → p))",
+          "description": "A biconditional requires two implications, not a single forward proof."
+        },
+        {
+          "type": "paragraph",
+          "text": "Claim: for every integer n, n is even if and only if 7n + 2 is even. We prove the directions separately and may use different methods."
+        },
+        {
+          "type": "example",
+          "title": "Forward direction: direct",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose n = 2k for an integer k. Then 7n + 2 = 14k + 2 = 2(7k + 1), so 7n + 2 is even."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Reverse direction: contraposition",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The reverse target is “If 7n + 2 is even, then n is even.” Suppose instead that n is odd, n = 2k + 1. Then 7n + 2 = 14k + 9 = 2(7k + 4) + 1, which is odd. By contraposition the reverse implication holds. Together the two directions establish the biconditional."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does “If n is a multiple of 4, then n is even” establish an if-and-only-if statement?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The reverse direction fails at n = 2: it is even but is not a multiple of 4. A correct forward proof cannot substitute for checking the reverse direction."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.7, printed page 92."
+        }
+      ]
+    },
+    {
+      "id": "equivalence-cycle",
+      "title": "13. Close the loop when several statements are equivalent",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To prove that A, B, and C all have the same truth value, it is enough to prove A → B, B → C, and C → A. Starting from any one, you can follow the cycle to reach the others. A chain that stops before returning is insufficient."
+        },
+        {
+          "type": "paragraph",
+          "text": "For an integer n, let A mean “n is odd,” B mean “n + 2 is odd,” and C mean “3n is odd.”"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Direction",
+            "Proof"
+          ],
+          "rows": [
+            [
+              "A → B",
+              "If n = 2k + 1, then n + 2 = 2(k + 1) + 1, so B holds."
+            ],
+            [
+              "B → C",
+              "If n + 2 = 2k + 1, then n = 2k − 1. Hence 3n = 6k − 3 = 2(3k − 2) + 1, so C holds."
+            ],
+            [
+              "C → A",
+              "Use contraposition: if n = 2k is even, then 3n = 2(3k) is even. Thus if 3n is odd, n is odd."
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "((A → B) ∧ (B → C) ∧ (C → A)) ↔ ((A ↔ B) ∧ (B ↔ C))",
+          "description": "The cycle is equivalent to saying all three statements share a truth value."
+        },
+        {
+          "type": "paragraph",
+          "text": "Here A, B, and C are statements about the same fixed n. Avoid interpreting an unparenthesized chain of binary ↔ operators as automatically meaning “all equal”; the explicit conjunction above states the intended meaning."
+        },
+        {
+          "type": "check",
+          "prompt": "Why are A → B and B → C alone insufficient?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Take A = F, B = F, and C = T. Both implications hold, yet the three truth values differ. The closing implication C → A would be false in this counterexample."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.7, printed pages 92–93."
+        }
+      ]
+    },
+    {
+      "id": "counterexample-proof",
+      "title": "14. Disprove a universal claim with a checked counterexample",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A counterexample must belong to the claimed domain and make the entire claimed property fail. For a conditional, it must satisfy the hypothesis and violate the conclusion. One such object disproves a universal claim, although many successful examples do not prove it."
+        },
+        {
+          "type": "example",
+          "title": "A pattern that breaks after several successes",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Conjecture: n² + n + 11 is prime for every nonnegative integer n. A prime is an integer greater than 1 with no positive divisors other than 1 and itself. At n = 0, 1, 2, 3, 4 the values are 11, 13, 17, 23, 31, all prime. But at n = 10 the value is 100 + 10 + 11 = 121 = 11 × 11, which is composite. The conjecture is false."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "n² + n + 11",
+            "Classification"
+          ],
+          "rows": [
+            [
+              "0",
+              "11",
+              "Prime"
+            ],
+            [
+              "1",
+              "13",
+              "Prime"
+            ],
+            [
+              "2",
+              "17",
+              "Prime"
+            ],
+            [
+              "3",
+              "23",
+              "Prime"
+            ],
+            [
+              "4",
+              "31",
+              "Prime"
+            ],
+            [
+              "10",
+              "121",
+              "Composite: 11 × 11"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A counterexample disproves the statement, not merely a proposed proof. Conversely, finding a bad step in a proof does not automatically make its theorem false: it may have another correct proof."
+        },
+        {
+          "type": "check",
+          "prompt": "Does n = −1 refute a claim made only about positive integers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It lies outside the domain. A counterexample is useful only when it satisfies every restriction in the claim."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.7, printed page 93."
+        }
+      ]
+    },
+    {
+      "id": "proof-errors",
+      "title": "15. Find the first unjustified step",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Mistake",
+            "Faulty move",
+            "What must be checked"
+          ],
+          "rows": [
+            [
+              "Division by zero",
+              "From x(x − 2) = 0, divide by x to get x = 2.",
+              "x might be 0. Both 0 and 2 solve the original equation."
+            ],
+            [
+              "Affirming the conclusion",
+              "x > 2 implies x² > 4; x² > 4, so x > 2.",
+              "x = −3 makes both premises true and the conclusion false."
+            ],
+            [
+              "Denying the hypothesis",
+              "x > 2 implies x² > 4; x ≤ 2, so x² ≤ 4.",
+              "x = −3 again makes the premises true and the conclusion false."
+            ],
+            [
+              "Circular reasoning",
+              "To prove n even from 7n + 2 even, begin “Let n = 2k.”",
+              "That starting representation assumes the conclusion that needs proof."
+            ],
+            [
+              "Losing information by squaring",
+              "√(x + 6) = x gives x + 6 = x², so accept both algebraic roots.",
+              "Squaring is not reversible without checking signs and the original equation."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Check the extraneous root",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For real x, √(x + 6) = x requires x ≥ 0 because the square root is nonnegative. Squaring gives (x − 3)(x + 2) = 0, so candidates are 3 and −2. Substitution gives √9 = 3 for x = 3, but √4 = 2 ≠ −2 for x = −2. Only 3 solves the original equation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A true target does not excuse circular reasoning. The statement “7n + 2 even implies n even” has a correct contrapositive proof in the earlier unit; assuming n even at the start would still be invalid."
+        },
+        {
+          "type": "check",
+          "prompt": "What extra hypothesis makes cancellation of x from x(x − 2) = 0 legal?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "x ≠ 0. With that hypothesis, dividing by x gives x − 2 = 0 and x = 2. Without it, cancellation discards the solution x = 0."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.8, printed pages 93–95."
+        }
+      ]
+    },
+    {
+      "id": "proofs-recap",
+      "title": "16. Choose a method and write the reason for each step",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "A proof-writing routine",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "State the domain and the precise claim. Write the definitions you will need. Choose a method and announce its temporary assumptions. Derive the target with justified steps, check any nonzero or sign conditions, and finish by saying what has been established for the arbitrary object."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "When you notice…",
+            "A useful first attempt"
+          ],
+          "rows": [
+            [
+              "The hypothesis supplies a useful formula.",
+              "Direct proof: substitute the definition and build the target form."
+            ],
+            [
+              "The negation of the conclusion is easier to express.",
+              "Contraposition: derive the negation of the hypothesis."
+            ],
+            [
+              "Assuming failure creates incompatible requirements.",
+              "Contradiction: state the exact negation and identify the contradiction."
+            ],
+            [
+              "The claim says “if and only if.”",
+              "Plan two implications."
+            ],
+            [
+              "The statement seems false.",
+              "Try a counterexample that meets all hypotheses."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Prove: if r is rational and t is irrational, then r + t is irrational.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Assume for contradiction that s = r + t is rational. Then t = s − r is rational by the rational-difference result proved earlier. This contradicts the hypothesis that t is irrational. Therefore r + t is irrational. The proof identifies both sides of the contradiction; it does not appeal to decimal appearances."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does an irrational number plus an irrational number have to be irrational?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. √3 is irrational by the proof above, and −√3 is also irrational: if it were rational, its negative √3 would be rational. Their sum is 0, a rational number. The previous theorem requires one rational input and one irrational input."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These methods are starting tools, not a promise that every proof is immediate. Section 1.8 develops more strategies, including fuller treatments of cases and existence. The induction and counting arguments in Chapters 5 and 6 use the same discipline of explicit hypotheses and justified conclusions."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §1.7.4–§1.7.9, printed pages 86–95."
+        }
+      ]
+    }
+  ]
+}

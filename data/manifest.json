@@ -52,16 +52,16 @@
           "id": "1.6",
           "number": "1.6",
           "title": "Rules of Inference",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/1.6.json",
           "children": []
         },
         {
           "id": "1.7",
           "number": "1.7",
           "title": "Introduction to Proofs",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/1.7.json",
           "children": []
         },
         {
