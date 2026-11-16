@@ -1,0 +1,1169 @@
+{
+  "schemaVersion": 1,
+  "id": "2.3",
+  "title": "Functions",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §2.3.1–§2.3.6, printed pages 147–161 (exposition).",
+    "Original companion explanations, examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "one-output",
+      "title": "1. Give every input exactly one output",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A function is a complete, unambiguous assignment. Every allowed input gets exactly one allowed output. Different inputs may share an output; some allowed outputs may never be used."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Write f: A → B to declare a function with inputs in A and outputs in B. The notation f(a) = b means that input a is assigned output b. It does not mean f multiplied by a. Functions are also called mappings or transformations."
+        },
+        {
+          "type": "example",
+          "title": "Assign a desk zone",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let A = {Ana, Bo, Cy} and B = {North, South, East}. Assign Ana to North, Bo to South, and Cy to North. This is a function: each person has one zone. Sharing North is allowed; leaving East unused is allowed."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Assignment change",
+            "Still a function A → B?",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "Keep all three assignments",
+              "Yes",
+              "Every input has one output in B."
+            ],
+            [
+              "Give Ana both North and East",
+              "No",
+              "One input has two different outputs."
+            ],
+            [
+              "Remove Cy’s assignment",
+              "No",
+              "One input has no output."
+            ],
+            [
+              "Assign Bo to West",
+              "No",
+              "West is outside the declared codomain."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does “exactly one output per input” mean that no two inputs can share an output?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. That extra restriction is called one-to-one. The desk-zone example is a function even though Ana and Cy share North."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.1, printed page 147."
+        }
+      ]
+    },
+    {
+      "id": "domain-range",
+      "title": "2. Separate the input set, allowed outputs, and actual outputs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Name",
+            "Meaning",
+            "Desk-zone example"
+          ],
+          "rows": [
+            [
+              "Domain A",
+              "All inputs that must receive values",
+              "{Ana, Bo, Cy}"
+            ],
+            [
+              "Codomain B",
+              "Declared set in which outputs must lie",
+              "{North, South, East}"
+            ],
+            [
+              "Range f(A)",
+              "Outputs actually reached",
+              "{North, South}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The range is a subset of the codomain. If f(a) = b, then b is the image of a, and a is a preimage of b. An output can have no preimages, one, or several."
+        },
+        {
+          "type": "example",
+          "title": "One formula, different functions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For f: ℤ → ℤ with f(n) = n², the range is {0, 1, 4, 9, …}. Negative integers are allowed outputs by the declaration, but this rule never reaches them. For g: ℝ → [0, ∞) with g(x) = x², the range is all of [0, ∞), because every nonnegative real y is (√y)²."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In this textbook’s convention, equal functions have the same domain, the same codomain, and the same output at every input. A formula alone does not specify all three. Changing a domain or codomain can change whether a function is one-to-one or onto."
+        },
+        {
+          "type": "check",
+          "prompt": "In the desk example, which preimages does North have? What about East?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "North has Ana and Cy as preimages. East has none. East belongs to the codomain but not the range."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.1, printed pages 147–149."
+        }
+      ]
+    },
+    {
+      "id": "function-relations",
+      "title": "3. Read a function as pairs and map a whole subset",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A relation R ⊆ A × B defines a function precisely when, for each a ∈ A, there is exactly one b ∈ B with (a, b) ∈ R. Scan the first coordinates: none may be missing, and none may point to two different second coordinates."
+        },
+        {
+          "type": "example",
+          "title": "A finite table",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let A = {p, q, r, s}, B = {1, 2, 3, 4}, and R = {(p, 2), (q, 4), (r, 2), (s, 1)}. Each input appears with one output, so this defines f. Its range is {1, 2, 4}. Repeating the identical pair (p, 2) in a written roster would not create a second assignment: a relation is a set."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "f(S) = {f(s) | s ∈ S}, where S ⊆ A",
+          "description": "The image of a subset collects the outputs of all its members; repeated outputs occur only once in this set."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Subset S",
+            "Outputs before removing duplicates",
+            "Image f(S)"
+          ],
+          "rows": [
+            [
+              "{p, r}",
+              "2, 2",
+              "{2}"
+            ],
+            [
+              "{q, r, s}",
+              "4, 2, 1",
+              "{1, 2, 4}"
+            ],
+            [
+              "∅",
+              "No outputs",
+              "∅"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Here f(S) means the image of a subset, not a new evaluation of f at the object S. This matters when sets themselves could be inputs."
+        },
+        {
+          "type": "check",
+          "prompt": "For this f, is |f({p, r})| equal to |{p, r}|?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Two different inputs share output 2, so the image has one member. Taking an image can merge inputs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.1, printed pages 147–150."
+        }
+      ]
+    },
+    {
+      "id": "function-arithmetic",
+      "title": "4. Distinguish multiplying outputs from feeding one function into another",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For two real-valued functions with the same domain, add or multiply their values at the same input. Let f(x) = x + 2 and g(x) = x² on ℝ."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Rule",
+            "Value at x = 3"
+          ],
+          "rows": [
+            [
+              "(f + g)(x)",
+              "x² + x + 2",
+              "14"
+            ],
+            [
+              "(fg)(x)",
+              "(x + 2)x²",
+              "45"
+            ],
+            [
+              "f(g(x))",
+              "x² + 2",
+              "11"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The first two rows use the same input twice, then combine the outputs. The third first computes g(x), then feeds that result into f. It is called composition, which we will examine shortly. Multiplication and composition use different operations."
+        },
+        {
+          "type": "check",
+          "prompt": "If f(x) = 2x and g(x) = x − 1, compare (fg)(4) and f(g(4)).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "(fg)(4) = f(4)g(4) = 8·3 = 24. But f(g(4)) = f(3) = 6. Always identify what the notation asks you to do."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.1, printed page 149; §2.3.3, printed pages 155–156."
+        }
+      ]
+    },
+    {
+      "id": "injective",
+      "title": "5. Test one-to-one by looking for collisions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "f is injective ⇔ ∀x, y ∈ A (f(x) = f(y) → x = y)",
+          "description": "Injective, or one-to-one, means that two distinct inputs never have the same output."
+        },
+        {
+          "type": "paragraph",
+          "text": "To prove injectivity, start with arbitrary inputs having equal outputs and derive equal inputs. To disprove it, give two distinct allowed inputs that collide. Showing that one selected pair has different outputs does not prove the claim for every pair."
+        },
+        {
+          "type": "example",
+          "title": "A general proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let f: ℤ → ℤ satisfy f(n) = 3n − 2. Suppose f(x) = f(y). Then 3x − 2 = 3y − 2. Adding 2 and dividing by 3 gives x = y. Thus f is injective."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A collision",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For h: ℝ → ℝ with h(x) = x², h(−3) = h(3) = 9, but −3 ≠ 3. Hence h is not injective. A single collision is enough."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can f: ℤ → ℤ, f(n) = 3n − 2, be injective even if it misses some integers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Injectivity concerns collisions, not whether every codomain element is reached. The output 0 is missed because 3n − 2 = 0 would require n = 2/3, which is not an integer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.2, printed pages 150–153."
+        }
+      ]
+    },
+    {
+      "id": "surjective",
+      "title": "6. Test onto by starting with an arbitrary target",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "f: A → B is surjective ⇔ ∀y ∈ B ∃x ∈ A (f(x) = y)",
+          "description": "Surjective, or onto, means the range equals the codomain. Every declared target must have a preimage."
+        },
+        {
+          "type": "example",
+          "title": "The domain controls the witness",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let f: ℝ → ℝ satisfy f(x) = 3x − 2. Given any real y, choose x = (y + 2)/3. This x is real and f(x) = y, so f is onto. The same rule from ℤ to ℤ is not onto: the target 0 needs the forbidden input 2/3."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Squaring rule",
+            "Onto?",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "ℝ → ℝ",
+              "No",
+              "No real input has square −1."
+            ],
+            [
+              "ℝ → [0, ∞)",
+              "Yes",
+              "For any y ≥ 0, use x = √y."
+            ],
+            [
+              "ℤ → {0, 1, 4, 9, …}",
+              "Yes",
+              "The codomain consists precisely of integer squares."
+            ],
+            [
+              "ℤ → ℕ",
+              "No",
+              "2 is nonnegative but not an integer square."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is finding a preimage for three targets enough to prove onto an infinite codomain?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Start with an arbitrary target and produce a permitted input for that target, or give another argument covering every target. For a finite codomain, checking every one of its members is sufficient."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.2, printed pages 151–153."
+        }
+      ]
+    },
+    {
+      "id": "bijection",
+      "title": "7. Combine no collisions with no missed targets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A bijection, or one-to-one correspondence, is both injective and surjective. Every codomain element then has exactly one preimage. First check that an assignment is a function; only then classify it."
+        },
+        {
+          "type": "diagram",
+          "title": "Count arrows arriving at each target",
+          "src": "assets/function-mappings.svg",
+          "description": "Four mapping diagrams compare injective but not onto, onto but not injective, bijective, and neither. Every input in every panel has exactly one outgoing arrow."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Domain size",
+            "Codomain size",
+            "Outputs in domain order",
+            "Injective?",
+            "Onto?"
+          ],
+          "rows": [
+            [
+              "3",
+              "4",
+              "1, 2, 3",
+              "Yes",
+              "No"
+            ],
+            [
+              "4",
+              "3",
+              "1, 2, 2, 3",
+              "No",
+              "Yes"
+            ],
+            [
+              "3",
+              "3",
+              "2, 3, 1",
+              "Yes",
+              "Yes"
+            ],
+            [
+              "3",
+              "3",
+              "1, 1, 2",
+              "No",
+              "No"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a function between finite sets of equal size, injectivity and surjectivity are equivalent: using distinct targets for every input uses all available targets, and covering all targets leaves no input to spare on a collision. The finite-size assumption matters. On ℕ = {0, 1, …}, n ↦ n + 1 is injective but misses 0."
+        },
+        {
+          "type": "paragraph",
+          "text": "The identity function id_A: A → A sends each x to itself. It is a bijection. The textbook writes this identity function using the Greek letter iota, ι_A."
+        },
+        {
+          "type": "check",
+          "prompt": "For finite |A| = 5 and |B| = 3, can a function A → B be injective? Can it be onto?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It cannot be injective: five inputs cannot have five distinct outputs among only three targets. It can be onto, for example with outputs 1, 2, 3, 1, 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.2, printed pages 152–153."
+        }
+      ]
+    },
+    {
+      "id": "monotonic",
+      "title": "8. Keep strict inequalities separate from weak ones",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For functions between subsets of ℝ, compare outputs whenever x < y. This book uses “increasing” for the weak, nondecreasing condition; “strictly increasing” excludes flat portions."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Name",
+            "Required comparison when x < y"
+          ],
+          "rows": [
+            [
+              "Increasing (nondecreasing)",
+              "f(x) ≤ f(y)"
+            ],
+            [
+              "Strictly increasing",
+              "f(x) < f(y)"
+            ],
+            [
+              "Decreasing (nonincreasing)",
+              "f(x) ≥ f(y)"
+            ],
+            [
+              "Strictly decreasing",
+              "f(x) > f(y)"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Why strict monotonicity implies injectivity",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If two inputs differ, one is smaller. A strictly increasing function gives them strictly ordered outputs, so they cannot collide. The same reasoning works with reversed output order for a strictly decreasing function."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Weak monotonicity alone does not guarantee injectivity: the constant function c(x) = 7 is both nondecreasing and nonincreasing and has many collisions on ℝ. Conversely, an injective function need not be monotone: on {1, 2, 3}, outputs 2, 1, 3 are all different but change direction."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is squaring strictly increasing on [0, ∞) but not on all of ℝ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If 0 ≤ x < y, then y² − x² = (y − x)(y + x) > 0: both factors are positive. On ℝ, −2 < −1 but 4 > 1, so the required increasing inequality fails."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.2, printed page 151."
+        }
+      ]
+    },
+    {
+      "id": "inverse-function",
+      "title": "9. Reverse a bijection without confusing inverse and reciprocal",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "f⁻¹(b) = a ⇔ f(a) = b",
+          "description": "For a bijection f: A → B, the inverse f⁻¹: B → A reverses the unique assignment."
+        },
+        {
+          "type": "paragraph",
+          "text": "Onto guarantees that a reverse output exists for every b ∈ B. One-to-one guarantees that it is unique. A missed target creates a missing inverse value; a collision creates competing inverse values."
+        },
+        {
+          "type": "example",
+          "title": "Solve, then check both directions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let f: ℝ → ℝ be f(x) = 3x − 2. Solve y = 3x − 2 for x to get x = (y + 2)/3. Thus f⁻¹(y) = (y + 2)/3. Substitution gives f⁻¹(f(x)) = x and f(f⁻¹(y)) = y for all real x and y."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Meaning",
+            "Value at 4 for f(x) = 3x − 2"
+          ],
+          "rows": [
+            [
+              "f⁻¹(4)",
+              "Input whose output is 4",
+              "2"
+            ],
+            [
+              "1/f(4)",
+              "Reciprocal of the output at input 4",
+              "1/10"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The reciprocal 1/f(x) needs a nonzero numerical output. An inverse function can perfectly well accept the target 0: here f⁻¹(0) = 2/3."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the inverse of the identity function?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Itself. Reversing x ↦ x gives x ↦ x again. For any bijection, reversing its inverse recovers the original function."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.3, printed pages 153–156."
+        }
+      ]
+    },
+    {
+      "id": "restrict-inverse",
+      "title": "10. Repair invertibility by declaring the right sets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Squaring function",
+            "Injective?",
+            "Onto?",
+            "Invertible as declared?"
+          ],
+          "rows": [
+            [
+              "ℝ → ℝ",
+              "No",
+              "No",
+              "No"
+            ],
+            [
+              "ℝ → [0, ∞)",
+              "No",
+              "Yes",
+              "No"
+            ],
+            [
+              "[0, ∞) → ℝ",
+              "Yes",
+              "No",
+              "No"
+            ],
+            [
+              "[0, ∞) → [0, ∞)",
+              "Yes",
+              "Yes",
+              "Yes: y ↦ √y"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Changing the codomain to [0, ∞) removes missed negative targets, but it does not remove the collision between x and −x. Restricting the domain to nonnegative inputs removes that collision. Both changes are needed for the last row."
+        },
+        {
+          "type": "example",
+          "title": "Check the order of square and square root",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For every real x, √(x²) = |x|, not necessarily x. At x = −5 the result is 5. For y ≥ 0, (√y)² = y. These two facts explain why square root is an inverse of squaring on [0, ∞), but not on all real inputs."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Optional notation connection",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For any function, the preimage of a subset T of the codomain means {x ∈ A | f(x) ∈ T}. It is often written f⁻¹(T), even when there is no inverse function. For squaring on ℝ, the preimage of {9} is {−3, 3}. This set-valued notation does not claim that squaring has an inverse function on ℝ."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If f: ℤ → ℤ is f(n) = 3n − 2, can its algebraic reverse be an inverse on all of ℤ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. For some integer targets, (y + 2)/3 is not an integer. Restricting the codomain to {3n − 2 | n ∈ ℤ} makes the same rule bijective onto that set and gives a valid inverse there."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.3, printed pages 154–156."
+        }
+      ]
+    },
+    {
+      "id": "composition",
+      "title": "11. Apply the right-hand function first",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "(f ∘ g)(x) = f(g(x))",
+          "description": "In f ∘ g, start with g. The symbol ∘ means composition, not multiplication."
+        },
+        {
+          "type": "paragraph",
+          "text": "If g: A → B and f: B → C, then f ∘ g: A → C is defined on all of A. More generally, this works on all of A whenever the actual range of g is contained in the domain of f. Merely sharing some values is not enough."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Functions on ℝ",
+            "Expansion",
+            "Result"
+          ],
+          "rows": [
+            [
+              "f(x) = 2x + 1; g(x) = x − 4",
+              "f(g(x)) = 2(x − 4) + 1",
+              "2x − 7"
+            ],
+            [
+              "Same f and g",
+              "g(f(x)) = (2x + 1) − 4",
+              "2x − 3"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Type-check the intermediate result",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let g map {Ana, Bo} to {red, blue}, with g(Ana) = red and g(Bo) = blue. Let f map {red, blue} to {1, 2}, with f(red) = 2 and f(blue) = 1. Then (f ∘ g)(Ana) = 2 and (f ∘ g)(Bo) = 1. The reverse order cannot accept the numerical outputs of f as person inputs of g."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "f⁻¹ ∘ f = id_A and f ∘ f⁻¹ = id_B",
+          "description": "For a bijection f: A → B, both compositions undo the original assignment on the indicated set."
+        },
+        {
+          "type": "check",
+          "prompt": "Let g(x) = x − 1 on ℝ and let f(y) = √y have domain [0, ∞). Is f ∘ g defined on all of ℝ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Inputs x < 1 give negative intermediate values. Restricting the input domain to [1, ∞) gives the function x ↦ √(x − 1)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.3, printed pages 155–156."
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "title": "12. Read a graph as a set of ordered pairs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "graph(f) = {(x, f(x)) | x ∈ A} ⊆ A × B",
+          "description": "Each allowed input contributes exactly one pair."
+        },
+        {
+          "type": "example",
+          "title": "Discrete inputs do not fill in the gaps",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For f: ℤ → ℤ with f(n) = 2n − 1, the graph includes (−2, −5), (−1, −3), (0, −1), (1, 1), and (2, 3). It does not include (1/2, 0), because 1/2 is outside the domain. Drawing a continuous line through those points would suggest extra inputs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "On real-coordinate graphs, the vertical-line test checks that an input does not have two outputs. To be a total function on a declared domain, there must also be a point for every input in that domain. A horizontal-line test checks injectivity: no output may occur at two different inputs."
+        },
+        {
+          "type": "check",
+          "prompt": "Does the graph alone always reveal the declared codomain?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The same pairs can be declared with different codomains containing their outputs. The graph reveals the range; the codomain must be supplied separately."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.4, printed pages 156–157."
+        }
+      ]
+    },
+    {
+      "id": "floor-ceiling",
+      "title": "13. Round down or up on the number line, including negatives",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The floor ⌊x⌋ is the greatest integer at most x. The ceiling ⌈x⌉ is the least integer at least x. Both are functions ℝ → ℤ. “Down” means toward smaller numbers, not toward zero."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "x",
+            "⌊x⌋",
+            "⌈x⌉"
+          ],
+          "rows": [
+            [
+              "2.7",
+              "2",
+              "3"
+            ],
+            [
+              "−2.7",
+              "−3",
+              "−2"
+            ],
+            [
+              "−0.2",
+              "−1",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "4",
+              "4",
+              "4"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Check which endpoint belongs to each step",
+          "src": "assets/floor-ceiling-steps.svg",
+          "description": "Floor equals zero on [0,1), while ceiling equals one on (0,1]. A filled endpoint is included; an open endpoint is excluded. Adjacent steps show the jump at zero and one."
+        },
+        {
+          "type": "math",
+          "notation": "⌊x⌋ = n ⇔ n ≤ x < n + 1\n⌈x⌉ = n ⇔ n − 1 < x ≤ n",
+          "description": "Here n is an integer. The weak and strict endpoints distinguish the two functions."
+        },
+        {
+          "type": "check",
+          "prompt": "Is ⌊−2.7⌋ equal to −2 because we delete the fractional digits?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Deleting digits moves toward zero, giving −2, which is greater than −2.7. Floor must be at most the original value, so it is −3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.5, printed pages 157–159."
+        }
+      ]
+    },
+    {
+      "id": "rounding-models",
+      "title": "14. Decide whether the question needs enough capacity or only full groups",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Enough containers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A workshop must store 29 kits in boxes holding at most 6 kits each. Four boxes hold only 24; five hold 30. The minimum is ⌈29/6⌉ = 5 boxes. The last box may be partly empty."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Only complete groups",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "With 29 kits and 6 kits required per team, at most ⌊29/6⌋ = 4 complete teams can be equipped. Five kits remain. A partial team is not a complete team."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Nonnegative item count N; positive capacity c",
+            "Formula",
+            "Boundary check"
+          ],
+          "rows": [
+            [
+              "Minimum boxes to hold everything",
+              "⌈N/c⌉",
+              "N = 0 needs 0 boxes."
+            ],
+            [
+              "Maximum complete groups of c",
+              "⌊N/c⌋",
+              "If c divides N, floor and ceiling agree."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For 30 kits and capacity 6, do the two answers differ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. 30/6 = 5 is an integer, so both floor and ceiling equal 5. Explain the counting objective before selecting the rounding direction."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.5, printed page 158."
+        }
+      ]
+    },
+    {
+      "id": "rounding-laws",
+      "title": "15. Use the inequalities behind floor and ceiling identities",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Property",
+            "Condition"
+          ],
+          "rows": [
+            [
+              "⌊x⌋ = n ⇔ x − 1 < n ≤ x",
+              "n is an integer"
+            ],
+            [
+              "⌈x⌉ = n ⇔ x ≤ n < x + 1",
+              "n is an integer"
+            ],
+            [
+              "x − 1 < ⌊x⌋ ≤ x ≤ ⌈x⌉ < x + 1",
+              "x is real"
+            ],
+            [
+              "⌊−x⌋ = −⌈x⌉",
+              "x is real"
+            ],
+            [
+              "⌈−x⌉ = −⌊x⌋",
+              "x is real"
+            ],
+            [
+              "⌊x + n⌋ = ⌊x⌋ + n",
+              "n is an integer"
+            ],
+            [
+              "⌈x + n⌉ = ⌈x⌉ + n",
+              "n is an integer"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Prove the integer-shift rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let m = ⌊x⌋, so m is an integer and m ≤ x < m + 1. Add an integer n to obtain m + n ≤ x + n < m + n + 1. The integer m + n is therefore ⌊x + n⌋. This proves ⌊x + n⌋ = ⌊x⌋ + n. Neither m nor n needs to be positive."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does ⌈x + y⌉ = ⌈x⌉ + ⌈y⌉ hold for all real x and y?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Take x = 0.2 and y = 0.3. The left side is ⌈0.5⌉ = 1; the right side is 1 + 1 = 2. The shift rule requires an integer shift, not an arbitrary real one."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.5, printed page 159, Table 1."
+        }
+      ]
+    },
+    {
+      "id": "fractional-parts",
+      "title": "16. Split a floor proof at the point where it jumps",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Write x = m + ε, where m = ⌊x⌋ and 0 ≤ ε < 1. This works for negative x too: −2.7 = −3 + 0.3. The fractional part ε is nonnegative."
+        },
+        {
+          "type": "math",
+          "notation": "⌊2x⌋ = ⌊x⌋ + ⌊x + 1/2⌋",
+          "description": "We prove this for every real x by considering the two possible locations of ε."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Case",
+            "⌊2x⌋",
+            "⌊x⌋",
+            "⌊x + 1/2⌋"
+          ],
+          "rows": [
+            [
+              "0 ≤ ε < 1/2",
+              "2m",
+              "m",
+              "m"
+            ],
+            [
+              "1/2 ≤ ε < 1",
+              "2m + 1",
+              "m",
+              "m + 1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In the first case, 0 ≤ 2ε < 1 and 1/2 ≤ ε + 1/2 < 1, so neither expression crosses the next integer. In the second, 1 ≤ 2ε < 2 and 1 ≤ ε + 1/2 < 3/2, so each crosses exactly once. The last two columns add to the second column in both cases. Together the cases cover all ε, including ε = 1/2."
+        },
+        {
+          "type": "check",
+          "prompt": "Check the identity at x = −1.5, exactly at the case boundary.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The left side is ⌊−3⌋ = −3. The right side is ⌊−1.5⌋ + ⌊−1⌋ = −2 + (−1) = −3. Here m = −2 and ε = 1/2, so the second case applies."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.5, printed pages 159–160."
+        }
+      ]
+    },
+    {
+      "id": "important-functions",
+      "title": "17. Recognize factorials, powers, and logarithms",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Polynomial functions combine finitely many nonnegative integer powers, such as x² + 3x + 1. Exponential functions such as 2ˣ place the input in the exponent. A logarithm reverses exponentiation: log₂ y = x means 2ˣ = y, with y > 0. The textbook uses log for base 2 and ln for base e."
+        },
+        {
+          "type": "math",
+          "notation": "0! = 1; n! = 1·2·…·n for integers n ≥ 1",
+          "description": "Factorial is a function ℕ → ℤ⁺. The empty product at n = 0 is defined to be 1."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "n!"
+          ],
+          "rows": [
+            [
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "1"
+            ],
+            [
+              "2",
+              "2"
+            ],
+            [
+              "3",
+              "6"
+            ],
+            [
+              "4",
+              "24"
+            ],
+            [
+              "5",
+              "120"
+            ],
+            [
+              "6",
+              "720"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Optional growth preview",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Stirling’s formula says n! ∼ √(2πn)(n/e)ⁿ as n grows without bound. The symbol ∼ means the ratio of the two expressions tends to 1. It does not assert exact equality or an error bound at a particular small n. Here e is the base of natural logarithms and π is the circle constant. The approximation is for large positive n, not a replacement definition of 0!."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is n ↦ n! injective on ℕ? What is log₂ 32?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Factorial is not injective on ℕ because 0! = 1! = 1 although 0 ≠ 1. Also log₂ 32 = 5 because 2⁵ = 32."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.5, printed page 160."
+        }
+      ]
+    },
+    {
+      "id": "functions-recap",
+      "title": "18. Distinguish a partial rule from a total function",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A partial function from A to B assigns one output only to inputs in a specified subset D ⊆ A, called its domain of definition. It is undefined on A ∖ D. If D = A, the function is total. This follows the textbook’s terminology; say explicitly when a rule is partial."
+        },
+        {
+          "type": "example",
+          "title": "A missing value is different from two values",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The rule p(x) = 1/(x − 2) is a partial function from ℝ to ℝ with domain of definition ℝ ∖ {2}. It is a total function if that smaller set is declared as the entire domain. In contrast, “choose either +√y or −√y” on y > 0 does not specify a unique output, so it is not a function without an extra selection rule."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A program may fail to return an answer for some inputs because it never terminates or encounters a numerical limitation. That can make its input-output behavior partial. A mathematical total function and a program intended to compute it are different objects; finite machine types do not contain every integer or real number."
+        },
+        {
+          "type": "check",
+          "prompt": "Audit f: ℤ → ℤ, f(n) = n + 4: total, injective, onto, and inverse?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is total because n + 4 is always an integer. Equal outputs give equal inputs, so it is injective. For any integer y, input y − 4 maps to y, so it is onto. Its inverse is f⁻¹(y) = y − 4."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Before using a function",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "State domain and codomain. Check exactly one permitted output per input. Find the actual range. Prove no collisions and no missed targets separately. Reverse only a bijection on its declared sets; type-check composition before calculating."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Section 2.4 uses functions whose inputs are integer positions. These are sequences, and their terms can be combined using summation notation."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.3.6, printed page 161; review of §2.3."
+        }
+      ]
+    }
+  ]
+}

@@ -41,3 +41,7 @@ For proof strategy, justify case coverage, search bounds, symmetry reductions, a
 November 16, 2026 continuation: the owner requested Sections 2.1 and 2.2 under the established publication workflow. Next are Sections 2.3 and 2.4.
 
 For set lessons, distinguish objects from sets containing those objects, membership from inclusion, and products from power sets. Fix the universe before taking complements. Translate set operations into membership conditions, justify both directions of equality, and keep an encoding separate from the mathematical object. For indexed families, state the index domain and distinguish a witness for each element from one element shared by every set.
+
+November 16, 2026 continuation: the owner requested Sections 2.3 and 2.4 under the established publication workflow. Next are Sections 2.5 and 2.6.
+
+For functions, preserve the declared domain and codomain when checking existence, uniqueness, collisions, target coverage, inverses, and composition. Distinguish inverse functions from reciprocals and preimages of subsets. For sequences, state the initial index and required base values. For sums, count terms inclusively, translate bounds and summands together, and separate finite identities from convergence-dependent infinite series. Check negative inputs and endpoint conventions for rounding functions.

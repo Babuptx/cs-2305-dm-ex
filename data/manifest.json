@@ -107,16 +107,16 @@
           "id": "2.3",
           "number": "2.3",
           "title": "Functions",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/2.3.json",
           "children": []
         },
         {
           "id": "2.4",
           "number": "2.4",
           "title": "Sequences and Summations",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/2.4.json",
           "children": []
         },
         {

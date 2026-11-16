@@ -1,0 +1,1114 @@
+{
+  "schemaVersion": 1,
+  "id": "2.4",
+  "title": "Sequences and Summations",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §2.4.1–§2.4.5, printed pages 165–177 (exposition), with a labeled telescoping-sum extension.",
+    "Original companion explanations, examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "sequence-inputs",
+      "title": "1. Treat the position as the input of a function",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A sequence assigns a value to each allowed integer position. The position matters, and repeated values are allowed. A summation then adds selected terms; it is a different object from the sequence itself."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In aₙ, n is the index and aₙ is the term at that index. A sequence is a function from an integer index set to a set of values. We write (aₙ) here; the textbook also uses {aₙ}, which denotes a sequence in that context, not an unordered set."
+        },
+        {
+          "type": "example",
+          "title": "Start the index deliberately",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For aₙ = 2n + 3 with n = 0, 1, 2, …, the first terms are 3, 5, 7, 9, …. The first term is a₀ = 3, while a₁ = 5 is the second term. If the domain instead starts at 1, the first term is 5: the formula alone does not tell you where to begin."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Object",
+            "What it keeps"
+          ],
+          "rows": [
+            [
+              "Sequence (4, 4, 7)",
+              "Three positions; the first two have equal values."
+            ],
+            [
+              "Set {4, 4, 7} = {4, 7}",
+              "Two distinct members; no first or second member."
+            ],
+            [
+              "Sum 4 + 4 + 7 = 15",
+              "One number, obtained by adding all three terms."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If aₙ = 1/(n + 1) for n ≥ 0, what are a₀ and a₃?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "a₀ = 1 and a₃ = 1/4. Substitute the index, not the position’s informal name. This indexing avoids dividing by zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.1–§2.4.2, printed page 165."
+        }
+      ]
+    },
+    {
+      "id": "progressions",
+      "title": "2. Ask whether each step adds or multiplies",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Type, indexed from 0",
+            "Rule",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Arithmetic: add fixed d",
+              "aₙ = a₀ + nd",
+              "8, 5, 2, −1, … has a₀ = 8, d = −3."
+            ],
+            [
+              "Geometric: multiply by fixed r",
+              "aₙ = a₀rⁿ",
+              "3, −6, 12, −24, … has a₀ = 3, r = −2."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "With indexing from 1, write aₙ = a₁ + (n − 1)d or aₙ = a₁rⁿ⁻¹. The exponent or coefficient counts the number of steps from the initial index. A negative ratio alternates signs; a ratio between 0 and 1 shrinks a positive initial value."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Index n",
+            "8 − 3n",
+            "3(−2)ⁿ",
+            "12(1/2)ⁿ"
+          ],
+          "rows": [
+            [
+              "0",
+              "8",
+              "3",
+              "12"
+            ],
+            [
+              "1",
+              "5",
+              "−6",
+              "6"
+            ],
+            [
+              "2",
+              "2",
+              "12",
+              "3"
+            ],
+            [
+              "3",
+              "−1",
+              "−24",
+              "3/2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For r = 0, define the geometric sequence by its initial term and repeated multiplication: a₀, 0, 0, …. This avoids an unexplained 0⁰ at index zero. Dividing successive terms to find a ratio is useful only when the denominator is nonzero."
+        },
+        {
+          "type": "check",
+          "prompt": "The first term is b₁ = 7 and the common difference is 4. Find b₅.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "b₅ = 7 + (5 − 1)·4 = 23. There are four steps between positions 1 and 5, not five."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.2, printed page 166."
+        }
+      ]
+    },
+    {
+      "id": "strings",
+      "title": "3. Keep repetitions and the empty string",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A finite sequence of symbols is a string. Its length is its number of positions. For example, abba has length 4 even though only two distinct symbols occur. Concatenation places one string after another: ab followed by ba gives abba."
+        },
+        {
+          "type": "paragraph",
+          "text": "The empty string has length zero. The textbook denotes it by λ; ε is another common convention. It differs from the empty set and from a string containing one blank space. Appending the empty string changes nothing."
+        },
+        {
+          "type": "check",
+          "prompt": "Compare the lengths of 0101, 0, and the empty string. How many distinct symbols occur in 0101?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The lengths are 4, 1, and 0. The string 0101 uses two distinct symbols, 0 and 1, but length counts occurrences and positions, not distinct symbols."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.2, printed page 166."
+        }
+      ]
+    },
+    {
+      "id": "recurrence-start",
+      "title": "4. Supply initial values before applying a recurrence",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A recurrence expresses a term using earlier terms. Initial conditions supply the values needed before that rule starts. State the first index where the rule is valid."
+        },
+        {
+          "type": "math",
+          "notation": "a₀ = 4; aₙ = aₙ₋₁ + 5 for integers n ≥ 1",
+          "description": "This determines one new term from its predecessor."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Term",
+            "Substitution",
+            "Value"
+          ],
+          "rows": [
+            [
+              "a₁",
+              "a₀ + 5 = 4 + 5",
+              "9"
+            ],
+            [
+              "a₂",
+              "a₁ + 5 = 9 + 5",
+              "14"
+            ],
+            [
+              "a₃",
+              "a₂ + 5 = 14 + 5",
+              "19"
+            ],
+            [
+              "a₄",
+              "a₃ + 5 = 19 + 5",
+              "24"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Two previous values need two starting values",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For b₀ = 2, b₁ = 5, and bₙ = bₙ₋₁ − bₙ₋₂ for n ≥ 2, we get b₂ = 3, b₃ = −2, b₄ = −5, and b₅ = −3. Omitting b₁ would leave the later terms undetermined."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a rule that assigns exactly one next value from already determined earlier values, enough initial conditions determine a unique sequence. An equation with multiple possible next values needs additional choices; “recurrence” alone does not guarantee uniqueness."
+        },
+        {
+          "type": "check",
+          "prompt": "Does aₙ = aₙ₋₁ + 5 by itself determine a₃?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Starting at a₀ = 4 gives a₃ = 19; starting at a₀ = 0 gives a₃ = 15. The rule describes how to move, while the initial value fixes where you start."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.3, printed pages 167–168."
+        }
+      ]
+    },
+    {
+      "id": "fibonacci-factorial",
+      "title": "5. Compare familiar sequences by their rules and initial values",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "F₀ = 0, F₁ = 1; Fₙ = Fₙ₋₁ + Fₙ₋₂ for n ≥ 2",
+          "description": "Each Fibonacci term after the first two is the sum of its two predecessors."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "rows": [
+            [
+              "Fₙ",
+              "0",
+              "1",
+              "1",
+              "2",
+              "3",
+              "5",
+              "8",
+              "13"
+            ],
+            [
+              "Lₙ",
+              "2",
+              "1",
+              "3",
+              "4",
+              "7",
+              "11",
+              "18",
+              "29"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The second row uses the same addition rule but initial values L₀ = 2 and L₁ = 1. It is the Lucas sequence under indexing from zero. Shared recurrence does not mean shared sequence."
+        },
+        {
+          "type": "math",
+          "notation": "c₀ = 1; cₙ = n cₙ₋₁ for n ≥ 1, so cₙ = n!",
+          "description": "Factorials multiply by the current index; the multiplier is not a fixed geometric ratio."
+        },
+        {
+          "type": "check",
+          "prompt": "Compute F₈ and L₈, and explain why their values differ.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "F₈ = 13 + 8 = 21, while L₈ = 29 + 18 = 47. The same recurrence has carried their different starting values forward."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.3, printed pages 167–168; §2.4.4, printed page 171."
+        }
+      ]
+    },
+    {
+      "id": "verify-recurrence",
+      "title": "6. Check the rule and the initial conditions separately",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A sequence may satisfy a recurrence but fail the specified initial conditions. Solving an initial-value problem requires both checks."
+        },
+        {
+          "type": "math",
+          "notation": "aₙ = 2aₙ₋₁ − aₙ₋₂ for n ≥ 2; a₀ = 2, a₁ = 5",
+          "description": "We will test candidates against the recurrence and against both starting values."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Candidate",
+            "Recurrence?",
+            "Initial values?"
+          ],
+          "rows": [
+            [
+              "aₙ = 3n + 2",
+              "Yes",
+              "a₀ = 2, a₁ = 5: both match."
+            ],
+            [
+              "aₙ = 9",
+              "Yes",
+              "a₀ = a₁ = 9: do not match."
+            ],
+            [
+              "aₙ = 2ⁿ",
+              "No",
+              "At n = 2, 2a₁ − a₀ = 3 but a₂ = 4."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Verify the successful candidate for every index",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n ≥ 2, substitute aₙ₋₁ = 3(n − 1) + 2 and aₙ₋₂ = 3(n − 2) + 2. Then 2[3(n − 1) + 2] − [3(n − 2) + 2] = 3n + 2 = aₙ. The separate checks at n = 0 and n = 1 give 2 and 5. Thus the formula meets every requirement."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is checking only n = 2, 3, and 4 not a proof for all n?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A finite sample can expose errors but cannot cover infinitely many indices. The algebraic substitution above uses an arbitrary n ≥ 2, so it checks the recurrence generally."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.3, printed page 168."
+        }
+      ]
+    },
+    {
+      "id": "iteration",
+      "title": "7. Count substitutions back to the actual starting index",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Iteration repeatedly substitutes a recurrence to reveal a closed formula: one that gives a term directly from its index without computing all predecessors. Continue the rule a₀ = 4, aₙ = aₙ₋₁ + 5."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Stage",
+            "Expression"
+          ],
+          "rows": [
+            [
+              "One substitution",
+              "aₙ = aₙ₋₁ + 5"
+            ],
+            [
+              "Two substitutions, n ≥ 2",
+              "aₙ = aₙ₋₂ + 2·5"
+            ],
+            [
+              "k substitutions, 0 ≤ k ≤ n",
+              "aₙ = aₙ₋ₖ + 5k"
+            ],
+            [
+              "Stop at k = n",
+              "aₙ = a₀ + 5n = 4 + 5n"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Forward calculation gives 4, 9, 14, 19, … and suggests the same rule. To certify it, the base n = 0 gives 4. If aₙ₋₁ = 4 + 5(n − 1), then the recurrence gives aₙ = 4 + 5(n − 1) + 5 = 4 + 5n. This is the induction pattern from Chapter 5."
+        },
+        {
+          "type": "check",
+          "prompt": "What if the statement instead says a₁ = 4 and the recurrence starts at n = 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Then there are n − 1 steps from a₁ to aₙ, so aₙ = 4 + 5(n − 1). Test the initial index: putting n = 1 must return 4. Do not switch between a₀ and a₁ midway through a derivation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.3, printed pages 168–169."
+        }
+      ]
+    },
+    {
+      "id": "geometric-model",
+      "title": "8. Translate a repeated percentage change into multiplication",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "An idealized growth model",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a modeled quantity starts at P₀ = 80 units and increases by 25% of its current value each period, with no additions, losses, or rounding. Then Pₙ = Pₙ₋₁ + 0.25Pₙ₋₁ = 1.25Pₙ₋₁. Iteration gives Pₙ = 80(1.25)ⁿ."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Periods n",
+            "Value Pₙ"
+          ],
+          "rows": [
+            [
+              "0",
+              "80"
+            ],
+            [
+              "1",
+              "100"
+            ],
+            [
+              "2",
+              "125"
+            ],
+            [
+              "3",
+              "156.25"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The percentage applies to the changing current quantity. Adding a fixed 20 units each period would describe a different, arithmetic model. Fractional values here are allowed model quantities, not counts of indivisible objects. A real process with per-period rounding or varying rates needs a different recurrence."
+        },
+        {
+          "type": "check",
+          "prompt": "If the model instead loses 25% each period, is the multiplier −0.25?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It retains 75%, so the multiplier is 0.75 and Pₙ = 80(0.75)ⁿ. A negative multiplier would alternate signs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.3, printed page 169."
+        }
+      ]
+    },
+    {
+      "id": "pattern-conjectures",
+      "title": "9. Treat an observed pattern as a candidate rule",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Look for constant differences, constant ratios, repeated blocks, cycles, or combinations of previous terms. These can suggest a rule, but finitely many terms do not determine an infinite sequence uniquely."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Observed beginning",
+            "One possible continuation rule"
+          ],
+          "rows": [
+            [
+              "4, 7, 10, 13",
+              "Add 3 each time."
+            ],
+            [
+              "5, 10, 20, 40",
+              "Multiply by 2 each time."
+            ],
+            [
+              "1, 1, 2, 2, 3, 3",
+              "List each positive integer twice."
+            ],
+            [
+              "2, −2, 2, −2",
+              "Alternate 2 and −2."
+            ],
+            [
+              "2, 5, 7, 12, 19",
+              "Add the previous two terms."
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Two rules can fit the same data",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n ≥ 1, both aₙ = 3n + 1 and bₙ = 3n + 1 + (n − 1)(n − 2)(n − 3)(n − 4) begin 4, 7, 10, 13. The added product is zero at those four indices. At n = 5, a₅ = 16 but b₅ = 40. The observations alone cannot choose between them."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A sequence database such as the OEIS, discussed in the textbook, can suggest matches. A match is evidence for a conjecture, not a proof that its rule describes your problem. Check the indexing, definition, and a derivation from the original problem."
+        },
+        {
+          "type": "check",
+          "prompt": "If the differences of the first six terms are all 3, can you conclude every later difference is 3?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Only if the sequence is defined by a rule or argument that guarantees it. A finite list by itself supports a plausible conjecture, not a unique continuation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.4, printed pages 170–172."
+        }
+      ]
+    },
+    {
+      "id": "sequence-library",
+      "title": "10. Build a small library without losing the starting index",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Rule for n = 1, 2, 3, 4, 5",
+            "First five terms"
+          ],
+          "rows": [
+            [
+              "n²",
+              "1, 4, 9, 16, 25"
+            ],
+            [
+              "n³",
+              "1, 8, 27, 64, 125"
+            ],
+            [
+              "n⁴",
+              "1, 16, 81, 256, 625"
+            ],
+            [
+              "Fₙ",
+              "1, 1, 2, 3, 5"
+            ],
+            [
+              "2ⁿ",
+              "2, 4, 8, 16, 32"
+            ],
+            [
+              "3ⁿ",
+              "3, 9, 27, 81, 243"
+            ],
+            [
+              "n!",
+              "1, 2, 6, 24, 120"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Compare with a familiar family",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The list 3, 6, 11, 18, 27 is two more than 1², 2², 3², 4², 5². A candidate is aₙ = n² + 2 for n ≥ 1. Its successive differences are 3, 5, 7, 9, which also suggest a quadratic pattern. This is still a candidate unless the problem supplies more structure."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is F₁, F₂, F₃, … different from the full list starting at F₀?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first list starts 1, 1, 2, …; the second starts 0, 1, 1, 2, …. They use the same Fibonacci rule, but the displayed index range differs. Record that range when comparing lists."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.4, printed pages 170–172."
+        }
+      ]
+    },
+    {
+      "id": "read-sigma",
+      "title": "11. Expand a summation before simplifying it",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "Σⱼ₌ₘⁿ aⱼ = aₘ + aₘ₊₁ + … + aₙ",
+          "description": "Read “sum a sub j from j = m through n.” The bounds are inclusive integers; for m ≤ n there are n − m + 1 terms."
+        },
+        {
+          "type": "paragraph",
+          "text": "The expression being added is the summand, and j is a bound or dummy index. Renaming j to k everywhere inside the same sum changes nothing. The upper bound n may remain a free parameter."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Sum",
+            "Expansion",
+            "Value"
+          ],
+          "rows": [
+            [
+              "Σⱼ₌₂⁵ j²",
+              "4 + 9 + 16 + 25",
+              "54"
+            ],
+            [
+              "Σₖ₌₃⁶ (−1)ᵏ",
+              "−1 + 1 − 1 + 1",
+              "0"
+            ],
+            [
+              "Σⱼ₌₄⁴ 7",
+              "7",
+              "7"
+            ],
+            [
+              "Σⱼ₌₂⁵ 7",
+              "7 + 7 + 7 + 7",
+              "28"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A sum over an empty index set is 0. In the finite integer-range convention used here, a lower bound larger than the upper bound means no terms. A zero-term sum differs from a sum with one term equal to zero, even though their values agree."
+        },
+        {
+          "type": "check",
+          "prompt": "How many terms are in Σⱼ₌₀ⁿ aⱼ for n ≥ 0? What if n = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are n + 1 terms. At n = 0 the sum is a₀, not an empty sum. Count both endpoints."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed pages 172–173."
+        }
+      ]
+    },
+    {
+      "id": "sum-laws",
+      "title": "12. Split addition, but do not split a product into separate sums",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "Σⱼ₌ₘⁿ (c aⱼ + d bⱼ) = c Σⱼ₌ₘⁿ aⱼ + d Σⱼ₌ₘⁿ bⱼ",
+          "description": "For finite sums, c and d are constants with respect to the summation index."
+        },
+        {
+          "type": "example",
+          "title": "Use linearity carefully",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Σⱼ₌₁⁴ (3j + 2) = 3(1 + 2 + 3 + 4) + 2·4 = 30 + 8 = 38. The constant 2 appears four times. It is not added just once."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A tempting product rule fails",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For a₁ = 1, a₂ = 2 and b₁ = 3, b₂ = 4, we have Σⱼ₌₁² aⱼbⱼ = 1·3 + 2·4 = 11. But (Σⱼ₌₁² aⱼ)(Σⱼ₌₁² bⱼ) = 3·7 = 21. The product of sums includes cross terms with different indices."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can you pull j outside Σⱼ₌₁⁴ j aⱼ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It changes as the index changes. You can pull out a quantity only when it is constant with respect to that sum’s index. In an inner sum over j, an outer index i may be temporarily constant."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed page 173."
+        }
+      ]
+    },
+    {
+      "id": "reindex",
+      "title": "13. Change the index, bounds, and summand together",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To reindex Σⱼ₌₃⁶ j² starting at zero, define k = j − 3. Then j = k + 3. Translate the lower endpoint 3 to 0, the upper endpoint 6 to 3, and every j in the summand to k + 3."
+        },
+        {
+          "type": "math",
+          "notation": "Σⱼ₌₃⁶ j² = Σₖ₌₀³ (k + 3)² = 9 + 16 + 25 + 36 = 86",
+          "description": "The labels change; the four terms being added stay the same."
+        },
+        {
+          "type": "diagram",
+          "title": "Match each old index to one new index",
+          "src": "assets/summation-reindex.svg",
+          "description": "Four aligned columns show old indices 3,4,5,6 above new indices 0,1,2,3. The corresponding squared terms remain 9,16,25,36."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is Σₖ₌₀³ k² not the reindexed version?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It adds 0 + 1 + 4 + 9 = 14, a different list. Changing only the bounds loses the shift inside the summand. Verify the first and last terms after every reindexing."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed pages 173–174."
+        }
+      ]
+    },
+    {
+      "id": "geometric-sum",
+      "title": "14. Derive a geometric sum by canceling the shared terms",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a real first term a, nonzero ratio r, and integer n ≥ 0, let S = a + ar + … + arⁿ. There are n + 1 terms. Multiply by r, then subtract the original sum."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Expanded form"
+          ],
+          "rows": [
+            [
+              "S",
+              "a + ar + ar² + … + arⁿ"
+            ],
+            [
+              "rS",
+              "ar + ar² + … + arⁿ + arⁿ⁺¹"
+            ],
+            [
+              "rS − S",
+              "arⁿ⁺¹ − a"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "Σⱼ₌₀ⁿ arʲ = a(rⁿ⁺¹ − 1)/(r − 1), if r ≠ 1\nΣⱼ₌₀ⁿ a = (n + 1)a, if r = 1",
+          "description": "For r ≠ 1 divide (r − 1)S = a(rⁿ⁺¹ − 1) by the nonzero r − 1. The r = 1 case must be handled separately."
+        },
+        {
+          "type": "example",
+          "title": "Keep the term count visible",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For a = 2, r = 3, and n = 4, the terms are 2, 6, 18, 54, 162. Their sum is 242. The formula gives 2(3⁵ − 1)/(3 − 1) = 242. The exponent 5 reflects five terms."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For r = 0, use the recurrence interpretation a, 0, 0, … from the progression unit; every nonempty initial sum is a. This treats the initial value explicitly rather than silently using 0⁰."
+        },
+        {
+          "type": "check",
+          "prompt": "What is 5 + 5 + 5 + 5 under this formula?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Here a = 5, r = 1, and n = 3. Use the special case (3 + 1)·5 = 20. Substituting r = 1 into the quotient would divide by zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed page 174, Theorem 1."
+        }
+      ]
+    },
+    {
+      "id": "finite-formulas",
+      "title": "15. Use prefix sums to handle arbitrary starting points",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Sum for integer n ≥ 0",
+            "Closed form"
+          ],
+          "rows": [
+            [
+              "Σₖ₌₁ⁿ k",
+              "n(n + 1)/2"
+            ],
+            [
+              "Σₖ₌₁ⁿ k²",
+              "n(n + 1)(2n + 1)/6"
+            ],
+            [
+              "Σₖ₌₁ⁿ k³",
+              "n²(n + 1)²/4"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "At n = 0 these are empty sums and all three formulas give zero. The first formula follows by pairing the first and last terms: adding the sum to its reverse gives n copies of n + 1. The formulas can also be verified by induction: the value at n minus the value at n − 1 must equal the new summand, with a matching base case."
+        },
+        {
+          "type": "example",
+          "title": "Subtract the prefix before the requested interval",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To find Σₖ₌₄⁸ k², take the sum through 8 and remove the sum through 3. The result is 8·9·17/6 − 3·4·7/6 = 204 − 14 = 190. Removing through 4 would remove a term we still need."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "Σₖ₌ₘⁿ aₖ = S(n) − S(m − 1), where S(t) = Σₖ₌₁ᵗ aₖ and 1 ≤ m ≤ n",
+          "description": "The prefix ends immediately before the first desired index."
+        },
+        {
+          "type": "example",
+          "title": "Sum an arithmetic progression",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For N terms a₀, a₀ + d, …, a₀ + (N − 1)d, the sum is Na₀ + dN(N − 1)/2. For 8, 5, 2, −1, take N = 4 and d = −3: 4·8 − 3·4·3/2 = 14."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find Σₖ₌₁⁴ (k² + 2k).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Use linearity: the square sum is 30 and twice the integer sum is 20, giving 50. Direct expansion gives 3 + 8 + 15 + 24 = 50."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed pages 175–176, Table 2."
+        }
+      ]
+    },
+    {
+      "id": "double-sums",
+      "title": "16. Hold the outer index fixed while doing the inner sum",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "Σᵢ₌₁³ Σⱼ₌₁⁴ (i + j)",
+          "description": "For each i, first add the four values obtained by varying j. Then add the three row totals."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "i",
+            "j = 1",
+            "j = 2",
+            "j = 3",
+            "j = 4",
+            "Row sum"
+          ],
+          "rows": [
+            [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "14"
+            ],
+            [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "18"
+            ],
+            [
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "22"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The total is 14 + 18 + 22 = 54. Summing columns instead gives 9 + 12 + 15 + 18 = 54. Reordering a finite sum over the same pairs does not change it."
+        },
+        {
+          "type": "example",
+          "title": "Bounds can depend on the outer index",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For Σᵢ₌₁⁴ Σⱼ₌₁ⁱ 1, row i has i terms. The total is 1 + 2 + 3 + 4 = 10. If you reverse the order, the same pairs satisfy 1 ≤ j ≤ 4 and j ≤ i ≤ 4, giving Σⱼ₌₁⁴ Σᵢ₌ⱼ⁴ 1. Simply swapping index letters while keeping incompatible bounds would count a different region."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A set can be the index collection",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Σₛ∈{−2,1,3} s² = (−2)² + 1² + 3² = 14. Sum once for each member of the index set. Repeating a member in its written roster does not add another index."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "In Σᵢ₌₁³ Σⱼ₌₁⁴ i, how many times is each i added?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Four times in its inner sum. The result is Σᵢ₌₁³ 4i = 4(1 + 2 + 3) = 24. The inner index j does not appear in the summand, but its range still determines the repetition count."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed page 175."
+        }
+      ]
+    },
+    {
+      "id": "telescoping",
+      "title": "17. Look for cancellation before expanding everything",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A telescoping sum has neighboring terms that cancel. This is a useful extension of finite summation rules; write the first few and last terms so the surviving endpoints are visible."
+        },
+        {
+          "type": "math",
+          "notation": "Σₖ₌₁ⁿ [1/k − 1/(k + 1)] = 1 − 1/(n + 1), for n ≥ 1",
+          "description": "The expansion is (1 − 1/2) + (1/2 − 1/3) + … + (1/n − 1/(n + 1))."
+        },
+        {
+          "type": "paragraph",
+          "text": "Every internal fraction appears once with each sign. Only the first positive and last negative terms survive. Since 1/k − 1/(k + 1) = 1/[k(k + 1)], the same formula evaluates Σₖ₌₁ⁿ 1/[k(k + 1)]."
+        },
+        {
+          "type": "check",
+          "prompt": "Find Σₖ₌₃⁶ [1/k − 1/(k + 1)].",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The surviving terms are 1/3 − 1/7 = 4/21. Starting at 3 changes the first surviving endpoint; do not automatically start the answer at 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed pages 172–176; companion extension."
+        }
+      ]
+    },
+    {
+      "id": "sequences-recap",
+      "title": "18. Keep infinite series separate from long finite sums",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "Optional calculus bridge",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An infinite series is defined through the limit of its finite partial sums, when that limit exists. It is not a finite sum with a very large upper bound. The following two formulas require |x| < 1."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "Σₖ₌₀∞ xᵏ = 1/(1 − x), for |x| < 1\nΣₖ₌₁∞ kxᵏ⁻¹ = 1/(1 − x)², for |x| < 1",
+          "description": "In the second formula the first term is 1, including at x = 0; it is the constant term."
+        },
+        {
+          "type": "paragraph",
+          "text": "For the first formula, the finite sum through N equals (1 − xᴺ⁺¹)/(1 − x). When |x| < 1, xᴺ⁺¹ tends to zero, so the partial sums tend to 1/(1 − x). The remaining tail after index N is xᴺ⁺¹/(1 − x). At x = 1, partial sums grow without bound; at x = −1 they alternate between 1 and 0 and have no limit."
+        },
+        {
+          "type": "paragraph",
+          "text": "The second formula follows by differentiating the geometric power series inside |x| < 1. A calculus theorem justifies differentiating term by term there; that step is not valid for arbitrary infinite sums. At x = 1/2, the two sums are 2 and 4, respectively."
+        },
+        {
+          "type": "check",
+          "prompt": "For 1 + 1/2 + … + (1/2)⁵, is the answer exactly 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. This finite sum has six terms and equals 2 − 1/32 = 63/32. The infinite sum equals 2; its tail after index 5 is 1/32."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A working routine",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "State the index range and starting values. Distinguish a term, a sequence, and a sum. Check a recurrence at its initial indices before proving the general rule. When summing, count the terms, preserve both endpoints during reindexing, and verify every formula’s conditions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Section 2.5 uses functions to compare the sizes of sets, including infinite sets. Section 2.6 introduces matrices. Those are the next numbered sections in this chapter."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.4.5, printed pages 176–177; review of §2.4."
+        }
+      ]
+    }
+  ]
+}
