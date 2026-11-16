@@ -1,0 +1,919 @@
+{
+  "schemaVersion": 1,
+  "id": "2.1",
+  "title": "Sets",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §2.1.1–§2.1.8, printed pages 121–131 (exposition).",
+    "Original companion explanations, examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "set-members",
+      "title": "1. Think of a set as a membership decision",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A set tells you which objects belong. Their order does not matter, and listing the same object twice does not create another member. Set notation turns membership questions into precise statements."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A set is an unordered collection of distinct objects, called elements or members. Curly braces list those elements: S = {pen, ruler, notebook}. This is roster notation. The symbol ∈ means “is an element of”; ∉ means “is not an element of.”"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Statement",
+            "Meaning",
+            "Truth"
+          ],
+          "rows": [
+            [
+              "pen ∈ S",
+              "The pen is one of the listed objects.",
+              "T"
+            ],
+            [
+              "eraser ∈ S",
+              "The eraser is one of the listed objects.",
+              "F"
+            ],
+            [
+              "ruler ∉ S",
+              "The ruler is absent.",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Order and repetition do not change the set",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "{2, 6, 9} = {9, 2, 6} = {2, 2, 6, 9, 9}. These are different ways to write the same three-member set. By contrast, a shopping list or a sequence may need to preserve order or repeated entries; a plain set does not."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Are {red, blue} and {blue, red, blue} equal?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Each contains exactly the same two distinct objects. Reordering and repeating a name change the writing, not membership."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.1, printed pages 121–124."
+        }
+      ]
+    },
+    {
+      "id": "set-builder",
+      "title": "2. Describe members with a rule instead of a list",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "S = {x ∈ ℤ | −2 ≤ x ≤ 4 and x is even} = {−2, 0, 2, 4}",
+          "description": "Read: the set of integers x such that x is between −2 and 4 inclusive and is even."
+        },
+        {
+          "type": "paragraph",
+          "text": "The vertical bar | means “such that” in this notation; it is not an absolute-value operation here. The part x ∈ ℤ states the domain. The condition after the bar decides which members of that domain to keep. A colon is sometimes used instead of the bar."
+        },
+        {
+          "type": "example",
+          "title": "Keep the domain visible",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "{x ∈ ℤ | x² < 9} = {−2, −1, 0, 1, 2}. Over the real numbers, {x ∈ ℝ | x² < 9} is the whole interval (−3, 3), including fractions such as 1/2. The same inequality can describe different sets when its domain changes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An ellipsis such as {0, 4, 8, 12, …} should accompany a clear rule, here the nonnegative multiples of 4. A few initial numbers alone do not uniquely specify an infinite set."
+        },
+        {
+          "type": "check",
+          "prompt": "Write {3, 6, 9, 12} using an integer parameter.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "{3k | k ∈ ℤ and 1 ≤ k ≤ 4}. The parameter restriction prevents 0, negative multiples, and multiples beyond 12 from entering the set."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.1, printed page 122."
+        }
+      ]
+    },
+    {
+      "id": "number-sets",
+      "title": "3. Recognize the standard number sets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Symbol",
+            "Members or defining rule"
+          ],
+          "rows": [
+            [
+              "ℕ",
+              "{0, 1, 2, …}; this book includes zero."
+            ],
+            [
+              "ℤ",
+              "{…, −2, −1, 0, 1, 2, …}."
+            ],
+            [
+              "ℤ⁺",
+              "{1, 2, 3, …}."
+            ],
+            [
+              "ℚ",
+              "{a/b | a, b ∈ ℤ and b ≠ 0}."
+            ],
+            [
+              "ℝ",
+              "All real numbers, including rational and irrational numbers."
+            ],
+            [
+              "ℝ⁺",
+              "The real numbers greater than zero."
+            ],
+            [
+              "ℂ",
+              "The complex numbers a + bi with real a, b and i² = −1."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An integer is rational because n = n/1. An irrational real number, such as √3 from Chapter 1, belongs to ℝ but not ℚ. A real number can also be viewed as a complex number with imaginary part zero. Different sources may define ℕ differently, so state the convention."
+        },
+        {
+          "type": "check",
+          "prompt": "Which of ℕ, ℤ, ℚ, and ℝ contain −4? Which contain 3/2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "−4 belongs to ℤ, ℚ, and ℝ, but not ℕ under this book’s convention. 3/2 belongs to ℚ and ℝ, but not ℤ or ℕ."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Computer datatypes can be modeled by sets of permitted values together with operations. For example, the Boolean type has two values. A bounded machine-integer type is not the whole infinite mathematical set ℤ."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.1, printed pages 122–123."
+        }
+      ]
+    },
+    {
+      "id": "interval-endpoints",
+      "title": "4. Read an interval one endpoint at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Intervals here are sets of real numbers. A square bracket includes its endpoint; a parenthesis excludes it. All real numbers between the endpoints belong, not just the integers."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Interval",
+            "Condition on x",
+            "Contains −1?",
+            "Contains 3?"
+          ],
+          "rows": [
+            [
+              "[−1, 3]",
+              "−1 ≤ x ≤ 3",
+              "T",
+              "T"
+            ],
+            [
+              "[−1, 3)",
+              "−1 ≤ x < 3",
+              "T",
+              "F"
+            ],
+            [
+              "(−1, 3]",
+              "−1 < x ≤ 3",
+              "F",
+              "T"
+            ],
+            [
+              "(−1, 3)",
+              "−1 < x < 3",
+              "F",
+              "F"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "When the two endpoints coincide, [a, a] = {a}. The intervals [a, a), (a, a], and (a, a) are empty: each requires x to be at least a and strictly below a, or an equivalent impossible condition. An unbounded interval such as [2, ∞) means x ≥ 2; infinity is not a real-number endpoint to include."
+        },
+        {
+          "type": "check",
+          "prompt": "Is [2, 4] the set {2, 3, 4}?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. [2, 4] also contains 2.5, 3.1, and infinitely many other real numbers. The integer-restricted set {x ∈ ℤ | 2 ≤ x ≤ 4} is {2, 3, 4}."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.1, printed page 123."
+        }
+      ]
+    },
+    {
+      "id": "empty-and-nested",
+      "title": "5. Count the outer members, not the things inside them",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The empty set ∅ has no members. A singleton is a set with exactly one member. The set {∅} is a singleton whose sole member is the empty set; it is not empty."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Set",
+            "Its outer members",
+            "Number of members"
+          ],
+          "rows": [
+            [
+              "∅",
+              "None",
+              "0"
+            ],
+            [
+              "{∅}",
+              "The object ∅",
+              "1"
+            ],
+            [
+              "{{∅}}",
+              "The object {∅}",
+              "1"
+            ],
+            [
+              "{∅, {∅}}",
+              "The two different objects ∅ and {∅}",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Braces add a new level of membership",
+          "src": "assets/set-levels.svg",
+          "description": "Three boxes compare the empty set, a set containing the empty set, and a set containing a singleton whose member is empty. The outer member counts are zero, one, and one."
+        },
+        {
+          "type": "paragraph",
+          "text": "Let S = {2, {2}, ∅}. Its three members are the number 2, the singleton {2}, and the empty set. Thus 2 ∈ S and {2} ∈ S are both true for different reasons. Braces are part of the object, not decoration."
+        },
+        {
+          "type": "check",
+          "prompt": "Is ∅ an element of {{∅}}?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Its only member is {∅}, which is different from ∅. However, ∅ is an element of {∅}. Carefully inspect one level of braces at a time."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.1 and §2.1.3, printed pages 123–124 and 127."
+        }
+      ]
+    },
+    {
+      "id": "universe-and-venn",
+      "title": "6. Fix a universe before drawing regions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A universal set U contains the objects under discussion in this problem. In a Venn diagram, a rectangle represents U and regions inside it represent selected sets. A dot or listed object inside a region belongs to that set."
+        },
+        {
+          "type": "example",
+          "title": "An explicit universe",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let U = {1, 2, 3, 4, 5, 6}, and let E = {2, 4, 6}. Draw E inside U. The numbers 1, 3, and 5 are outside E but still inside U. The number 8 is outside this chosen universe, so it is not represented by an ordinary dot inside the rectangle."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The area of a drawn circle is not a count of members unless a separate scale is explicitly supplied. An overlapping drawing shows possible membership regions; it does not, by itself, guarantee that every region contains an object."
+        },
+        {
+          "type": "check",
+          "prompt": "Can the universal set change from one exercise to another?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. It might be students in one exercise and integers in another. Within one calculation, keep it fixed or explicitly announce a change, especially when taking complements."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.2, printed pages 124–125."
+        }
+      ]
+    },
+    {
+      "id": "subset-versus-member",
+      "title": "7. Separate an element test from a containment test",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "A ⊆ B ⇔ ∀x (x ∈ A → x ∈ B)",
+          "description": "A is a subset of B when every member of A also belongs to B. B ⊇ A expresses the same relationship."
+        },
+        {
+          "type": "paragraph",
+          "text": "Membership x ∈ B tests one object. Inclusion A ⊆ B tests every member of the set A. To disprove inclusion, find a member of A that is missing from B."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Claim",
+            "Truth",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "{2} ⊆ {2, 4}",
+              "T",
+              "Every member of {2} belongs to {2, 4}."
+            ],
+            [
+              "{2} ∈ {2, 4}",
+              "F",
+              "The listed members are numbers, not the singleton {2}."
+            ],
+            [
+              "2 ∈ {2, 4}",
+              "T",
+              "2 is a listed member."
+            ],
+            [
+              "{2, 6} ⊆ {2, 4}",
+              "F",
+              "6 belongs to the left set but not the right."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A proper subset is included but not equal. This companion writes A ⊊ B to make “proper” explicit; the textbook uses A ⊂ B for the same meaning. You need A ⊆ B and a witness in B that is not in A. Thus {2} ⊊ {2, 4}, while {2, 4} ⊊ {2, 4} is false."
+        },
+        {
+          "type": "check",
+          "prompt": "Is {∅} ⊆ {∅, 2}? Is ∅ ∈ {∅, 2}?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both are true. The first says every member of {∅}, namely ∅, occurs in the right set. The second directly tests that same listed object."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.3, printed pages 125–127."
+        }
+      ]
+    },
+    {
+      "id": "subset-proofs",
+      "title": "8. Prove inclusion, then equality in both directions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For every set S, ∅ ⊆ S and S ⊆ S. The first is vacuous: no object belongs to ∅ and fails to belong to S. The second follows because an object in S is in S. If S is empty, these two guaranteed subsets coincide."
+        },
+        {
+          "type": "example",
+          "title": "A proof that keeps the witness",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let A = {4k | k ∈ ℤ} and B = {2k | k ∈ ℤ}. If x ∈ A, then x = 4k for some integer k. Write x = 2(2k); because 2k is an integer, x ∈ B. Thus A ⊆ B. The number 2 belongs to B but not A, so the inclusion is proper."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "A = B ⇔ (A ⊆ B and B ⊆ A)",
+          "description": "Two sets are equal exactly when they have the same members; equality needs both inclusions."
+        },
+        {
+          "type": "example",
+          "title": "Two descriptions of one set",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let E = {2k | k ∈ ℤ} and F = {m + n | m, n are odd integers}. If x ∈ F, write m = 2a + 1 and n = 2b + 1, so x = 2(a + b + 1) ∈ E. Conversely, if x = 2k ∈ E, write x = 1 + (2k − 1); both summands are odd integers. Thus E ⊆ F and F ⊆ E, so E = F."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does proving only F ⊆ E not establish equality?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "E could contain additional elements. For example, {2} ⊆ {2, 4}, but the two sets are not equal. The reverse inclusion rules out extras."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.3, printed pages 126–127."
+        }
+      ]
+    },
+    {
+      "id": "cardinality",
+      "title": "9. Measure size by distinct outer elements",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A finite set has exactly n distinct members for some nonnegative integer n. Its cardinality, written |S|, is that number. A set that is not finite is infinite. The bars mean set size here; |x| for a number can instead mean absolute value."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Set",
+            "Cardinality"
+          ],
+          "rows": [
+            [
+              "{1, 1, 4, 9, 9}",
+              "3"
+            ],
+            [
+              "∅",
+              "0"
+            ],
+            [
+              "{∅}",
+              "1"
+            ],
+            [
+              "{ℕ, ℤ, ℚ, ℝ}",
+              "4"
+            ],
+            [
+              "{2, {2}, ∅}",
+              "3"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The set {ℕ, ℤ, ℚ, ℝ} is finite even though each of its four members is an infinite set. Count the outer objects. Sets with the same cardinality need not be equal: {1, 2} and {8, 9} each have two members but different membership."
+        },
+        {
+          "type": "check",
+          "prompt": "If finite A ⊆ B and |A| = |B|, must A = B? Does the same reasoning cover infinite sets?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For finite sets, yes: a proper subset would have fewer members. Do not extend that finite counting argument to infinite sets. Section 2.5 studies why infinite sets can have the same cardinality as proper subsets."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.4, printed page 127."
+        }
+      ]
+    },
+    {
+      "id": "power-set",
+      "title": "10. Make a new set whose members are all the subsets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "℘(S) = {A | A ⊆ S}",
+          "description": "The power set of S contains its subsets as elements. Thus A ∈ ℘(S) means exactly A ⊆ S."
+        },
+        {
+          "type": "paragraph",
+          "text": "Let S = {a, b, c}, where a, b, and c are three distinct labels. List subsets by size so that none are missed or duplicated."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Size",
+            "Subsets"
+          ],
+          "rows": [
+            [
+              "0",
+              "∅"
+            ],
+            [
+              "1",
+              "{a}; {b}; {c}"
+            ],
+            [
+              "2",
+              "{a, b}; {a, c}; {b, c}"
+            ],
+            [
+              "3",
+              "{a, b, c}"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "℘({a, b, c}) = {∅, {a}, {b}, {c}, {a, b}, {a, c}, {b, c}, {a, b, c}}",
+          "description": "There are eight members, and each member is itself a set."
+        },
+        {
+          "type": "paragraph",
+          "text": "For a finite set of n elements, each element has two choices in forming a subset: include it or omit it. Independent choices give 2ⁿ subsets, so |℘(S)| = 2ⁿ. This counts subsets, not ordered lists."
+        },
+        {
+          "type": "check",
+          "prompt": "Is a ∈ ℘({a, b, c})? Is {a} ∈ ℘({a, b, c})?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The label a is not a subset, so a is not a member of this power set. The singleton {a} is a subset, so it is a member. Do not remove its braces."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.5, printed page 128."
+        }
+      ]
+    },
+    {
+      "id": "empty-power-sets",
+      "title": "11. Apply the power-set rule even when nothing is inside",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Input S",
+            "℘(S)",
+            "|℘(S)|"
+          ],
+          "rows": [
+            [
+              "∅",
+              "{∅}",
+              "1"
+            ],
+            [
+              "{∅}",
+              "{∅, {∅}}",
+              "2"
+            ],
+            [
+              "{{∅}}",
+              "{∅, {{∅}}}",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The empty set has one subset: itself. A singleton has two subsets: choose none of its one member, or choose that member. The member may itself be a set; the include-or-omit decision still concerns one outer object."
+        },
+        {
+          "type": "example",
+          "title": "Separate two universal truths",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For every S, ∅ ⊆ S, so ∅ ∈ ℘(S). Also S ⊆ S, so S ∈ ℘(S). When S = ∅ these describe the same member of the power set, not two different members."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many members does ℘(℘(∅)) have?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "℘(∅) = {∅} has one member. Its power set is {∅, {∅}}, with 2¹ = 2 members."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.5, printed page 128."
+        }
+      ]
+    },
+    {
+      "id": "ordered-tuples",
+      "title": "12. Use a tuple when position matters",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An ordered pair (a, b) has a first and second component. Two ordered pairs are equal exactly when their corresponding components agree. An ordered n-tuple has n positions, and equality compares every matching position."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Comparison",
+            "Equal?",
+            "Why"
+          ],
+          "rows": [
+            [
+              "{2, 7} and {7, 2}",
+              "Yes",
+              "Sets ignore order."
+            ],
+            [
+              "(2, 7) and (7, 2)",
+              "No",
+              "The first components differ."
+            ],
+            [
+              "(2, 2) and (2, 2)",
+              "Yes",
+              "Both components match."
+            ],
+            [
+              "(a, b, c) and ((a, b), c)",
+              "No",
+              "A triple differs from a pair whose first component is a pair."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A set of tuples remains unordered as a collection, while each tuple retains its internal order. For example, {(1, 2), (3, 4)} does not have a first tuple, but each member has a first coordinate."
+        },
+        {
+          "type": "check",
+          "prompt": "What follows from (x + 1, y − 2) = (5, 3) over real x and y?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Match corresponding components: x + 1 = 5 and y − 2 = 3. Therefore x = 4 and y = 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.6, printed pages 128–130."
+        }
+      ]
+    },
+    {
+      "id": "cartesian-product",
+      "title": "13. Form every allowed ordered combination",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "A × B = {(a, b) | a ∈ A and b ∈ B}",
+          "description": "The Cartesian product takes one first component from A and one second component from B."
+        },
+        {
+          "type": "paragraph",
+          "text": "Let A = {2, 4} and B = {p, q, r}, with the letters treated as distinct labels. Then A × B = {(2, p), (2, q), (2, r), (4, p), (4, q), (4, r)}. There are |A||B| = 2·3 = 6 pairs."
+        },
+        {
+          "type": "paragraph",
+          "text": "B × A has pairs such as (p, 2), so it is not equal to A × B, although their finite sizes agree. If either factor is empty, the product is empty because no pair can meet both component requirements. A × A is written A²; it is not the power set ℘(A)."
+        },
+        {
+          "type": "example",
+          "title": "More components",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If A = {0, 1}, B = {x}, and C = {red, blue}, then A × B × C consists of (0, x, red), (0, x, blue), (1, x, red), and (1, x, blue). By contrast, (A × B) × C contains objects such as ((0, x), red). There is a natural correspondence, but these are not literally the same tuple structure."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If A has three elements, how do |A²| and |℘(A)| compare?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "|A²| = 3·3 = 9, while |℘(A)| = 2³ = 8. The first counts ordered pairs; the second counts subsets."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.6, printed pages 129–130."
+        }
+      ]
+    },
+    {
+      "id": "relations-as-subsets",
+      "title": "14. Select the pairs that satisfy a relationship",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A relation from A to B is a subset R of A × B. The product lists every allowed combination; the relation selects combinations that actually meet a stated condition. It need not use every member of either factor."
+        },
+        {
+          "type": "example",
+          "title": "A small assignment relation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let A = {Ana, Bo} be students and B = {Logic, Sets} be topics. The product has four possible student-topic pairs. The relation R = {(Ana, Logic), (Ana, Sets)} records Ana assigned both topics and Bo assigned none. A relation alone does not require exactly one assignment per student."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A relation on A is a subset of A × A. For A = {−1, 0, 2}, the relation “less than or equal to” is R = {(−1, −1), (−1, 0), (−1, 2), (0, 0), (0, 2), (2, 2)}."
+        },
+        {
+          "type": "check",
+          "prompt": "How many possible relations from the two students to the two topics exist?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are four allowed pairs, and a relation is any subset of those pairs. Thus there are 2⁴ = 16 possible relations, including the empty relation and the entire product. Additional assignment rules would restrict this family."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.6, printed pages 129–130."
+        }
+      ]
+    },
+    {
+      "id": "truth-sets",
+      "title": "15. See quantified statements as facts about truth sets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Restricted notation",
+            "Expanded meaning"
+          ],
+          "rows": [
+            [
+              "∀x ∈ S P(x)",
+              "∀x (x ∈ S → P(x))"
+            ],
+            [
+              "∃x ∈ S P(x)",
+              "∃x (x ∈ S ∧ P(x))"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Given a domain D and predicate P, its truth set is {x ∈ D | P(x)}. The universal statement ∀x ∈ D P(x) is true exactly when that truth set is D. The existential statement is true exactly when the truth set is nonempty."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Domain",
+            "Predicate",
+            "Truth set"
+          ],
+          "rows": [
+            [
+              "ℤ",
+              "x² = 4",
+              "{−2, 2}"
+            ],
+            [
+              "ℤ",
+              "2x = 1",
+              "∅"
+            ],
+            [
+              "ℝ",
+              "2x = 1",
+              "{1/2}"
+            ],
+            [
+              "ℤ",
+              "x² < 4",
+              "{−1, 0, 1}"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If D = ∅, what are the truth set and the two quantified truth values?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The truth set is ∅, which equals D, so the universal statement is true. It is not nonempty, so the existential statement is false. These conclusions agree with the quantifier rules from Chapter 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.7–§2.1.8, printed page 131."
+        }
+      ]
+    },
+    {
+      "id": "sets-recap",
+      "title": "16. Check the kind of object before using a symbol",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "A compact routine",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Identify the universe and the actual outer members. Use ∈ for membership, ⊆ for inclusion, and = for identical membership. Count distinct members. For ℘(S), list subsets; for A × B, list ordered pairs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This section uses the ordinary intuitive language of sets. It does not allow an unrestricted “set of absolutely everything” or guarantee that any self-referential condition defines a set. For example, the proposed collection of all sets that are not members of themselves leads to Russell’s paradox when one asks whether that collection belongs to itself. Formal set theories restrict set formation to avoid this problem."
+        },
+        {
+          "type": "check",
+          "prompt": "Let S = {a, {a}}, with a a label. Find |S| and ℘(S).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "|S| = 2. Its four subsets are ∅, {a}, {{a}}, and {a, {a}}. Therefore ℘(S) = {∅, {a}, {{a}}, {a, {a}}}. The two singleton subsets differ because their members differ."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is {2, 4} ⊆ {x ∈ ℤ | x is even}? Is it equal to that set?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is a subset, but not equal. For example, 0 is an even integer not in {2, 4}. This witness shows proper inclusion."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Section 2.2 combines these sets using union, intersection, difference, and complement. Each operation will translate directly into a familiar logical connective."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.1.1–§2.1.8, printed pages 121–131."
+        }
+      ]
+    }
+  ]
+}

@@ -37,3 +37,7 @@ For inference and proof lessons, distinguish validity from true premises, show t
 November 16, 2026: after Sections 1.6 and 1.7 were published, the owner authorized the next two entries while away: Section 1.8 and the Chapter 1 review. The next pair is Sections 2.1 and 2.2.
 
 For proof strategy, justify case coverage, search bounds, symmetry reductions, and witness conditions. Separate existence from uniqueness, a necessary condition from a sufficient one, and finite computation from an infinite-domain proof. For games, specify terminal conditions and prove a response handles every legal move. For tilings, state tile shapes and check that the coloring property holds for every allowed orientation.
+
+November 16, 2026 continuation: the owner requested Sections 2.1 and 2.2 under the established publication workflow. Next are Sections 2.3 and 2.4.
+
+For set lessons, distinguish objects from sets containing those objects, membership from inclusion, and products from power sets. Fix the universe before taking complements. Translate set operations into membership conditions, justify both directions of equality, and keep an encoding separate from the mathematical object. For indexed families, state the index domain and distinguish a witness for each element from one element shared by every set.

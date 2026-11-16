@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="380" viewBox="0 0 840 380" role="img" aria-labelledby="title desc">
+  <title id="title">Three levels of set membership</title>
+  <desc id="desc">Each blue outer box represents a set. The empty set has no inner object. The singleton containing the empty set has one inner empty box. The singleton containing that singleton has one inner box, which itself contains an empty box. Outer cardinalities are zero, one, and one.</desc>
+  <rect width="840" height="380" rx="16" fill="#f5f8fc"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#17324d" text-anchor="middle">
+    <text x="420" y="36" font-size="22" font-weight="700">Count only the members one level inside</text>
+    <text x="420" y="63" font-size="15">Every box represents a set; an inner box is one member.</text>
+    <g font-size="26" font-weight="600"><text x="150" y="105">∅</text><text x="420" y="105">{∅}</text><text x="690" y="105">{{∅}}</text></g>
+    <g fill="#eaf3ff" stroke="#356b9d" stroke-width="2"><rect x="40" y="125" width="220" height="175" rx="12"/><rect x="310" y="125" width="220" height="175" rx="12"/><rect x="580" y="125" width="220" height="175" rx="12"/></g>
+    <text x="150" y="216" font-size="18">No members</text>
+    <rect x="365" y="170" width="110" height="90" rx="10" fill="#fff" stroke="#397d70" stroke-width="2"/>
+    <text x="420" y="205" font-size="22">∅</text><text x="420" y="233" font-size="14">empty inside</text>
+    <rect x="615" y="150" width="150" height="125" rx="10" fill="#fff" stroke="#397d70" stroke-width="2"/>
+    <text x="690" y="180" font-size="21">{∅}</text>
+    <rect x="649" y="194" width="82" height="61" rx="8" fill="#fff4de" stroke="#996b26" stroke-width="2"/>
+    <text x="690" y="233" font-size="24">∅</text>
+    <g font-size="18" font-weight="600"><text x="150" y="333">0 outer members</text><text x="420" y="333">1 outer member</text><text x="690" y="333">1 outer member</text></g>
+    <text x="420" y="362" font-size="15">An empty set and a set containing an empty set are different objects.</text>
+  </g>
+</svg>

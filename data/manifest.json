@@ -91,16 +91,16 @@
           "id": "2.1",
           "number": "2.1",
           "title": "Sets",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/2.1.json",
           "children": []
         },
         {
           "id": "2.2",
           "number": "2.2",
           "title": "Set Operations",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/2.2.json",
           "children": []
         },
         {

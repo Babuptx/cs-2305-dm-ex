@@ -1,0 +1,1016 @@
+{
+  "schemaVersion": 1,
+  "id": "2.2",
+  "title": "Set Operations",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §2.2.1–§2.2.4, printed pages 133–142 (exposition), with a labeled symmetric-difference extension.",
+    "Original companion explanations, examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "union-intersection",
+      "title": "1. Combine membership with OR and AND",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Set operations answer membership questions. Union uses OR, intersection uses AND, and complement uses NOT within a fixed universe. Once you translate “x belongs” into logic, the symbols become easier to reason about."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Throughout the first examples, let U = {1, 2, 3, 4, 5, 6, 7, 8}, A = {1, 2, 3, 5}, and B = {3, 4, 5, 6}. Both A and B are subsets of U."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Operation",
+            "Membership condition",
+            "Result"
+          ],
+          "rows": [
+            [
+              "A ∪ B",
+              "x ∈ A or x ∈ B, including both",
+              "{1, 2, 3, 4, 5, 6}"
+            ],
+            [
+              "A ∩ B",
+              "x ∈ A and x ∈ B",
+              "{3, 5}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Union merges the membership lists and removes duplicates. Intersection retains only the shared members. The shared members 3 and 5 occur once in the union, not twice."
+        },
+        {
+          "type": "check",
+          "prompt": "Is 3 in A ∪ B even though it belongs to both sets?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. The OR in a union is inclusive. Excluding shared members would produce a different operation, symmetric difference."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.1, printed pages 133–134."
+        }
+      ]
+    },
+    {
+      "id": "disjoint-counts",
+      "title": "2. Distinguish overlap from double counting",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Two sets are disjoint if their intersection is ∅. They need not fill the universe. The empty set is disjoint from every set, including itself. In our running example, A and B are not disjoint because A ∩ B = {3, 5}."
+        },
+        {
+          "type": "math",
+          "notation": "|A ∪ B| = |A| + |B| − |A ∩ B|",
+          "description": "For finite sets, subtract the overlap because it was counted once in A and once in B."
+        },
+        {
+          "type": "example",
+          "title": "Count the running example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "|A| = 4 and |B| = 4. The overlap has 2 members. Therefore |A ∪ B| = 4 + 4 − 2 = 6. If the sets had been disjoint, the overlap term would be zero."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A workshop has 18 learners using Python, 12 using Java, and 7 using both. How many use at least one?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "18 + 12 − 7 = 23 learners. The 7 shared learners were counted twice in 18 + 12. This does not count learners using neither language."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.1, printed page 134."
+        }
+      ]
+    },
+    {
+      "id": "set-difference",
+      "title": "3. Remove members in a specified direction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "A ∖ B = {x | x ∈ A and x ∉ B}",
+          "description": "The difference A ∖ B keeps members of A that are absent from B. The textbook also writes A − B."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Result"
+          ],
+          "rows": [
+            [
+              "A ∖ B",
+              "{1, 2}"
+            ],
+            [
+              "B ∖ A",
+              "{4, 6}"
+            ],
+            [
+              "A ∖ A",
+              "∅"
+            ],
+            [
+              "A ∖ ∅",
+              "{1, 2, 3, 5}"
+            ],
+            [
+              "∅ ∖ A",
+              "∅"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Read A ∖ B as “start in A, then exclude B.” It is generally not equal to B ∖ A. The operation produces a set, not the arithmetic difference of two sizes."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is |A ∖ B| not generally |A| − |B|?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "B may contain members outside A that remove nothing from A. Here |A| − |B| = 0, but |A ∖ B| = 2. For finite sets the correct formula is |A ∖ B| = |A| − |A ∩ B|."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.1, printed page 135."
+        }
+      ]
+    },
+    {
+      "id": "relative-complement",
+      "title": "4. Take NOT relative to the chosen universe",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "Aᶜ = U ∖ A = {x ∈ U | x ∉ A}",
+          "description": "Aᶜ denotes the complement of A relative to U. The textbook uses an overbar for the same operation."
+        },
+        {
+          "type": "paragraph",
+          "text": "With U = {1, 2, 3, 4, 5, 6, 7, 8} and A = {1, 2, 3, 5}, we get Aᶜ = {4, 6, 7, 8}. If the universe instead contains only {1, 2, 3, 4, 5, 6}, the complement is {4, 6}. The unchanged set A can have different complements in different universes."
+        },
+        {
+          "type": "math",
+          "notation": "A ∖ B = A ∩ Bᶜ",
+          "description": "Provided A and B are subsets of the fixed U, keeping A while rejecting B is intersection with the complement of B."
+        },
+        {
+          "type": "diagram",
+          "title": "Read each shaded region as a membership condition",
+          "src": "assets/set-operation-regions.svg",
+          "description": "Four Venn panels show A union B, A intersection B, A difference B, and the complement of A inside U. Each panel states the matching OR, AND, or NOT condition."
+        },
+        {
+          "type": "check",
+          "prompt": "What are ∅ᶜ and Uᶜ relative to U?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "∅ᶜ = U and Uᶜ = ∅. Every object in U is outside the empty set, while no object in U is outside U."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.1, printed pages 135–136."
+        }
+      ]
+    },
+    {
+      "id": "membership-operations",
+      "title": "5. Classify an object by its two membership bits",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a fixed x ∈ U, let a = 1 mean x ∈ A and b = 1 mean x ∈ B. A zero means nonmembership. There are four possible combinations."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "a",
+            "b",
+            "A ∪ B",
+            "A ∩ B",
+            "A ∖ B",
+            "Aᶜ",
+            "A △ B"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "1",
+              "0",
+              "0",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "1",
+              "0",
+              "1",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "1",
+              "1",
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Symmetric difference, written A △ B here, contains objects in exactly one of A and B. Thus A △ B = (A ∖ B) ∪ (B ∖ A), and its membership rule is XOR. In the running example it is {1, 2, 4, 6}. This extends the basic operations and connects them to Chapter 1."
+        },
+        {
+          "type": "check",
+          "prompt": "For x = 5, which of A ∪ B, A ∩ B, A ∖ B, and A △ B contain x?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "5 belongs to both A and B, so use row a = b = 1. It belongs to the union and intersection, but not the difference or symmetric difference."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.1–§2.2.2, printed pages 133–138; symmetric difference extension."
+        }
+      ]
+    },
+    {
+      "id": "set-identity-toolkit",
+      "title": "6. Recognize the familiar logical laws in set form",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "All complements below use the same universe U, and A, B, C are subsets of U. Each identity holds for every such choice, not just the running finite example."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Law",
+            "Identity"
+          ],
+          "rows": [
+            [
+              "Identity",
+              "A ∩ U = A"
+            ],
+            [
+              "Identity",
+              "A ∪ ∅ = A"
+            ],
+            [
+              "Domination",
+              "A ∪ U = U"
+            ],
+            [
+              "Domination",
+              "A ∩ ∅ = ∅"
+            ],
+            [
+              "Idempotent",
+              "A ∪ A = A"
+            ],
+            [
+              "Idempotent",
+              "A ∩ A = A"
+            ],
+            [
+              "Double complement",
+              "(Aᶜ)ᶜ = A"
+            ],
+            [
+              "Commutative",
+              "A ∪ B = B ∪ A"
+            ],
+            [
+              "Commutative",
+              "A ∩ B = B ∩ A"
+            ],
+            [
+              "Associative",
+              "A ∪ (B ∪ C) = (A ∪ B) ∪ C"
+            ],
+            [
+              "Associative",
+              "A ∩ (B ∩ C) = (A ∩ B) ∩ C"
+            ],
+            [
+              "Distributive",
+              "A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)"
+            ],
+            [
+              "Distributive",
+              "A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)"
+            ],
+            [
+              "De Morgan",
+              "(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ"
+            ],
+            [
+              "De Morgan",
+              "(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ"
+            ],
+            [
+              "Absorption",
+              "A ∪ (A ∩ B) = A"
+            ],
+            [
+              "Absorption",
+              "A ∩ (A ∪ B) = A"
+            ],
+            [
+              "Complement",
+              "A ∪ Aᶜ = U"
+            ],
+            [
+              "Complement",
+              "A ∩ Aᶜ = ∅"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Union and intersection are associative individually, so A ∪ B ∪ C is unambiguous. A mixed expression such as A ∪ B ∩ C needs an established precedence convention or explicit parentheses; this companion uses parentheses to show the intended grouping."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does A ∪ (A ∩ B) = A?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Every member of A ∩ B is already in A, so adding that intersection introduces no new members. Conversely, every member of A is present in the union."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.2, printed page 136, Table 1."
+        }
+      ]
+    },
+    {
+      "id": "two-inclusion-proof",
+      "title": "7. Prove a De Morgan law in both directions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We will prove (A ∪ B)ᶜ = Aᶜ ∩ Bᶜ. Let every object mentioned lie in the fixed universe U. Showing both inclusions avoids relying only on the appearance of a diagram."
+        },
+        {
+          "type": "example",
+          "title": "First inclusion",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let x ∈ (A ∪ B)ᶜ. Then x is not in A ∪ B. It is therefore neither in A nor in B. Since x ∈ U, this gives x ∈ Aᶜ and x ∈ Bᶜ, hence x ∈ Aᶜ ∩ Bᶜ. Thus (A ∪ B)ᶜ ⊆ Aᶜ ∩ Bᶜ."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Reverse inclusion",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let x ∈ Aᶜ ∩ Bᶜ. Then x ∉ A and x ∉ B, so x ∉ A ∪ B. Because x is in U, it follows that x ∈ (A ∪ B)ᶜ. Thus Aᶜ ∩ Bᶜ ⊆ (A ∪ B)ᶜ."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The two inclusions establish equality. The companion law (A ∩ B)ᶜ = Aᶜ ∪ Bᶜ uses “not both” becoming “at least one missing,” rather than “both missing.”"
+        },
+        {
+          "type": "check",
+          "prompt": "Why is (A ∩ B)ᶜ = Aᶜ ∩ Bᶜ generally false?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Take x in A but not B. Then x is outside A ∩ B, so the left side contains x. But x is not in Aᶜ, so the right side does not. The correct operation on the right is union."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.2, printed pages 137–138."
+        }
+      ]
+    },
+    {
+      "id": "elementwise-proof",
+      "title": "8. Translate a set identity into logical equivalences",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Claim: A ∖ (B ∪ C) = (A ∖ B) ∩ (A ∖ C). Fix an arbitrary x ∈ U. Each line below is equivalent to the previous one."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Membership condition",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "x ∈ A ∖ (B ∪ C)",
+              "Starting condition"
+            ],
+            [
+              "x ∈ A and not (x ∈ B or x ∈ C)",
+              "Difference and union definitions"
+            ],
+            [
+              "x ∈ A and x ∉ B and x ∉ C",
+              "De Morgan’s law"
+            ],
+            [
+              "(x ∈ A and x ∉ B) and (x ∈ A and x ∉ C)",
+              "Repeating x ∈ A does not change its truth"
+            ],
+            [
+              "x ∈ (A ∖ B) ∩ (A ∖ C)",
+              "Difference and intersection definitions"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "(a ∧ ¬(b ∨ c)) ↔ ((a ∧ ¬b) ∧ (a ∧ ¬c))",
+          "description": "Here a, b, c mean membership in A, B, C for the same object x."
+        },
+        {
+          "type": "paragraph",
+          "text": "Because the equivalence holds for arbitrary x ∈ U, both sets have exactly the same members. This is a general proof: x was not chosen from a particular finite example."
+        },
+        {
+          "type": "check",
+          "prompt": "What changes for A ∖ (B ∩ C)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The corresponding law is A ∖ (B ∩ C) = (A ∖ B) ∪ (A ∖ C). To avoid being in both B and C, an object need only be missing from at least one of them. It must still belong to A."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.2, printed pages 137–138."
+        }
+      ]
+    },
+    {
+      "id": "membership-table-proof",
+      "title": "9. Use all membership patterns to prove distributivity",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To prove A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C), compare the two membership expressions for all eight choices of a, b, c. Each bit records whether the same arbitrary object belongs to that set."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "a",
+            "b",
+            "c",
+            "a ∧ (b ∨ c)",
+            "(a ∧ b) ∨ (a ∧ c)"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "1",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "1",
+              "0",
+              "0"
+            ],
+            [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "1",
+              "0",
+              "1",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "0",
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "1",
+              "1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The last two columns agree in every row. Every object has one of these eight membership patterns, even when the sets are infinite, so the table proves the identity generally. Some rows might describe an empty region in a particular example; checking all rows still establishes the unrestricted law."
+        },
+        {
+          "type": "check",
+          "prompt": "How many membership rows are needed for four independent sets?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "2⁴ = 16. A diagram with four circles does not automatically display every possible membership region, so a complete membership table can be more reliable than an improvised sketch."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.2, printed page 138."
+        }
+      ]
+    },
+    {
+      "id": "identity-chain",
+      "title": "10. Rewrite a complicated set expression in small steps",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Simplify (A ∪ B) ∩ (A ∪ Bᶜ) using established identities. Keep the same universe for B and Bᶜ."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "(A ∪ B) ∩ (A ∪ Bᶜ)",
+              "Start"
+            ],
+            [
+              "A ∪ (B ∩ Bᶜ)",
+              "Distributive law used backward"
+            ],
+            [
+              "A ∪ ∅",
+              "Complement law"
+            ],
+            [
+              "A",
+              "Identity law"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This resembles the propositional equivalence (a ∨ b) ∧ (a ∨ ¬b) ≡ a. Set algebra works because each identity preserves the membership truth value for every object."
+        },
+        {
+          "type": "check",
+          "prompt": "Simplify (A ∩ B) ∪ (A ∩ Bᶜ).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Distribute A to get A ∩ (B ∪ Bᶜ). The inner union is U, so the expression becomes A ∩ U = A. The two pieces split A according to whether membership in B holds."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.2, printed page 139."
+        }
+      ]
+    },
+    {
+      "id": "set-counterexamples",
+      "title": "11. Test a suspected identity with small sets",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A valid identity holds for all allowed sets. To disprove one, find a single allowed choice that gives different results. Keep the same universe throughout the counterexample."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Tempting claim",
+            "Counterexample",
+            "Different results"
+          ],
+          "rows": [
+            [
+              "A ∖ B = B ∖ A",
+              "A = {1}, B = {2}",
+              "{1} versus {2}"
+            ],
+            [
+              "(A ∖ B) ∖ C = A ∖ (B ∖ C)",
+              "A = B = C = {1}",
+              "∅ versus {1}"
+            ],
+            [
+              "A ∩ B = ∅ implies A = ∅ or B = ∅",
+              "A = {1}, B = {2}",
+              "Both are nonempty, but the intersection is empty."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Even correct identities about union and intersection cannot be copied to difference without checking them. In particular, difference is generally neither commutative nor associative."
+        },
+        {
+          "type": "check",
+          "prompt": "Do equal cardinalities prove set equality?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. {1} and {2} both have size 1 and different members. A set identity concerns membership, not just a numerical count."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.2, printed pages 136–139."
+        }
+      ]
+    },
+    {
+      "id": "finite-families",
+      "title": "12. Read a union or intersection over an index set",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For an indexed family Aᵢ, the index i selects one set. The union ⋃ᵢ∈I Aᵢ contains objects in at least one selected set; the intersection ⋂ᵢ∈I Aᵢ contains objects in every selected set."
+        },
+        {
+          "type": "math",
+          "notation": "x ∈ ⋃ᵢ∈I Aᵢ ⇔ ∃i ∈ I (x ∈ Aᵢ)\nx ∈ ⋂ᵢ∈I Aᵢ ⇔ ∀i ∈ I (x ∈ Aᵢ)",
+          "description": "Indexed union corresponds to existence; indexed intersection corresponds to a universal condition."
+        },
+        {
+          "type": "example",
+          "title": "Three explicit sets",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let A₁ = {1, 2, 4}, A₂ = {2, 3, 4}, and A₃ = {2, 4, 5}. Their union is {1, 2, 3, 4, 5}; their intersection is {2, 4}. To enter the union, 5 needs only its witness index 3. To enter the intersection, 2 must survive all three membership tests."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "With a fixed ambient universe U, the union over an empty index set is ∅ and the intersection over an empty index set is U. No index can witness existential membership; every x ∈ U satisfies the empty universal requirement. Stating U is essential for that empty-intersection convention."
+        },
+        {
+          "type": "check",
+          "prompt": "If one set in a nonempty family is ∅, what happens to the intersection? To the union?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The intersection is ∅ because no object belongs to the empty member. The union can still contain objects contributed by other members; adding an empty set changes no membership."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.3, printed pages 139–141."
+        }
+      ]
+    },
+    {
+      "id": "infinite-families",
+      "title": "13. Prove membership in infinite families without stopping at a sample",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For positive integers i, let Fᵢ = {0, 1, …, i}. These sets grow. Their union over all i ≥ 1 is ℕ: every member is nonnegative, and any n ∈ ℕ belongs to Fᵢ for i = max(1, n). Their intersection is {0, 1}: those two numbers belong to every Fᵢ, while anything else already fails membership in F₁."
+        },
+        {
+          "type": "paragraph",
+          "text": "For a shrinking family, let Gᵢ = {n ∈ ℕ | n ≥ i}, again with i ≥ 1. For a finite initial family i = 1 through m, the union is G₁ and the intersection is Gₘ. Over all positive indices, the union is still G₁, but the intersection is ∅. Any proposed n is excluded by Gₙ₊₁."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Family",
+            "Union over i ≥ 1",
+            "Intersection over i ≥ 1"
+          ],
+          "rows": [
+            [
+              "Fᵢ = {0, 1, …, i}",
+              "ℕ",
+              "{0, 1}"
+            ],
+            [
+              "Gᵢ = {n ∈ ℕ | n ≥ i}",
+              "ℤ⁺",
+              "∅"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can an infinite intersection be empty even though every finite initial intersection is nonempty?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. The family Gᵢ demonstrates this: Gₘ is nonempty for every positive m, but no single n belongs to all Gᵢ. Nonemptiness of each finite intersection does not provide one witness shared by the whole infinite family."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.3, printed pages 140–141."
+        }
+      ]
+    },
+    {
+      "id": "bit-encoding",
+      "title": "14. Encode a set by agreeing on the order of the universe",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a finite universe, choose an ordering u₁, …, uₙ once. The bit in position i is 1 when uᵢ belongs to the set and 0 otherwise. The ordering belongs to the encoding, not to the mathematical set itself."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Position",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "rows": [
+            [
+              "Universe member",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8"
+            ],
+            [
+              "A = {1, 2, 3, 5}",
+              "1",
+              "1",
+              "1",
+              "0",
+              "1",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "B = {3, 4, 5, 6}",
+              "0",
+              "0",
+              "1",
+              "1",
+              "1",
+              "1",
+              "0",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Thus A encodes as 11101000 and B as 00111100. The order and width must match before combining encodings. The string 100 can mean {red} under [red, green, blue] or {blue} under [blue, green, red]. Leading zeros carry positional information and must be preserved."
+        },
+        {
+          "type": "check",
+          "prompt": "What does 00000000 represent? What does 11111111 represent in this eight-element universe?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The empty set and U, respectively. If the universe itself is empty, its only subset is empty and its encoding has length zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.4, printed pages 141–142."
+        }
+      ]
+    },
+    {
+      "id": "bit-operations",
+      "title": "15. Apply the logical operation at every position",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Set expression",
+            "Bit operation",
+            "Encoding",
+            "Decoded set"
+          ],
+          "rows": [
+            [
+              "A ∪ B",
+              "OR",
+              "11111100",
+              "{1, 2, 3, 4, 5, 6}"
+            ],
+            [
+              "A ∩ B",
+              "AND",
+              "00101000",
+              "{3, 5}"
+            ],
+            [
+              "A ∖ B",
+              "A AND NOT B",
+              "11000000",
+              "{1, 2}"
+            ],
+            [
+              "Aᶜ",
+              "NOT A within eight positions",
+              "00010111",
+              "{4, 6, 7, 8}"
+            ],
+            [
+              "A △ B",
+              "XOR",
+              "11010100",
+              "{1, 2, 4, 6}"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This JavaScript implementation works on strings. It assumes both strings encode subsets of the same ordered universe. Length equality alone cannot verify that semantic agreement; the caller must retain the universe ordering."
+        },
+        {
+          "type": "math",
+          "notation": "function setBits(a, b) {\n  if (typeof a !== \"string\" || typeof b !== \"string\" || /[^01]/.test(a) || /[^01]/.test(b) || a.length !== b.length) throw new TypeError(\"Matching bit strings required\");\n  const out = {union: \"\", intersection: \"\", difference: \"\", complement: \"\", symmetric: \"\"};\n  for (let i = 0; i < a.length; i++) {\n    const p = a[i] === \"1\", q = b[i] === \"1\";\n    const bits = [p || q, p && q, p && !q, !p, p !== q];\n    [\"union\", \"intersection\", \"difference\", \"complement\", \"symmetric\"].forEach((key, j) => { out[key] += bits[j] ? \"1\" : \"0\"; });\n  }\n  return out;\n}",
+          "description": "Executable JavaScript. Empty strings represent the empty universe; no machine-integer bitwise coercion is needed."
+        },
+        {
+          "type": "paragraph",
+          "text": "Complement flips only the n designated positions. If a numeric representation is used instead, an unrestricted machine NOT can also set bits outside the universe; the representation needs an appropriate width mask. String processing makes this boundary explicit."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you combine 10 and 01 if the first uses [red, blue] and the second uses [blue, red]?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Not directly. Both strings describe {red}, but positional OR would give 11 and falsely suggest both colors. Re-encode one set using the same ordering first."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.4, printed pages 141–142."
+        }
+      ]
+    },
+    {
+      "id": "operations-recap",
+      "title": "16. Translate the request, then compute and verify",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let U be all eight learners in a workshop, A those who completed Logic, and B those who completed Sets. Use the running memberships A = {1, 2, 3, 5} and B = {3, 4, 5, 6}."
+        },
+        {
+          "type": "check",
+          "prompt": "Who completed at least one topic? Both? Logic but not Sets? Neither?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "At least one: A ∪ B = {1, 2, 3, 4, 5, 6}. Both: A ∩ B = {3, 5}. Logic but not Sets: A ∖ B = {1, 2}. Neither: (A ∪ B)ᶜ = {7, 8}. The last answer uses the full workshop universe."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Explain the difference between “not both” and “neither” in this example.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Not both is (A ∩ B)ᶜ = {1, 2, 4, 6, 7, 8}; it allows completing just one topic or neither. Neither is (A ∪ B)ᶜ = {7, 8}. De Morgan’s laws distinguish those requests."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A working checklist",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Keep the universe fixed. Read union as inclusive OR and intersection as AND. Preserve the order of a difference. Prove identities by arbitrary-element reasoning, complete membership tables, or established laws. For indexed families, distinguish one witness from membership in every set. For bit encodings, keep the same ordering and width."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Section 2.3 will use sets to define functions: assignments of exactly one output to each input. The membership, product, and relation language from this pair of lessons supplies that foundation."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.2.1–§2.2.4, printed pages 133–142."
+        }
+      ]
+    }
+  ]
+}

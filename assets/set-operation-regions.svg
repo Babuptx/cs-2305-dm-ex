@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="700" viewBox="0 0 840 700" role="img" aria-labelledby="title desc">
+  <title id="title">Set operations as shaded membership regions</title>
+  <desc id="desc">Four universe rectangles show union shading both circles, intersection shading their shared lens, difference shading only A outside B, and complement shading the universe outside A. All boundaries of A and B are outlined. Blue shading means membership in the resulting set.</desc>
+  <defs>
+    <clipPath id="overlap"><circle cx="205" cy="110" r="73"/></clipPath>
+    <mask id="without-b"><rect width="360" height="220" fill="white"/><circle cx="205" cy="110" r="73" fill="black"/></mask>
+  </defs>
+  <rect width="840" height="700" rx="16" fill="#f5f8fc"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#17324d">
+    <text x="420" y="36" text-anchor="middle" font-size="22" font-weight="700">Shaded means “belongs to the result”</text>
+    <text x="420" y="62" text-anchor="middle" font-size="16">Choose an object x inside U, then test its membership.</text>
+    <g transform="translate(40 103)">
+      <rect width="360" height="220" rx="8" fill="white" stroke="#718397"/>
+      <g fill="#9fc9f4"><circle cx="135" cy="110" r="73"/><circle cx="225" cy="110" r="73"/></g>
+      <g fill="none" stroke="#244c70" stroke-width="2"><circle cx="135" cy="110" r="73"/><circle cx="225" cy="110" r="73"/></g>
+      <g font-size="20"><text x="16" y="27">U</text><text x="96" y="116">A</text><text x="252" y="116">B</text></g>
+      <text x="180" y="251" text-anchor="middle" font-size="22" font-weight="600">A ∪ B</text><text x="180" y="276" text-anchor="middle" font-size="16">In A OR in B (including both)</text>
+    </g>
+    <g transform="translate(440 103)">
+      <rect width="360" height="220" rx="8" fill="white" stroke="#718397"/>
+      <g transform="translate(20 0)"><circle cx="115" cy="110" r="73" fill="#9fc9f4" clip-path="url(#overlap)"/></g>
+      <g fill="none" stroke="#244c70" stroke-width="2"><circle cx="135" cy="110" r="73"/><circle cx="225" cy="110" r="73"/></g>
+      <g font-size="20"><text x="16" y="27">U</text><text x="96" y="116">A</text><text x="252" y="116">B</text></g>
+      <text x="180" y="251" text-anchor="middle" font-size="22" font-weight="600">A ∩ B</text><text x="180" y="276" text-anchor="middle" font-size="16">In A AND in B</text>
+    </g>
+    <g transform="translate(40 400)">
+      <rect width="360" height="220" rx="8" fill="white" stroke="#718397"/>
+      <g transform="translate(20 0)"><circle cx="115" cy="110" r="73" fill="#9fc9f4" mask="url(#without-b)"/></g>
+      <g fill="none" stroke="#244c70" stroke-width="2"><circle cx="135" cy="110" r="73"/><circle cx="225" cy="110" r="73"/></g>
+      <g font-size="20"><text x="16" y="27">U</text><text x="96" y="116">A</text><text x="252" y="116">B</text></g>
+      <text x="180" y="251" text-anchor="middle" font-size="22" font-weight="600">A ∖ B</text><text x="180" y="276" text-anchor="middle" font-size="16">In A AND NOT in B</text>
+    </g>
+    <g transform="translate(440 400)">
+      <rect width="360" height="220" rx="8" fill="#9fc9f4" stroke="#718397"/>
+      <circle cx="135" cy="110" r="73" fill="white"/>
+      <g fill="none" stroke="#244c70" stroke-width="2"><circle cx="135" cy="110" r="73"/><circle cx="225" cy="110" r="73"/></g>
+      <g font-size="20"><text x="16" y="27">U</text><text x="96" y="116">A</text><text x="252" y="116">B</text></g>
+      <text x="180" y="251" text-anchor="middle" font-size="22" font-weight="600">Aᶜ</text><text x="180" y="276" text-anchor="middle" font-size="16">In U AND NOT in A</text>
+    </g>
+  </g>
+</svg>
