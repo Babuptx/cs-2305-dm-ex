@@ -154,16 +154,16 @@
           "id": "3.1",
           "number": "3.1",
           "title": "Algorithms",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/3.1.json",
           "children": []
         },
         {
           "id": "3.2",
           "number": "3.2",
           "title": "The Growth of Functions",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/3.2.json",
           "children": []
         },
         {

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="425" viewBox="0 0 840 425" role="img" aria-labelledby="title desc"><title id="title">Binary search keeps a shrinking candidate interval</title><desc id="desc">The active one-based ranges are 1–8, 5–8, 5–6, and 6–6. Target 21 occurs at position 6.</desc><rect width="840" height="425" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="35" font-size="20" font-weight="700">Search for 21 · positions stay tied to the original list</text>
+<text x="238" y="73" font-size="13" text-anchor="middle">1</text>
+<text x="309" y="73" font-size="13" text-anchor="middle">2</text>
+<text x="380" y="73" font-size="13" text-anchor="middle">3</text>
+<text x="451" y="73" font-size="13" text-anchor="middle">4</text>
+<text x="522" y="73" font-size="13" text-anchor="middle">5</text>
+<text x="593" y="73" font-size="13" text-anchor="middle">6</text>
+<text x="664" y="73" font-size="13" text-anchor="middle">7</text>
+<text x="735" y="73" font-size="13" text-anchor="middle">8</text>
+<text x="30" y="120" font-size="16" >Start</text>
+<g data-lo="1" data-hi="8">
+<rect x="206" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="238" y="120" font-size="18" text-anchor="middle">2</text>
+<rect x="277" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="309" y="120" font-size="18" text-anchor="middle">5</text>
+<rect x="348" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="380" y="120" font-size="18" text-anchor="middle">9</text>
+<rect x="419" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="451" y="120" font-size="18" text-anchor="middle">12</text>
+<rect x="490" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="522" y="120" font-size="18" text-anchor="middle">16</text>
+<rect x="561" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="593" y="120" font-size="18" text-anchor="middle">21</text>
+<rect x="632" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="664" y="120" font-size="18" text-anchor="middle">27</text>
+<rect x="703" y="91" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="735" y="120" font-size="18" text-anchor="middle">31</text>
+</g>
+<text x="30" y="186" font-size="16" >21 &gt; 12</text>
+<g data-lo="5" data-hi="8">
+<rect x="206" y="157" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="238" y="186" font-size="18" text-anchor="middle" fill="#7b8780">2</text>
+<rect x="277" y="157" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="309" y="186" font-size="18" text-anchor="middle" fill="#7b8780">5</text>
+<rect x="348" y="157" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="380" y="186" font-size="18" text-anchor="middle" fill="#7b8780">9</text>
+<rect x="419" y="157" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="451" y="186" font-size="18" text-anchor="middle" fill="#7b8780">12</text>
+<rect x="490" y="157" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="522" y="186" font-size="18" text-anchor="middle">16</text>
+<rect x="561" y="157" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="593" y="186" font-size="18" text-anchor="middle">21</text>
+<rect x="632" y="157" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="664" y="186" font-size="18" text-anchor="middle">27</text>
+<rect x="703" y="157" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="735" y="186" font-size="18" text-anchor="middle">31</text>
+</g>
+<text x="30" y="252" font-size="16" >21 ≤ 21</text>
+<g data-lo="5" data-hi="6">
+<rect x="206" y="223" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="238" y="252" font-size="18" text-anchor="middle" fill="#7b8780">2</text>
+<rect x="277" y="223" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="309" y="252" font-size="18" text-anchor="middle" fill="#7b8780">5</text>
+<rect x="348" y="223" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="380" y="252" font-size="18" text-anchor="middle" fill="#7b8780">9</text>
+<rect x="419" y="223" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="451" y="252" font-size="18" text-anchor="middle" fill="#7b8780">12</text>
+<rect x="490" y="223" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="522" y="252" font-size="18" text-anchor="middle">16</text>
+<rect x="561" y="223" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="593" y="252" font-size="18" text-anchor="middle">21</text>
+<rect x="632" y="223" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="664" y="252" font-size="18" text-anchor="middle" fill="#7b8780">27</text>
+<rect x="703" y="223" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="735" y="252" font-size="18" text-anchor="middle" fill="#7b8780">31</text>
+</g>
+<text x="30" y="318" font-size="16" >21 &gt; 16</text>
+<g data-lo="6" data-hi="6">
+<rect x="206" y="289" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="238" y="318" font-size="18" text-anchor="middle" fill="#7b8780">2</text>
+<rect x="277" y="289" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="309" y="318" font-size="18" text-anchor="middle" fill="#7b8780">5</text>
+<rect x="348" y="289" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="380" y="318" font-size="18" text-anchor="middle" fill="#7b8780">9</text>
+<rect x="419" y="289" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="451" y="318" font-size="18" text-anchor="middle" fill="#7b8780">12</text>
+<rect x="490" y="289" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="522" y="318" font-size="18" text-anchor="middle" fill="#7b8780">16</text>
+<rect x="561" y="289" width="64" height="44" rx="7" fill="#d5e8dc" stroke="#2b6d59"/>
+<text x="593" y="318" font-size="18" text-anchor="middle">21</text>
+<rect x="632" y="289" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="664" y="318" font-size="18" text-anchor="middle" fill="#7b8780">27</text>
+<rect x="703" y="289" width="64" height="44" rx="7" fill="#e9eeeb" stroke="#d5ddd7"/>
+<text x="735" y="318" font-size="18" text-anchor="middle" fill="#7b8780">31</text>
+</g>
+<text x="30" y="394" font-size="16" >Final check: position 6 contains 21 → return 6. A lone candidate still needs equality.</text>
+</g></svg>

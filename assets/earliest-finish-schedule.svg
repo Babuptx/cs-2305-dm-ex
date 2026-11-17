@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="410" viewBox="0 0 840 410" role="img" aria-labelledby="title desc"><title id="title">Earliest finish leaves room for later talks</title><desc id="desc">Talks A 0–6, B 1–3, C 3–5, D 5–7, E 6–9. Choose B, C, D; touching endpoints are compatible.</desc><rect width="840" height="410" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="35" font-size="20" font-weight="700">One room · maximize the number of talks</text>
+<text x="30" y="62" font-size="15" >Shaded bars are selected: B, C, D. Finish times determine the scan order.</text>
+<path d="M125 95 V327" stroke="#d8e2da"/>
+<text x="125" y="90" font-size="13" text-anchor="middle">0</text>
+<path d="M197 95 V327" stroke="#d8e2da"/>
+<text x="197" y="90" font-size="13" text-anchor="middle">1</text>
+<path d="M269 95 V327" stroke="#d8e2da"/>
+<text x="269" y="90" font-size="13" text-anchor="middle">2</text>
+<path d="M341 95 V327" stroke="#d8e2da"/>
+<text x="341" y="90" font-size="13" text-anchor="middle">3</text>
+<path d="M413 95 V327" stroke="#d8e2da"/>
+<text x="413" y="90" font-size="13" text-anchor="middle">4</text>
+<path d="M485 95 V327" stroke="#d8e2da"/>
+<text x="485" y="90" font-size="13" text-anchor="middle">5</text>
+<path d="M557 95 V327" stroke="#d8e2da"/>
+<text x="557" y="90" font-size="13" text-anchor="middle">6</text>
+<path d="M629 95 V327" stroke="#d8e2da"/>
+<text x="629" y="90" font-size="13" text-anchor="middle">7</text>
+<path d="M701 95 V327" stroke="#d8e2da"/>
+<text x="701" y="90" font-size="13" text-anchor="middle">8</text>
+<path d="M773 95 V327" stroke="#d8e2da"/>
+<text x="773" y="90" font-size="13" text-anchor="middle">9</text>
+<text x="40" y="133" font-size="18" font-weight="700">A</text>
+<rect data-talk="A" data-start="0" data-end="6" data-selected="false" x="125" y="110" width="432" height="31" rx="5" fill="#dde5df"/>
+<text x="341" y="132" font-size="15" text-anchor="middle" fill="#39554a">[0, 6)</text>
+<text x="40" y="176" font-size="18" font-weight="700">B</text>
+<rect data-talk="B" data-start="1" data-end="3" data-selected="true" x="197" y="153" width="144" height="31" rx="5" fill="#2b6d59"/>
+<text x="269" y="175" font-size="15" text-anchor="middle" fill="#ffffff">[1, 3)</text>
+<text x="40" y="219" font-size="18" font-weight="700">C</text>
+<rect data-talk="C" data-start="3" data-end="5" data-selected="true" x="341" y="196" width="144" height="31" rx="5" fill="#2b6d59"/>
+<text x="413" y="218" font-size="15" text-anchor="middle" fill="#ffffff">[3, 5)</text>
+<text x="40" y="262" font-size="18" font-weight="700">D</text>
+<rect data-talk="D" data-start="5" data-end="7" data-selected="true" x="485" y="239" width="144" height="31" rx="5" fill="#2b6d59"/>
+<text x="557" y="261" font-size="15" text-anchor="middle" fill="#ffffff">[5, 7)</text>
+<text x="40" y="305" font-size="18" font-weight="700">E</text>
+<rect data-talk="E" data-start="6" data-end="9" data-selected="false" x="557" y="282" width="216" height="31" rx="5" fill="#dde5df"/>
+<text x="665" y="304" font-size="15" text-anchor="middle" fill="#39554a">[6, 9)</text>
+<text x="30" y="364" font-size="15" >Choosing earliest start gives A, E: 2 talks. Earliest finish gives B, C, D: 3 talks.</text>
+<text x="30" y="390" font-size="15" >Half-open intervals allow one talk to start exactly when another ends.</text>
+</g></svg>

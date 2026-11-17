@@ -1,0 +1,1141 @@
+{
+  "schemaVersion": 1,
+  "id": "3.1",
+  "title": "Algorithms",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 3.1, printed pages 201–213.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "algorithms-recap",
+      "title": "1. Turn a problem into a precise procedure",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An algorithm is a reusable recipe for solving a specified kind of problem. Its instructions must be precise enough to follow, and its promised result must be clear. Getting an answer on one example is a useful check; solving every permitted case needs a general argument."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Imagine finding the highest score in a stack of exam results. You do not need to sort the whole stack. Keep the highest score seen so far, examine the next score, and update the remembered value when necessary. This is a method for every nonempty finite score list, not just one stack."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Part of the problem",
+            "Example: find a maximum"
+          ],
+          "rows": [
+            [
+              "Input",
+              "A nonempty finite list of integers"
+            ],
+            [
+              "Output",
+              "The largest value in that list"
+            ],
+            [
+              "Model",
+              "A sequence, so entries have positions and may repeat"
+            ],
+            [
+              "Procedure",
+              "Scan once while keeping a running maximum"
+            ],
+            [
+              "Correctness question",
+              "Does the final value equal an input value at least as large as every entry?"
+            ],
+            [
+              "Termination question",
+              "Will every allowed execution eventually finish?"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This section explains what the procedures do and why they work. Section 3.2 introduces the language for comparing growth; Section 3.3 will analyze algorithm costs more systematically."
+        },
+        {
+          "type": "check",
+          "prompt": "Would “find the best answer” be a sufficiently precise instruction?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. You must define what makes an answer valid, what “best” measures, and a procedure that actually finds it. A request for the desired result is not itself a method."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.1, printed pages 201–202."
+        }
+      ]
+    },
+    {
+      "id": "pseudocode-contracts",
+      "title": "2. Read assignment, loops, and assumptions literally",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "best := a₁\nfor i := 2 to n\n    if aᵢ > best then best := aᵢ\nreturn best",
+          "description": "Pseudocode uses mathematical positions 1 through n. The loop includes both endpoints. Indentation says which instructions repeat."
+        },
+        {
+          "type": "paragraph",
+          "text": "The assignment best := aᵢ replaces the stored value. It is an action, not an equation claiming the old value equals the new one. A for loop visits its stated indices; a while loop repeats as long as its condition holds. A return finishes the procedure and supplies its result."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Property",
+            "What to check"
+          ],
+          "rows": [
+            [
+              "Specified input and output",
+              "State the allowed data and promised result"
+            ],
+            [
+              "Definiteness",
+              "No vague instruction or uninitialized variable"
+            ],
+            [
+              "Correctness",
+              "Every permitted input produces the promised answer"
+            ],
+            [
+              "Finiteness",
+              "The procedure stops after finitely many steps on every permitted input"
+            ],
+            [
+              "Effectiveness",
+              "Each instruction can actually be carried out in finite time"
+            ],
+            [
+              "Generality",
+              "The method covers the whole stated problem family"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The executable examples below use JavaScript arrays with storage indices 0 through n − 1. Search results deliberately use textbook positions 1 through n, with 0 meaning “not found.” Each numeric snippet validates a dense list of safe integers; the abstract mathematics is not limited to machine-sized integers. Copying and validation are explicit implementation work."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is “while n > 0: n := 2n” not a terminating method for positive integer input?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Under exact integer arithmetic, n stays positive and grows, so the loop condition never becomes false. A finite number of written instructions can describe an execution that never ends."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.1, printed pages 202–204."
+        }
+      ]
+    },
+    {
+      "id": "maximum-trace",
+      "title": "3. Trace the running maximum one comparison at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "function maximum(a) {\n  if (!Array.isArray(a) ||\n      !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use an array of safe integers\");\n  }\n  if (a.length === 0) throw new RangeError(\"No maximum of an empty list\");\n  let best = a[0];\n  for (let i = 1; i < a.length; i++) {\n    if (a[i] > best) best = a[i];\n  }\n  return best;\n}",
+          "description": "Executable JavaScript: return the largest value; reject an empty list."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Position",
+            "Value read",
+            "Best afterward",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "1",
+              "−8",
+              "−8",
+              "Initialize from the first entry"
+            ],
+            [
+              "2",
+              "−3",
+              "−3",
+              "−3 > −8"
+            ],
+            [
+              "3",
+              "−11",
+              "−3",
+              "−11 is smaller"
+            ],
+            [
+              "4",
+              "−3",
+              "−3",
+              "Equal values need no update"
+            ],
+            [
+              "5",
+              "−5",
+              "−3",
+              "−5 is smaller"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Why initialization matters",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Starting best at 0 would give the wrong answer for this all-negative list. Starting from an actual entry ensures the remembered value is a candidate from the input. An empty list has no largest member, so the function rejects it rather than inventing an answer."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What happens on [9] and on [4, 4, 4]?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A one-entry list needs no comparison after initialization and returns 9. The repeated-value list returns 4. The task asks for a largest value, not a unique position. If the task instead asks for a position, specify how ties are handled."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.1, Algorithm 1, printed pages 202–204."
+        }
+      ]
+    },
+    {
+      "id": "algorithm-correctness",
+      "title": "4. Separate a trace from a correctness argument",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A loop invariant is a statement that remains true at a designated point in every iteration. For the maximum scan, use: after processing positions 1 through i, best is the largest of exactly those entries."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Proof step",
+            "Maximum-scan argument"
+          ],
+          "rows": [
+            [
+              "Initialize",
+              "After the first entry, best = a₁, the maximum of a one-entry prefix"
+            ],
+            [
+              "Preserve",
+              "On reading aᵢ₊₁, keep best if it is at least that value; otherwise replace it. Either way it is the maximum of the enlarged prefix"
+            ],
+            [
+              "Finish",
+              "After position n, the prefix is the whole list, so best is the requested maximum"
+            ],
+            [
+              "Terminate",
+              "Each iteration advances to the next position; only n − 1 positions remain after initialization"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The first three steps explain the output if the loop reaches its end. The final step explains why it does reach that end. The decreasing quantity here is the number of unprocessed entries. Chapters 5.1 and 5.5 develop induction and program correctness in more depth."
+        },
+        {
+          "type": "check",
+          "prompt": "If a program returns the correct answer whenever it stops, have you proved it solves every permitted input?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Not yet. It might loop forever on some inputs. A complete argument for this task needs both the result guarantee and termination. Testing many inputs supports confidence but does not replace either general argument."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.1, correctness and finiteness discussion, printed page 204."
+        }
+      ]
+    },
+    {
+      "id": "linear-search",
+      "title": "5. Search an unsorted list without skipping a candidate",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Linear search checks entries from left to right. It requires no sorted order. The textbook first states the problem for distinct entries; this implementation also permits duplicates and returns their first position."
+        },
+        {
+          "type": "math",
+          "notation": "function linearSearch(a, x) {\n  if (!Array.isArray(a) ||\n      !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use an array of safe integers\");\n  }\n  if (!Number.isSafeInteger(x)) throw new TypeError(\"Use an integer target\");\n  for (let i = 0; i < a.length; i++) {\n    if (a[i] === x) return i + 1;\n  }\n  return 0;\n}",
+          "description": "Executable JavaScript: return the first matching one-based position, or 0 if absent."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Target in [8, 3, 8, 6]",
+            "Values compared",
+            "Returned position"
+          ],
+          "rows": [
+            [
+              "8",
+              "8",
+              "1"
+            ],
+            [
+              "6",
+              "8, 3, 8, 6",
+              "4"
+            ],
+            [
+              "5",
+              "8, 3, 8, 6",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Before checking a position, every earlier entry has been checked and differs from the target. Thus returning on a match gives the first match. If the loop ends, all candidates have failed. Because there are finitely many entries, the scan terminates. An empty list immediately returns 0."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does the code return i + 1 rather than i?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "JavaScript index i = 0 refers to the textbook’s first position. Adding 1 converts storage indices to the chosen result convention and leaves 0 available as the absence marker. Mixing these conventions would make a first-position match look absent."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.2, Algorithm 2, printed page 204."
+        }
+      ]
+    },
+    {
+      "id": "binary-search",
+      "title": "6. Keep the half that could still contain the target",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Binary search requires sorted input. It compares with the middle entry and discards a whole region only because sorted order rules out every entry there. We follow the textbook’s narrow-to-one-candidate version; equality keeps the middle entry in the left half instead of immediately returning."
+        },
+        {
+          "type": "math",
+          "notation": "function binarySearch(a, x) {\n  if (!Array.isArray(a) ||\n      !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use an array of safe integers\");\n  }\n  if (!Number.isSafeInteger(x)) throw new TypeError(\"Use an integer target\");\n  for (let i = 1; i < a.length; i++) {\n    if (a[i] < a[i - 1]) throw new RangeError(\"Sort the input first\");\n  }\n  if (a.length === 0) return 0;\n  let lo = 0, hi = a.length - 1;\n  while (lo < hi) {\n    const mid = lo + Math.floor((hi - lo) / 2);\n    if (x > a[mid]) lo = mid + 1;\n    else hi = mid;\n  }\n  return a[lo] === x ? lo + 1 : 0;\n}",
+          "description": "Executable JavaScript: validate nondecreasing input, then return its first matching one-based position or 0."
+        },
+        {
+          "type": "paragraph",
+          "text": "Trace target 21 in [2, 5, 9, 12, 16, 21, 27, 31]. The table uses textbook positions even though the code stores zero-based indices."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "lo",
+            "hi",
+            "mid",
+            "a_mid",
+            "Action"
+          ],
+          "rows": [
+            [
+              "1",
+              "8",
+              "4",
+              "12",
+              "21 > 12: keep positions 5–8"
+            ],
+            [
+              "5",
+              "8",
+              "6",
+              "21",
+              "21 ≤ 21: keep positions 5–6"
+            ],
+            [
+              "5",
+              "6",
+              "5",
+              "16",
+              "21 > 16: keep position 6"
+            ],
+            [
+              "6",
+              "6",
+              "—",
+              "21",
+              "Final equality succeeds: return 6"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Narrow the candidate interval",
+          "src": "assets/binary-search-window.svg",
+          "description": "The eight-entry sorted list narrows to positions 5–8, then 5–6, then position 6, which contains 21."
+        },
+        {
+          "type": "example",
+          "title": "Why no match is discarded",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If x > a_mid, every entry at or before mid is too small. Otherwise, if x occurs in the active interval, its first occurrence is at or before mid. The remaining interval therefore retains the first occurrence whenever there is one. When lo < hi, mid lies before hi, so either update strictly shortens the interval. The final equality check is essential: one remaining candidate is not proof of membership."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Search cost versus preparation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The search loop halves the candidate range and uses a logarithmic number of iterations. The defensive validation in this demonstration scans all entries, so the complete function includes linear work. For repeated queries on a known-valid sorted array, validate once and reuse the search core. Sorting an unsorted list also has a cost; it is not free preparation."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What would happen to target 12 in the unsorted list [12, 3, 8] if validation were omitted?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first middle value is 3. The algorithm would discard the left side, including 12, then incorrectly report absence after checking 8. The displayed implementation rejects this unsorted input instead."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.2, Algorithm 3, printed pages 205–206."
+        }
+      ]
+    },
+    {
+      "id": "bubble-sort",
+      "title": "7. Move the largest remaining entry to the end",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Sorting must put entries in nondecreasing order and preserve all entries, including duplicates. Bubble sort repeatedly compares neighbors and swaps them when the left one is larger. One left-to-right pass carries the largest entry of the active prefix to its end."
+        },
+        {
+          "type": "math",
+          "notation": "function bubbleSort(a) {\n  if (!Array.isArray(a) ||\n      !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use an array of safe integers\");\n  }\n  const b = a.slice();\n  for (let end = b.length - 1; end > 0; end--) {\n    for (let j = 0; j < end; j++) {\n      if (b[j] > b[j + 1]) {\n        [b[j], b[j + 1]] = [b[j + 1], b[j]];\n      }\n    }\n  }\n  return b;\n}",
+          "description": "Executable JavaScript: fixed-pass bubble sort on a copy, leaving the caller’s array unchanged."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Stage for [6, 2, 5, 1]",
+            "List",
+            "Guaranteed final suffix"
+          ],
+          "rows": [
+            [
+              "Start",
+              "[6, 2, 5, 1]",
+              "None"
+            ],
+            [
+              "After pass 1",
+              "[2, 5, 1, 6]",
+              "[6]"
+            ],
+            [
+              "After pass 2",
+              "[2, 1, 5, 6]",
+              "[5, 6]"
+            ],
+            [
+              "After pass 3",
+              "[1, 2, 5, 6]",
+              "[2, 5, 6]"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Open the first pass",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Compare 6 and 2: swap to get [2, 6, 5, 1]. Compare 6 and 5: swap to get [2, 5, 6, 1]. Compare 6 and 1: swap to get [2, 5, 1, 6]. The largest entry is now fixed, so later passes do not compare beyond the remaining prefix."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The suffix grows by one final position per pass. Swaps preserve the multiset of values; the suffix argument establishes sortedness after the final pass. Empty and one-entry lists require no passes. This fixed-pass version does not stop early when the list already happens to be sorted."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is checking “the output is sorted” insufficient when testing a sorting routine?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A broken routine could return [] or discard duplicates and still satisfy a sorted-order check. Verify both nondecreasing order and exactly the original entries with their original multiplicities."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.3, Algorithm 4, printed pages 206–208."
+        }
+      ]
+    },
+    {
+      "id": "insertion-sort",
+      "title": "8. Insert one new entry into a sorted prefix",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Insertion sort grows a sorted prefix. Save the next entry, find its place among the earlier entries, shift the entries in the way one position right, and put the saved value into the gap. This version scans from the left, matching the textbook’s search direction."
+        },
+        {
+          "type": "math",
+          "notation": "function insertionSort(a) {\n  if (!Array.isArray(a) ||\n      !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use an array of safe integers\");\n  }\n  const b = a.slice();\n  for (let j = 1; j < b.length; j++) {\n    const value = b[j];\n    let i = 0;\n    while (i < j && value > b[i]) i++;\n    for (let k = j; k > i; k--) b[k] = b[k - 1];\n    b[i] = value;\n  }\n  return b;\n}",
+          "description": "Executable JavaScript: insertion sort on a copy; insert before the first entry at least as large as the saved value."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Inserted value from [6, 2, 5, 1]",
+            "List afterward",
+            "Sorted prefix"
+          ],
+          "rows": [
+            [
+              "Initial 6",
+              "[6, 2, 5, 1]",
+              "[6]"
+            ],
+            [
+              "2",
+              "[2, 6, 5, 1]",
+              "[2, 6]"
+            ],
+            [
+              "5",
+              "[2, 5, 6, 1]",
+              "[2, 5, 6]"
+            ],
+            [
+              "1",
+              "[1, 2, 5, 6]",
+              "[1, 2, 5, 6]"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Explain the shifting direction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "When inserting 1, save it before changing the array. Copy 6 right, then 5 right, then 2 right. Moving from right to left avoids overwriting a value before it has been copied. Finally place 1 at the start. At each stage, only the prefix is guaranteed sorted; its entries need not yet be in their final positions in the full list."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Both algorithms sort, but their progress statements differ: bubble sort fixes a suffix; insertion sort orders a growing prefix. This insertion variant places a new equal-key item before earlier equal-key items, so it is not stable when items carry additional labels. Stability means preserving the original relative order among equal keys. A variant that inserts after equal keys can be stable."
+        },
+        {
+          "type": "check",
+          "prompt": "For labeled items 2A, 2B, 1, what does this insertion rule do to the two 2s?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "When 2B is inserted, the strict “greater than” comparison fails at 2A, so 2B goes before 2A. After inserting 1 the order is 1, 2B, 2A. Numeric sorting is correct, but equal-key label order has changed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.3, Algorithm 5, printed page 208."
+        }
+      ]
+    },
+    {
+      "id": "string-matching",
+      "title": "9. Test every possible pattern alignment, including overlaps",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "String matching asks where a pattern occurs inside a text. A shift s counts characters skipped before the pattern begins, so shift 0 means the first character. If the text length is n and the nonempty pattern length is m ≤ n, the possible shifts are 0 through n − m: n − m + 1 candidates."
+        },
+        {
+          "type": "math",
+          "notation": "function matchShifts(text, pattern) {\n  if (typeof text !== \"string\" || typeof pattern !== \"string\" ||\n      !/^[01]*$/.test(text) || !/^[01]+$/.test(pattern)) {\n    throw new TypeError(\"Use binary text and a nonempty binary pattern\");\n  }\n  const shifts = [];\n  for (let s = 0; s <= text.length - pattern.length; s++) {\n    let j = 0;\n    while (j < pattern.length && text[s + j] === pattern[j]) j++;\n    if (j === pattern.length) shifts.push(s);\n  }\n  return shifts;\n}",
+          "description": "Executable JavaScript for binary strings. It returns every valid zero-based shift, including overlapping matches."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Shift for text 1010101 and pattern 101",
+            "Text window",
+            "Match?"
+          ],
+          "rows": [
+            [
+              "0",
+              "101",
+              "Yes"
+            ],
+            [
+              "1",
+              "010",
+              "No"
+            ],
+            [
+              "2",
+              "101",
+              "Yes"
+            ],
+            [
+              "3",
+              "010",
+              "No"
+            ],
+            [
+              "4",
+              "101",
+              "Yes"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "At each shift, the inner loop compares corresponding characters until a mismatch or a complete match. The outer loop advances by one, not by the pattern length, so overlaps are preserved. A pattern longer than the text yields no candidate shifts. An empty text yields no matches for any permitted nonempty pattern. The empty pattern is deliberately outside this snippet’s contract."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does matching 11 in 111 return [0, 1], not just [0]?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first two characters match at shift 0, and the last two match at shift 1. These occurrences share a character. Reporting all occurrences requires retaining both."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does brute force mean incorrect?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It means using a direct candidate-by-candidate approach. The naive matcher is correct because it checks every possible alignment completely. Its efficiency is a separate question."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.4, Algorithm 6, printed pages 209–210."
+        }
+      ]
+    },
+    {
+      "id": "greedy-change",
+      "title": "10. Distinguish a locally appealing choice from a global optimum",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An optimization problem asks for a valid solution with the smallest or largest objective value. A greedy algorithm commits to a locally chosen option. That makes it a greedy method whether or not the final solution is optimal."
+        },
+        {
+          "type": "math",
+          "notation": "function greedyChange(n, coins) {\n  if (!Number.isSafeInteger(n) || n < 0 ||\n      !Array.isArray(coins) || coins.length === 0 ||\n      !Array.from(coins).every(c => Number.isSafeInteger(c) && c > 0)) {\n    throw new TypeError(\"Use a nonnegative amount and positive integer coins\");\n  }\n  for (let i = 1; i < coins.length; i++) {\n    if (coins[i] >= coins[i - 1]) throw new RangeError(\"Coins must strictly decrease\");\n  }\n  let remainder = n;\n  const counts = coins.map(c => {\n    let count = 0;\n    while (remainder >= c) { remainder -= c; count++; }\n    return count;\n  });\n  return {counts, remainder};\n}",
+          "description": "Executable JavaScript: repeatedly take the largest fitting denomination, with unlimited supply. Return any unpaid remainder explicitly."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Amount and denominations",
+            "Greedy choice",
+            "What it establishes"
+          ],
+          "rows": [
+            [
+              "68 with [25, 10, 5, 1]",
+              "25 + 25 + 10 + 5 + 1 + 1 + 1",
+              "Exact change with 7 coins"
+            ],
+            [
+              "6 with [4, 3, 1]",
+              "4 + 1 + 1",
+              "Feasible, but 3 + 3 uses fewer coins"
+            ],
+            [
+              "6 with [4, 3]",
+              "4, then remainder 2",
+              "Greedy fails to finish even though 3 + 3 works"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The input amount is a nonnegative integer and all denominations are positive integers. Each coin taken decreases the remainder, so the loops terminate. Including denomination 1 guarantees exact change; without it, even a representable amount can defeat this greedy choice. The repeated-subtraction code favors clarity and is intended for small demonstrations."
+        },
+        {
+          "type": "check",
+          "prompt": "If greedy makes exact change, is it automatically using the fewest coins?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The [4, 3, 1] example gives exact change with three coins where two suffice. Feasibility means obeying the constraints; optimality means no feasible alternative improves the objective."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.5, Algorithm 7, printed pages 210–211."
+        }
+      ]
+    },
+    {
+      "id": "coin-proof",
+      "title": "11. Prove greedy optimality for a specific coin system",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Now use the mathematical denomination set {25, 10, 5, 1}, with unlimited coins. The proof depends on these values. In a minimum-coin solution, any equal-value replacement using fewer coins would be impossible."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Forbidden group in an optimum",
+            "Equal-value improvement"
+          ],
+          "rows": [
+            [
+              "Five 1s",
+              "One 5"
+            ],
+            [
+              "Two 5s",
+              "One 10"
+            ],
+            [
+              "Three 10s",
+              "One 25 and one 5"
+            ],
+            [
+              "Two 10s and one 5",
+              "One 25"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Force the number of 25s",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An optimum has at most four 1s, one 5, and two 10s, and it cannot have both two 10s and a 5. If it has two 10s, all smaller coins total at most 24. If it has at most one 10, they total at most 10 + 5 + 4 = 19. Thus all non-25 coins total less than 25. The optimum must use floor(n/25) coins of value 25, exactly as greedy does; otherwise the leftover amount would be at least 25."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Force the remaining choices",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "After removing those 25s, the common remainder is less than 25. The 5s and 1s in an optimum total at most 9, so it must take the largest possible number of 10s. The 1s total at most 4, so the next remainder forces the largest possible number of 5s. The final number of 1s is determined. Every optimum therefore has exactly the greedy counts."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does this proof fail for denominations {4, 3, 1}?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Its replacement rules rely on equalities such as 5·1 = 5 and 2·5 = 10. Those replacement coins do not exist in {4, 3, 1}. You need a new argument for a new denomination system; the earlier counterexample shows this system cannot have a universal greedy-optimality proof."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.5, Lemma 1 and Theorem 1, printed page 211."
+        }
+      ]
+    },
+    {
+      "id": "interval-scheduling",
+      "title": "12. Schedule compatible intervals by earliest finish",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Each talk has a fixed start and finish, with start < finish. One room is available. A talk may begin exactly when another ends, so model each talk as [start, finish). The goal is the maximum number of talks, not the longest total speaking time and not the highest revenue."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Talk",
+            "Start",
+            "Finish"
+          ],
+          "rows": [
+            [
+              "A",
+              "0",
+              "6"
+            ],
+            [
+              "B",
+              "1",
+              "3"
+            ],
+            [
+              "C",
+              "3",
+              "5"
+            ],
+            [
+              "D",
+              "5",
+              "7"
+            ],
+            [
+              "E",
+              "6",
+              "9"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Choose an early finish to leave room for later talks",
+          "src": "assets/earliest-finish-schedule.svg",
+          "description": "Five intervals: A from 0 to 6, B from 1 to 3, C from 3 to 5, D from 5 to 7, and E from 6 to 9. Earliest finish selects B, C, D; choosing earliest start A leaves only E."
+        },
+        {
+          "type": "math",
+          "notation": "function scheduleTalks(talks) {\n  if (!Array.isArray(talks)) throw new TypeError(\"Use an array of intervals\");\n  const sorted = Array.from(talks, (t, id) => {\n    if (!t || !Number.isSafeInteger(t.start) ||\n        !Number.isSafeInteger(t.end) || t.start >= t.end) {\n      throw new TypeError(\"Each interval needs integer start < end\");\n    }\n    return {start: t.start, end: t.end, id};\n  }).sort((a, b) => a.end - b.end || a.id - b.id);\n  const selected = [];\n  let lastEnd = -Infinity;\n  for (const t of sorted) {\n    if (t.start >= lastEnd) {\n      selected.push(t.id);\n      lastEnd = t.end;\n    }\n  }\n  return selected;\n}",
+          "description": "Executable JavaScript: return zero-based indices of selected input talks, in schedule order. Equal finish times are broken by original input order."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sort complete talk records by finish time, preserving each start/finish pair. The finish order is B, C, A, D, E. Accept B, then C; reject A because it starts before C ends; accept D; reject E. The returned input indices are [1, 2, 3], representing B, C, D. An empty input returns an empty schedule."
+        },
+        {
+          "type": "check",
+          "prompt": "Why must start times and finish times stay paired during sorting?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Sorting them independently could combine one talk’s start with another talk’s finish and invent intervals that were never offered. The input does not require starts to be sorted after ordering the talks by finish time."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.5, Algorithm 8, printed pages 211–212."
+        }
+      ]
+    },
+    {
+      "id": "greedy-exchange",
+      "title": "13. Explain why the finish-time choice is safe",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exchange the first talk without losing any later talk",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let G be a talk with earliest finish, and let O be the first talk of some maximum-size nonoverlapping schedule. G finishes no later than O. Replace O with G. Every later talk starts at or after O finishes, hence also at or after G finishes. The replacement preserves feasibility and the number of talks. Thus some optimum starts with G."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "After choosing G, restrict attention to talks starting at or after its finish. The same argument applies to this smaller remaining problem. Repeating it justifies every greedy choice. Positive-duration intervals and finitely many talks ensure progress. This is the exchange idea behind the induction proof developed in Chapter 5."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Tempting rule",
+            "Counterexample",
+            "Better schedule"
+          ],
+          "rows": [
+            [
+              "Earliest start",
+              "A [0, 6), B [1, 3), C [3, 5), D [5, 7), E [6, 9): choosing A leaves only E",
+              "B, C, D gives 3 talks instead of 2"
+            ],
+            [
+              "Shortest duration",
+              "L [0, 4), M [3, 5), R [4, 8): M is shortest and blocks both others",
+              "L, R gives 2 talks instead of 1"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does the same proof maximize the total value of talks with different fees?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Replacing O by G preserves the count of talks but can change their total value. The proof matches the objective “number of talks.” Changing the objective requires a new analysis."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.5, printed page 212; supporting exchange argument."
+        }
+      ]
+    },
+    {
+      "id": "halting-problem",
+      "title": "14. See why no program can decide every halting question",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The halting problem asks whether a program P eventually stops on input I. We are asking for a single universal decider that always finishes and always gives the right yes/no answer for every program-input pair. Individual cases can often be decided; the impossible demand is a perfect general method."
+        },
+        {
+          "type": "paragraph",
+          "text": "Assume such a decider H(P, I) exists. Programs can be encoded as finite strings, so a program description can also be supplied as data. Construct D(P) to inspect H(P, P) and deliberately behave the opposite way."
+        },
+        {
+          "type": "math",
+          "notation": "D(P):\n    if H(P, P) says “halts”:\n        loop forever\n    otherwise:\n        halt",
+          "description": "This is a hypothetical construction inside a contradiction proof, not executable code to run. H is assumed to terminate on every input."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Prediction H(D, D)",
+            "What D(D) does by construction",
+            "Conflict"
+          ],
+          "rows": [
+            [
+              "Halts",
+              "Loops forever",
+              "The prediction says yes but the behavior is no"
+            ],
+            [
+              "Does not halt",
+              "Halts",
+              "The prediction says no but the behavior is yes"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Both possible answers fail on D running with its own description. Therefore the assumed total, always-correct H cannot exist. The contradiction uses a finite program description with potentially infinite behavior. A formal machine model makes the encoding precise; that is developed later in the textbook."
+        },
+        {
+          "type": "check",
+          "prompt": "Could we decide nontermination by waiting a very long time?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No finite waiting time distinguishes a program that never stops from one that stops later. Seeing a halt establishes that instance’s positive answer, but failure to see a halt by a deadline does not establish nontermination."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does this make all termination checking useless?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The maximum scan and bounded sorting loops have direct termination arguments. Tools can decide restricted program families or give partial information. The theorem rules out one method that always correctly decides every unrestricted case."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1.6, printed pages 212–213."
+        }
+      ]
+    },
+    {
+      "id": "algorithm-practice",
+      "title": "15. Diagnose a procedure before trusting its output",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "1. A maximum routine begins best := 0. Give an allowed nonempty integer input that refutes it.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For [−7, −2], no entry exceeds 0, so it incorrectly returns 0. Initialize from the first input entry instead."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "2. Search for 20 in [2, 5, 9, 12, 16, 21, 27, 31] using the narrow-to-one binary search. What happens?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The one-based intervals are [1, 8] → [5, 8] → [5, 6] → [6, 6]. The remaining value is 21, not 20, so return 0. The final equality check distinguishes a candidate from a match."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "3. After the first bubble pass on [4, 1, 3, 2], what is guaranteed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The list is [1, 3, 2, 4]. The largest value 4 is in its final position. The remaining prefix [1, 3, 2] is not yet sorted."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "4. Find all shifts of 00 in 0000.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The shifts are 0, 1, 2. There are n − m + 1 = 4 − 2 + 1 = 3 possible alignments, and all match. Their starting positions in one-based language are 1, 2, 3."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5. A greedy coin routine reports zero remainder. What still needs proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "That its coin count is minimal among all feasible solutions. Zero remainder proves only that it made exact change."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "6. A proposed halting checker is always correct when it answers but sometimes runs forever. Does the contradiction assume a checker of that kind?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The hypothetical H must terminate on every input. Without that promise, D might never get the prediction needed to take its opposite-action branch. A partial checker does not solve the universal decision problem."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Original practice across §3.1."
+        }
+      ]
+    },
+    {
+      "id": "algorithm-lab",
+      "title": "16. Test the contract, then explain the invariant",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Procedure",
+            "Useful test families",
+            "Independent comparison"
+          ],
+          "rows": [
+            [
+              "Maximum",
+              "One item, all negative, duplicate maxima, rejected empty list",
+              "Directly inspect all entries"
+            ],
+            [
+              "Search",
+              "First/last/absent target, empty list, duplicates; unsorted rejection for binary search",
+              "Compare with a simple full scan"
+            ],
+            [
+              "Sorting",
+              "Empty, sorted, reversed, repeated values",
+              "Check order and a frequency map of every value"
+            ],
+            [
+              "String matching",
+              "Overlap, no match, exact text-length pattern, longer pattern",
+              "Compare every candidate substring"
+            ],
+            [
+              "Greedy coins",
+              "Amount 0, exact/remainder cases, a known nonoptimal system",
+              "Enumerate small feasible coin combinations"
+            ],
+            [
+              "Scheduling",
+              "Empty, nested, touching, tied finishes, negative time coordinates",
+              "Enumerate all subsets for tiny instances"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Keep the demonstration contracts visible: numeric arrays use safe integers; the string matcher uses binary characters; scheduling returns input indices; search uses one-based positions with 0 for absence. Tests should catch boundary errors and check that sorting/scheduling do not modify caller data."
+        },
+        {
+          "type": "callout",
+          "title": "What to remember",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A specification says what an answer means. An algorithm says how to obtain it. An invariant explains why progress preserves the needed facts. A decreasing finite measure explains termination. A greedy choice needs a proof tied to the exact objective. Some universal problems, including halting, admit no always-correct terminating algorithm."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What should you record next when two correct algorithms solve the same task?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Specify an input-size measure and an operation to count, then compare how those counts grow. Do not confuse faster on one example with better growth on all large inputs. Section 3.2 supplies the asymptotic vocabulary."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.1 synthesis and exercise themes."
+        }
+      ]
+    }
+  ]
+}

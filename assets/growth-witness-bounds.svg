@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="385" viewBox="0 0 840 385" role="img" aria-labelledby="title desc"><title id="title">Big-O uses fixed witnesses for every later input</title><desc id="desc">For f(n)=3n squared plus 5n plus 7, C=15 and k=1 establish f(n) at most 15n squared for every n greater than 1. The table is illustrative; the algebra proves the entire tail.</desc><rect width="840" height="385" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="36" font-size="20" font-weight="700">A fixed scale C = 15 and threshold k = 1</text>
+<text x="30" y="68" font-size="18" >f(n) = 3n² + 5n + 7     ·     g(n) = n²</text>
+<text x="90" y="112" font-size="16" text-anchor="middle" font-weight="700">n</text>
+<text x="270" y="112" font-size="16" text-anchor="middle" font-weight="700">g(n) = n²</text>
+<text x="470" y="112" font-size="16" text-anchor="middle" font-weight="700">f(n)</text>
+<text x="680" y="112" font-size="16" text-anchor="middle" font-weight="700">15g(n)</text>
+<g data-n="2" data-g="4" data-f="29" data-upper="60"><rect x="30" y="126" width="780" height="34" rx="4" fill="#e1ece4"/>
+<text x="90" y="150" font-size="17" text-anchor="middle">2</text>
+<text x="270" y="150" font-size="17" text-anchor="middle">4</text>
+<text x="470" y="150" font-size="17" text-anchor="middle">29</text>
+<text x="680" y="150" font-size="17" text-anchor="middle">60</text>
+</g>
+<g data-n="4" data-g="16" data-f="75" data-upper="240"><rect x="30" y="163" width="780" height="34" rx="4" fill="#ffffff"/>
+<text x="90" y="187" font-size="17" text-anchor="middle">4</text>
+<text x="270" y="187" font-size="17" text-anchor="middle">16</text>
+<text x="470" y="187" font-size="17" text-anchor="middle">75</text>
+<text x="680" y="187" font-size="17" text-anchor="middle">240</text>
+</g>
+<g data-n="8" data-g="64" data-f="239" data-upper="960"><rect x="30" y="200" width="780" height="34" rx="4" fill="#e1ece4"/>
+<text x="90" y="224" font-size="17" text-anchor="middle">8</text>
+<text x="270" y="224" font-size="17" text-anchor="middle">64</text>
+<text x="470" y="224" font-size="17" text-anchor="middle">239</text>
+<text x="680" y="224" font-size="17" text-anchor="middle">960</text>
+</g>
+<g data-n="16" data-g="256" data-f="855" data-upper="3840"><rect x="30" y="237" width="780" height="34" rx="4" fill="#ffffff"/>
+<text x="90" y="261" font-size="17" text-anchor="middle">16</text>
+<text x="270" y="261" font-size="17" text-anchor="middle">256</text>
+<text x="470" y="261" font-size="17" text-anchor="middle">855</text>
+<text x="680" y="261" font-size="17" text-anchor="middle">3840</text>
+</g>
+<text x="30" y="310" font-size="17" >For every n &gt; 1: n ≤ n² and 1 ≤ n².</text>
+<text x="30" y="342" font-size="17" font-weight="650">So 3n² + 5n + 7 ≤ (3 + 5 + 7)n² = 15n².</text>
+<text x="30" y="371" font-size="15" >The table shows examples. The inequality proves all later inputs.</text>
+</g></svg>

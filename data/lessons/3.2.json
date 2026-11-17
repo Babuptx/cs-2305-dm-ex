@@ -1,0 +1,963 @@
+{
+  "schemaVersion": 1,
+  "id": "3.2",
+  "title": "The Growth of Functions",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 3.2, printed pages 216–228.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "growth-recap",
+      "title": "1. Compare how work changes as the input grows",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Growth notation describes eventual size up to constant factors. It helps compare formulas as inputs become large, while keeping constants and small cases available when practical decisions require them."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Suppose two methods have operation counts A(n) = 40n + 200 and B(n) = n² for positive integer size n. A may cost more for small inputs but less for sufficiently large ones."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "A(n) = 40n + 200",
+            "B(n) = n²",
+            "Smaller count"
+          ],
+          "rows": [
+            [
+              "5",
+              "400",
+              "25",
+              "B"
+            ],
+            [
+              "20",
+              "1000",
+              "400",
+              "B"
+            ],
+            [
+              "50",
+              "2200",
+              "2500",
+              "A"
+            ],
+            [
+              "100",
+              "4200",
+              "10000",
+              "A"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "We compare functions, not stopwatch readings. A claim about execution time also needs a cost model: which operations count and whether their costs can be treated as constant. Hardware, memory behavior, numeric bit lengths, and implementation details still matter. Asymptotic notation does not erase those modeling choices."
+        },
+        {
+          "type": "check",
+          "prompt": "Does “linear growth” guarantee faster execution for every input than “quadratic growth”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Constants, overhead, and the actual input sizes matter. The table shows a crossover. Growth rates describe the eventual trend, not an unconditional ranking of all measurements."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.1, printed pages 216–217."
+        }
+      ]
+    },
+    {
+      "id": "big-o-definition",
+      "title": "2. Read the Big-O quantifiers in the right order",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "f(n) is O(g(n)) if there exist constants C > 0 and k\nsuch that |f(n)| ≤ C|g(n)| for every n > k in the domain.",
+          "description": "C is a fixed scale factor and k is a fixed threshold. The same pair must work for all later inputs."
+        },
+        {
+          "type": "paragraph",
+          "text": "For most examples here, n is a positive integer. The textbook also allows real inputs x, in which case the inequality must hold for every permitted real x beyond the threshold. Absolute values compare magnitudes and prevent a large negative value from automatically satisfying an upper bound."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Symbol or phrase",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "C > 0",
+              "Multiply the reference function by this one fixed factor"
+            ],
+            [
+              "n > k",
+              "Ignore a finite initial segment of integer inputs"
+            ],
+            [
+              "For every later n",
+              "No later exceptions may violate the bound"
+            ],
+            [
+              "Witnesses",
+              "A particular valid pair C, k"
+            ],
+            [
+              "O(g)",
+              "The class of functions with this eventual upper bound"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The threshold k and constant C do not depend on the growing input. We use “f is O(g)” to avoid reading the common shorthand f = O(g) as an ordinary symmetric equation. If g is eventually zero, the definition forces f to be eventually zero as well; ratios need extra care when g vanishes."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you prove n² is O(n) by choosing C = n each time?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. C must be one fixed constant that works for all sufficiently large n. Letting C grow with n changes the quantifiers and makes the proposed argument invalid."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.2, printed page 217."
+        }
+      ]
+    },
+    {
+      "id": "big-o-witnesses",
+      "title": "3. Build an upper bound one justified inequality at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let f(n) = 3n² + 5n + 7. To compare with g(n) = n², first choose n > 1. Then n ≤ n² and 1 ≤ n², so every smaller term can be bounded using n²."
+        },
+        {
+          "type": "math",
+          "notation": "0 ≤ 3n² + 5n + 7\n  ≤ 3n² + 5n² + 7n²\n  = 15n², for n > 1",
+          "description": "C = 15 and k = 1 are witnesses. One valid pair is enough; the constants need not be optimal."
+        },
+        {
+          "type": "diagram",
+          "title": "One threshold and one scale work for the whole tail",
+          "src": "assets/growth-witness-bounds.svg",
+          "description": "A witness table for f(n)=3n squared plus 5n plus 7 compares it with n squared and 15n squared at n=2,4,8,16. A separate algebraic inequality establishes the bound for every n greater than 1."
+        },
+        {
+          "type": "example",
+          "title": "Trade a later threshold for a smaller constant",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n > 5, 5n ≤ n² and 7 ≤ n². Thus f(n) ≤ 3n² + n² + n² = 5n². The witnesses C = 5, k = 5 also work. More generous constants and later thresholds work too."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does checking the inequality at n = 2, 4, 8, and 16 prove Big-O?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The table illustrates the bound, but a later input could in principle break a guessed inequality. The algebra above proves it for every n > 1. Finite checks and general proofs serve different purposes."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What if f(1) were changed to a billion?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The same witnesses C = 15, k = 1 still work because the condition is n > 1. Finitely many changed inputs do not affect an eventual growth bound."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.2, printed pages 218–219."
+        }
+      ]
+    },
+    {
+      "id": "upper-not-tight",
+      "title": "4. Distinguish a valid upper bound from a tight description",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Claim for positive integer n",
+            "Valid?",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "7n² is O(n²)",
+              "Yes",
+              "C = 7, k = 0"
+            ],
+            [
+              "7n² is O(n³)",
+              "Yes",
+              "For n > 1, n² ≤ n³"
+            ],
+            [
+              "7n² is O(n⁴)",
+              "Yes",
+              "An even looser upper bound"
+            ],
+            [
+              "n³ is O(7n²)",
+              "No",
+              "The ratio n/7 has no constant upper bound"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Big-O permits an overestimate. When you are asked for a useful estimate, choose a simple reference function that captures the smallest relevant growth order, and use Θ when you have both an upper and a lower bound. Knowing only O(n²) does not prove that a function actually grows quadratically."
+        },
+        {
+          "type": "example",
+          "title": "Why Big-O is not an equality to rearrange",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "n is O(n²), but n² is not O(n). The relation is not symmetric. It is transitive: if |f| ≤ C₁|g| after k₁ and |g| ≤ C₂|h| after k₂, then |f| ≤ C₁C₂|h| after max(k₁, k₂)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If two algorithms are both described as O(n²), must their counts have the same order?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Counts n and n² both satisfy O(n²), yet their ratio is unbounded in one direction. To assert the same order, establish matching upper and lower bounds, expressed with Θ."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.2, printed pages 219–221."
+        }
+      ]
+    },
+    {
+      "id": "disprove-big-o",
+      "title": "5. Defeat every possible pair of witnesses",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To prove n² is not O(n), it is not enough to show that one proposed constant fails. You must rule out every fixed C > 0 and every threshold k."
+        },
+        {
+          "type": "math",
+          "notation": "Assume n² ≤ Cn for every integer n > k.\nChoose an integer n > max(k, C, 0).\nSince n > 0, dividing by n gives n ≤ C.\nBut n was chosen greater than C: contradiction.",
+          "description": "The choice of n is allowed to depend on the proposed witnesses. The witnesses are not allowed to depend on n."
+        },
+        {
+          "type": "paragraph",
+          "text": "More generally, for eventually positive g, the ratio |f(n)|/g(n) is useful. Big-O means this ratio is bounded above beyond some threshold. A ratio that becomes arbitrarily large arbitrarily far out rules out Big-O."
+        },
+        {
+          "type": "example",
+          "title": "Disprove a second proposed bound",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose 2ⁿ were O((3/2)ⁿ). Dividing the positive expressions would bound (4/3)ⁿ by a constant for every large n. But (4/3)ⁿ grows without bound, so no fixed factor works. Exponential bases cannot be discarded as mere constant multipliers."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is it enough to find one n where f(n) > Cg(n)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Only to refute that particular C, k if the chosen n also exceeds k. A proof of “not O” must start with arbitrary proposed witnesses and produce a violating later input."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.2, printed page 221."
+        }
+      ]
+    },
+    {
+      "id": "polynomial-upper",
+      "title": "6. Bound a polynomial even when coefficients are negative",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "p(x) = a_d xᵈ + a_(d−1) xᵈ⁻¹ + ⋯ + a₀\nFor x > 1: |p(x)| ≤ (|a_d| + ⋯ + |a₀|)xᵈ",
+          "description": "The degree bound d is a fixed nonnegative integer. Every xʲ with 0 ≤ j ≤ d is at most xᵈ when x > 1."
+        },
+        {
+          "type": "paragraph",
+          "text": "First apply the triangle inequality to avoid cancellation or sign errors. Then replace each lower power by the largest power. If all coefficients are zero, use any positive C; otherwise the sum of their absolute values is a positive witness."
+        },
+        {
+          "type": "example",
+          "title": "An original signed example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For p(n) = −4n³ + 9n − 2 and n > 1, |p(n)| ≤ 4n³ + 9n + 2 ≤ 15n³. Hence p is O(n³), with C = 15, k = 1. The negative leading term does not make the magnitude small."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is −n⁴ ≤ n enough for an ordinary inequality but not a proof that −n⁴ is O(n)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Big-O compares absolute values. The relevant inequality would be n⁴ ≤ Cn eventually. Dividing by n would bound n³ by a fixed C, which is impossible."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.3, Theorem 1, printed pages 221–222."
+        }
+      ]
+    },
+    {
+      "id": "logarithm-growth",
+      "title": "7. Keep logarithm bases separate from exponential bases",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Unless a different base is written, log means log₂ in this lesson. A logarithm asks for an exponent: log₂ 8 = 3 because 2³ = 8. In growth comparisons, any fixed base b > 1 differs from base 2 by only a positive constant factor."
+        },
+        {
+          "type": "math",
+          "notation": "log_b n = log₂ n / log₂ b, for fixed b > 1\nlog₂(n²) = 2 log₂ n\n(log₂ n)² is a different function",
+          "description": "The logarithm’s base must be fixed. The square outside the logarithm is not the same as squaring its argument."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "log₂ n",
+            "log₂(n²)",
+            "(log₂ n)²"
+          ],
+          "rows": [
+            [
+              "2",
+              "1",
+              "2",
+              "1"
+            ],
+            [
+              "4",
+              "2",
+              "4",
+              "4"
+            ],
+            [
+              "8",
+              "3",
+              "6",
+              "9"
+            ],
+            [
+              "16",
+              "4",
+              "8",
+              "16"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For positive integers, n < 2ⁿ gives log₂ n < n by applying the increasing logarithm. Thus log₂ n is O(n). This is a valid loose bound; logarithms grow much more slowly than n. Changing 2ⁿ to 3ⁿ, however, produces ratio (3/2)ⁿ, which is unbounded, not a constant."
+        },
+        {
+          "type": "check",
+          "prompt": "Is log_n n a fixed-base logarithmic growth function?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. For n > 1 it equals 1 because the base itself changes with n. The usual “all bases have the same order” statement assumes a fixed base greater than 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.3, printed pages 222–224."
+        }
+      ]
+    },
+    {
+      "id": "growth-hierarchy",
+      "title": "8. Order familiar growth families by their eventual behavior",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Eventually slower family",
+            "Eventually faster family",
+            "Fixed parameters"
+          ],
+          "rows": [
+            [
+              "(log_b n)ᶜ",
+              "nᵈ",
+              "b > 1 and c, d > 0"
+            ],
+            [
+              "nᶜ",
+              "nᵈ",
+              "0 < c < d"
+            ],
+            [
+              "nᵈ",
+              "bⁿ",
+              "d > 0 and b > 1"
+            ],
+            [
+              "bⁿ",
+              "cⁿ",
+              "1 < b < c"
+            ],
+            [
+              "cⁿ",
+              "n!",
+              "Any fixed c > 1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In each row, the slower function divided by the faster tends to 0 as n grows. Consequently the slower is Big-O of the faster, but the reverse is not true. These are eventual comparisons; small inputs can tie or appear in a different order. The logarithm-power and power-exponential limit results require supporting analysis beyond simply plotting a few values."
+        },
+        {
+          "type": "math",
+          "notation": "1, log₂ n, √n, n, n log₂ n, n², 2ⁿ, n!",
+          "description": "A useful increasing growth ladder. Constants and exponents in this list do not change with n."
+        },
+        {
+          "type": "example",
+          "title": "Sort a mixed collection",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The functions (log₂ n)³, 5√n, n log₂ n, n², (1.2)ⁿ, and n! are already listed in increasing eventual order. A power of a logarithm is smaller in order than a positive power of n. The factor log₂ n lifts n above linear growth but remains below an extra factor n. Any fixed exponential base above 1 eventually beats n²."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If 1.01ⁿ grows slowly at first, can n¹⁰ eventually stay above it forever?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. With fixed exponent 10 and fixed base 1.01 > 1, the exponential eventually exceeds every constant multiple of n¹⁰. The crossover can be very far out, so the asymptotic statement does not predict a small threshold."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.3, printed pages 223–224."
+        }
+      ]
+    },
+    {
+      "id": "factorial-growth",
+      "title": "9. Estimate a factorial and its logarithm separately",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "n! = 1·2·⋯·n ≤ n·n·⋯·n = nⁿ\nlog₂(n!) ≤ log₂(nⁿ) = n log₂ n",
+          "description": "For integers n ≥ 1, each of the n factors is at most n. Taking a logarithm preserves order because the base is greater than 1."
+        },
+        {
+          "type": "paragraph",
+          "text": "These inequalities give n! = O(nⁿ) and log₂(n!) = O(n log n). The first bound is loose: it does not say n! and nⁿ have the same order. A logarithm can turn a large product into a much smaller sum."
+        },
+        {
+          "type": "example",
+          "title": "Obtain a matching lower bound for the logarithm",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n ≥ 4, retain only factors with indices floor(n/2) + 1 through n. There are at least n/2 such factors, and each exceeds n/2. Thus log₂(n!) ≥ (n/2)log₂(n/2). Since log₂(n/2) = log₂ n − 1 ≥ (1/2)log₂ n for n ≥ 4, we get log₂(n!) ≥ (n/4)log₂ n. Together with the upper bound, this will establish Θ(n log n)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does log₂(n!) mean (log₂ n)!?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The first takes the factorial and then its logarithm. The second would take a factorial of a logarithm, often not even a nonnegative integer in the elementary factorial definition. Parentheses determine the operation order."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.3, printed page 222; supporting lower bound."
+        }
+      ]
+    },
+    {
+      "id": "combine-bounds",
+      "title": "10. Combine bounds with the right rule and a shared threshold",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose |f₁| ≤ C₁|g₁| after k₁ and |f₂| ≤ C₂|g₂| after k₂. Both estimates hold together after k = max(k₁, k₂). Use the triangle inequality for a sum and multiply magnitudes for a product."
+        },
+        {
+          "type": "math",
+          "notation": "|f₁ + f₂| ≤ |f₁| + |f₂|\n            ≤ (C₁ + C₂) max(|g₁|, |g₂|)\n|f₁f₂| ≤ C₁C₂|g₁g₂|",
+          "description": "Therefore f₁ + f₂ is O(max(|g₁|, |g₂|)) and f₁f₂ is O(g₁g₂), with a common sufficiently late threshold."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Known bounds",
+            "Safe conclusion"
+          ],
+          "rows": [
+            [
+              "f is O(n²), h is O(n log n)",
+              "f + h is O(n²)"
+            ],
+            [
+              "f is O(n), h is O(log n)",
+              "fh is O(n log n)"
+            ],
+            [
+              "f and h are O(n²)",
+              "f − h is O(n²), possibly much smaller"
+            ],
+            [
+              "f is O(g)",
+              "No unrestricted quotient or exponentiation rule follows"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Cancellation prevents automatic tightness",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let f(n) = n² + n and h(n) = −n². Each has magnitude of quadratic order, but f(n) + h(n) = n is only linear. The upper-bound sum rule remains true; it does not guarantee a matching lower bound."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If f is O(g), is 2^f always O(2^g)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Take f(n) = 2n and g(n) = n. Then f is O(g), but 2^(2n)/2ⁿ = 2ⁿ is unbounded. Multiplying an exponent by a constant is not the same as multiplying the whole function by a constant."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.4, Theorems 2–3, printed pages 225–226."
+        }
+      ]
+    },
+    {
+      "id": "combined-example",
+      "title": "11. Simplify a compound expression without losing assumptions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For positive integer n, estimate F(n) = (n + 2)log₂(n² + 3) + 4n². We will bound each factor, combine the terms, then check whether a lower bound is also available."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step for n > 2",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "n + 2 ≤ 2n",
+              "Because 2 < n"
+            ],
+            [
+              "n² + 3 ≤ 2n²",
+              "Because 3 < n²"
+            ],
+            [
+              "log₂(n² + 3) ≤ 1 + 2log₂ n ≤ 3log₂ n",
+              "Increasing logarithm and log₂ n ≥ 1"
+            ],
+            [
+              "(n + 2)log₂(n² + 3) ≤ 6n log₂ n ≤ 6n²",
+              "For positive integer n, log₂ n ≤ n"
+            ],
+            [
+              "4n² ≤ F(n) ≤ 10n²",
+              "The first term is nonnegative; add 4n²"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Thus F is O(n²), with witnesses C = 10, k = 2. Its lower bound 4n² will also give Ω(n²), so the order is Θ(n²). Notice that taking a logarithm of n² + 3 required an actual inequality; log(a + b) does not equal log a + log b."
+        },
+        {
+          "type": "check",
+          "prompt": "Estimate H(n) = 2n log₂(n!) + (n² + 5)log₂ n for n > 3.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The factorial logarithm is at most n log₂ n, so the first term is at most 2n² log₂ n. Also n² + 5 ≤ 2n² for n > 3, so the second is at most 2n² log₂ n. Thus H ≤ 4n² log₂ n. The second term alone is at least n² log₂ n, so H is Θ(n² log n), with lower factor 1 and upper factor 4."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.4, worked-estimate methods, printed page 226."
+        }
+      ]
+    },
+    {
+      "id": "big-omega",
+      "title": "12. Use Omega for an eventual lower bound",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "f(n) is Ω(g(n)) if some c > 0 and k satisfy\n|f(n)| ≥ c|g(n)| for every n > k.",
+          "description": "Omega supplies a lower bound on magnitude. The scale c is a fixed positive constant."
+        },
+        {
+          "type": "paragraph",
+          "text": "For f(n) = 6n³ + 2n + 9 and n > 0, we have f(n) ≥ 6n³. Therefore f is Ω(n³), with c = 6, k = 0. Lower-order positive terms can be discarded when obtaining this lower bound."
+        },
+        {
+          "type": "math",
+          "notation": "f is Ω(g) if and only if g is O(f)",
+          "description": "Divide the positive constant in either inequality: |f| ≥ c|g| is equivalent to |g| ≤ (1/c)|f|."
+        },
+        {
+          "type": "callout",
+          "title": "Bounds and input cases are different ideas",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "O does not mean “worst case,” and Ω does not mean “best case.” First define a function such as the maximum cost over all inputs of size n or the minimum cost over them. Then use O, Ω, or Θ to bound that chosen function. Even a worst-case cost function can have an Omega lower bound."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is n³ also Ω(n²)? Does that make n³ quadratic?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes, n³ ≥ n² for n ≥ 1, so it is Ω(n²). That lower bound is loose. It does not supply the upper bound needed to claim quadratic order."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.5, printed pages 226–227."
+        }
+      ]
+    },
+    {
+      "id": "big-theta",
+      "title": "13. Trap a function between two fixed multiples",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "f(n) is Θ(g(n)) when c₁|g(n)| ≤ |f(n)| ≤ c₂|g(n)|\nfor every n > k, with fixed c₁, c₂ > 0.",
+          "description": "Theta means both O(g) and Ω(g). If the two proofs use different thresholds, choose their maximum."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Notation",
+            "Promise about magnitude",
+            "What is still missing"
+          ],
+          "rows": [
+            [
+              "O(g)",
+              "An eventual upper bound",
+              "A matching lower bound"
+            ],
+            [
+              "Ω(g)",
+              "An eventual lower bound",
+              "A matching upper bound"
+            ],
+            [
+              "Θ(g)",
+              "Both bounds",
+              "Exact values and constant factors"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Finish the polynomial example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n > 1, 3n² ≤ 3n² + 5n + 7 ≤ 15n². Choose c₁ = 3, c₂ = 15, k = 1. The expression is Θ(n²). This does not mean it equals n², and it does not require its ratio to n² to equal 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Theta is symmetric: rearranging the two inequalities bounds |g| between (1/c₂)|f| and (1/c₁)|f|. It does not require a ratio to converge. For example, f(n) = n(2 + (−1)ⁿ) lies between n and 3n, so f is Θ(n), although f(n)/n alternates between 1 and 3."
+        },
+        {
+          "type": "check",
+          "prompt": "A count is O(n²) and Ω(n). Can you conclude Θ(n²)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The lower bound may be too weak. The function n itself satisfies both given bounds but is not Θ(n²). A matching Ω(n²) bound would be needed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.5, Definition 3, printed page 227."
+        }
+      ]
+    },
+    {
+      "id": "polynomial-theta",
+      "title": "14. Justify the leading-term rule, including negative coefficients",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A nonzero polynomial of degree d has order xᵈ as x tends to positive infinity. The upper bound was established earlier. For a matching lower bound, show that the remaining terms cannot cancel more than half the leading term once x is large enough."
+        },
+        {
+          "type": "math",
+          "notation": "p(x) = a_d xᵈ + r(x), with a_d ≠ 0 and d ≥ 1\nLet B = |a_(d−1)| + ⋯ + |a₀|.\nFor x > 1, |r(x)| ≤ Bxᵈ⁻¹.\nFor x > max(1, 2B/|a_d|):\n|p(x)| ≥ |a_d|xᵈ − |r(x)| ≥ (|a_d|/2)xᵈ.",
+          "description": "The reverse triangle inequality gives the lower bound. Combine it with |p(x)| ≤ (|a_d| + B)xᵈ."
+        },
+        {
+          "type": "example",
+          "title": "Check an explicit signed case",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For p(n) = −4n³ + 9n − 2, B = 11 and |a_d| = 4. The general threshold is max(1, 22/4) = 5.5. For integer n > 6, we certainly have 2n³ ≤ |p(n)| ≤ 15n³. Thus p is Θ(n³), despite its negative leading coefficient."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For degree 0, a nonzero constant has order 1 directly. The zero polynomial is O(1) but not Θ(1), because it cannot meet any positive constant lower bound. Simplify an expression before identifying its degree: leading terms may cancel."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the order of (5n³ + 2n²) − (5n³ − 7n + 1)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The cubic terms cancel, leaving 2n² + 7n − 1. Its nonzero leading term has degree 2, so its magnitude is Θ(n²), not Θ(n³)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.5, Theorem 4, printed page 228."
+        }
+      ]
+    },
+    {
+      "id": "sum-theta",
+      "title": "15. Prove tight sum bounds without needing an exact formula",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let S(n) = 1 + 2 + ⋯ + n for positive integer n. For an upper bound, each of the n terms is at most n, giving S(n) ≤ n². For a lower bound, keep only the terms from ceil(n/2) through n."
+        },
+        {
+          "type": "math",
+          "notation": "S(n) ≥ (n − ⌈n/2⌉ + 1)⌈n/2⌉ ≥ (n/2)(n/2) = n²/4\nTherefore n²/4 ≤ S(n) ≤ n² for all n ≥ 1.",
+          "description": "There are at least n/2 retained terms, each at least n/2. Thus S is Θ(n²), with c₁ = 1/4, c₂ = 1, k = 0."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "Retained terms",
+            "Their sum",
+            "S(n)"
+          ],
+          "rows": [
+            [
+              "5",
+              "3, 4, 5",
+              "12",
+              "15"
+            ],
+            [
+              "6",
+              "3, 4, 5, 6",
+              "18",
+              "21"
+            ],
+            [
+              "7",
+              "4, 5, 6, 7",
+              "22",
+              "28"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The exact formula n(n + 1)/2 also gives a tighter lower factor 1/2, but the simpler tail argument already proves the order. We do not need the best constants. The same idea—retain many large terms—gave the lower bound for log₂(n!)."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can you not retain only the final term n and conclude Ω(n²)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Keeping one term gives only S(n) ≥ n, a linear lower bound. To reach a quadratic lower bound, the argument needs a linear number of terms, each of linear size."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.2.5, Example 12, printed pages 227–228."
+        }
+      ]
+    },
+    {
+      "id": "growth-practice",
+      "title": "16. Practice witnesses, counterexamples, and tight bounds",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "1. Give witnesses proving 8n + 12 is O(n) for positive integers.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For n > 1, 12 ≤ 12n, so 8n + 12 ≤ 20n. C = 20 and k = 1 work. Since 8n + 12 ≥ 8n, the function is also Θ(n)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "2. Prove 5n² + 1 is not O(n).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For arbitrary proposed C > 0 and k, choose an integer n > max(k, C/5, 0). Then 5n² > Cn, so 5n² + 1 > Cn. This violates the required bound beyond the proposed threshold."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "3. Estimate (n + 1)(n² + 3) tightly.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For n > 1, the product is at least n³. Also n + 1 ≤ 2n and n² + 3 ≤ 4n², so it is at most 8n³. It is Θ(n³)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "4. Is 2ⁿ⁺³ the same order as 2ⁿ? Is 2²ⁿ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "2ⁿ⁺³ = 8·2ⁿ, so it is Θ(2ⁿ). But 2²ⁿ = 4ⁿ, whose ratio to 2ⁿ is 2ⁿ, unbounded. It is not O(2ⁿ). An additive constant in the exponent and a multiplying constant in the exponent behave differently."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5. Find the order of floor(n/3) for positive integer n.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For n > 6, floor(n/3) ≥ n/3 − 1 ≥ n/6, while floor(n/3) ≤ n/3. These are positive constant multiples of n, so the order is Θ(n)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "6. A plotted ratio looks bounded through n = 1,000,000. Is that a proof of Big-O?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A finite plot cannot establish every later input. Use a general inequality or a justified theorem about the ratio. Computation is useful for catching arithmetic errors and suggesting a bound."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A repeatable method",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "State the domain and the reference function. Choose a threshold. Produce constants that work for the whole tail. Use both directions for Θ. To disprove O, defeat arbitrary proposed witnesses. Keep the cost model and the chosen input case separate from the type of bound."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Sections 3.1 and 3.2 now provide the algorithms and the comparison language. Section 3.3 applies that language to operation counts and computational complexity."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Original practice across §3.2."
+        }
+      ]
+    }
+  ]
+}
