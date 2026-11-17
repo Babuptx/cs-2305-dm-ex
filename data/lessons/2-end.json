@@ -1,0 +1,1304 @@
+{
+  "schemaVersion": 1,
+  "id": "2-end",
+  "title": "End-of-Chapter Material",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Chapter 2 end-of-chapter material, printed pages 195–199.",
+    "Original companion review, worked examples, expandable practice, diagram, and project guidance."
+  ],
+  "units": [
+    {
+      "id": "chapter-two-recap",
+      "title": "1. Connect the six sections before practicing",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Chapter 2 gives you ways to describe collections, assignments, ordered data, totals, infinite sizes, and tables of relationships. The first step in a problem is deciding which kind of object you are handling."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Section",
+            "Question to ask",
+            "Tool to use"
+          ],
+          "rows": [
+            [
+              "2.1 · Sets",
+              "Which objects are members?",
+              "Membership, subsets, power sets, Cartesian products"
+            ],
+            [
+              "2.2 · Set operations",
+              "Which membership conditions must hold?",
+              "Union, intersection, difference, complements"
+            ],
+            [
+              "2.3 · Functions",
+              "Does each allowed input have exactly one output?",
+              "Domain, codomain, range, bijections, composition"
+            ],
+            [
+              "2.4 · Sequences and sums",
+              "Which index, rule, and bounds apply?",
+              "Initial values, recurrences, finite sum formulas"
+            ],
+            [
+              "2.5 · Cardinality",
+              "Can every object be matched or listed?",
+              "Bijections, countability, diagonal arguments"
+            ],
+            [
+              "2.6 · Matrices",
+              "What do the rows, columns, and operations mean?",
+              "Dimensions, row-column products, Boolean products"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Work in three passes: explain the definitions without looking, solve the mixed problems with reasons, then try a project. Open each answer only after making an attempt. A wrong answer is useful when you can identify the exact definition or assumption you missed."
+        },
+        {
+          "type": "check",
+          "prompt": "How can one sequence be both a function and an infinite collection of values?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A sequence assigns a value to each index, so it is a function. Its range is a set of outputs. The sequence retains order and repeated values; its range does not. For aₙ = (−1)ⁿ with n ∈ ℕ, the domain is infinite, but the range is only {−1, 1}."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 2 Key Terms and Results, printed pages 195–196."
+        }
+      ]
+    },
+    {
+      "id": "nested-set-review",
+      "title": "2. Keep the outer set separate from its members",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let S = {∅, {2}, 2}. There are three outer members: the empty set, the singleton containing 2, and the number 2. Braces change the object. Membership x ∈ S asks about one listed object; inclusion A ⊆ S asks about every member of A."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Statement",
+            "Truth",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "∅ ∈ S",
+              "True",
+              "∅ is an outer member"
+            ],
+            [
+              "∅ ⊆ S",
+              "True",
+              "The empty set has no member that could fail the test"
+            ],
+            [
+              "{2} ∈ S",
+              "True",
+              "The singleton {2} is an outer member"
+            ],
+            [
+              "{2} ⊆ S",
+              "True",
+              "Its only member, 2, belongs to S"
+            ],
+            [
+              "{{2}} ⊆ S",
+              "True",
+              "Its only member, {2}, belongs to S"
+            ],
+            [
+              "{{2}} ∈ S",
+              "False",
+              "That double-braced object is not an outer member"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Count choices, then distinguish a different construction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The power set P(S) contains every subset of S. Each of the three members can be included or excluded independently, giving 2³ = 8 subsets. Both ∅ and S are among them. By contrast, S × {a, b} consists of ordered pairs and has 3·2 = 6 members."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Let T = {∅, {∅}}. List P(T). Is ∅ ∈ P(T)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "P(T) = {∅, {∅}, {{∅}}, {∅, {∅}}}. These are the choices of neither member, the first member alone, the second alone, and both. Yes, ∅ ∈ P(T), because ∅ is a subset of every set, including T."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Prove P(A) ⊆ P(B) if and only if A ⊆ B.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Forward: A ∈ P(A), so the assumed inclusion puts A in P(B); therefore A ⊆ B. Reverse: if X ∈ P(A), then X ⊆ A ⊆ B, so X ∈ P(B). The argument applies to empty sets too."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 1–4, printed page 196; supplementary set practice, printed page 197."
+        }
+      ]
+    },
+    {
+      "id": "set-proof-review",
+      "title": "3. Translate a set claim into a membership argument",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Fix U = {1, 2, 3, 4, 5, 6}, A = {1, 2, 4}, and B = {2, 3, 4}. All complements below are relative to this U."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Operation",
+            "Result"
+          ],
+          "rows": [
+            [
+              "A ∪ B",
+              "{1, 2, 3, 4}"
+            ],
+            [
+              "A ∩ B",
+              "{2, 4}"
+            ],
+            [
+              "A − B",
+              "{1}"
+            ],
+            [
+              "U − A",
+              "{3, 5, 6}"
+            ],
+            [
+              "A ⊕ B",
+              "{1, 3}"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "|A ∪ B| = |A| + |B| − |A ∩ B| = 3 + 3 − 2 = 4",
+          "description": "This finite-set formula removes the overlap counted twice."
+        },
+        {
+          "type": "example",
+          "title": "Prove A − (A − B) = A ∩ B for arbitrary sets",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Take an arbitrary x. Membership in the left side means x ∈ A and not (x ∈ A and x ∉ B). Because x ∈ A already holds, the forbidden condition reduces to x ∉ B. Thus x must belong to B as well. Conversely, x in both A and B cannot be in A − B, so it belongs to A − (A − B). Both inclusions establish equality."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can you erase the parentheses in (A − B) − C = A − (B − C)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Take A = B = C = {1}. The left side is ∅ − {1} = ∅. The right side is {1} − ∅ = {1}. A single counterexample disproves the proposed general identity."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is (A − B) − C = (A − C) − B nevertheless always true?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both sides contain exactly the x for which x ∈ A, x ∉ B, and x ∉ C. The order of the two exclusion conditions does not matter. This is a proof for arbitrary x, not merely a check of the displayed finite example."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 5–7 and Supplementary Exercises 5–9, printed page 197."
+        }
+      ]
+    },
+    {
+      "id": "function-review",
+      "title": "4. Test collisions and coverage separately",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let D = {1, 2, 3} and E = {a, b, c}. Define f: D → E and g: E → D by the following complete tables. Read f first when computing g ◦ f."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "x",
+            "f(x)",
+            "g(f(x))"
+          ],
+          "rows": [
+            [
+              "1",
+              "b",
+              "1"
+            ],
+            [
+              "2",
+              "c",
+              "3"
+            ],
+            [
+              "3",
+              "a",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "y",
+            "g(y)",
+            "f(g(y))"
+          ],
+          "rows": [
+            [
+              "a",
+              "1",
+              "b"
+            ],
+            [
+              "b",
+              "1",
+              "b"
+            ],
+            [
+              "c",
+              "3",
+              "a"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The images of f are distinct and use all of E, so f is a bijection. Its inverse sends a ↦ 3, b ↦ 1, and c ↦ 2. The function g is neither injective nor onto: a and b collide at 1, and target 2 is missed. The two composites also have different domains and codomains; do not silently treat them as the same function."
+        },
+        {
+          "type": "example",
+          "title": "An inverse needs the declared target set",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For h: ℤ → ℤ, h(n) = 3n + 1, equal outputs imply equal inputs. But 0 is missed because 3n + 1 = 0 would require n = −1/3, not an integer. Restrict the codomain to {3k + 1 : k ∈ ℤ}, and the same rule becomes bijective with inverse y ↦ (y − 1)/3."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If f is bijective, must every function g with the reverse domain and codomain be f⁻¹?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The table supplies a counterexample. The inverse must undo each specific assignment: f⁻¹(f(x)) = x and f(f⁻¹(y)) = y. Merely reversing the source and target sets is insufficient."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is p(x) = 1/x a total function ℝ → ℝ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No output is defined at 0. It is a total function on ℝ − {0}, or a partial function on ℝ with domain of definition ℝ − {0}. State which interpretation you mean."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 8–10, printed page 197."
+        }
+      ]
+    },
+    {
+      "id": "image-preimage-review",
+      "title": "5. Distinguish reversing a set from reversing a function",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let f: {1, 2, 3, 4} → {a, b, c} send 1 and 2 to a, 3 to b, and 4 to c. The image f(X) collects outputs of members of X. The preimage f⁻¹(Y) collects every input whose output lies in Y. A preimage of a subset exists even when f has no inverse function."
+        },
+        {
+          "type": "math",
+          "notation": "f({1, 2, 4}) = {a, c}\nf⁻¹({a, b}) = {1, 2, 3}",
+          "description": "Repeated outputs collapse in a set; all matching inputs belong to a preimage."
+        },
+        {
+          "type": "example",
+          "title": "Why images can shrink a finite set",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Each member of X contributes one output, but several inputs may contribute the same output. Thus |f(X)| ≤ |X| for finite X. If f is injective, no two contributions merge, so equality holds. Conversely, if f is not injective, take distinct u and v with f(u) = f(v). The two-member set {u, v} has a one-member image, so equality fails for that subset."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Prove f⁻¹(Y ∩ Z) = f⁻¹(Y) ∩ f⁻¹(Z).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "An input x belongs to the left side exactly when f(x) belongs to both Y and Z. That is exactly the condition that x belongs to both preimages on the right. This uses no injectivity assumption."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Must f(X ∩ W) = f(X) ∩ f(W)? Use X = {1}, W = {2}.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. X ∩ W = ∅, whose image is ∅, but f(X) = f(W) = {a}, so their intersection is {a}. Only the inclusion f(X ∩ W) ⊆ f(X) ∩ f(W) holds without additional assumptions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary Exercises 14–17, printed page 198."
+        }
+      ]
+    },
+    {
+      "id": "rounding-review",
+      "title": "6. Use inequalities to reason about floor and ceiling",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "⌊x⌋ ≤ x < ⌊x⌋ + 1\n⌈x⌉ − 1 < x ≤ ⌈x⌉",
+          "description": "Floor goes down to an integer; ceiling goes up. Down means toward more negative values when x is negative."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "x",
+            "⌊x⌋",
+            "⌈x⌉"
+          ],
+          "rows": [
+            [
+              "−2.7",
+              "−3",
+              "−2"
+            ],
+            [
+              "−2",
+              "−2",
+              "−2"
+            ],
+            [
+              "0.4",
+              "0",
+              "1"
+            ],
+            [
+              "3",
+              "3",
+              "3"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Split an integer in two, including negative integers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For any integer n, write n = 2k or n = 2k + 1 with integer k. In the even case, floor(n/2) and ceiling(n/2) both equal k. In the odd case they equal k and k + 1. Their sum is n in both cases. For n = −5, choose k = −3: floor(−2.5) + ceiling(−2.5) = −3 + (−2) = −5."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Find exactly when floors add",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Write x = m + α and y = n + β, where m and n are integers and 0 ≤ α, β < 1. Then floor(x + y) = m + n + floor(α + β). Because α + β lies in [0, 2), the extra term is 0 or 1. Therefore floor(x + y) = floor(x) + floor(y) precisely when α + β < 1."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does floor(x + y) always equal floor(x) + floor(y)? Try x = −0.2, y = 0.3.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The left side is floor(0.1) = 0, but the right side is −1 + 0 = −1. The fractional parts are 0.8 and 0.3, whose sum exceeds 1. Fractional part means x − floor(x), so it remains nonnegative for negative x."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Question 11, printed page 197; Supplementary Exercises 18–27, printed page 198."
+        }
+      ]
+    },
+    {
+      "id": "sequence-review",
+      "title": "7. Track an initial value through a recurrence and a sum",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Define a₀ = 2 and aₙ = 2aₙ₋₁ + 1 for n ≥ 1. Compute from the known value outward. The multiplier applies to the entire previous term before adding 1."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "aₙ",
+            "Running total Sₙ = a₀ + ⋯ + aₙ"
+          ],
+          "rows": [
+            [
+              "0",
+              "2",
+              "2"
+            ],
+            [
+              "1",
+              "5",
+              "7"
+            ],
+            [
+              "2",
+              "11",
+              "18"
+            ],
+            [
+              "3",
+              "23",
+              "41"
+            ],
+            [
+              "4",
+              "47",
+              "88"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Turn the recurrence into a geometric progression",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Add 1 to both sides: aₙ + 1 = 2(aₙ₋₁ + 1). Set bₙ = aₙ + 1. Then b₀ = 3 and bₙ = 2bₙ₋₁, giving bₙ = 3·2ⁿ. Hence aₙ = 3·2ⁿ − 1. This follows from the defining rule at every step; it is not a guess based only on the first five terms."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "Sₙ = ∑ᵢ₌₀ⁿ (3·2ⁱ − 1) = 3(2ⁿ⁺¹ − 1) − (n + 1), for n ≥ 0",
+          "description": "There are n + 1 terms, including the term at index 0. For n = 4, this is 3·31 − 5 = 88."
+        },
+        {
+          "type": "check",
+          "prompt": "Find a₅ and S₅ without rebuilding the whole table.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "a₅ = 2·47 + 1 = 95, or 3·2⁵ − 1 = 95. Then S₅ = 88 + 95 = 183, agreeing with 3(2⁶ − 1) − 6 = 183."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If only the prefix 2, 5, 11, 23, 47 were given, would 95 be forced?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It fits the recurrence above, but many rules share a finite prefix and later diverge. For example, adding n(n − 1)(n − 2)(n − 3)(n − 4) to the displayed formula changes no value at indices 0 through 4 but changes index 5. A specified rule, not a finite prefix alone, determines the continuation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 12–14, printed page 197; sequence practice, printed page 198."
+        }
+      ]
+    },
+    {
+      "id": "sum-review",
+      "title": "8. Expand enough terms to see what the notation does",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Expanded or simplified form",
+            "Value"
+          ],
+          "rows": [
+            [
+              "∑ᵢ₌₂⁵ (2i + 1)",
+              "5 + 7 + 9 + 11",
+              "32"
+            ],
+            [
+              "∑ᵢ₌₁³ ∑ⱼ₌₁² (i + j)",
+              "(2 + 3) + (3 + 4) + (4 + 5)",
+              "21"
+            ],
+            [
+              "∏ₖ₌₁⁴ (k + 2)/(k + 1)",
+              "(3/2)(4/3)(5/4)(6/5)",
+              "3"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The first sum has four terms, not five. Under j = i − 2, it becomes the sum of 2j + 5 for j = 0 through 3. The double sum has six indexed terms; equal numerical values from different index pairs still count separately. The product symbol Π multiplies terms rather than adding them."
+        },
+        {
+          "type": "example",
+          "title": "Recognize the cancellation in a product",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For integer n ≥ 1, the product of (k + 2)/(k + 1) from k = 1 through n is (3/2)(4/3)⋯((n + 2)/(n + 1)). Every interior numerator cancels the next denominator, leaving (n + 2)/2. For n = 0, the empty product is 1, which also matches the formula."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "∑ₖ₌₀ⁿ arᵏ = a(1 − rⁿ⁺¹)/(1 − r), for n ≥ 0 and r ≠ 1\nFor r = 1, the sum is (n + 1)a",
+          "description": "This is a finite identity. If r = 0, read the first term as a and all later terms as 0."
+        },
+        {
+          "type": "check",
+          "prompt": "Evaluate 6 + 3 + 3/2 + 3/4. What changes if the sum continues forever?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are four terms, with a = 6, r = 1/2, and n = 3. The finite sum is 6(1 − (1/2)⁴)/(1 − 1/2) = 45/4. The infinite series sums to 6/(1 − 1/2) = 12 because |r| < 1, so the omitted tail tends to 0. An infinite formula needs that convergence condition; the finite formula does not."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Key results and Review Question 14, printed pages 196–197; supplementary product practice, printed page 198."
+        }
+      ]
+    },
+    {
+      "id": "infinity-review",
+      "title": "9. Distinguish a finite description from an infinite choice",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Set",
+            "Size classification",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "ℕ, ℤ, ℚ",
+              "Countably infinite",
+              "There are bijective listings"
+            ],
+            [
+              "All finite binary strings",
+              "Countably infinite",
+              "List by length, then alphabetically within each length"
+            ],
+            [
+              "All finite subsets of ℕ",
+              "Countably infinite",
+              "Encode each subset by a natural number"
+            ],
+            [
+              "All infinite binary sequences",
+              "Uncountable",
+              "A diagonal sequence escapes any proposed list"
+            ],
+            [
+              "ℝ − ℚ",
+              "Uncountable",
+              "Otherwise two countable sets would cover ℝ"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Encode a finite subset by its occupied bit positions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For finite F ⊆ ℕ, assign code(F) = ∑ₖ∈F 2ᵏ. Thus ∅ has code 0, {0, 2, 4} has code 1 + 4 + 16 = 21, and {1, 3} has code 2 + 8 = 10. Every natural number has a unique finite binary expansion; its 1 positions recover F. This gives a bijection between finite subsets of ℕ and ℕ."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This encoding does not assign a natural-number code to an arbitrary infinite subset: an infinite selection of powers of 2 has no finite natural-number sum. The set P(ℕ) includes all those infinite subsets and is uncountable."
+        },
+        {
+          "type": "example",
+          "title": "Build the missing infinite sequence",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose all infinite binary sequences appeared as rows s₁, s₂, …. Choose the nth bit of a new sequence t to be 1 minus the nth bit of row sₙ. Then t differs from row n at position n for every positive n. Yet t is itself an infinite binary sequence. The proposed list therefore misses a member."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why are the irrational numbers uncountable?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Assume ℝ − ℚ were countable. The rationals are countable, and the union of two countable sets is countable: interleave their listings, omitting duplicates, with finite cases handled by finite insertions. That would make ℝ = ℚ ∪ (ℝ − ℚ) countable, contradicting the uncountability of ℝ."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can you infer that every function ℕ → {0, 1} has a program just because every input is a natural number?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Such functions correspond to infinite binary sequences and form an uncountable family. Programs are finite strings over a finite alphabet and form a countable family. Even counting only programs that halt on every input, they cannot compute every function in the uncountable family."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 15–16, printed page 197; Supplementary Exercises 32–36, printed page 198."
+        }
+      ]
+    },
+    {
+      "id": "matrix-review",
+      "title": "10. Check shape, order, and arithmetic before multiplying",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "A = [[1, 2], [0, 1]]\nB = [[2, 0], [1, 3]]\nAB = [[4, 6], [1, 3]]\nBA = [[2, 4], [1, 5]]",
+          "description": "Rows are enclosed in inner brackets. Both factors are 2 × 2, so both orders exist, but the results differ."
+        },
+        {
+          "type": "example",
+          "title": "Compute one entry and explain the difference",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The upper-left entry of AB is 1·2 + 2·1 = 4. The upper-left entry of BA is 2·1 + 0·0 = 2. The row comes from the left factor and the column from the right factor. Matching dimensions permit multiplication; they do not permit swapping the factors."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "A shape",
+            "B shape",
+            "AB",
+            "BA"
+          ],
+          "rows": [
+            [
+              "2 × 3",
+              "3 × 4",
+              "2 × 4",
+              "Not defined"
+            ],
+            [
+              "2 × 3",
+              "3 × 2",
+              "2 × 2",
+              "3 × 3"
+            ],
+            [
+              "3 × 3",
+              "3 × 3",
+              "3 × 3",
+              "3 × 3"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Prove a symmetric construction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For a real square matrix A, let C = A + Aᵀ. Then Cᵀ = (A + Aᵀ)ᵀ = Aᵀ + (Aᵀ)ᵀ = Aᵀ + A = C. This uses transpose distributing over addition, transposing twice returning A, and addition commuting. Therefore C is symmetric."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For J = [[0, 1], [−1, 0]], find J², J³, and J⁴. What is J²⁰²⁶?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "J² = [[−1, 0], [0, −1]] = −I. Thus J³ = −J and J⁴ = I. Powers repeat every four because Jⁿ⁺⁴ = JⁿJ⁴ = Jⁿ. Since 2026 = 4·506 + 2, J²⁰²⁶ = −I."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A is m × k and B is k × n. Which identity is correctly shaped: (AB)ᵀ = AᵀBᵀ or (AB)ᵀ = BᵀAᵀ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The reversed order BᵀAᵀ is n × k times k × m, giving n × m, exactly the shape of (AB)ᵀ. Entrywise, its (j, i) entry sums bₗⱼaᵢₗ, the same scalar terms as (AB)ᵢⱼ. The first proposed order is generally undefined and is not the transpose rule."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 17–18, printed page 197; Supplementary Exercises 37–41, printed page 198."
+        }
+      ]
+    },
+    {
+      "id": "chapter-two-capstone",
+      "title": "11. Connect sets, mappings, and Boolean routes",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Three learners—Ava, Ben, and Cy—join workshops P and Q. Ava joins both, Ben only Q, and Cy only P. Workshop P teaches skill X; workshop Q teaches X and Y. Fix these row and column orders before encoding anything."
+        },
+        {
+          "type": "diagram",
+          "title": "Count workshop routes or ask whether one exists",
+          "src": "assets/chapter-two-routes.svg",
+          "description": "Ava connects to P and Q, Ben to Q, and Cy to P. P connects to X; Q connects to X and Y. Ava has two workshop routes to X but one Boolean yes answer."
+        },
+        {
+          "type": "math",
+          "notation": "E = [[1, 1], [0, 1], [1, 0]]\nK = [[1, 0], [1, 1]]\nEK = [[2, 1], [1, 1], [1, 0]]\nE ⊙ K = [[1, 1], [1, 1], [1, 0]]",
+          "description": "E uses learner rows and workshop columns. K uses workshop rows and skill columns. Ordinary multiplication counts workshop routes; Boolean multiplication records whether at least one route exists."
+        },
+        {
+          "type": "paragraph",
+          "text": "The learner sets are Pₗ = {Ava, Cy} and Qₗ = {Ava, Ben}. Their union has three members, their intersection is {Ava}, and Pₗ − Qₗ = {Cy}. The sum of the workshop enrollments is 2 + 2 = 4, but that is not the number of distinct learners because Ava is counted twice."
+        },
+        {
+          "type": "example",
+          "title": "Decide whether the assignment is a function",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "“Assign each learner to a workshop they joined” does not specify a single workshop for Ava, so the enrollment relation itself is not a function from learners to workshops. In contrast, F(learner) = the set of workshops they joined is a function into P({P, Q}): F(Ava) = {P, Q}, F(Ben) = {Q}, F(Cy) = {P}. Each learner has exactly one set as output. F is injective but not onto that power set because ∅ is missed."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the first entry of EK equal to 2 while the first entry of E ⊙ K is 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Ava can reach X through P and through Q. Ordinary arithmetic adds the two contributions 1·1 + 1·1 = 2. Boolean arithmetic ORs the two true possibilities: (1 AND 1) OR (1 AND 1) = 1. Two routes establish one yes answer, not a Boolean value of 2."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does a route prove that a learner has mastered the skill?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The model records workshop participation and which skills a workshop teaches. A route supports access to instruction; mastery would require a separate assessment relation. A mathematically correct calculation still needs an accurate interpretation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Original integrated practice drawing on Sections 2.1–2.6 and the chapter computer projects."
+        }
+      ]
+    },
+    {
+      "id": "mixed-self-check",
+      "title": "12. Try a mixed checkpoint before opening the answers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For each problem, name the relevant object and rule before calculating. These questions deliberately switch between sets, functions, sequences, and matrices."
+        },
+        {
+          "type": "check",
+          "prompt": "1. Let U = {0, 1, 2, 3, 4}, A = {0, 2, 4}, B = {1, 2}. Find U − (A ∪ B), A ⊕ B, and |P(A)|.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A ∪ B = {0, 1, 2, 4}, so its complement is {3}. Exactly-one membership gives A ⊕ B = {0, 1, 4}. Since A has three members, its power set has 2³ = 8 members."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "2. Is f: ℤ → ℤ given by f(n) = 7 − n bijective? Find its inverse.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Equal outputs 7 − m = 7 − n give m = n, so it is injective. Every integer y has the integer preimage n = 7 − y, so it is onto. Its inverse is the same rule: f⁻¹(y) = 7 − y."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "3. Let a₁ = 4 and aₙ = aₙ₋₁ + 3 for n ≥ 2. Find a₈ and the sum a₁ + ⋯ + a₈.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "aₙ = 4 + 3(n − 1), so a₈ = 25. There are eight terms. Pairing the first and last gives 4 + 25 = 29 for each of four pairs, so the sum is 116."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "4. Can a proper subset of an infinite set have the same cardinality as that set?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. The even natural numbers form a proper subset of ℕ, but n ↦ 2n is a bijection from ℕ to that subset. Injectivity follows by dividing equal outputs by 2; every even natural number 2k has preimage k."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5. Let A = [[1, 0, 1], [0, 1, 0]] and B = [[1], [1], [1]]. Find AB and A ⊙ B.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The shapes are 2 × 3 and 3 × 1, so both results are 2 × 1. Ordinary multiplication gives [[2], [1]]. Boolean multiplication gives [[1], [1]], because each row has at least one contributing intermediate position."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "6. Is a square Boolean matrix power A[2] guaranteed to include every one-step connection in A?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Boolean power A[2] asks about exactly two steps. For A = [[0, 1], [0, 0]], A[2] is the zero matrix, even though A has a one-step connection. Use A ∨ A[2] for one or two steps; include I as well if zero steps are allowed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Original retrieval and supplementary practice across Chapter 2."
+        }
+      ]
+    },
+    {
+      "id": "set-program-project",
+      "title": "13. Build and test a set calculator",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use one fixed order of a finite universe. Position i is 1 when its object is in the set and 0 otherwise. The following JavaScript preserves leading zeros, rejects mismatched universes by length, and accepts empty strings for an empty universe. Equal length alone cannot check that two callers used the same object order; that remains part of the input contract."
+        },
+        {
+          "type": "math",
+          "notation": "function setBits(a, b) {\n  if (typeof a !== \"string\" || typeof b !== \"string\" ||\n      a.length !== b.length || !/^[01]*$/.test(a) ||\n      !/^[01]*$/.test(b)) {\n    throw new TypeError(\"Use equal-length bit strings\");\n  }\n  let complement = \"\", union = \"\", intersection = \"\";\n  let difference = \"\", symmetric = \"\";\n  for (let i = 0; i < a.length; i++) {\n    const x = a[i] === \"1\", y = b[i] === \"1\";\n    complement += Number(!x);\n    union += Number(x || y);\n    intersection += Number(x && y);\n    difference += Number(x && !y);\n    symmetric += Number(x !== y);\n  }\n  return {complement, union, intersection, difference, symmetric};\n}",
+          "description": "Executable JavaScript: compute complement of a and four binary set operations."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "a",
+            "b",
+            "complement",
+            "union",
+            "intersection",
+            "difference",
+            "symmetric"
+          ],
+          "rows": [
+            [
+              "10110",
+              "01100",
+              "01001",
+              "11110",
+              "00100",
+              "10010",
+              "11010"
+            ],
+            [
+              "000",
+              "000",
+              "111",
+              "000",
+              "000",
+              "000",
+              "000"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "To test independently, turn each string into an ordinary Set of positions, perform membership checks, and compare the resulting strings. Check empty strings, all-zero strings, identical strings, leading zeros, and invalid characters. Do not use ordinary integer bit operations as your only oracle: their fixed-width limits can discard long inputs."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Generalization",
+            "Meaning of an entry",
+            "Union",
+            "Intersection",
+            "Other operation"
+          ],
+          "rows": [
+            [
+              "Multiset",
+              "Nonnegative integer multiplicity",
+              "max(a, b)",
+              "min(a, b)",
+              "Difference: max(a − b, 0); sum: a + b"
+            ],
+            [
+              "Fuzzy set",
+              "Membership degree in [0, 1]",
+              "max(a, b)",
+              "min(a, b)",
+              "Complement: 1 − a"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For the project extensions, validate the entries according to their meaning. A multiset records how many copies occur. A fuzzy membership degree expresses graded membership, not a count and not automatically a probability. Use the max/min conventions stated here; do not silently reuse Boolean OR and AND on arbitrary numbers."
+        },
+        {
+          "type": "check",
+          "prompt": "At one object, multiset A has multiplicity 3 and B has 1. What do union, intersection, A − B, and A + B give?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The multiplicities are 3, 1, 2, and 4 respectively. Union keeps the larger multiplicity; it does not add them. For fuzzy memberships 0.3 and 0.8, union is 0.8, intersection 0.3, and the complement of the first membership is 0.7."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Computer Projects 1–3, printed page 199."
+        }
+      ]
+    },
+    {
+      "id": "function-matrix-projects",
+      "title": "14. Verify an inverse and specify matrix projects",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Represent a function on {1, …, n} by an array whose entry at JavaScript index i is the image of mathematical input i + 1. If the entries are exactly 1 through n once each, the function is a permutation and has an inverse."
+        },
+        {
+          "type": "math",
+          "notation": "function invertPermutation(values) {\n  if (!Array.isArray(values)) {\n    throw new TypeError(\"Use an array of images\");\n  }\n  const n = values.length;\n  const inverse = Array(n).fill(0);\n  for (let i = 0; i < n; i++) {\n    const y = values[i];\n    if (!Number.isInteger(y) || y < 1 || y > n ||\n        inverse[y - 1] !== 0) {\n      throw new TypeError(\"Images must be 1 through n, each once\");\n    }\n    inverse[y - 1] = i + 1;\n  }\n  return inverse;\n}",
+          "description": "Executable JavaScript: validate a permutation and return its inverse in the same representation."
+        },
+        {
+          "type": "example",
+          "title": "Follow one assignment backward",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For values = [3, 1, 4, 2], input 1 goes to 3, so inverse[2] must be 1. Reversing all assignments gives [2, 4, 1, 3]. Verify both round trips: inverse[values[i] − 1] = i + 1 and values[inverse[i] − 1] = i + 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Distinct valid images suffice here because the finite domain and codomain have the same size. This reasoning does not apply unchanged to ℕ → ℕ: n ↦ n + 1 is injective and misses 0. The empty array represents the unique bijection ∅ → ∅ and returns an empty inverse."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Matrix project",
+            "Input contract",
+            "Independent check"
+          ],
+          "rows": [
+            [
+              "Ordinary product",
+              "Rectangular numeric A: m × k, B: k × n",
+              "Compute each output by a separate dot product"
+            ],
+            [
+              "Power Aⁿ",
+              "Square A; integer n ≥ 0; define A⁰ = I",
+              "Compare small powers with repeated multiplication"
+            ],
+            [
+              "Symmetry",
+              "Square numeric A",
+              "Compare every aᵢⱼ with aⱼᵢ"
+            ],
+            [
+              "Meet and join",
+              "Equal-shape bit matrices",
+              "Compare each cell with AND and OR"
+            ],
+            [
+              "Boolean product and powers",
+              "Compatible bit matrices; square for powers",
+              "Enumerate intermediate routes on tiny examples"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a classroom implementation, reject ragged rows, missing entries, invalid dimensions, and nonnumeric or nonfinite values. Limit tests to small exact integer calculations if using JavaScript Number. A square-matrix power project can include n = 0 as an extension to the positive-power task. Allocate fresh output rows so updating one row cannot change another."
+        },
+        {
+          "type": "check",
+          "prompt": "Why should [2, 2] and [1, 3] both be rejected as permutations of {1, 2}?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first repeats an image and misses 1. The second has an image outside the declared codomain. Checking uniqueness alone would fail to reject [1, 3]; checking only the range would fail to reject [2, 2]."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Computer Projects 4–12, printed page 199."
+        }
+      ]
+    },
+    {
+      "id": "exploration-review",
+      "title": "15. Separate computational evidence from a general proof",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Explore all functions from a labeled m-element set to a labeled n-element set for small nonnegative m and positive n. A function is a length-m list of n possible output labels. Generate every list, then separately test whether outputs are distinct and whether every target label appears."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "m",
+            "n",
+            "All functions",
+            "Injective",
+            "Onto"
+          ],
+          "rows": [
+            [
+              "0",
+              "2",
+              "1",
+              "1",
+              "0"
+            ],
+            [
+              "1",
+              "2",
+              "2",
+              "2",
+              "0"
+            ],
+            [
+              "2",
+              "2",
+              "4",
+              "2",
+              "2"
+            ],
+            [
+              "3",
+              "2",
+              "8",
+              "0",
+              "6"
+            ],
+            [
+              "2",
+              "3",
+              "9",
+              "6",
+              "0"
+            ],
+            [
+              "3",
+              "3",
+              "27",
+              "6",
+              "6"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Explain one row without trusting the program",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "From three inputs to two targets there are 2³ = 8 functions. None can be injective because three distinct inputs cannot receive three distinct labels from only two choices. Exactly two functions are constant. Every nonconstant function uses both targets, leaving 8 − 2 = 6 onto functions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For m ≤ n, an injection has n choices for its first output, n − 1 for its next, and so on, giving n(n − 1)⋯(n − m + 1). For m = 0 the empty product is 1. For m > n there are no injections. Derive this rule from distinct choices; the small table alone is not a proof."
+        },
+        {
+          "type": "example",
+          "title": "A sequence exploration with a careful counting rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Start the Ulam sequence with 1, 2. Admit a larger candidate when it has exactly one representation as a sum of two distinct earlier terms, with order ignored. The first ten terms are 1, 2, 3, 4, 6, 8, 11, 13, 16, 18. Candidate 5 is rejected because 1 + 4 and 2 + 3 are different representations. Candidate 6 is accepted because 2 + 4 is its only permitted representation; 3 + 3 is forbidden because the terms must be distinct."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For another exploration, generate F₀ = 0, F₁ = 1, and Fₙ = Fₙ₋₁ + Fₙ₋₂. Look for repeated parity patterns, record a conjecture, and then reason about the pair of successive parities. A finite search supports discovery; an argument about all possible transitions supports a general result. For power-set and Cartesian-product generators, compare the emitted objects with 2ᵐ and mn expected outputs and check that no object repeats."
+        },
+        {
+          "type": "check",
+          "prompt": "If a sequence quiz intends one next term, what should its feedback say?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Say that the answer matches or differs from the selected generating rule. A finite prefix may fit several rules. If the learner supplies another explicit rule that matches the prefix, the prefix alone cannot prove their continuation wrong."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Computations and Explorations 1–6, printed page 199; supplementary sequence exploration, printed page 198."
+        }
+      ]
+    },
+    {
+      "id": "writing-and-readiness",
+      "title": "16. Explain the ideas in your own words",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose one writing prompt. State a precise question, define its central terms, give a small example, and cite the sources you actually use. Separate a theorem, a historical claim, a conjecture, and your own experimental observation."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Writing direction",
+            "What a useful response should explain"
+          ],
+          "rows": [
+            [
+              "Sets and paradoxes",
+              "Why unrestricted set comprehension leads to a contradiction; how restricted formation rules change the question"
+            ],
+            [
+              "History of functions",
+              "How a chosen primary historical source uses the idea of a function; compare it with a modern domain/codomain definition"
+            ],
+            [
+              "Integer-sequence resources",
+              "Find a sequence from a specified rule; compare indexing, recurrence, and references instead of matching a short prefix alone"
+            ],
+            [
+              "EKG sequence research",
+              "Locate a reliable definition, state its indexing and selection rule, and distinguish proved properties from conjectures"
+            ],
+            [
+              "Transcendental numbers",
+              "Distinguish irrational from transcendental; explain the countability argument and the extra work needed for a named example"
+            ],
+            [
+              "Continuum hypothesis",
+              "State ℵ₀ < |A| < 𝔠 and explain what ruling out such an A would say; distinguish strict inequality from a claim about intermediate sizes"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A starting argument for the transcendental-number prompt",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An algebraic real is a root of some nonzero polynomial with integer coefficients. Such polynomials form a countable collection because each is described by a finite integer list. Each nonzero polynomial has finitely many roots. Therefore the algebraic reals form a countable union of finite sets and are countable. Since ℝ is uncountable, there are uncountably many nonalgebraic, or transcendental, reals. This establishes abundance but does not by itself prove that a particular named real is transcendental."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For the paradox prompt, the proposed set R = {x : x ∉ x} would satisfy R ∈ R exactly when R ∉ R. The contradiction targets the unrestricted formation rule. In axiomatic set theory, separation forms a subset of an already available set, rather than asserting a universal set of every object satisfying any property. A full discussion should identify the chosen axioms and consult a reliable source."
+        },
+        {
+          "type": "callout",
+          "title": "Before moving on",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "You should be able to distinguish ∈ from ⊆; fix a universe for complements; name a function’s domain, codomain, and range; justify both parts of a bijection; state a sequence’s initial index; count terms before summing; explain why diagonal arguments defeat listings; and check a matrix product’s shape and meaning. Return to the matching section for any item you cannot yet explain with an example."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What common habit prevents mistakes across all six sections?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "State the objects, allowed inputs, and meaning of each operation before manipulating symbols. Then justify the conclusion with the appropriate definition or theorem. A correct-looking calculation cannot repair an unstated universe, mismatched codomain, shifted index, or incompatible matrix dimension."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Writing Projects 1–6, printed page 199; Chapter 2 synthesis."
+        }
+      ]
+    }
+  ]
+}
