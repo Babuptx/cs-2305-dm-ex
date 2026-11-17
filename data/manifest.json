@@ -170,16 +170,16 @@
           "id": "3.3",
           "number": "3.3",
           "title": "Complexity of Algorithms",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/3.3.json",
           "children": []
         },
         {
           "id": "3-end",
           "number": null,
           "title": "End-of-Chapter Material",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/3-end.json",
           "children": []
         }
       ]

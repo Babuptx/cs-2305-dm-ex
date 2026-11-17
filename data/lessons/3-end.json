@@ -1,0 +1,857 @@
+{
+  "schemaVersion": 1,
+  "id": "3-end",
+  "title": "End-of-Chapter Material",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Chapter 3 end-of-chapter material, printed pages 244–249.",
+    "Original companion explanations, worked examples, diagrams, practice, and project guidance."
+  ],
+  "units": [
+    {
+      "id": "chapter-three-recap",
+      "title": "1. Connect the procedure, proof, and cost",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An algorithmic solution has three connected parts: a precise procedure, a reason it produces the promised result and stops, and an analysis of its resource use. This review practices all three rather than treating a complexity label as a substitute for understanding the algorithm."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Chapter section",
+            "Retrieval question"
+          ],
+          "rows": [
+            [
+              "3.1 · Algorithms",
+              "What are the steps, assumptions, invariant, and termination argument?"
+            ],
+            [
+              "3.2 · Growth of functions",
+              "Which constants and threshold justify the upper or tight bound?"
+            ],
+            [
+              "3.3 · Complexity",
+              "What input size, operation, variant, and case does the bound describe?"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Try each check before expanding the explanation. The projects are original companion exercises aligned with the textbook’s review, supplementary, computing, exploration, and writing categories; they are not a numbered-exercise answer bank."
+        },
+        {
+          "type": "check",
+          "prompt": "Does O(n²) tell you whether a program is correct?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A fast wrong program can have a small operation count. Correctness concerns the output contract; complexity concerns resource use on the specified inputs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 3 Key Terms and Results, printed pages 244–245."
+        }
+      ]
+    },
+    {
+      "id": "max-position-project",
+      "title": "2. Track the first and last occurrence of a maximum",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For [5, 9, 2, 9, 4], the maximum value is 9, first at position 2 and last at position 4. A larger value resets both positions. A later equal value updates only the last position. This separates the value question from the tie policy."
+        },
+        {
+          "type": "math",
+          "notation": "function maxPositions(a) {\n  if (!Array.isArray(a) || !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use a dense array of safe integers\");\n  }\n  if (a.length === 0) throw new RangeError(\"Use a nonempty list\");\n  let maximum = a[0], first = 0, last = 0;\n  for (let i = 1; i < a.length; i++) {\n    if (a[i] > maximum) {\n      maximum = a[i]; first = i; last = i;\n    } else if (a[i] === maximum) {\n      last = i;\n    }\n  }\n  return {maximum, first: first + 1, last: last + 1};\n}",
+          "description": "Executable JavaScript: return the maximum and its first/last one-based positions; reject an empty list."
+        },
+        {
+          "type": "example",
+          "title": "Why the update rules preserve the contract",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "After each prefix, maximum is its largest value; first and last locate its extreme occurrences in that prefix. A smaller incoming value changes none of these facts. An equal value extends the last occurrence. A larger value becomes the only occurrence of the new maximum in the processed prefix, so both positions reset."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The core makes at most two data comparisons per entry after the first. Thus it uses at most 2(n − 1) data comparisons and Θ(n) work. Its state is constant-size; the defensive validation implementation also materializes an array and therefore has linear temporary storage."
+        },
+        {
+          "type": "check",
+          "prompt": "What should it return on [−3, −3, −8, −3]?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The result is maximum −3, first position 1, last position 4. Initializing the maximum at 0 would fail on this all-negative list."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary Exercises 1–2 and Computer Projects 1–2, printed pages 246 and 248."
+        }
+      ]
+    },
+    {
+      "id": "search-review",
+      "title": "3. Compare searches under the same convention",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use distinct sorted values [3, 6, 9, 12, 15, 18, 21, 24]. Linear search counts target equalities only; the narrow-to-one binary search counts each target-middle comparison and its final equality. Loop conditions and validation are excluded in this table."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Target",
+            "Linear data comparisons",
+            "Binary data comparisons",
+            "Result position"
+          ],
+          "rows": [
+            [
+              "3",
+              "1",
+              "4",
+              "1"
+            ],
+            [
+              "18",
+              "6",
+              "4",
+              "6"
+            ],
+            [
+              "25",
+              "8",
+              "4",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Binary search is not faster for every individual query: the first linear-search hit takes one comparison. Its advantage is a logarithmic worst-case core on already sorted data. Do not include preprocessing for one method and omit it for another without explanation."
+        },
+        {
+          "type": "check",
+          "prompt": "Suppose a target is absent with probability 1/2 and otherwise uniform among these 8 positions. What is the expected linear data count?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "(1/2)·8 + (1/2)·(9/2) = 25/4 = 6.25. This differs from the always-present average of 4.5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 2, 6–7 and Computer Project 10, printed pages 245 and 248."
+        }
+      ]
+    },
+    {
+      "id": "sorting-review",
+      "title": "4. Preserve entries as well as sorted order",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Pass of fixed bubble sort on [4, 2, 4, 1]",
+            "List afterward",
+            "Data comparisons this pass"
+          ],
+          "rows": [
+            [
+              "1",
+              "[2, 4, 1, 4]",
+              "3"
+            ],
+            [
+              "2",
+              "[2, 1, 4, 4]",
+              "2"
+            ],
+            [
+              "3",
+              "[1, 2, 4, 4]",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are 6 adjacent data comparisons in total. Swaps preserve the multiset of entries. When equal keys have labels, swapping only strict inversions preserves their relative order in bubble sort. A different sort or comparison rule may not be stable."
+        },
+        {
+          "type": "example",
+          "title": "Do not transfer a best-case claim to a different insertion variant",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Right-to-left insertion with a strict shift condition can take only linear work on sorted input. The left-to-right insertion search used in this companion scans the entire earlier prefix on increasing input. Both have quadratic worst-case order, but their favorable inputs and exact counts differ."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A sorter returns [1, 2, 4] from [4, 2, 4, 1]. Which test catches the error?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A frequency-map or multiset comparison catches the lost 4. Sortedness alone would incorrectly accept the output."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 8–9, printed page 245; sorting projects, printed pages 248–249."
+        }
+      ]
+    },
+    {
+      "id": "growth-review",
+      "title": "5. Supply witnesses and distinguish tightness",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "For n > 1: 2n³ ≤ 2n³ + 6n + 5 ≤ 13n³",
+          "description": "The expression is Θ(n³), with lower constant 2, upper constant 13, and threshold 1."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is also O(n⁴), but that is a looser upper bound. The reverse comparison n⁴ = O(2n³ + 6n + 5) is false: for n > 1, a proposed witness C would imply n⁴ ≤ 13Cn³, hence n ≤ 13C, which fails for an integer n > max(k, 1, 13C)."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Tight order",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "(n + 2)(n² + 1)",
+              "Θ(n³)",
+              "Product of linear and quadratic positive factors"
+            ],
+            [
+              "(n + 1)³ − (n − 1)³",
+              "Θ(n²)",
+              "Expands to 6n² + 2"
+            ],
+            [
+              "n² + 1000000n",
+              "Θ(n²)",
+              "Fixed coefficient changes constants, not degree"
+            ],
+            [
+              "2ⁿ⁺⁵",
+              "Θ(2ⁿ)",
+              "Exactly 32·2ⁿ"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Are n log₂ n and n(log₂ n)² of the same order?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. For n > 1 their ratio in the second-over-first direction is log₂ n, unbounded. Fixed logarithm bases are constant factors, but an extra logarithmic factor is not."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Questions 3–5, printed page 245."
+        }
+      ]
+    },
+    {
+      "id": "loop-review",
+      "title": "6. Translate nested loops into a count you can verify",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "count := 0\nfor i := 1 to n\n    for j := 1 to i\n        count := count + 1\nreturn count",
+          "description": "The returned value counts body executions; it is n(n + 1)/2 for nonnegative integer n."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "Body executions",
+            "If each body uses one addition and one multiplication"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0 arithmetic operations"
+            ],
+            [
+              "1",
+              "1",
+              "2 arithmetic operations"
+            ],
+            [
+              "4",
+              "10",
+              "20 arithmetic operations"
+            ],
+            [
+              "8",
+              "36",
+              "72 arithmetic operations"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A constant number of such loops executed sequentially adds their costs. Nesting one full n-step loop inside every iteration multiplies by n. A loop that doubles an index has logarithmically many iterations; a loop whose limit is the numeric value of an L-bit integer may have exponentially many."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the count of ordered pairs (i, j) with 1 ≤ i, j ≤ n and i ≠ j?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are n² ordered pairs in total and n forbidden diagonal pairs, leaving n(n − 1). This is twice the number n(n − 1)/2 of unordered distinct pairs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary growth practice and complexity review, printed pages 245–246."
+        }
+      ]
+    },
+    {
+      "id": "matrix-review-project",
+      "title": "7. Choose a matrix-chain grouping and state the accumulation rule",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let A be 8 × 2, B be 2 × 10, and C be 10 × 4. Compare both parenthesizations while preserving factor order."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Grouping",
+            "Intermediate shape",
+            "Multiplication count"
+          ],
+          "rows": [
+            [
+              "(AB)C",
+              "8 × 10",
+              "8·2·10 + 8·10·4 = 480"
+            ],
+            [
+              "A(BC)",
+              "2 × 4",
+              "2·10·4 + 8·2·4 = 144"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Both outputs are 8 × 4. The right grouping uses 144 scalar multiplications instead of 480. Addition counts depend on whether each dot product begins from zero or its first product. Record that choice in your implementation and instrumentation."
+        },
+        {
+          "type": "check",
+          "prompt": "For a single 8 × 2 times 2 × 4 multiplication, how many additions are saved by first-product initialization?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 32 output entries. Each changes from 2 additions to 1, saving 32 additions. The 64 multiplications are unchanged."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Section 3.3 matrix-chain exercise themes and Chapter 3 synthesis."
+        }
+      ]
+    },
+    {
+      "id": "greedy-and-subsets",
+      "title": "8. Use counterexamples to test an optimization rule",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A greedy rule can fail even when every local choice seems sensible. For change of 8 using {6, 4, 1}, largest-fitting-first chooses 6 + 1 + 1, whereas 4 + 4 uses fewer coins."
+        },
+        {
+          "type": "example",
+          "title": "A small capacity example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Suppose a bag has capacity 11 and the available item weights are [8, 6, 5], one copy of each. Choosing the heaviest fitting item first takes 8 and then cannot add anything. Exhaustive subset checking finds {6, 5}, totaling 11, which is optimal because no feasible total can exceed capacity."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "With n items, there are 2ⁿ subsets. A direct method that sums up to n weights for each subset uses O(n2ⁿ) arithmetic steps. Outputting only the best subset does not make the candidate search polynomial. Conversely, this particular algorithm’s exponential cost does not prove that all algorithms for a problem must have that cost."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is a feasible total of exactly 11 a short optimality certificate for this example?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The capacity is an upper bound on every feasible objective value. A feasible subset that reaches it matches that bound, so no improvement is possible."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Review Question 10 and Supplementary Exercise 41, printed pages 245–248."
+        }
+      ]
+    },
+    {
+      "id": "paired-extrema",
+      "title": "9. Save comparisons by handling entries in pairs",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To find both a minimum and maximum, comparing every new entry with both current extremes uses 2(n − 1) data comparisons. Pairing entries reduces the constant: compare the pair internally, send only its smaller member to the minimum comparison, and only its larger member to the maximum comparison."
+        },
+        {
+          "type": "math",
+          "notation": "function pairMinMax(a) {\n  if (!Array.isArray(a) || !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use a dense array of safe integers\");\n  }\n  if (a.length === 0) throw new RangeError(\"Use a nonempty list\");\n  let min, max, i, comparisons = 0;\n  if (a.length % 2 === 1) {\n    min = max = a[0]; i = 1;\n  } else {\n    comparisons++;\n    if (a[0] < a[1]) { min = a[0]; max = a[1]; }\n    else { min = a[1]; max = a[0]; }\n    i = 2;\n  }\n  for (; i < a.length; i += 2) {\n    let low, high;\n    comparisons++;\n    if (a[i] < a[i + 1]) { low = a[i]; high = a[i + 1]; }\n    else { low = a[i + 1]; high = a[i]; }\n    comparisons++;\n    if (low < min) min = low;\n    comparisons++;\n    if (high > max) max = high;\n  }\n  return {min, max, comparisons};\n}",
+          "description": "Executable JavaScript: return minimum, maximum, and actual data-comparison count. Loop and validation checks are excluded."
+        },
+        {
+          "type": "math",
+          "notation": "Odd n: 3(n − 1)/2 comparisons\nEven n: 1 + 3(n − 2)/2 = 3n/2 − 2 comparisons\nBoth cases: ⌈3n/2⌉ − 2, for n ≥ 1",
+          "description": "For odd n, initialize both extremes from the first entry. For even n, compare the first pair once. Each remaining pair costs exactly three comparisons."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "Separate updates",
+            "Paired updates"
+          ],
+          "rows": [
+            [
+              "1",
+              "0",
+              "0"
+            ],
+            [
+              "2",
+              "2",
+              "1"
+            ],
+            [
+              "5",
+              "8",
+              "6"
+            ],
+            [
+              "6",
+              "10",
+              "7"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Has the paired algorithm changed the growth class?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Both methods use Θ(n) data comparisons, but the paired method reduces the leading constant. Equal asymptotic order does not mean identical practical cost."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary Exercises 5–7, printed page 246."
+        }
+      ]
+    },
+    {
+      "id": "closest-on-a-line",
+      "title": "10. Improve a brute-force method using sorted structure",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For numbers on a line, the closest pair can be found by sorting and checking adjacent gaps. Let b₁ ≤ b₂ ≤ ⋯ ≤ bₙ. For i < j, the gap bⱼ − bᵢ is the sum of adjacent nonnegative gaps between them. At least one adjacent gap is no larger than this sum, so a minimum gap occurs between adjacent sorted entries."
+        },
+        {
+          "type": "example",
+          "title": "Work a small example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For [14, 3, 9, 4, 20], sorting gives [3, 4, 9, 14, 20]. The adjacent gaps are 1, 5, 5, 6. The pair 3 and 4 is closest. Direct pair checking would inspect 10 pairs; the post-sort scan inspects 4 gaps, but sorting must be included in the total cost."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "With a comparison sort taking O(n log n), the combined method takes O(n log n) unit-cost work. If original positions are required, sort value/index records together. Duplicate values produce a zero gap. This one-dimensional proof does not justify simply checking x-adjacent points for the planar closest-pair problem."
+        },
+        {
+          "type": "check",
+          "prompt": "Can two points close in the plane have another point between them in x-order but far away in y?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Points (0,0) and (2,0) are close, while (1,100) lies between them in x-order and far from both. Checking only neighboring x-sorted points would miss the closest pair in this example."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary Exercise 10, printed page 246."
+        }
+      ]
+    },
+    {
+      "id": "load-balancing",
+      "title": "11. Compare a greedy schedule with a lower bound",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Assign nonpreemptive jobs to p identical processors, one job at a time per processor, to minimize the final maximum load, called the makespan. Every schedule has makespan at least the longest job and at least total work divided by p."
+        },
+        {
+          "type": "math",
+          "notation": "OPT ≥ max(longest job, total work / p)",
+          "description": "OPT denotes the smallest achievable makespan. Both lower bounds concern all possible assignments."
+        },
+        {
+          "type": "example",
+          "title": "A greedy schedule need not be optimal",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Take two processors and jobs [3, 3, 2, 2, 2], in this order. Assign each job to a currently least-loaded processor, breaking ties toward processor 1. Loads evolve (3,0), (3,3), (5,3), (5,5), (7,5). The makespan is 7. An alternative places the two 3s together and the three 2s together, giving (6,6), optimal because total work / 2 = 6."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a general positive-job instance, consider the last job J on a processor that attains the greedy makespan. Let its start load be s and duration t. At assignment time that processor had minimum load, so s ≤ (W − t)/p, where W is total work. Therefore makespan = s + t ≤ W/p + (1 − 1/p)t ≤ (2 − 1/p)OPT. This proves a quality guarantee even though greedy need not be exact."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is “within twice the optimum” stronger than “usually looks good”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is a bound that applies to every instance satisfying the model, proved from universal lower bounds. An empirical success rate would require a distribution and would not provide the same per-instance guarantee."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary Exercises 42–46, printed page 248."
+        }
+      ]
+    },
+    {
+      "id": "matching-exploration",
+      "title": "12. Explore stability as a different objective",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For an optional exploration, take two groups of equal size with complete strict rankings of the other group. A matching is stable if no unmatched pair would both prefer one another to their assigned partners. Stability is not the same as maximizing a total score."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Participant",
+            "Preference from highest to lowest"
+          ],
+          "rows": [
+            [
+              "Proposer A",
+              "X, Y"
+            ],
+            [
+              "Proposer B",
+              "X, Y"
+            ],
+            [
+              "Receiver X",
+              "B, A"
+            ],
+            [
+              "Receiver Y",
+              "A, B"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In deferred acceptance, an unassigned proposer approaches the highest-ranked receiver not yet approached. A receiver keeps their preferred proposal so far and rejects the other, if any. Here A and B both approach X; X keeps B, and A then approaches Y. The resulting A–Y, B–X matching is stable: A prefers X, but X prefers its assigned B to A."
+        },
+        {
+          "type": "paragraph",
+          "text": "For n participants in each group, at most n² distinct proposals can occur because no proposer repeats a receiver. Receivers only improve their held proposal. If a final unmatched pair would block, the proposer must have approached that receiver before settling for a less-preferred partner; the receiver rejected them for someone it preferred and never later worsened. This contradicts the claimed blocking pair."
+        },
+        {
+          "type": "check",
+          "prompt": "How can an independent checker test a proposed small matching?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Verify that every participant has exactly one partner, then inspect every pair not matched together. Reject the matching if both rank one another above their assigned partners. For tiny groups, enumerate all bijections and compare the stable outcomes with the algorithm’s result."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Supplementary matching themes, printed page 247."
+        }
+      ]
+    },
+    {
+      "id": "measurement-projects",
+      "title": "13. Build experiments that answer a specific question",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Project",
+            "Record",
+            "Independent check"
+          ],
+          "rows": [
+            [
+              "Search comparison lab",
+              "Hit position, absence, data comparisons, loop checks",
+              "Compare results with a complete scan"
+            ],
+            [
+              "Sort comparison lab",
+              "Algorithm variant, comparisons, shifts, input pattern",
+              "Sortedness plus frequency preservation"
+            ],
+            [
+              "String-matching lab",
+              "Pattern/text lengths, shifts inspected, characters compared",
+              "Every candidate substring, including overlaps"
+            ],
+            [
+              "Coin lab",
+              "Denominations, greedy count, unpaid remainder",
+              "Enumerate small exact solutions or use a minimum-coin table"
+            ],
+            [
+              "Interval lab",
+              "Paired starts/finishes, chosen indices, sorting cost",
+              "Enumerate compatible subsets for tiny inputs"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For sorting experiments, include increasing, decreasing, duplicate-heavy, nearly sorted, and randomly permuted inputs. Reuse identical inputs across variants. Record the random seed when available, the exact variant, and what was counted. Wall-clock timings need repeated trials and a clear environment; operation counts are easier to reproduce."
+        },
+        {
+          "type": "example",
+          "title": "Explore a polynomial/exponential crossover without pretending a search is proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To compare n¹⁰ and 2ⁿ, inspect the equivalent inequality 10log₂ n ≤ n, avoiding enormous numbers. Finding a first successful sample does not prove every later n works. A full witness argument must establish persistence, for example by showing the appropriate ratio is monotone beyond a justified threshold."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An animation should display the current indices, comparison, and invariant, not just colored movement. A graph of measured counts should name both axes, include small cases, and label any fitted curve as an empirical fit. Do not claim a general theorem from a finite chart."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can binary insertion use fewer comparisons without being faster overall?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Array shifts, copying, cache behavior, and other operations also contribute. Count the costs relevant to the implementation, then use timing evidence with those limitations stated."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Computer Projects and Computations and Explorations, printed pages 248–249."
+        }
+      ]
+    },
+    {
+      "id": "chapter-three-checkpoint",
+      "title": "14. Solve a mixed checkpoint before opening the answers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "1. Give witnesses showing 4n² + 3n + 2 is Θ(n²) for positive integers.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For n > 1, 4n² ≤ 4n² + 3n + 2 ≤ 9n². Lower constant 4, upper constant 9, threshold 1 work."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "2. A nested loop visits i = 1..6 and j = i + 1..6. How many visits?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "5 + 4 + 3 + 2 + 1 + 0 = 15, equal to 6·5/2."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "3. An 8 × 8 Boolean product ORs all eight AND terms for each entry, starting at 0. Count bit operations.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 64 outputs, each using 8 ANDs and 8 ORs, for 64·16 = 1024 bit operations. Short-circuiting would be a different variant."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "4. An input contains an L-bit positive integer N and a loop performs N increments. Is the bound linear in the encoded size?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. N lies between 2^(L − 1) and 2ᴸ − 1. The loop is exponential in L, although linear in the numeric value N."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5. Does a fast verifier imply that no fast solver exists?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. P is contained in NP, so many efficiently verifiable problems are also efficiently decidable. The converse inclusion for all NP problems is the P versus NP question."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "6. What would be missing from a claim that a sorting program is “correct because all outputs are increasing”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It must preserve every original entry and its multiplicity, handle the promised inputs, and terminate. If stability is promised, equal-key order must also be preserved."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Original mixed practice across Chapter 3."
+        }
+      ]
+    },
+    {
+      "id": "writing-readiness",
+      "title": "15. Explain an algorithmic claim with its assumptions and evidence",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Writing direction",
+            "What to include"
+          ],
+          "rows": [
+            [
+              "Historical algorithms or Big-O",
+              "A primary historical source, terminology in context, and a modern comparison"
+            ],
+            [
+              "Sorting taxonomy or radix sorting",
+              "Input keys, digit assumptions, stability, operation model, and limits of comparison-based bounds"
+            ],
+            [
+              "String matching and bioinformatics",
+              "A precise matching problem, a small trace, and a sourced application"
+            ],
+            [
+              "Processor trends and parallel algorithms",
+              "Dated measurements, total work versus dependency depth, uncertainty in forecasts"
+            ],
+            [
+              "Paradigms and awards",
+              "Source-backed examples; verify current award criteria and historical claims"
+            ],
+            [
+              "NP-completeness and reductions",
+              "A decision formulation, certificate, polynomial transformation, and proof that yes/no answers are preserved"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Use outside sources for these writing projects and cite the material you actually consult. Distinguish a theorem, an observed benchmark, a conjecture, and a forecast. A reduction must transform arbitrary instances correctly; showing one easy example is not enough. Do not claim a problem-level lower bound solely because one algorithm is slow."
+        },
+        {
+          "type": "callout",
+          "title": "Ready to leave Chapter 3",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Explain a search or sort with an invariant; count its operations under an explicit convention; prove a growth bound with constants; distinguish averages from worst cases; include preprocessing and bit lengths; justify a greedy choice or refute it; and separate verification, tractability, and undecidability."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is a useful final sentence in an algorithm analysis?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "State the conclusion with its scope: which procedure, allowed inputs, size measure, cost model, and input case the bound covers. Then name any uncounted preparation, output, or memory cost that matters for using it."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Writing Projects, printed page 249."
+        }
+      ]
+    }
+  ]
+}

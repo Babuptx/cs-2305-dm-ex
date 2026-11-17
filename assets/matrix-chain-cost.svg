@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="395" viewBox="0 0 840 395" role="img" aria-labelledby="title desc"><title id="title">Matrix-chain parentheses change arithmetic cost</title><desc id="desc">For A 12 by 5, B 5 by 20, C 20 by 3: left grouping costs 1920 multiplications; right grouping costs 480. Both outputs are 12 by 3.</desc><rect width="840" height="395" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="36" font-size="20" font-weight="700">Preserve A, B, C order · choose the parentheses</text>
+<text x="30" y="67" font-size="18" >A: 12 × 5      B: 5 × 20      C: 20 × 3</text>
+<g data-group="(AB)C" data-cost="1920"><rect x="30" y="95" width="375" height="241" rx="12" fill="#ffffff" stroke="#aac4b5"/>
+<text x="50" y="127" font-size="22" font-weight="700">(AB)C</text>
+<text x="50" y="164" font-size="17" >AB: 12 × 20</text>
+<text x="50" y="197" font-size="17" >12·5·20 = 1200</text>
+<text x="50" y="230" font-size="17" >Then (AB)C: 12 × 3</text>
+<text x="50" y="263" font-size="17" >12·20·3 = 720</text>
+<text x="50" y="314" font-size="18" font-weight="700">Total: 1920 multiplications</text>
+</g>
+<g data-group="A(BC)" data-cost="480"><rect x="435" y="95" width="375" height="241" rx="12" fill="#ffffff" stroke="#aac4b5"/>
+<text x="455" y="127" font-size="22" font-weight="700">A(BC)</text>
+<text x="455" y="164" font-size="17" >BC: 5 × 3</text>
+<text x="455" y="197" font-size="17" >5·20·3 = 300</text>
+<text x="455" y="230" font-size="17" >Then A(BC): 12 × 3</text>
+<text x="455" y="263" font-size="17" >12·5·3 = 180</text>
+<text x="455" y="314" font-size="18" font-weight="700">Total: 480 multiplications</text>
+</g>
+<text x="30" y="370" font-size="16" >Both outputs are 12 × 3. Associativity changes grouping, not the order of factors.</text>
+</g></svg>

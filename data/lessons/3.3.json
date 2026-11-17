@@ -1,0 +1,1009 @@
+{
+  "schemaVersion": 1,
+  "id": "3.3",
+  "title": "Complexity of Algorithms",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 3.3, printed pages 231–241.",
+    "Original companion explanations, worked examples, diagrams, practice, and project guidance.",
+    "P versus NP status checked November 17, 2026: Clay Mathematics Institute, https://www.claymath.org/millennium/p-vs-np/."
+  ],
+  "units": [
+    {
+      "id": "complexity-recap",
+      "title": "1. Decide what input size and cost mean",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A correct algorithm can still require too much time or memory. Complexity analysis describes how resource use grows with input size. First specify the input size, the operation being counted, and which cases you are analyzing."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Choice",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Input size",
+              "n entries in a list; m × k and k × n matrix dimensions; L bits in an integer"
+            ],
+            [
+              "Counted operation",
+              "Data comparison, multiplication, character comparison, or bit operation"
+            ],
+            [
+              "Input case",
+              "Worst, best, or an average under a specified probability distribution"
+            ],
+            [
+              "Resource",
+              "Time operations, auxiliary memory, or output storage"
+            ],
+            [
+              "Conclusion",
+              "An exact count when possible, then an O or Θ growth bound"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Unless stated otherwise, numeric comparisons and arithmetic below are unit-cost operations on bounded-size values, and log means log₂. Validation, printing, copying, and loop control are counted only where explicitly included. A count of arithmetic operations is not automatically a count of bit operations."
+        },
+        {
+          "type": "check",
+          "prompt": "Does Θ(n²) tell you the running time in seconds?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It gives an eventual growth order under a stated model. Constants, actual input sizes, operation costs, implementation, and hardware are needed to estimate elapsed time."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.1–§3.3.2, printed page 231."
+        }
+      ]
+    },
+    {
+      "id": "maximum-cost",
+      "title": "2. Count the same scan under two explicit conventions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a nonempty list of n entries, initialize best from the first entry and compare each remaining entry with best. There are exactly n − 1 data comparisons, even when the maximum appears first."
+        },
+        {
+          "type": "math",
+          "notation": "Data comparisons: n − 1\nLoop-bound checks: n\nBoth together: (n − 1) + n = 2n − 1",
+          "description": "The final failed loop test counts once. Assignment and increment operations are excluded from these comparison totals."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "Data comparisons",
+            "With loop checks"
+          ],
+          "rows": [
+            [
+              "1",
+              "0",
+              "1"
+            ],
+            [
+              "2",
+              "1",
+              "3"
+            ],
+            [
+              "5",
+              "4",
+              "9"
+            ],
+            [
+              "10",
+              "9",
+              "19"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Both counts are Θ(n) as n grows. They answer different exact-count questions, so neither should be substituted silently for the other. The number of updates to best depends on the input, but the number of comparisons in this scan does not."
+        },
+        {
+          "type": "check",
+          "prompt": "Can a comparison-based maximum finder generally stop after seeing one large-looking value?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Any unseen entry might be larger. For distinct entries, every nonmaximum must lose at least one comparison before it can be ruled out; each comparison creates at most one new loser. At least n − 1 comparisons are therefore necessary in the worst case. This bound assumes comparisons are the means of learning the order."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.2, Example 1, printed page 232."
+        }
+      ]
+    },
+    {
+      "id": "linear-cost",
+      "title": "3. Instrument linear search without changing the question",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The following instrumented version returns the first one-based matching position, or 0 if absent. It counts target-to-entry comparisons separately from index-bound checks, including the final check that decides the returned position. Validation and counter updates themselves are excluded."
+        },
+        {
+          "type": "math",
+          "notation": "function linearCounts(a, x) {\n  if (!Array.isArray(a) || !Array.from(a).every(Number.isSafeInteger)) {\n    throw new TypeError(\"Use a dense array of safe integers\");\n  }\n  if (!Number.isSafeInteger(x)) throw new TypeError(\"Use an integer target\");\n  let i = 0, keys = 0, bounds = 0;\n  while (true) {\n    bounds++;\n    if (i >= a.length) break;\n    keys++;\n    if (a[i] === x) break;\n    i++;\n  }\n  bounds++;\n  const position = i < a.length ? i + 1 : 0;\n  return {position, keys, bounds, total: keys + bounds};\n}",
+          "description": "Executable JavaScript: count the search comparisons under the stated convention."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Outcome in a list of length n",
+            "Data comparisons",
+            "Bound checks",
+            "Total"
+          ],
+          "rows": [
+            [
+              "First match at position i",
+              "i",
+              "i + 1",
+              "2i + 1"
+            ],
+            [
+              "Absent",
+              "n",
+              "n + 2",
+              "2n + 2"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Compare two outcomes on the same input size",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "In [4, 9, 2, 7], searching for 9 uses two data comparisons and three bound checks, total 5. Searching for 6 uses four data comparisons and six bound checks, total 10. The list length alone does not determine this algorithm’s exact count."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The bound is checked before reading an array entry, so the absent case never reads beyond the list. The worst case is Θ(n), while a first-position hit uses constant work in the search core. An empty list returns 0 with zero data comparisons and two bound checks."
+        },
+        {
+          "type": "check",
+          "prompt": "Why do some descriptions say an unsuccessful search uses n comparisons rather than 2n + 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They usually count only comparisons with data values. The larger total also counts loop and result-selection conditions. State the convention before comparing numbers."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.2, Example 2, printed page 232."
+        }
+      ]
+    },
+    {
+      "id": "average-cost",
+      "title": "4. State the probability model before taking an average",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Assume a target occurs exactly once in a length-n list and every position is equally likely. A hit at position i needs i data comparisons. Thus the expected number is the average of 1 through n."
+        },
+        {
+          "type": "math",
+          "notation": "E[data comparisons] = (1 + 2 + ⋯ + n)/n = (n + 1)/2\nE[all counted comparisons] = (3 + 5 + ⋯ + (2n + 1))/n = n + 2",
+          "description": "Both are Θ(n). An expected count can be nonintegral even though each execution has an integer count."
+        },
+        {
+          "type": "paragraph",
+          "text": "If absence has probability p and, conditional on presence, each position is equally likely, the expected data count is pn + (1 − p)(n + 1)/2. This is a different model. If targets favor the first position, a uniform-position average is inappropriate."
+        },
+        {
+          "type": "check",
+          "prompt": "For n = 6 and absence probability p = 1/4, what is the expected data count?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is (1/4)·6 + (3/4)·(7/2) = 33/8 = 4.125. Conditional on presence alone it would be 3.5. Including absences raises the expectation."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is an average-case guarantee automatically a worst-case guarantee?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A small expected count can coexist with expensive individual cases. The distribution is part of the average-case claim, not an optional detail."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.2, Example 4, printed pages 233–234."
+        }
+      ]
+    },
+    {
+      "id": "binary-cost",
+      "title": "5. Count how often a candidate interval can halve",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use the narrow-to-one-candidate binary search from Section 3.1 on an already validated nonempty sorted array. If n = 2ᵏ, exactly k loop iterations reduce the interval to one entry. Each iteration tests the loop condition and compares the target with the middle entry. A final failed loop test and final equality add two more comparisons."
+        },
+        {
+          "type": "math",
+          "notation": "For n = 2ᵏ: total comparisons = 2k + 2 = 2log₂ n + 2\nFor general n ≥ 1: worst-case total ≤ 2⌈log₂ n⌉ + 2",
+          "description": "With only target-to-entry comparisons, the bound is ⌈log₂ n⌉ + 1. For n = 1 the core still performs its final equality check."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "n",
+            "Worst-case total bound",
+            "Linear-search absent total"
+          ],
+          "rows": [
+            [
+              "1",
+              "2",
+              "4"
+            ],
+            [
+              "8",
+              "8",
+              "18"
+            ],
+            [
+              "16",
+              "10",
+              "34"
+            ],
+            [
+              "1000",
+              "22",
+              "2002"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "No padding is required in an implementation. After a split, at most ceil(n/2) candidates remain, and repeating this observation gives the ceiling-log bound. The largest remaining side can be followed by an appropriate target, giving logarithmic worst-case growth. Write Θ(log n) for asymptotic large n, or Θ(1 + log n) to include the singleton case conveniently."
+        },
+        {
+          "type": "callout",
+          "title": "Count the work around the core",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Validating all entries or checking sorted order costs linear work. Sorting costs additional work. The guarded demonstration in Section 3.1 therefore is not an entirely logarithmic function. If data stay unchanged across many searches, validate once and reuse the core."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "When a power-of-two list doubles, how many comparisons does this core add?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "One more halving iteration adds two counted comparisons, or one more data comparison if loop conditions are excluded. Linear search’s worst-case data count instead doubles."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.2, Example 3, printed pages 232–233."
+        }
+      ]
+    },
+    {
+      "id": "sorting-cost",
+      "title": "6. Analyze the actual sorting variant",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "Fixed-pass bubble sort: (n − 1) + (n − 2) + ⋯ + 1 = n(n − 1)/2",
+          "description": "This counts adjacent data comparisons and excludes loop conditions. Every input of length n uses the same count in this variant."
+        },
+        {
+          "type": "paragraph",
+          "text": "For insertion sort, direction and stopping conditions matter. The textbook’s leftward-to-right scan for an insertion point can compare the current item with itself as a sentinel. On strictly increasing input, inserting mathematical item j uses j comparisons; summed over j = 2 through n, that gives n(n + 1)/2 − 1."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Variant, n ≥ 2",
+            "Increasing input: data comparisons",
+            "Decreasing input: data comparisons"
+          ],
+          "rows": [
+            [
+              "Textbook left-to-right insertion search with self-comparison",
+              "n(n + 1)/2 − 1",
+              "n − 1"
+            ],
+            [
+              "Companion 3.1 left-to-right scan guarded by i < j",
+              "n(n − 1)/2",
+              "n − 1"
+            ],
+            [
+              "Fixed-pass bubble sort",
+              "n(n − 1)/2",
+              "n(n − 1)/2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These insertion variants can use few data comparisons on descending inputs but still shift many entries: inserting each new minimum moves the entire prefix. There are n(n − 1)/2 shifts on a reverse-sorted list. Conversely, the left-to-right version scans a growing sorted prefix on increasing input even though it makes no shifts. Both have quadratic worst-case total work."
+        },
+        {
+          "type": "check",
+          "prompt": "Does replacing insertion’s search with binary search automatically make array insertion sort O(n log n) overall?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Finding insertion locations can use O(n log n) comparisons, while moving array entries can still require Θ(n²) shifts in the worst case. The selected operation and the total work must be distinguished."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.2, Examples 5–6, printed pages 234–235."
+        }
+      ]
+    },
+    {
+      "id": "loop-counts",
+      "title": "7. Turn loops into sums before naming their growth",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Loop pattern",
+            "Body executions",
+            "Growth"
+          ],
+          "rows": [
+            [
+              "i = 1..n; j = 1..n",
+              "n²",
+              "Θ(n²)"
+            ],
+            [
+              "i = 1..n; j = 1..i",
+              "n(n + 1)/2",
+              "Θ(n²)"
+            ],
+            [
+              "i = 1..n; then j = 1..n",
+              "2n",
+              "Θ(n)"
+            ],
+            [
+              "i = 1; while i ≤ n: i := 2i",
+              "⌊log₂ n⌋ + 1 for n ≥ 1",
+              "Θ(log n)"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Count operations inside the body too",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If a triangular loop body performs t := t + i·j, each execution uses one multiplication and one addition. With n(n + 1)/2 body executions, that is n(n + 1) arithmetic operations, excluding loop control. If the body calls a subroutine, include the subroutine’s cost rather than treating its name as one primitive step."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "A triangular loop still has quadratic growth",
+          "src": "assets/triangular-loop-count.svg",
+          "description": "Rows i=1 through 5 have 1,2,3,4,5 cells. All 15 cells represent body executions; a diagonal boundary does not reduce the order from quadratic to linear."
+        },
+        {
+          "type": "check",
+          "prompt": "What is the body count for i = 1..n and j = i + 1..n?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is (n − 1) + (n − 2) + ⋯ + 0 = n(n − 1)/2. Each unordered pair of distinct indices appears once. The count is zero for n = 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.2 and exercise themes, printed pages 241–243."
+        }
+      ]
+    },
+    {
+      "id": "matrix-operation-cost",
+      "title": "8. Count arithmetic and Boolean matrix operations consistently",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Multiplying A of shape m × k by B of shape k × n produces mn entries. Each entry combines k pairwise products. State whether its accumulation starts from zero or from the first product."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Implementation, positive dimensions",
+            "Multiplications or ANDs",
+            "Additions or ORs"
+          ],
+          "rows": [
+            [
+              "Arithmetic: start sum at zero, add each product",
+              "mnk multiplications",
+              "mnk additions"
+            ],
+            [
+              "Arithmetic: initialize with the first product",
+              "mnk multiplications",
+              "mn(k − 1) additions"
+            ],
+            [
+              "Boolean: start at 0 and OR every AND result",
+              "mnk ANDs",
+              "mnk ORs"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The source pseudocode accumulates from zero, while its arithmetic example counts the k − 1 additions needed to combine k products. These are two valid conventions for different implementations. For square n × n inputs, both arithmetic implementations are Θ(n³) in scalar operations. The full Boolean loop uses exactly 2n³ bit operations under the stated convention."
+        },
+        {
+          "type": "example",
+          "title": "Rectangular example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For a 2 × 3 matrix times a 3 × 4 matrix, there are 8 outputs. Computing each requires 3 multiplications, so there are 24 multiplications. First-product initialization uses 8·2 = 16 additions; zero accumulation uses 24 additions. The Boolean full loop uses 24 ANDs and 24 ORs."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A Boolean implementation may stop early once an entry becomes 1, because further ORs cannot change it. That can improve particular inputs. An all-zero product can force examination of every candidate, so the same cubic worst-case order remains for this algorithm. Faster matrix algorithms exist, but this lesson’s counts concern the direct method."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is Θ(n³) scalar arithmetic not automatically Θ(n³) bit operations for arbitrary integers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A product or sum on very long integers may need many bit operations. Input and intermediate bit lengths must be accounted for in a bit-cost model."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.3, Algorithms 1–2 and Examples 7–8, printed pages 235–236."
+        }
+      ]
+    },
+    {
+      "id": "matrix-chain-cost",
+      "title": "9. Change parentheses while preserving matrix order",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Let A be 12 × 5, B be 5 × 20, and C be 20 × 3. Associativity allows (AB)C = A(BC); it does not allow rearranging A, B, C. Different parentheses change intermediate dimensions and arithmetic cost."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Grouping",
+            "First product cost",
+            "Second product cost",
+            "Total scalar multiplications"
+          ],
+          "rows": [
+            [
+              "(AB)C",
+              "12·5·20 = 1200",
+              "12·20·3 = 720",
+              "1920"
+            ],
+            [
+              "A(BC)",
+              "5·20·3 = 300",
+              "12·5·3 = 180",
+              "480"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Same result, different intermediate matrices",
+          "src": "assets/matrix-chain-cost.svg",
+          "description": "Left grouping creates a 12 by 20 intermediate and costs 1920 multiplications. Right grouping creates a 5 by 3 intermediate and costs 480. Both results are 12 by 3."
+        },
+        {
+          "type": "paragraph",
+          "text": "The right grouping uses one quarter as many scalar multiplications in this example. With longer chains, choosing a good split at each position is a separate optimization problem; a locally cheap adjacent multiplication need not give the globally cheapest chain. Dynamic programming will organize those subproblems later."
+        },
+        {
+          "type": "check",
+          "prompt": "Do these parentheses change the exact mathematical answer?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No, under exact arithmetic. Finite-precision floating-point arithmetic can round differently under different grouping. The algebraic equality and the numerical implementation question are distinct."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.3, matrix-chain multiplication, printed page 236."
+        }
+      ]
+    },
+    {
+      "id": "closest-pair-cost",
+      "title": "10. Count candidate pairs in a brute-force geometry algorithm",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Given at least two points, compare the squared distance for every unordered pair of indices. Squaring preserves the order of nonnegative distances, so no square root is needed to find a minimizing pair. Duplicate point locations are allowed and give distance zero."
+        },
+        {
+          "type": "math",
+          "notation": "function closestPair(points) {\n  if (!Array.isArray(points) || points.length < 2) {\n    throw new TypeError(\"Use at least two points\");\n  }\n  const p = Array.from(points, v => {\n    if (!Array.isArray(v) || v.length !== 2 ||\n        !Array.from(v).every(x => Number.isSafeInteger(x) && Math.abs(x) <= 1000000)) {\n      throw new TypeError(\"Use integer coordinate pairs with magnitude at most 1000000\");\n    }\n    return v.slice();\n  });\n  let best = Infinity, pair = null, pairs = 0;\n  for (let i = 0; i < p.length; i++) {\n    for (let j = i + 1; j < p.length; j++) {\n      const dx = p[j][0] - p[i][0];\n      const dy = p[j][1] - p[i][1];\n      const squared = dx * dx + dy * dy;\n      pairs++;\n      if (squared < best) { best = squared; pair = [i, j]; }\n    }\n  }\n  return {pair, squaredDistance: best, pairs};\n}",
+          "description": "Executable JavaScript: return zero-based indices, squared distance, and candidate-pair count. Equal minima keep the first pair visited."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Pair among (0,0), (3,0), (3,2), (8,2)",
+            "Squared distance"
+          ],
+          "rows": [
+            [
+              "0,1",
+              "9"
+            ],
+            [
+              "0,2",
+              "13"
+            ],
+            [
+              "0,3",
+              "68"
+            ],
+            [
+              "1,2",
+              "4"
+            ],
+            [
+              "1,3",
+              "29"
+            ],
+            [
+              "2,3",
+              "25"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "There are n(n − 1)/2 pairs and a constant number of arithmetic operations per pair under the stated model, so the direct method takes Θ(n²) arithmetic/comparison work. The code copies its validated points, using O(n) auxiliary storage; the pair-scanning core alone needs constant extra storage. The bounded integer coordinates keep squared distances exactly representable in JavaScript Number."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does the loop use j = i + 1 rather than j = 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It excludes pairing an entry with itself and avoids visiting both (i, j) and (j, i). Each distinct index pair is evaluated exactly once."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.4, Example 10, printed pages 237–238."
+        }
+      ]
+    },
+    {
+      "id": "algorithm-paradigms",
+      "title": "11. Treat a design paradigm as a strategy, not a complexity class",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Paradigm",
+            "Core idea",
+            "Example or later connection"
+          ],
+          "rows": [
+            [
+              "Brute force",
+              "Directly inspect the candidates implied by the problem",
+              "Maximum scan, all closest-point pairs"
+            ],
+            [
+              "Greedy",
+              "Commit to a locally chosen option",
+              "Earliest-finish interval scheduling"
+            ],
+            [
+              "Divide and conquer",
+              "Solve smaller pieces and combine",
+              "Merge sort"
+            ],
+            [
+              "Dynamic programming",
+              "Reuse solutions to overlapping subproblems",
+              "Choosing matrix-chain splits"
+            ],
+            [
+              "Backtracking",
+              "Explore choices and abandon impossible partial candidates",
+              "Constraint search"
+            ],
+            [
+              "Randomized methods",
+              "Use random choices inside a procedure",
+              "An algorithm whose performance is analyzed over its random choices"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Brute force is not automatically exponential: maximum finding is linear and direct matrix multiplication is cubic in the square dimension. Nor does “greedy” guarantee optimality. A design label describes how the algorithm is organized; correctness and cost need their own arguments."
+        },
+        {
+          "type": "check",
+          "prompt": "Is average-case analysis the same as analyzing a randomized algorithm?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Average-case analysis averages over an input distribution. A randomized algorithm has internal random choices, whose cost can be averaged even for one fixed input. An analysis may involve either source of randomness or both; state which."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.4, printed pages 237–238."
+        }
+      ]
+    },
+    {
+      "id": "scale-and-time",
+      "title": "12. Translate exact toy counts into a transparent time model",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For illustration only, suppose one counted operation takes exactly one microsecond, or 10⁻⁶ seconds. The following are hypothetical exact counts, not measured runtimes and not a claim about any current processor."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Exact operation count",
+            "At n = 10",
+            "At n = 20"
+          ],
+          "rows": [
+            [
+              "n",
+              "10 microseconds",
+              "20 microseconds"
+            ],
+            [
+              "n²",
+              "100 microseconds",
+              "400 microseconds"
+            ],
+            [
+              "2ⁿ",
+              "1024 microseconds",
+              "1048576 microseconds"
+            ],
+            [
+              "n!",
+              "3628800 microseconds",
+              "2432902008176640000 microseconds"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "At n = 20, 2ⁿ operations take about 1.049 seconds in this model; 20! operations take about 77,147 years using 365-day years. A 1000-fold speedup changes these times by a constant factor. It cannot turn exponential growth into polynomial growth."
+        },
+        {
+          "type": "example",
+          "title": "What a faster machine buys",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For an exact count n², a factor-s speed increase allows roughly √s times the input size at the same time budget. For an exact count 2ⁿ, it allows only log₂ s additional input units. A 1024-fold speedup adds 10 units to the exponential case, while a 1024-fold speedup allows 32 times the input size in the quadratic case."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can you apply this table directly to an algorithm described only as O(n²)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. O(n²) omits constants, thresholds, and possibly a much smaller true growth rate. You need an actual count or justified runtime model before estimating seconds."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.5, printed pages 238–241."
+        }
+      ]
+    },
+    {
+      "id": "input-length",
+      "title": "13. Measure integer inputs by their representation length",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a positive integer N written in binary, its length is L = floor(log₂ N) + 1. A loop that repeats N times may look linear in the numeric value, yet require exponential work in the number of input bits."
+        },
+        {
+          "type": "math",
+          "notation": "2ᴸ⁻¹ ≤ N < 2ᴸ\nRepeating N steps is Θ(2ᴸ) as a function of binary length L.",
+          "description": "The numeric value and its encoded input length are different size measures. Zero can be represented by one bit and handled separately."
+        },
+        {
+          "type": "example",
+          "title": "A small-looking input can name a huge amount of work",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The binary input 10000000000 has length 11 and value 1024. A loop of 1024 iterations is linear in that value. For general L-bit inputs, the value can approach 2ᴸ, so calling this polynomial in the input length would be incorrect."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Polynomial time means a worst-case upper bound O(Lᶜ) for some fixed constant c in the encoded input length. It includes smaller bounds such as O(L log L); a function need not be exactly Θ of an integer power to be polynomial-time bounded. Large degrees or constants can still be impractical."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is a knapsack method taking O(nW) work not automatically polynomial in its binary input length?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "W is a numeric capacity. Its binary representation has only about log₂ W bits, so W can be exponential in that length. Such a bound is called pseudopolynomial when it is polynomial in numeric magnitudes rather than their encoded lengths."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.5, tractability discussion, printed page 239; input-encoding clarification."
+        }
+      ]
+    },
+    {
+      "id": "p-np-and-limits",
+      "title": "14. Separate finding a solution, checking one, and impossibility",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "P and NP are classes of decision problems, whose answers are yes or no. P contains problems decided by a deterministic polynomial-time algorithm. NP contains problems whose yes instances have certificates of polynomial length that a deterministic algorithm can verify in polynomial time. A no instance has no certificate that the verifier accepts."
+        },
+        {
+          "type": "example",
+          "title": "Verify a satisfying assignment",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Given a Boolean formula and an assignment, evaluate the formula to check whether it is true. The assignment is a certificate for a yes instance of satisfiability. With v variables, an exhaustive solver may inspect 2ᵛ assignments; evaluating each also depends on the formula’s length. The cost of that solver is not a lower bound on every possible solver."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Every problem in P is also in NP: a verifier can run its polynomial-time decision algorithm without needing a helpful certificate. An NP-complete problem is in NP and every NP problem can be transformed to it by a polynomial-time reduction preserving yes/no answers. A polynomial-time solver for one NP-complete problem would therefore yield P = NP."
+        },
+        {
+          "type": "callout",
+          "title": "Do not turn an open question into an impossibility claim",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "NP does not mean “not polynomial.” P versus NP remains unresolved, as checked against the Clay Mathematics Institute on November 17, 2026. Therefore NP-completeness alone does not prove that polynomial-time algorithms are impossible. In contrast, the unrestricted halting problem has no total always-correct deciding algorithm at all."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Source for the current status: Clay Mathematics Institute, P vs NP, https://www.claymath.org/millennium/p-vs-np/."
+        },
+        {
+          "type": "check",
+          "prompt": "Would one fast program that verifies a proposed solution establish P = NP?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Verification is already part of the NP definition. The missing requirement is a polynomial-time decision algorithm for an NP-complete problem that works on every input."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.5, printed pages 239–240."
+        }
+      ]
+    },
+    {
+      "id": "practical-analysis",
+      "title": "15. Include preprocessing, memory, output, and parallel work",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For q searches on an unchanged list of n values, compare repeated linear scans with a sort-once strategy. Under an O(n log n) comparison sort and logarithmic binary-search core, the totals are O(qn) versus O(n log n + q log n), plus input validation. Which is useful depends on q, the constants, and whether sorted order is reusable."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Resource or condition",
+            "Why it matters"
+          ],
+          "rows": [
+            [
+              "Auxiliary space",
+              "A copying implementation uses memory that an in-place core may not"
+            ],
+            [
+              "Output size",
+              "Explicitly listing 2ⁿ subsets requires at least 2ⁿ output records"
+            ],
+            [
+              "Large values",
+              "Arithmetic may cost more as intermediate integers gain bits"
+            ],
+            [
+              "Parallel work",
+              "More processors can share work, but dependencies and communication limit speedup"
+            ],
+            [
+              "Approximation",
+              "A fast approximate result needs a stated quality guarantee"
+            ],
+            [
+              "Typical inputs",
+              "Good practical performance does not erase worst-case bounds"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Do not infer that a problem is intractable merely because one available algorithm is slow. A problem-level lower bound concerns every algorithm in the chosen model. Likewise, undecidable means no universal deciding algorithm, a stronger and different limitation than a large finite runtime."
+        },
+        {
+          "type": "check",
+          "prompt": "Can infinite processors make every algorithm finish instantly?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Even idealized processors cannot remove sequential dependencies or the need to produce outputs. Real systems also have communication and memory limits. Parallel complexity measures should state both total work and dependency depth."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §3.3.1 and §3.3.5, printed pages 231 and 239–241."
+        }
+      ]
+    },
+    {
+      "id": "complexity-practice",
+      "title": "16. Check the model before giving the bound",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "1. A fixed-pass bubble sort handles 7 entries. How many adjacent data comparisons does it make?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "6 + 5 + 4 + 3 + 2 + 1 = 21. This count excludes loop controls and is unchanged if the input is already sorted."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "2. A linear search over 8 distinct entries is guaranteed to succeed at a uniformly random position. What are the two expected counts used here?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The data-comparison expectation is (8 + 1)/2 = 4.5. Including the stated bound checks gives 8 + 2 = 10. The probability assumption is essential."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "3. Multiply 3 × 2 by 2 × 5 using first-product initialization. Count scalar multiplications and additions.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are 15 outputs. Each uses 2 multiplications and 1 addition, for 30 multiplications and 15 additions. A zero-accumulating version instead uses 30 additions."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "4. How many pair distances does brute force inspect for 9 points?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "9·8/2 = 36. The direct method checks every pair of distinct indices once; it does not need 81 checks including self-pairs and reversals."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5. If an algorithm is O(2ⁿ), have you proved that its problem requires exponential time?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. This is an upper bound on one algorithm. It is neither a tight lower bound on that algorithm nor a universal lower bound on the problem."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A complete analysis sentence",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Name the algorithm variant, allowed inputs, size measure, counted operations, input case, and bound. For example: “On a prevalidated sorted array of n ≥ 1 unit-cost comparable entries, the narrow-to-one binary-search core uses at most 2ceil(log₂ n) + 2 comparisons in the worst case when loop tests are included.”"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Original practice across §3.3."
+        }
+      ]
+    }
+  ]
+}
