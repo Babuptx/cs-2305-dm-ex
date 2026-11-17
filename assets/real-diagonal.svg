@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="485" viewBox="0 0 840 485" role="img" aria-labelledby="title desc">
+<title id="title">A decimal diagonal construction</title>
+<desc id="desc">Example rows begin 0.1307, 0.6240, 0.5173, and 0.8801. The highlighted diagonal digits 1,2,7,1 become 2,1,1,2 in a new decimal. Digits 1 and 2 avoid terminating and repeating-nine ambiguity.</desc>
+<rect width="840" height="485" rx="16" fill="#f5f8fc"/>
+<g font-family="Segoe UI, Arial, sans-serif" fill="#17324d">
+<text x="420" y="36" font-size="23" font-weight="700" text-anchor="middle">One changed digit defeats each listed row</text>
+<text x="420" y="65" font-size="17" font-weight="400" text-anchor="middle">Change 1 to 2; change any other diagonal digit to 1.</text>
+<text x="280" y="109" font-size="16" font-weight="600" text-anchor="middle">Digit 1</text>
+<text x="390" y="109" font-size="16" font-weight="600" text-anchor="middle">Digit 2</text>
+<text x="500" y="109" font-size="16" font-weight="600" text-anchor="middle">Digit 3</text>
+<text x="610" y="109" font-size="16" font-weight="600" text-anchor="middle">Digit 4</text>
+<text x="85" y="157" font-size="18" font-weight="600" text-anchor="middle">Row 1</text>
+<text x="190" y="157" font-size="22" font-weight="400" text-anchor="middle">0.</text>
+<g data-row="1" data-col="1" data-digit="1">
+<rect x="245" y="130" width="70" height="42" rx="7" fill="#ffe4bd" stroke="#b9c8d2"/>
+<text x="280" y="158" font-size="22" font-weight="600" text-anchor="middle">1</text>
+</g>
+<g data-row="1" data-col="2" data-digit="3">
+<rect x="355" y="130" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="390" y="158" font-size="22" font-weight="600" text-anchor="middle">3</text>
+</g>
+<g data-row="1" data-col="3" data-digit="0">
+<rect x="465" y="130" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="500" y="158" font-size="22" font-weight="600" text-anchor="middle">0</text>
+</g>
+<g data-row="1" data-col="4" data-digit="7">
+<rect x="575" y="130" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="610" y="158" font-size="22" font-weight="600" text-anchor="middle">7</text>
+</g>
+<text x="732" y="157" font-size="22" font-weight="400" text-anchor="middle">…</text>
+<text x="85" y="214" font-size="18" font-weight="600" text-anchor="middle">Row 2</text>
+<text x="190" y="214" font-size="22" font-weight="400" text-anchor="middle">0.</text>
+<g data-row="2" data-col="1" data-digit="6">
+<rect x="245" y="187" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="280" y="215" font-size="22" font-weight="600" text-anchor="middle">6</text>
+</g>
+<g data-row="2" data-col="2" data-digit="2">
+<rect x="355" y="187" width="70" height="42" rx="7" fill="#ffe4bd" stroke="#b9c8d2"/>
+<text x="390" y="215" font-size="22" font-weight="600" text-anchor="middle">2</text>
+</g>
+<g data-row="2" data-col="3" data-digit="4">
+<rect x="465" y="187" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="500" y="215" font-size="22" font-weight="600" text-anchor="middle">4</text>
+</g>
+<g data-row="2" data-col="4" data-digit="0">
+<rect x="575" y="187" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="610" y="215" font-size="22" font-weight="600" text-anchor="middle">0</text>
+</g>
+<text x="732" y="214" font-size="22" font-weight="400" text-anchor="middle">…</text>
+<text x="85" y="271" font-size="18" font-weight="600" text-anchor="middle">Row 3</text>
+<text x="190" y="271" font-size="22" font-weight="400" text-anchor="middle">0.</text>
+<g data-row="3" data-col="1" data-digit="5">
+<rect x="245" y="244" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="280" y="272" font-size="22" font-weight="600" text-anchor="middle">5</text>
+</g>
+<g data-row="3" data-col="2" data-digit="1">
+<rect x="355" y="244" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="390" y="272" font-size="22" font-weight="600" text-anchor="middle">1</text>
+</g>
+<g data-row="3" data-col="3" data-digit="7">
+<rect x="465" y="244" width="70" height="42" rx="7" fill="#ffe4bd" stroke="#b9c8d2"/>
+<text x="500" y="272" font-size="22" font-weight="600" text-anchor="middle">7</text>
+</g>
+<g data-row="3" data-col="4" data-digit="3">
+<rect x="575" y="244" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="610" y="272" font-size="22" font-weight="600" text-anchor="middle">3</text>
+</g>
+<text x="732" y="271" font-size="22" font-weight="400" text-anchor="middle">…</text>
+<text x="85" y="328" font-size="18" font-weight="600" text-anchor="middle">Row 4</text>
+<text x="190" y="328" font-size="22" font-weight="400" text-anchor="middle">0.</text>
+<g data-row="4" data-col="1" data-digit="8">
+<rect x="245" y="301" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="280" y="329" font-size="22" font-weight="600" text-anchor="middle">8</text>
+</g>
+<g data-row="4" data-col="2" data-digit="8">
+<rect x="355" y="301" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="390" y="329" font-size="22" font-weight="600" text-anchor="middle">8</text>
+</g>
+<g data-row="4" data-col="3" data-digit="0">
+<rect x="465" y="301" width="70" height="42" rx="7" fill="#fff" stroke="#b9c8d2"/>
+<text x="500" y="329" font-size="22" font-weight="600" text-anchor="middle">0</text>
+</g>
+<g data-row="4" data-col="4" data-digit="1">
+<rect x="575" y="301" width="70" height="42" rx="7" fill="#ffe4bd" stroke="#b9c8d2"/>
+<text x="610" y="329" font-size="22" font-weight="600" text-anchor="middle">1</text>
+</g>
+<text x="732" y="328" font-size="22" font-weight="400" text-anchor="middle">…</text>
+<text x="420" y="391" font-size="24" font-weight="700" text-anchor="middle">New number: 0.2112…</text>
+<text x="420" y="426" font-size="17" font-weight="400" text-anchor="middle">For every row k, its kth digit differs from the new number’s kth digit.</text>
+<text x="420" y="456" font-size="16" font-weight="400" text-anchor="middle">Four rows illustrate the rule; the proof applies to every positive index.</text>
+</g>
+</svg>

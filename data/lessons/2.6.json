@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 1,
+  "id": "2.6",
+  "title": "Matrices",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §2.6.1–§2.6.4, printed pages 188–193 (exposition), with labeled applications and supporting identities.",
+    "Original companion explanations, examples, diagrams, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "matrix-entries",
+      "title": "1. Read a matrix by row, then column",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A matrix is a rectangular array of numbers. Its dimensions and entry positions are part of its meaning. Before calculating, identify what its rows and columns represent."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "An m × n matrix has m rows and n columns. The entry aᵢⱼ is in row i and column j; we use indices starting at 1. A matrix is square when the row and column counts match. Matrices are equal only if their dimensions and all corresponding entries agree."
+        },
+        {
+          "type": "math",
+          "notation": "A = [[2, −1, 3], [0, 4, 1]]",
+          "description": "Each inner bracket lists one row. This compact notation represents a 2 × 3 matrix."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Position",
+            "Column 1",
+            "Column 2",
+            "Column 3"
+          ],
+          "rows": [
+            [
+              "Row 1",
+              "2",
+              "−1",
+              "3"
+            ],
+            [
+              "Row 2",
+              "0",
+              "4",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The first row is the 1 × 3 matrix [2, −1, 3]. The second column is the 2 × 1 matrix [[−1], [4]]. The entry a₂₃ equals 1. Row count comes first in the size; row index comes first in an entry label."
+        },
+        {
+          "type": "check",
+          "prompt": "Is a₃₂ defined for this A? Is the array [2, −1, 3, 0, 4, 1] the same matrix?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "a₃₂ is not defined because there is no third row. The single-row array has size 1 × 6, so it is not the same matrix even though the same numbers occur."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.1, printed page 188."
+        }
+      ]
+    },
+    {
+      "id": "matrix-addition",
+      "title": "2. Add entries only when the shapes agree",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "A = [[2, −1, 3], [0, 4, 1]]\nB = [[1, 2, −3], [5, −1, 2]]\nA + B = [[3, 1, 0], [5, 3, 3]]",
+          "description": "Both inputs are 2 × 3. Add the two entries occupying each shared position."
+        },
+        {
+          "type": "example",
+          "title": "Track one position",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The entry in row 2, column 2 is 4 + (−1) = 3. The entry in row 1, column 3 is 3 + (−3) = 0. No row is combined with a different row."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A + B and B + A agree because real-number addition agrees entry by entry. Addition is also associative for equal-size matrices. The zero matrix of that same shape has zero in every position and satisfies A + 0 = A."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you add a 2 × 3 matrix and a 3 × 2 matrix because both have six entries?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The shapes differ. Some positions in one array have no corresponding position in the other. Equal total entry counts are not sufficient."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.2, printed page 189."
+        }
+      ]
+    },
+    {
+      "id": "product-shapes",
+      "title": "3. Match the inner dimensions before multiplying",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "(m × k)(k × n) → m × n",
+          "description": "The shared inner dimension k is the number of paired terms in each entry calculation. The outer dimensions give the result’s shape."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "A size",
+            "B size",
+            "AB",
+            "BA"
+          ],
+          "rows": [
+            [
+              "2 × 3",
+              "3 × 2",
+              "Defined: 2 × 2",
+              "Defined: 3 × 3"
+            ],
+            [
+              "2 × 3",
+              "3 × 4",
+              "Defined: 2 × 4",
+              "Not defined: 4 ≠ 2"
+            ],
+            [
+              "3 × 3",
+              "3 × 3",
+              "Defined: 3 × 3",
+              "Defined: 3 × 3"
+            ],
+            [
+              "2 × 2",
+              "3 × 2",
+              "Not defined: 2 ≠ 3",
+              "Defined: 3 × 2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Having both AB and BA defined does not make them equal, and they may have different shapes. Even when both are square of the same size, the values can differ."
+        },
+        {
+          "type": "check",
+          "prompt": "If A is 4 × 2 and B is 2 × 5, what is the size of AB? Can BA be formed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "AB is 4 × 5 because the inner dimensions 2 and 2 match. BA cannot be formed: its inner dimensions would be 5 and 4."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.2, printed pages 189–190."
+        }
+      ]
+    },
+    {
+      "id": "row-column",
+      "title": "4. Compute one product entry from one row and one column",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "cᵢⱼ = Σₜ₌₁ᵏ aᵢₜ bₜⱼ, where C = AB",
+          "description": "Use row i of A and column j of B. Multiply corresponding values, then add those products."
+        },
+        {
+          "type": "math",
+          "notation": "A = [[2, 1, −1], [0, 3, 2]]\nB = [[1, 4], [2, −1], [3, 0]]",
+          "description": "A is 2 × 3 and B is 3 × 2, so AB is 2 × 2."
+        },
+        {
+          "type": "diagram",
+          "title": "A row and a column produce one entry",
+          "src": "assets/matrix-row-column.svg",
+          "description": "The first row 2,1,−1 of A and second column 4,−1,0 of B give 2·4 + 1·(−1) + (−1)·0 = 7, which occupies row 1, column 2 of AB."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Entry",
+            "Calculation",
+            "Value"
+          ],
+          "rows": [
+            [
+              "c₁₁",
+              "2·1 + 1·2 + (−1)·3",
+              "1"
+            ],
+            [
+              "c₁₂",
+              "2·4 + 1·(−1) + (−1)·0",
+              "7"
+            ],
+            [
+              "c₂₁",
+              "0·1 + 3·2 + 2·3",
+              "12"
+            ],
+            [
+              "c₂₂",
+              "0·4 + 3·(−1) + 2·0",
+              "−3"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "AB = [[1, 7], [12, −3]]",
+          "description": "The four row-column calculations fill the four positions of the result."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is c₁₂ not just a₁₂b₁₂?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Matrix multiplication combines every intermediate position t in the selected row and column. Here c₁₂ uses three products. Multiplying only matching positions is a different operation, not the matrix product defined here."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.2, printed pages 189–190."
+        }
+      ]
+    },
+    {
+      "id": "product-meaning",
+      "title": "5. Interpret multiplication as combining through an intermediate category",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose each row of A records a learner’s purchases of notebooks and pens, and B gives the unit prices of those two items in two shops. The shared dimension must refer to the same items in the same order."
+        },
+        {
+          "type": "math",
+          "notation": "A = [[2, 3], [1, 4]]\nB = [[5, 6], [2, 1]]\nAB = [[16, 15], [13, 10]]",
+          "description": "Rows of A are Ana and Bo; columns are notebooks and pens. Rows of B are notebooks and pens; columns are Shop 1 and Shop 2. Prices are hypothetical units."
+        },
+        {
+          "type": "example",
+          "title": "Explain one output with units",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Ana’s cost at Shop 1 is 2 notebooks × 5 units per notebook + 3 pens × 2 units per pen = 16 units. Her Shop 2 total is 2·6 + 3·1 = 15. Each output refers to one learner and one shop."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If B lists pens before notebooks, can the original A be used unchanged?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The numerical dimensions still fit, but the categories would be mismatched. Reorder the corresponding columns of A or rows of B so the intermediate meanings agree."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.2, printed pages 189–190; companion application."
+        }
+      ]
+    },
+    {
+      "id": "noncommutative",
+      "title": "6. Do not import every rule of ordinary number multiplication",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "P = [[1, 2], [0, 1]]\nQ = [[1, 0], [3, 1]]\nPQ = [[7, 2], [3, 1]]\nQP = [[1, 2], [3, 7]]",
+          "description": "Both products exist and have the same shape, but their diagonal entries differ. Thus PQ ≠ QP."
+        },
+        {
+          "type": "paragraph",
+          "text": "Noncommutative means that changing the order can change the product. This does not say every pair of matrices fails to commute: identity matrices commute with appropriately sized square matrices, for example."
+        },
+        {
+          "type": "callout",
+          "title": "Optional caution about zero products",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let E = [[1, 0], [0, 0]] and F = [[0, 0], [0, 1]]. Neither is the zero matrix, but EF is the zero matrix. Therefore AB = 0 does not generally imply A = 0 or B = 0."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can (P + Q)² be simplified automatically to P² + 2PQ + Q²?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Expanding while preserving order gives P² + PQ + QP + Q². Combining the middle terms as 2PQ requires PQ = QP, which these matrices do not satisfy."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.2, printed page 190."
+        }
+      ]
+    },
+    {
+      "id": "product-laws",
+      "title": "7. Regroup products while preserving the order of the factors",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Valid law",
+            "Dimension requirement"
+          ],
+          "rows": [
+            [
+              "(AB)C = A(BC)",
+              "A: m × p, B: p × k, C: k × n"
+            ],
+            [
+              "A(B + C) = AB + AC",
+              "B and C have the same shape, compatible with A"
+            ],
+            [
+              "(A + B)C = AC + BC",
+              "A and B have the same shape, compatible with C"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Associativity changes parentheses, not order. Both sides of (AB)C = A(BC) have size m × n. To understand why they agree, look at one output entry: both sum all products aᵢₛ bₛₜ cₜⱼ over 1 ≤ s ≤ p and 1 ≤ t ≤ k. Finite sums may be regrouped without changing their value."
+        },
+        {
+          "type": "example",
+          "title": "Why distributivity works",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "In A(B + C), each row-column calculation contains terms aᵢₜ(bₜⱼ + cₜⱼ). Distribute within each numerical term, then split the finite sum into Σₜ aᵢₜbₜⱼ + Σₜ aᵢₜcₜⱼ. These are precisely the corresponding entries of AB and AC."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does associativity allow ABC to be rewritten as ACB?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Associativity permits (AB)C = A(BC), preserving A, then B, then C. Reordering factors requires an additional reason such as a specific commutation identity."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.2, printed page 190; distributive-law extension."
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "title": "8. Choose the identity matrix that fits each side",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "I₂ = [[1, 0], [0, 1]]\nI₃ = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]",
+          "description": "The identity matrix has 1 on the main diagonal and 0 everywhere else. The main diagonal consists of positions (i, i)."
+        },
+        {
+          "type": "paragraph",
+          "text": "The entry δᵢⱼ, called the Kronecker delta, is 1 if i = j and 0 otherwise. Multiplying by an identity selects the existing row or column value because every other term is multiplied by zero."
+        },
+        {
+          "type": "math",
+          "notation": "IₘA = A = AIₙ for an m × n matrix A",
+          "description": "The left identity has order m; the right identity has order n."
+        },
+        {
+          "type": "check",
+          "prompt": "For a 2 × 3 matrix A, which equations make sense: I₂A, AI₃, AI₂, I₃A?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "I₂A and AI₃ are defined and equal A. AI₂ and I₃A have mismatched inner dimensions. The two identity matrices need not be the same size."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.3, printed pages 190–191."
+        }
+      ]
+    },
+    {
+      "id": "matrix-powers",
+      "title": "9. Raise a square matrix by repeated matrix multiplication",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "A⁰ = Iₙ; Aʳ = A·A·…·A (r factors) for integers r ≥ 1",
+          "description": "A must be n × n. The zeroth power is an identity matrix, not a matrix filled with ones."
+        },
+        {
+          "type": "math",
+          "notation": "H = [[1, 3], [0, 1]]\nH² = [[1, 6], [0, 1]]\nH³ = [[1, 9], [0, 1]]",
+          "description": "The upper-right entry grows by 3 at each multiplication. Squaring individual entries would incorrectly give 9 in that position of H²."
+        },
+        {
+          "type": "example",
+          "title": "Prove the pattern",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For every integer r ≥ 0, Hʳ = [[1, 3r], [0, 1]]. The case r = 0 gives I₂. Multiplying [[1, 3r], [0, 1]] by H gives [[1, 3 + 3r], [0, 1]], which is the formula at r + 1. This establishes the pattern by induction."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the square of a 2 × 3 matrix not defined under this rule?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Multiplying a 2 × 3 matrix by itself would require 3 = 2 for the inner dimensions. Ordinary nonnegative integer powers here are defined for square matrices."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.3, printed page 191."
+        }
+      ]
+    },
+    {
+      "id": "transpose",
+      "title": "10. Swap the two index roles in a transpose",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "A = [[2, 1, −1], [0, 3, 2]]\nAᵀ = [[2, 0], [1, 3], [−1, 2]]",
+          "description": "Transposing turns each row of A into a column. Aᵀ has size 3 × 2; the textbook uses Aᵗ for the same operation."
+        },
+        {
+          "type": "paragraph",
+          "text": "In general, (Aᵀ)ᵢⱼ = aⱼᵢ. Transposition is not a rotation or a reordering of entries within a row. Transposing twice returns the original matrix."
+        },
+        {
+          "type": "math",
+          "notation": "(Aᵀ)ᵀ = A\n(A + B)ᵀ = Aᵀ + Bᵀ\n(AB)ᵀ = BᵀAᵀ",
+          "description": "For the addition law A and B have equal shape; for the product law their dimensions must permit AB. Notice the reversed factor order in the last law."
+        },
+        {
+          "type": "example",
+          "title": "Check the reversal by an entry",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The (i, j) entry of (AB)ᵀ is (AB)ⱼᵢ = Σₜ aⱼₜbₜᵢ. The (i, j) entry of BᵀAᵀ is Σₜ bₜᵢaⱼₜ. These agree by commutativity of the individual real-number products, not by commutativity of matrix multiplication."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For A of size 2 × 3 and B of size 3 × 4, what shape must (AB)ᵀ have?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "AB is 2 × 4, so its transpose is 4 × 2. BᵀAᵀ has size (4 × 3)(3 × 2), which also gives 4 × 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.3, printed page 191; transpose identities."
+        }
+      ]
+    },
+    {
+      "id": "symmetric",
+      "title": "11. Compare mirror positions across the main diagonal",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "S = [[2, −1, 4], [−1, 0, 3], [4, 3, 5]]",
+          "description": "This square matrix is symmetric: sᵢⱼ = sⱼᵢ for every pair of indices, so Sᵀ = S."
+        },
+        {
+          "type": "paragraph",
+          "text": "Check paired positions: s₁₂ = s₂₁ = −1, s₁₃ = s₃₁ = 4, and s₂₃ = s₃₂ = 3. Diagonal entries have no extra restriction because each is its own mirror. A nonsquare matrix cannot equal its transpose: their shapes differ."
+        },
+        {
+          "type": "example",
+          "title": "A useful way to make a symmetric matrix",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For A = [[2, 1, −1], [0, 3, 2]], AAᵀ = [[6, 1], [1, 13]]. More generally, (AAᵀ)ᵀ = (Aᵀ)ᵀAᵀ = AAᵀ, so AAᵀ is symmetric. This uses the reversed-order transpose law."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Must every entry of a symmetric matrix be 0 or 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Symmetry is about mirrored positions, not the allowed numerical values. The example includes negative entries and entries greater than 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.3, printed page 191."
+        }
+      ]
+    },
+    {
+      "id": "join-meet",
+      "title": "12. Combine zero–one matrices entry by entry",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A zero–one matrix has only 0 and 1 entries. Treat 1 as true and 0 as false. For equal-size matrices, join A ∨ B applies OR at each position; meet A ∧ B applies AND at each position."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "a",
+            "b",
+            "a ∨ b",
+            "a ∧ b"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "1",
+              "0"
+            ],
+            [
+              "1",
+              "0",
+              "1",
+              "0"
+            ],
+            [
+              "1",
+              "1",
+              "1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "A = [[1, 0, 1], [0, 1, 1]]\nB = [[0, 1, 1], [1, 0, 1]]\nA ∨ B = [[1, 1, 1], [1, 1, 1]]\nA ∧ B = [[0, 0, 1], [0, 0, 1]]",
+          "description": "OR records membership in at least one matrix; AND requires membership in both at the same position."
+        },
+        {
+          "type": "paragraph",
+          "text": "Join is not ordinary addition: at a position where both entries are 1, join gives 1 and addition gives 2. Meet is also different from the Boolean matrix product introduced next: meet stays in one position, while a product combines a row with a column."
+        },
+        {
+          "type": "check",
+          "prompt": "What are A ∨ A and A ∧ A?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both equal A. Each entry obeys a ∨ a = a and a ∧ a = a. Their shapes remain unchanged."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.4, printed pages 191–192."
+        }
+      ]
+    },
+    {
+      "id": "boolean-product",
+      "title": "13. Replace multiply-and-add with AND-and-OR",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "(A ⊙ B)ᵢⱼ = (aᵢ₁ ∧ b₁ⱼ) ∨ … ∨ (aᵢₖ ∧ bₖⱼ)",
+          "description": "The Boolean product uses the same compatible dimensions as ordinary multiplication. Its entry is 1 if at least one intermediate index gives two 1s."
+        },
+        {
+          "type": "math",
+          "notation": "A = [[1, 1, 0], [0, 1, 1]]\nB = [[1, 0], [1, 1], [0, 1]]\nAB = [[2, 1], [1, 2]]\nA ⊙ B = [[1, 1], [1, 1]]",
+          "description": "For zero–one inputs, the ordinary product counts successful intermediate indices. The Boolean product records only whether the count is positive."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Entry",
+            "Boolean calculation",
+            "Result"
+          ],
+          "rows": [
+            [
+              "(1, 1)",
+              "(1 ∧ 1) ∨ (1 ∧ 1) ∨ (0 ∧ 0)",
+              "1"
+            ],
+            [
+              "(1, 2)",
+              "(1 ∧ 0) ∨ (1 ∧ 1) ∨ (0 ∧ 1)",
+              "1"
+            ],
+            [
+              "(2, 1)",
+              "(0 ∧ 1) ∨ (1 ∧ 1) ∨ (1 ∧ 0)",
+              "1"
+            ],
+            [
+              "(2, 2)",
+              "(0 ∧ 0) ∨ (1 ∧ 1) ∨ (1 ∧ 1)",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Two successful routes still give one Boolean yes",
+          "src": "assets/boolean-routes.svg",
+          "description": "Two routes run from Start to Finish through intermediate nodes X and Y. Ordinary multiplication counts two routes; Boolean multiplication returns 1 because at least one route exists."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you compute A ⊙ B by taking ordinary AB modulo 2?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. An ordinary entry 2 means two successful intermediates, so the Boolean answer is 1. Reducing 2 modulo 2 would give 0. Boolean multiplication uses OR, not XOR."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.4, printed page 192."
+        }
+      ]
+    },
+    {
+      "id": "boolean-powers",
+      "title": "14. Distinguish exactly r steps from at most r steps",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "G = [[0, 1, 0], [0, 0, 1], [1, 0, 0]]\nG[2] = [[0, 0, 1], [1, 0, 0], [0, 1, 0]]\nG[3] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]",
+          "description": "Read gᵢⱼ = 1 as a directed step from i to j. This is the cycle 1 → 2 → 3 → 1. Bracketed powers use Boolean products."
+        },
+        {
+          "type": "paragraph",
+          "text": "Define G[0] = I₃ and G[r] as the Boolean product of r copies of G for r ≥ 1. The Boolean product is associative. Entry (i, j) is 1 exactly when there is a walk of exactly r steps from i to j. A walk may repeat vertices or edges. The identity at r = 0 records staying at the starting vertex."
+        },
+        {
+          "type": "example",
+          "title": "A general period, not just a few observed powers",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Because G[3] = I₃, associativity gives G[r + 3] = G[r] ⊙ G[3] = G[r] for every r ≥ 0. The powers cycle with period 3. Individual entries need not stay 1 once they become 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "To ask about at most r steps, include the join I ∨ G ∨ G[2] ∨ … ∨ G[r]. Omitting I excludes zero-step walks unless they are supplied by an actual positive-length cycle. For the displayed cycle, I₃ ∨ G ∨ G[2] is the all-ones 3 × 3 matrix."
+        },
+        {
+          "type": "check",
+          "prompt": "Is there a two-step walk from 1 back to 1? A three-step walk?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No two-step walk returns to 1: the unique two-step route ends at 3. There is a three-step walk 1 → 2 → 3 → 1, recorded by G[3]₁₁ = 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.4, printed page 193; walk interpretation."
+        }
+      ]
+    },
+    {
+      "id": "matrix-code",
+      "title": "15. Implement a Boolean product with explicit shape checks",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This JavaScript routine accepts nonempty rectangular arrays of numeric bits. Array indices start at 0, whereas the mathematical entry labels in this lesson start at 1. It rejects ragged rows, nonbits, and incompatible dimensions."
+        },
+        {
+          "type": "math",
+          "notation": "function booleanProduct(A, B) {\n  function shape(M) {\n    if (!Array.isArray(M) || M.length === 0 || !Array.isArray(M[0]) || M[0].length === 0) throw new TypeError(\"Nonempty rectangular bit matrix required\");\n    const width = M[0].length;\n    for (const row of M) {\n      if (!Array.isArray(row) || row.length !== width) throw new TypeError(\"Ragged matrix\");\n      for (const bit of row) if (bit !== 0 && bit !== 1) throw new TypeError(\"Numeric bits required\");\n    }\n    return [M.length, width];\n  }\n  const [m, k] = shape(A), [rows, n] = shape(B);\n  if (k !== rows) throw new RangeError(\"Inner dimensions must match\");\n  const C = Array.from({length: m}, () => Array(n).fill(0));\n  for (let i = 0; i < m; i++) {\n    for (let j = 0; j < n; j++) {\n      for (let t = 0; t < k; t++) {\n        if (A[i][t] === 1 && B[t][j] === 1) { C[i][j] = 1; break; }\n      }\n    }\n  }\n  return C;\n}",
+          "description": "Executable JavaScript. Each output starts at 0 and changes to 1 when a successful intermediate index is found."
+        },
+        {
+          "type": "paragraph",
+          "text": "Stopping the inner loop at the first success is valid because OR remains true after any later successes. The inputs are not modified. The worst case examines mkn intermediate pairs, plus validation and allocation work."
+        },
+        {
+          "type": "check",
+          "prompt": "Why must each output row be allocated separately?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If all rows referenced one shared array, changing one entry would change that column in every row. Array.from calls the row constructor separately, giving each row its own storage."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.4, printed pages 192–193; companion implementation."
+        }
+      ]
+    },
+    {
+      "id": "matrices-recap",
+      "title": "16. Choose the arithmetic that matches the question",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Operation",
+            "Shape requirement",
+            "What one output entry does"
+          ],
+          "rows": [
+            [
+              "A + B",
+              "Same shape",
+              "Adds matching entries."
+            ],
+            [
+              "AB",
+              "Inner dimensions match",
+              "Adds the paired row-column products."
+            ],
+            [
+              "Aᵀ",
+              "Any rectangular matrix",
+              "Swaps row and column indices."
+            ],
+            [
+              "A ∨ B or A ∧ B",
+              "Same-shape bit matrices",
+              "Applies OR or AND at one position."
+            ],
+            [
+              "A ⊙ B",
+              "Bit matrices with matching inner dimensions",
+              "Asks whether some paired row-column entries are both 1."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For A = [[1, 1]] and B = [[1], [1]], compare AB and A ⊙ B.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "AB = [[2]] because 1·1 + 1·1 = 2. A ⊙ B = [[1]] because (1 ∧ 1) ∨ (1 ∧ 1) = 1. Both results are 1 × 1 matrices; a count and an existence answer convey different information."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What should you check before trusting a computed matrix?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Check the input and output dimensions, the meanings and order of the intermediate labels, the chosen arithmetic, and at least one row-column calculation. For powers, confirm that the input is square and that the exponent means exactly the intended number of factors."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A compact routine",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Read row before column. Check shapes before arithmetic. Preserve factor order. Use the correct identity size. Distinguish transpose from inverse, ordinary powers from entrywise powers, and Boolean product from meet or arithmetic modulo 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The Chapter 2 review connects sets, functions, sequences, cardinality, and matrices through mixed practice."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.6.1–§2.6.4, printed pages 188–193."
+        }
+      ]
+    }
+  ]
+}

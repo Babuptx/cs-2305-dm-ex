@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="450" viewBox="0 0 840 450" role="img" aria-labelledby="title desc">
+<title id="title">A worked row-column matrix product</title>
+<desc id="desc">Highlighted first row of A and second column of B give seven in position (1,2) of AB. All matrix entries are shown, with shapes 2 by 3 times 3 by 2 giving 2 by 2.</desc>
+<rect width="840" height="450" rx="16" fill="#f5f8fc"/>
+<g font-family="Segoe UI, Arial, sans-serif" fill="#17324d">
+<text x="420" y="36" font-size="23" font-weight="700" text-anchor="middle">One row × one column → one output entry</text>
+<text x="420" y="65" font-size="17" font-weight="400" text-anchor="middle">Keep the shared positions aligned before adding their products.</text>
+<text x="146" y="146" font-size="23" font-weight="600" text-anchor="middle">A</text>
+<g data-matrix="A" data-row="1" data-col="1" data-value="2">
+<rect x="65" y="176" width="49" height="49" rx="5" fill="#cce8de" stroke="#9cb3c2"/>
+<text x="89" y="208" font-size="22" font-weight="600" text-anchor="middle">2</text>
+</g>
+<g data-matrix="A" data-row="1" data-col="2" data-value="1">
+<rect x="119" y="176" width="49" height="49" rx="5" fill="#cce8de" stroke="#9cb3c2"/>
+<text x="143" y="208" font-size="22" font-weight="600" text-anchor="middle">1</text>
+</g>
+<g data-matrix="A" data-row="1" data-col="3" data-value="-1">
+<rect x="173" y="176" width="49" height="49" rx="5" fill="#cce8de" stroke="#9cb3c2"/>
+<text x="197" y="208" font-size="22" font-weight="600" text-anchor="middle">−1</text>
+</g>
+<g data-matrix="A" data-row="2" data-col="1" data-value="0">
+<rect x="65" y="230" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="89" y="262" font-size="22" font-weight="600" text-anchor="middle">0</text>
+</g>
+<g data-matrix="A" data-row="2" data-col="2" data-value="3">
+<rect x="119" y="230" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="143" y="262" font-size="22" font-weight="600" text-anchor="middle">3</text>
+</g>
+<g data-matrix="A" data-row="2" data-col="3" data-value="2">
+<rect x="173" y="230" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="197" y="262" font-size="22" font-weight="600" text-anchor="middle">2</text>
+</g>
+<text x="277" y="240" font-size="28" font-weight="400" text-anchor="middle">×</text>
+<text x="384" y="119" font-size="23" font-weight="600" text-anchor="middle">B</text>
+<g data-matrix="B" data-row="1" data-col="1" data-value="1">
+<rect x="330" y="149" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="354" y="181" font-size="22" font-weight="600" text-anchor="middle">1</text>
+</g>
+<g data-matrix="B" data-row="1" data-col="2" data-value="4">
+<rect x="384" y="149" width="49" height="49" rx="5" fill="#cce8de" stroke="#9cb3c2"/>
+<text x="408" y="181" font-size="22" font-weight="600" text-anchor="middle">4</text>
+</g>
+<g data-matrix="B" data-row="2" data-col="1" data-value="2">
+<rect x="330" y="203" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="354" y="235" font-size="22" font-weight="600" text-anchor="middle">2</text>
+</g>
+<g data-matrix="B" data-row="2" data-col="2" data-value="-1">
+<rect x="384" y="203" width="49" height="49" rx="5" fill="#cce8de" stroke="#9cb3c2"/>
+<text x="408" y="235" font-size="22" font-weight="600" text-anchor="middle">−1</text>
+</g>
+<g data-matrix="B" data-row="3" data-col="1" data-value="3">
+<rect x="330" y="257" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="354" y="289" font-size="22" font-weight="600" text-anchor="middle">3</text>
+</g>
+<g data-matrix="B" data-row="3" data-col="2" data-value="0">
+<rect x="384" y="257" width="49" height="49" rx="5" fill="#cce8de" stroke="#9cb3c2"/>
+<text x="408" y="289" font-size="22" font-weight="600" text-anchor="middle">0</text>
+</g>
+<text x="503" y="240" font-size="28" font-weight="400" text-anchor="middle">=</text>
+<text x="624" y="146" font-size="23" font-weight="600" text-anchor="middle">AB</text>
+<g data-matrix="AB" data-row="1" data-col="1" data-value="1">
+<rect x="570" y="176" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="594" y="208" font-size="22" font-weight="600" text-anchor="middle">1</text>
+</g>
+<g data-matrix="AB" data-row="1" data-col="2" data-value="7">
+<rect x="624" y="176" width="49" height="49" rx="5" fill="#cce8de" stroke="#9cb3c2"/>
+<text x="648" y="208" font-size="22" font-weight="600" text-anchor="middle">7</text>
+</g>
+<g data-matrix="AB" data-row="2" data-col="1" data-value="12">
+<rect x="570" y="230" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="594" y="262" font-size="22" font-weight="600" text-anchor="middle">12</text>
+</g>
+<g data-matrix="AB" data-row="2" data-col="2" data-value="-3">
+<rect x="624" y="230" width="49" height="49" rx="5" fill="#fff" stroke="#9cb3c2"/>
+<text x="648" y="262" font-size="22" font-weight="600" text-anchor="middle">−3</text>
+</g>
+<text x="146" y="330" font-size="18" font-weight="400" text-anchor="middle">2 × 3</text>
+<text x="384" y="330" font-size="18" font-weight="400" text-anchor="middle">3 × 2</text>
+<text x="624" y="330" font-size="18" font-weight="400" text-anchor="middle">2 × 2</text>
+<text x="420" y="384" font-size="25" font-weight="700" text-anchor="middle">c₁₂ = 2·4 + 1·(−1) + (−1)·0 = 7</text>
+<text x="420" y="422" font-size="17" font-weight="400" text-anchor="middle">The other three entries use their own row-and-column pairs.</text>
+</g>
+</svg>

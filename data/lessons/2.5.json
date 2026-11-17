@@ -1,0 +1,886 @@
+{
+  "schemaVersion": 1,
+  "id": "2.5",
+  "title": "Cardinality of Sets",
+  "status": "in-progress",
+  "references": [
+    "Kenneth H. Rosen, Discrete Mathematics and Its Applications, eighth edition, §2.5.1–§2.5.3, printed pages 179–186 (exposition), with worked supporting arguments.",
+    "Original companion explanations, examples, diagrams, and practice checks.",
+    "Continuum-hypothesis clarification: Stanford Encyclopedia of Philosophy, The Continuum Hypothesis, §1.1, https://plato.stanford.edu/entries/continuum-hypothesis/ (checked November 16, 2026)."
+  ],
+  "units": [
+    {
+      "id": "matching-size",
+      "title": "1. Compare sizes by matching objects",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "callout",
+          "title": "The main idea",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To compare infinite sets, replace “count until finished” with “match every object exactly once.” A bijection gives a complete pairing, even when neither set has a last element."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "|A| = |B| ⇔ there is a bijection f: A → B",
+          "description": "Equal cardinality means equal size, not identical members. A bijection is both injective and onto."
+        },
+        {
+          "type": "example",
+          "title": "Begin with a finite pairing",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The sets {red, green, blue} and {10, 20, 30} have the same size. Pair red with 20, green with 30, and blue with 10. Every input has one output, no outputs are shared, and none are missed. The names of the objects do not matter."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For infinite sets, exactly the same matching criterion defines equal cardinality. The map n ↦ 3n is a bijection from ℤ⁺ = {1, 2, 3, …} to {3, 6, 9, …}. Equal outputs 3m = 3n force m = n; each target 3k has the permitted input k."
+        },
+        {
+          "type": "check",
+          "prompt": "Does |A| = |B| mean A = B?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Sets with different members may have the same size. A bijection preserves the number of objects, not their identities."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.1, printed pages 179–180."
+        }
+      ]
+    },
+    {
+      "id": "cardinal-comparison",
+      "title": "2. Separate an injection from a strict size inequality",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "|A| ≤ |B| ⇔ there is an injection A → B\n|A| < |B| ⇔ |A| ≤ |B| and no bijection A → B exists",
+          "description": "An injection gives each object of A its own target in B. Strict inequality additionally rules out every bijection."
+        },
+        {
+          "type": "paragraph",
+          "text": "If A ⊆ B, the inclusion map x ↦ x is an injection A → B. Thus |A| ≤ |B|. Proper containment alone does not establish strict inequality for infinite sets: the positive multiples of 3 form a proper subset of ℤ⁺ yet have the same cardinality."
+        },
+        {
+          "type": "example",
+          "title": "A missed target in one map is not a proof of smaller size",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The map f(n) = n + 1 from ℤ⁺ to ℤ⁺ misses 1. That particular injection is not onto, but the identity map is a bijection between the same sets. To prove strictly smaller size, you must rule out all possible bijections."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does a proper subset of a finite set have fewer members, while the multiples-of-3 example does not?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Finite counting leaves a genuinely smaller total after removing a member. For an infinite set, a new pairing may match all original objects to the remaining ones. The definition by bijection handles both cases."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.1, printed page 180."
+        }
+      ]
+    },
+    {
+      "id": "countable",
+      "title": "3. Know what countable does and does not mean",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Classification",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Finite",
+              "Has n members for some integer n ≥ 0",
+              "∅ or {2, 8, 11}"
+            ],
+            [
+              "Countably infinite",
+              "Can be paired bijectively with ℤ⁺",
+              "ℤ⁺ or the positive multiples of 3"
+            ],
+            [
+              "Countable",
+              "Finite or countably infinite",
+              "Either of the preceding cases"
+            ],
+            [
+              "Uncountable",
+              "Not countable",
+              "The real interval (0, 1), proved below"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The symbol ℵ₀, read “aleph null,” denotes the cardinality of a countably infinite set. It is a cardinal number, not a very large finite integer. ℕ includes 0 in this book; n ↦ n + 1 pairs ℕ with ℤ⁺, so either set can index a countably infinite listing."
+        },
+        {
+          "type": "paragraph",
+          "text": "A listing must eventually reach every member. Each member has some finite position, although there is no final position for the whole list. A huge finite set remains finite; an infinite set can still be countable."
+        },
+        {
+          "type": "check",
+          "prompt": "Is the set of all integers from −1,000,000 through 1,000,000 countably infinite?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It is finite, with 2,000,001 members. It is countable because finite sets are included in that term."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.2, printed pages 180–181."
+        }
+      ]
+    },
+    {
+      "id": "list-integers",
+      "title": "4. Give every integer a finite position",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Listing 0, 1, 2, 3, … and promising to list negatives “afterward” fails: there is no stage after all nonnegative integers. Instead alternate the two directions."
+        },
+        {
+          "type": "math",
+          "notation": "f(0) = 0; f(2k − 1) = k; f(2k) = −k, for k ≥ 1",
+          "description": "This function has domain ℕ and codomain ℤ."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Index n",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "rows": [
+            [
+              "f(n)",
+              "0",
+              "1",
+              "−1",
+              "2",
+              "−2",
+              "3",
+              "−3",
+              "4",
+              "−4"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Check both halves of a bijection",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The value 0 occurs only at index 0. Positive k occurs only at 2k − 1, and negative −k occurs only at 2k. These positions cover every integer and never assign the same value twice. Thus |ℤ| = |ℕ| = ℵ₀."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "At which index does −12 occur? At which index does 12 occur?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "−12 occurs at 2·12 = 24; 12 occurs at 2·12 − 1 = 23. Both are reached after finitely many earlier terms."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.2, printed page 182."
+        }
+      ]
+    },
+    {
+      "id": "infinite-hotel",
+      "title": "5. Make room by reassigning every occupied position",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Imagine rooms numbered by ℤ⁺, all occupied. This is a mathematical model of infinitely many rooms, not a construction that can be completed by moving real guests one after another in finite time."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "New arrivals",
+            "Move old guest from room n to",
+            "Assign new guests to"
+          ],
+          "rows": [
+            [
+              "One guest",
+              "n + 1",
+              "Room 1"
+            ],
+            [
+              "k guests, with finite k ≥ 0",
+              "n + k",
+              "Rooms 1 through k"
+            ],
+            [
+              "Guests numbered 1, 2, 3, …",
+              "2n",
+              "Guest j gets room 2j − 1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In the last row, old guests occupy distinct even rooms and new guests occupy distinct odd rooms. These two sets are disjoint and together cover all positive room numbers. Every guest has one room and no room gets two guests."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does the “shift everyone one room” rule fail in a finite hotel with rooms 1 through N?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The guest in room N would be sent to room N + 1, which does not exist. In the infinite model, n + 1 is an available room number for every positive n; there is no last room."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.2, printed pages 181–182; finite and countable arrival extensions."
+        }
+      ]
+    },
+    {
+      "id": "diagonal-listing",
+      "title": "6. Traverse an infinite grid in finite diagonals",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Pairs (p, q) of positive integers can be listed by increasing p + q. Within each diagonal, use increasing p. Each diagonal is finite, so the next one is eventually reached."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p + q",
+            "Pairs in this diagonal"
+          ],
+          "rows": [
+            [
+              "2",
+              "(1, 1)"
+            ],
+            [
+              "3",
+              "(1, 2), (2, 1)"
+            ],
+            [
+              "4",
+              "(1, 3), (2, 2), (3, 1)"
+            ],
+            [
+              "5",
+              "(1, 4), (2, 3), (3, 2), (4, 1)"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Finish each diagonal before moving to the next",
+          "src": "assets/countable-grid.svg",
+          "description": "A grid of positive pairs labels each cell by its position in the diagonal enumeration. The first positions are (1,1), (1,2), (2,1), (1,3), (2,2), (3,1)."
+        },
+        {
+          "type": "math",
+          "notation": "position(p, q) = (p + q − 2)(p + q − 1)/2 + p",
+          "description": "The preceding diagonals contain 1 + 2 + … + (p + q − 2) pairs; p selects the position within the current diagonal."
+        },
+        {
+          "type": "paragraph",
+          "text": "For any fixed pair, p + q is finite, and only finitely many pairs precede its diagonal. Different pairs have different positions. The finite blocks have no gaps, so this is a bijective listing of ℤ⁺ × ℤ⁺."
+        },
+        {
+          "type": "check",
+          "prompt": "When is the pair (2, 3) reached?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Its diagonal has p + q = 5. The previous diagonals contain 1 + 2 + 3 = 6 pairs, and it is second in its diagonal, so its position is 8."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.2, printed pages 182–183."
+        }
+      ]
+    },
+    {
+      "id": "rational-list",
+      "title": "7. List rational values without counting the same value twice",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Every positive rational is p/q for positive integers p and q. Use the diagonal pair listing, but retain only fractions in lowest terms: numerator and denominator have no common positive divisor larger than 1. Equivalent fractions such as 2/2 and 1/1 describe one value."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "p + q",
+            "Retained fractions, increasing p"
+          ],
+          "rows": [
+            [
+              "2",
+              "1/1"
+            ],
+            [
+              "3",
+              "1/2, 2/1"
+            ],
+            [
+              "4",
+              "1/3, 3/1"
+            ],
+            [
+              "5",
+              "1/4, 2/3, 3/2, 4/1"
+            ],
+            [
+              "6",
+              "1/5, 5/1"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Why this covers every positive rational exactly once",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Write any positive rational in its unique lowest-terms form p/q with q > 0. Its pair appears on the finite diagonal p + q, so it is eventually emitted. Two distinct retained pairs cannot represent the same rational because lowest-terms representation is unique. There are infinitely many retained fractions, including all positive integers."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If r₁, r₂, … lists the positive rationals, then 0, r₁, −r₁, r₂, −r₂, … lists all rationals. Thus |ℚ| = ℵ₀. There is no need for this list to be in numerical order."
+        },
+        {
+          "type": "check",
+          "prompt": "Does having a rational number between every two distinct rationals make ℚ uncountable?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Density describes numerical order, not whether a bijective listing exists. The diagonal listing reaches all rational values even though it does not proceed from smallest to largest."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.2, printed pages 182–183."
+        }
+      ]
+    },
+    {
+      "id": "countable-closure",
+      "title": "8. Build larger countable sets from smaller ones",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Every subset of a countable set is countable. For a subset of a countably infinite listed set, keep the listed members that belong to the subset. The retained list is either finite or can be indexed in its inherited order. This is a mathematical existence argument; it does not assume an algorithm can decide membership in every subset."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "A and B",
+            "How to list A ∪ B"
+          ],
+          "rows": [
+            [
+              "Both finite",
+              "Combine the two finite lists and remove duplicates."
+            ],
+            [
+              "One finite, one countably infinite",
+              "Put the finite list first, then the infinite list, skipping repeats."
+            ],
+            [
+              "Both countably infinite",
+              "Alternate a₁, b₁, a₂, b₂, …, keeping only first occurrences."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Every element has a finite source position in at least one list, so it is eventually considered. Skipping duplicate occurrences does not remove an element’s first occurrence. The result establishes that the union of two countable sets is countable."
+        },
+        {
+          "type": "example",
+          "title": "Use the contrapositive",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If a set contains an uncountable subset, the whole set is uncountable: otherwise that subset would be a subset of a countable set. Also, removing a countable subset from an uncountable set leaves an uncountable set. If the remainder were countable, adjoining the removed part would make the original set countable."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If A is countable, must every subset of A be finite?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A subset may be countably infinite. The positive even integers are an infinite subset of the countable set ℤ⁺."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed page 184, Theorem 1 and subset facts."
+        }
+      ]
+    },
+    {
+      "id": "finite-strings",
+      "title": "9. Distinguish finite strings from infinite strings",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose a finite alphabet and an order for its symbols. List strings first by length, then lexicographically within each length. There are only finitely many strings of each fixed length, so every finite string gets a finite position."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Length",
+            "Binary strings in order"
+          ],
+          "rows": [
+            [
+              "0",
+              "λ (the empty string)"
+            ],
+            [
+              "1",
+              "0, 1"
+            ],
+            [
+              "2",
+              "00, 01, 10, 11"
+            ],
+            [
+              "3",
+              "000, 001, 010, 011, 100, 101, 110, 111"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For an alphabet with s ≥ 1 symbols, there are sᵏ strings of length k, including one string of length zero. All finite strings over that alphabet form a countably infinite set. There is no maximum permitted length, but each individual string is finite."
+        },
+        {
+          "type": "check",
+          "prompt": "Does this listing include an infinite binary sequence?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Every listed item has finite length. An infinite sequence has a bit at every positive integer position and never reaches an end. A countable union of finite-length collections does not include infinite-length objects."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed page 185; finite-string argument."
+        }
+      ]
+    },
+    {
+      "id": "binary-diagonal",
+      "title": "10. Defeat any proposed list of infinite binary sequences",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Assume a proposed complete list has rows s₁, s₂, s₃, …, each an infinite binary sequence. Let sᵢ(j) be the bit in position j of row i. Construct another sequence t by changing the diagonal bits."
+        },
+        {
+          "type": "math",
+          "notation": "t(i) = 1 − sᵢ(i), for every i ≥ 1",
+          "description": "At position i, the new sequence differs from row i."
+        },
+        {
+          "type": "example",
+          "title": "The contradiction applies to every row",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Pick any row k. Its kth bit is sₖ(k), while the kth bit of t is 1 − sₖ(k). They differ, so t ≠ sₖ. This works for every k; therefore t is absent from the proposed list. But t is an infinite binary sequence, so a complete list would have to include it."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The conclusion is that the set of infinite binary sequences is uncountable. We did not need to guess a clever initial ordering: the construction works against any proposed list."
+        },
+        {
+          "type": "check",
+          "prompt": "Could we fix the proposed list by putting t at the beginning?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "That repairs one omission, but it creates another proposed list. Applying the diagonal construction to that new list produces a sequence missing from it. No list can be complete."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed pages 183–185; diagonal-method extension."
+        }
+      ]
+    },
+    {
+      "id": "real-diagonal",
+      "title": "11. Avoid decimal ambiguity when proving the reals uncountable",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose every real in (0, 1) could be listed as r₁, r₂, …. Write each in its decimal expansion that does not end in an infinite tail of 9s. This excludes duplicate representations such as 0.5000… = 0.4999…."
+        },
+        {
+          "type": "math",
+          "notation": "Choose dᵢ = 2 if the ith digit of rᵢ is 1; otherwise choose dᵢ = 1.\nt = 0.d₁d₂d₃…",
+          "description": "The new number uses only digits 1 and 2, so it lies strictly between 0 and 1 and has no terminating or all-9 ambiguity."
+        },
+        {
+          "type": "diagram",
+          "title": "Change one designated digit in every row",
+          "src": "assets/real-diagonal.svg",
+          "description": "Four example rows have diagonal digits 1,2,7,1. The new digits are 2,1,1,2. The display is only a finite window of an argument continuing over every positive index."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Row",
+            "Example decimal prefix",
+            "Diagonal digit",
+            "Chosen new digit"
+          ],
+          "rows": [
+            [
+              "1",
+              "0.1307…",
+              "1",
+              "2"
+            ],
+            [
+              "2",
+              "0.6240…",
+              "2",
+              "1"
+            ],
+            [
+              "3",
+              "0.5173…",
+              "7",
+              "1"
+            ],
+            [
+              "4",
+              "0.8801…",
+              "1",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For each k, t differs from rₖ in the kth digit. Because the chosen decimal representations are unambiguous, the numbers differ. Thus t is in (0, 1) but not anywhere in the proposed complete list: a contradiction. So (0, 1) is uncountable, and ℝ is uncountable because it contains that interval."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does the same decimal argument not prove ℚ uncountable?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The constructed decimal is guaranteed to be a real number, but it is not guaranteed to be rational. A number missing from a list of rationals is not a contradiction unless it belongs to the set that the list claims to cover."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed pages 183–184."
+        }
+      ]
+    },
+    {
+      "id": "two-injections",
+      "title": "12. Use two injections when a direct bijection is awkward",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "If there is an injection A → B and an injection B → A, then |A| = |B|.",
+          "description": "This is the Schröder–Bernstein theorem. The two injections need not be inverses or surjections."
+        },
+        {
+          "type": "example",
+          "title": "Compare an open interval and a closed one",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Set A = (0, 1) and B = [0, 1]. The inclusion f(x) = x injects A into B. For the reverse direction, g(y) = (y + 1)/3 maps B into [1/3, 2/3], which lies inside A. Equal outputs imply equal inputs, so g is injective. The theorem gives |(0, 1)| = |[0, 1]|."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This applies an established theorem; finding the two injections is not itself a proof of the theorem. We also have not claimed that either displayed map is a bijection between A and B."
+        },
+        {
+          "type": "check",
+          "prompt": "Why would y ↦ y/2 fail as a map from [0, 1] into (0, 1)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It sends y = 0 to 0, which is outside the target open interval. The shifted map (y + 1)/3 keeps both endpoints strictly inside. Always check endpoints, not only interior values."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed pages 184–185, Theorem 2."
+        }
+      ]
+    },
+    {
+      "id": "cantor-power-set",
+      "title": "13. Understand why a power set is always strictly larger",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The map s ↦ {s} injects S into ℘(S). To prove strict inequality, we must also show that no function S → ℘(S) can be onto."
+        },
+        {
+          "type": "math",
+          "notation": "For any f: S → ℘(S), define D = {s ∈ S | s ∉ f(s)}.",
+          "description": "D is a legitimate subset of the existing set S. It therefore belongs to ℘(S)."
+        },
+        {
+          "type": "example",
+          "title": "Suppose some d maps to D",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If f(d) = D, ask whether d ∈ D. By the definition of D, d ∈ D exactly when d ∉ f(d), which now means d ∉ D. Either answer contradicts itself. Therefore no d has f(d) = D, so f is not onto."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This proves |S| < |℘(S)|, even for infinite S. When S is empty, its power set is {∅}, so strict inequality also holds directly. Applying the theorem repeatedly gives larger and larger cardinalities; there is no largest cardinality of a set."
+        },
+        {
+          "type": "check",
+          "prompt": "Is D the unrestricted “set of all sets that do not contain themselves”?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. D selects elements only from the already specified set S, using membership in their assigned subsets f(s). The argument does not assume an unrestricted set of absolutely everything."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed page 185; Cantor theorem argument."
+        }
+      ]
+    },
+    {
+      "id": "uncomputable",
+      "title": "14. Compare how many programs and functions there can be",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Fix a programming language whose programs are finite strings over a finite alphabet. The finite-string listing shows that its syntactically valid programs form a countable set. Some programs are invalid for a given task, fail to halt, or compute the same function as another program; none of that creates more programs."
+        },
+        {
+          "type": "paragraph",
+          "text": "There are uncountably many total functions ℤ⁺ → {0, 1}: each such function is exactly an infinite binary sequence of outputs. That family is already a subfamily of the integer-valued functions."
+        },
+        {
+          "type": "example",
+          "title": "What the mismatch proves",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A deterministic program that computes a total function must return its correct output and halt on every permitted input. Countably many programs can compute at most countably many such functions. Since the binary-valued functions form an uncountable family, some have no program that computes all their values."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Uncomputable means there is no such algorithm, not merely that one known algorithm is slow. Unlimited storage and the absence of a fixed time bound do not remove the requirement of eventual termination on each input. This counting argument proves existence; it does not identify a particular uncomputable function."
+        },
+        {
+          "type": "check",
+          "prompt": "If a function has a mathematical listing of its outputs, must a program be able to produce that listing?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Countability is about existence of a bijection or sequence, not necessarily an effective procedure for evaluating it. Computability adds an algorithmic requirement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed page 185."
+        }
+      ]
+    },
+    {
+      "id": "continuum",
+      "title": "15. State precisely what the continuum hypothesis asks",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "ℵ₀ < 𝔠 = |ℝ| = |℘(ℤ⁺)| = 2^ℵ₀",
+          "description": "Here 𝔠 denotes the cardinality of the continuum. The notation 2^ℵ₀ is a cardinal power, the size of a power set, not ordinary finite arithmetic."
+        },
+        {
+          "type": "paragraph",
+          "text": "The equality between the cardinality of ℝ and that of ℘(ℤ⁺) is an additional theorem. Coding a subset by its infinite membership bits is a bijection with infinite binary sequences. Naively reading those bits as a binary decimal requires care because some real numbers have two binary expansions; that shortcut alone is not a proof of the displayed equality."
+        },
+        {
+          "type": "paragraph",
+          "text": "The continuum hypothesis says there is no cardinality strictly between ℵ₀ and 𝔠. Equivalently, it says 𝔠 = ℵ₁, where ℵ₁ is the smallest uncountable cardinal. The usual set-theory axioms ZFC cannot prove or refute this statement, provided ZFC is consistent. ZFC means Zermelo–Fraenkel set theory together with the axiom of choice."
+        },
+        {
+          "type": "paragraph",
+          "text": "This is an independence result relative to a specified axiom system. It does not say the hypothesis is both true and false, or that a longer calculation will settle it within those same axioms. The proof of independence is beyond this lesson."
+        },
+        {
+          "type": "check",
+          "prompt": "Does Cantor’s theorem prove 𝔠 = ℵ₁?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Cantor’s theorem proves the strict inequality ℵ₀ < 𝔠. It does not by itself rule out intermediate cardinalities. The continuum hypothesis makes that additional assertion."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.3, printed pages 185–186."
+        }
+      ]
+    },
+    {
+      "id": "cardinality-recap",
+      "title": "16. Choose the proof tool before trying to count",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Goal",
+            "Useful evidence"
+          ],
+          "rows": [
+            [
+              "Equal cardinality",
+              "A bijection, or injections in both directions plus Schröder–Bernstein."
+            ],
+            [
+              "Countably infinite",
+              "A complete nonrepeating listing with a finite position for every member."
+            ],
+            [
+              "Uncountable",
+              "A general obstruction to any proposed list, such as diagonalization."
+            ],
+            [
+              "Strictly smaller",
+              "An injection in one direction and a proof that no bijection exists."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Classify all finite binary strings, all infinite binary sequences, and the rational numbers.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Finite binary strings form a countably infinite set by length-first listing. Infinite binary sequences are uncountable by diagonalization. Rational numbers are countably infinite by listing reduced fractions diagonally and including signs and zero."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why are the irrational real numbers uncountable?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If they were countable, their union with the countable set ℚ would be countable. That union is ℝ, contradicting the uncountability of ℝ."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Keep these distinctions visible",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Equal size is not equal membership. Countable does not mean finite. A mathematical listing need not be computable. A proper infinite subset can have the same size as its containing set. A diagonal construction must stay inside the family whose listing it contradicts."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Section 2.6 turns from comparing sets to representing finite collections of numbers and relationships in rectangular arrays called matrices."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §2.5.1–§2.5.3, printed pages 179–186."
+        }
+      ]
+    }
+  ]
+}

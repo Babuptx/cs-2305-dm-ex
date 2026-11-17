@@ -123,16 +123,16 @@
           "id": "2.5",
           "number": "2.5",
           "title": "Cardinality of Sets",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/2.5.json",
           "children": []
         },
         {
           "id": "2.6",
           "number": "2.6",
           "title": "Matrices",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/2.6.json",
           "children": []
         },
         {

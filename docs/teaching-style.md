@@ -45,3 +45,7 @@ For set lessons, distinguish objects from sets containing those objects, members
 November 16, 2026 continuation: the owner requested Sections 2.3 and 2.4 under the established publication workflow. Next are Sections 2.5 and 2.6.
 
 For functions, preserve the declared domain and codomain when checking existence, uniqueness, collisions, target coverage, inverses, and composition. Distinguish inverse functions from reciprocals and preimages of subsets. For sequences, state the initial index and required base values. For sums, count terms inclusively, translate bounds and summands together, and separate finite identities from convergence-dependent infinite series. Check negative inputs and endpoint conventions for rounding functions.
+
+November 16, 2026 continuation: the owner requested Sections 2.5 and 2.6 under the established publication workflow. Next is the Chapter 2 review.
+
+For cardinality, prove coverage and uniqueness of listings, distinguish density from countability, and keep diagonal constructions inside the family being considered. Address ambiguous positional expansions and distinguish mathematical existence from computability. State the axiom system and consistency hypothesis for independence results. For matrices, check dimensions and intermediate labels before multiplying, preserve factor order, and distinguish ordinary counts, Boolean existence, entrywise operations, and exact-length versus bounded-length walks.

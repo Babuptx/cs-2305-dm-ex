@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="455" viewBox="0 0 840 455" role="img" aria-labelledby="title desc">
+<title id="title">Two-step routes and Boolean existence</title>
+<desc id="desc">Start reaches Finish through X and also through Y. The ordinary product counts two intermediate choices; the Boolean product records a single true entry.</desc>
+<rect width="840" height="455" rx="16" fill="#f5f8fc"/>
+<g font-family="Segoe UI, Arial, sans-serif" fill="#17324d">
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M 0 0 L 8 4 L 0 8 z" fill="#397d70"/>
+</marker>
+</defs>
+<text x="420" y="36" font-size="23" font-weight="700" text-anchor="middle">Count routes, or ask whether one exists</text>
+<text x="420" y="66" font-size="17" font-weight="400" text-anchor="middle">Each arrow is one allowed step.</text>
+<line x1="155" y1="204" x2="374" y2="133" stroke="#397d70" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="426" y1="133" x2="645" y2="204" stroke="#397d70" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="155" y1="226" x2="374" y2="297" stroke="#397d70" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="426" y1="297" x2="645" y2="226" stroke="#397d70" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="110" cy="215" r="36" fill="#eaf3ff" stroke="#356b9d" stroke-width="2"/>
+<text x="110" y="221" font-size="18" font-weight="600" text-anchor="middle">Start</text>
+<circle cx="400" cy="120" r="36" fill="#eaf3ff" stroke="#356b9d" stroke-width="2"/>
+<text x="400" y="126" font-size="18" font-weight="600" text-anchor="middle">X</text>
+<circle cx="400" cy="310" r="36" fill="#eaf3ff" stroke="#356b9d" stroke-width="2"/>
+<text x="400" y="316" font-size="18" font-weight="600" text-anchor="middle">Y</text>
+<circle cx="690" cy="215" r="36" fill="#eaf3ff" stroke="#356b9d" stroke-width="2"/>
+<text x="690" y="221" font-size="18" font-weight="600" text-anchor="middle">Finish</text>
+<text x="420" y="390" font-size="22" font-weight="600" text-anchor="middle">Ordinary: 1·1 + 1·1 = 2 routes</text>
+<text x="420" y="427" font-size="22" font-weight="600" text-anchor="middle">Boolean: (1 ∧ 1) ∨ (1 ∧ 1) = 1 (yes)</text>
+</g>
+</svg>
