@@ -1,0 +1,938 @@
+{
+  "schemaVersion": 1,
+  "id": "4.1",
+  "title": "Divisibility and Modular Arithmetic",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 4.1, printed pages 251–258.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "integer-toolkit",
+      "title": "Ask whether division is exact, then track what is left",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This section gives you three related tools. Divisibility asks whether one integer is an exact multiple of another. Division with remainder describes what happens when it is not. Congruence groups integers that leave the same remainder. These ideas let us reason about clocks, repeated patterns, and large computations."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Notation",
+            "Say it",
+            "What kind of answer?"
+          ],
+          "rows": [
+            [
+              "a | b",
+              "a divides b",
+              "A proposition: true or false"
+            ],
+            [
+              "a div d",
+              "The integer quotient of a by positive d",
+              "An integer"
+            ],
+            [
+              "a mod d",
+              "The remainder of a on division by positive d",
+              "One integer from 0 through d − 1"
+            ],
+            [
+              "a ≡ b (mod m)",
+              "a is congruent to b modulo m",
+              "A proposition about two integers"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "One number, three questions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Does 5 divide 17? No: 17 is not 5 times an integer."
+            },
+            {
+              "type": "paragraph",
+              "text": "What remains after division? 17 = 5·3 + 2, so 17 div 5 = 3 and 17 mod 5 = 2."
+            },
+            {
+              "type": "paragraph",
+              "text": "Does 17 have the same remainder as 7? Yes: both leave 2, so 17 ≡ 7 (mod 5)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does the bar in 5 | 17 ask you to calculate 5 ÷ 17?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It asks whether 17 equals 5 times an integer. The order matters: the possible divisor is on the left."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.1–§4.1.2, pp. 251–252."
+        }
+      ]
+    },
+    {
+      "id": "divides-definition",
+      "title": "Turn a divisibility claim into an integer witness",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "a | b  ⇔  b = ac for some c ∈ ℤ, with a ≠ 0.",
+          "description": "The symbol ℤ denotes all integers. The witness c must be an integer; a fractional multiplier does not establish divisibility."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Claim",
+            "Witness or obstruction",
+            "Result"
+          ],
+          "rows": [
+            [
+              "4 | 28",
+              "28 = 4·7",
+              "True"
+            ],
+            [
+              "−4 | 28",
+              "28 = (−4)(−7)",
+              "True"
+            ],
+            [
+              "4 | −28",
+              "−28 = 4·(−7)",
+              "True"
+            ],
+            [
+              "6 | 28",
+              "28/6 is not an integer",
+              "False"
+            ],
+            [
+              "9 | 0",
+              "0 = 9·0",
+              "True"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The textbook defines a | b with a nonzero divisor. We use that convention throughout: expressions with 0 on the left are excluded. Every nonzero integer divides 0, and 1 and −1 divide every integer. Changing a sign does not change whether exact division is possible."
+        },
+        {
+          "type": "check",
+          "prompt": "Is 12 | 4 true because 4 = 12·(1/3)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The multiplier 1/3 is not an integer. Conversely, 4 | 12 is true with witness 3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.2, p. 252."
+        }
+      ]
+    },
+    {
+      "id": "count-multiples",
+      "title": "Count positive multiples using the last allowable multiplier",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For positive integers n and d, the positive multiples of d no larger than n are d, 2d, 3d, …, kd. The condition kd ≤ n says k ≤ n/d. Therefore the largest possible multiplier, and the number of multiples, is floor(n/d). Floor means round down to the greatest integer no larger than its argument."
+        },
+        {
+          "type": "example",
+          "title": "How many positive multiples of 7 are at most 50?",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The last multiplier is floor(50/7) = 7. The multiples are 7, 14, 21, 28, 35, 42, 49: seven numbers."
+            },
+            {
+              "type": "paragraph",
+              "text": "For an inclusive positive interval L through U, subtract the multiples below L: floor(U/d) − floor((L − 1)/d). Between 20 and 50, this gives 7 − 2 = 5."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many positive multiples of 8 are at most 6? What about at most 40?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "floor(6/8) = 0 and floor(40/8) = 5. The endpoint 40 counts because the bound is inclusive. Zero is not a positive multiple."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.2, p. 252."
+        }
+      ]
+    },
+    {
+      "id": "divisibility-laws",
+      "title": "Prove divisibility rules by substituting witnesses",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A reliable proof starts by replacing each divisibility statement with the equation it promises. Then factor out the divisor. Assume a ≠ 0 and all the variables below are integers."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Given",
+            "Write the witnesses",
+            "Factor to conclude"
+          ],
+          "rows": [
+            [
+              "a | b and a | c",
+              "b = au, c = av",
+              "b + c = a(u + v), so a | (b + c)"
+            ],
+            [
+              "a | b",
+              "b = au",
+              "bc = a(uc), so a | bc for every integer c"
+            ],
+            [
+              "a | b and b | c",
+              "b = au, c = bv; b ≠ 0",
+              "c = a(uv), so a | c"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These are general proofs because the new multipliers u + v, uc, and uv are integers for every allowed input. Checking a few numbers illustrates the rules but does not prove them."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does a | b also imply a | (−b)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If b = au, then −b = a(−u). The multiplier −u is an integer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.2, pp. 252–253."
+        }
+      ]
+    },
+    {
+      "id": "linear-combinations",
+      "title": "Use integer combinations without reversing the implication",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "a | b and a | c  ⇒  a | (sb + tc), for every s,t ∈ ℤ.",
+          "description": "An integer linear combination multiplies the original integers by integer coefficients and adds the results."
+        },
+        {
+          "type": "paragraph",
+          "text": "Write b = au and c = av. Then sb + tc = a(su + tv). The integer in parentheses is the required witness. Subtraction is included by choosing a negative coefficient."
+        },
+        {
+          "type": "example",
+          "title": "Keep a common divisor through a calculation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Since 7 | 21 and 7 | 35, it follows that 7 | (2·21 − 3·35). In fact the combination is −63 = 7·(−9)."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A conclusion does not automatically give its hypotheses",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The fact that 6 | (2 + 4) does not imply 6 | 2 or 6 | 4. Likewise, 6 | (2·3) does not imply 6 divides either factor. Divisibility of a sum or product can arise even when neither part is divisible."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If a | b and a | (b + c), can we conclude a | c?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Subtract the two divisible quantities: c = (b + c) − b. This is an integer linear combination, so a divides c."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.2, p. 253."
+        }
+      ]
+    },
+    {
+      "id": "division-theorem",
+      "title": "Separate the quotient from the bounded remainder",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "a = dq + r,     0 ≤ r < d,     d > 0\nq = floor(a/d),     r = a − d·floor(a/d)",
+          "description": "For each integer a and positive integer d, there is exactly one pair of integers q and r satisfying these conditions."
+        },
+        {
+          "type": "paragraph",
+          "text": "Existence: the definition of q = floor(a/d) gives q ≤ a/d < q + 1. Multiply by positive d and subtract dq to get 0 ≤ a − dq < d. Thus r = a − dq works."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uniqueness: if dq + r = dq′ + r′ with both remainders in [0,d), then d(q − q′) = r′ − r. The right side has absolute value less than d. The only multiple of d in that range is 0, so q = q′ and r = r′."
+        },
+        {
+          "type": "callout",
+          "title": "The remainder bound is part of the answer",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "23 = 5·3 + 8 is a true equation, but 8 is not the remainder on division by 5. Move one more group of 5 into the quotient: 23 = 5·4 + 3. The traditional name “division algorithm” here names a theorem guaranteeing existence and uniqueness."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What are 0 div 7, 0 mod 7, and 23 mod 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They are 0, 0, and 0. Modulo 1 the only allowed remainder is 0. For any integer a, a = 1·a + 0."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.3, pp. 253–254."
+        }
+      ]
+    },
+    {
+      "id": "negative-remainders",
+      "title": "Round the quotient down even when the dividend is negative",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For −17 divided by 5, rounding toward zero would give −3 and leave −2. That remainder is negative, so it does not meet the theorem. Round down instead: floor(−17/5) = −4. Start at the multiple −20 and move 3 units to the right to reach −17."
+        },
+        {
+          "type": "diagram",
+          "title": "Choose the multiple on the left",
+          "src": "assets/negative-division.svg",
+          "description": "On the number line, −20 ≤ −17 < −15. The distance from −20 to −17 is 3, so −17 = 5·(−4) + 3."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "a",
+            "d",
+            "q = floor(a/d)",
+            "r",
+            "Check"
+          ],
+          "rows": [
+            [
+              "17",
+              "5",
+              "3",
+              "2",
+              "17 = 15 + 2"
+            ],
+            [
+              "−17",
+              "5",
+              "−4",
+              "3",
+              "−17 = −20 + 3"
+            ],
+            [
+              "−20",
+              "5",
+              "−4",
+              "0",
+              "−20 = −20 + 0"
+            ],
+            [
+              "−1",
+              "5",
+              "−1",
+              "4",
+              "−1 = −5 + 4"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find −26 div 7 and −26 mod 7.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "floor(−26/7) = −4. Then r = −26 − 7·(−4) = 2. Check both −26 = −28 + 2 and 0 ≤ 2 < 7."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.3, pp. 253–254."
+        }
+      ]
+    },
+    {
+      "id": "division-code",
+      "title": "Make a programming remainder follow the mathematical definition",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In JavaScript, BigInt division truncates toward zero, and % can return a negative remainder. The function below adjusts that pair only when its remainder is negative. BigInt stores exact integers; the n suffix in −17n marks a BigInt literal. Do not mix Number and BigInt arithmetic."
+        },
+        {
+          "type": "math",
+          "notation": "function divMod(a, d) {\n  if (typeof a !== \"bigint\" || typeof d !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers, such as -17n and 5n\");\n  if (d <= 0n) throw new RangeError(\"The divisor must be positive\");\n  let q = a / d;\n  let r = a % d;\n  if (r < 0n) { q -= 1n; r += d; }\n  return { q, r };\n}",
+          "description": "Executable JavaScript: divMod(-17n, 5n) returns {q: -4n, r: 3n}; divMod(-20n, 5n) returns {q: -4n, r: 0n}."
+        },
+        {
+          "type": "paragraph",
+          "text": "Why the adjustment works: a = dq + r = d(q − 1) + (r + d). When the original remainder is negative, adding d puts it in the required range. An exact negative division has remainder 0 and needs no adjustment to JavaScript’s already negative quotient."
+        },
+        {
+          "type": "check",
+          "prompt": "Why not simply replace a negative remainder with its absolute value?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For −17 and 5, JavaScript gives q = −3 and r = −2. Replacing only r with 2 would claim −17 = −15 + 2, which is false. Quotient and remainder must change together."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.3, pp. 253–254; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "congruence-meaning",
+      "title": "Read congruence as a statement about a difference",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "a ≡ b (mod m)  ⇔  m | (a − b)  ⇔  a = b + km for some k ∈ ℤ,\nwhere m is a positive integer.",
+          "description": "The two integers differ by a whole number of steps of size m."
+        },
+        {
+          "type": "example",
+          "title": "Congruent does not mean equal",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "32 ≡ 11 (mod 7) because 32 − 11 = 21 = 7·3. The integers 32 and 11 are different, but both leave remainder 4."
+            },
+            {
+              "type": "paragraph",
+              "text": "−3 ≡ 11 (mod 7) because −3 − 11 = −14 = 7·(−2). Negative representatives work too."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why equal remainders are equivalent to congruence: write a = mq + r and b = ms + t with 0 ≤ r,t < m. If r = t, the difference is m(q − s). Conversely, if m divides a − b, it divides r − t. Since |r − t| < m, this forces r = t."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Expression",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "32 mod 7 = 4",
+              "An equality giving a remainder value"
+            ],
+            [
+              "32 ≡ 11 (mod 7)",
+              "A true relation between two integers"
+            ],
+            [
+              "32 mod 7 = 11",
+              "False: 11 is outside the remainder range"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is −8 ≡ 7 (mod 5)? What is −8 mod 5?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes, because −8 − 7 = −15 is divisible by 5. The canonical remainder is 2: −8 = 5·(−2) + 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.4, pp. 254–255."
+        }
+      ]
+    },
+    {
+      "id": "residue-classes",
+      "title": "Separate a residue representative from its whole class",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Modulo 4, every integer belongs to exactly one of four classes. The representative is the one member chosen from 0,1,2,3. The class contains infinitely many integers, including negative ones."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Representative",
+            "Some members of the class"
+          ],
+          "rows": [
+            [
+              "0",
+              "…, −8, −4, 0, 4, 8, …"
+            ],
+            [
+              "1",
+              "…, −7, −3, 1, 5, 9, …"
+            ],
+            [
+              "2",
+              "…, −6, −2, 2, 6, 10, …"
+            ],
+            [
+              "3",
+              "…, −5, −1, 3, 7, 11, …"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "[r]ₘ = {r + km : k ∈ ℤ}",
+          "description": "This optional notation names the entire congruence class of r modulo m."
+        },
+        {
+          "type": "paragraph",
+          "text": "Congruence is reflexive because a − a = 0; symmetric because reversing a difference changes only its sign; and transitive because a − c = (a − b) + (b − c). These properties explain why the classes form separate groups with no overlap."
+        },
+        {
+          "type": "check",
+          "prompt": "Modulo 4, are [−1]₄ and [3]₄ different classes?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. −1 and 3 differ by −4, a multiple of 4. They name the same class, whose chosen nonnegative representative is 3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.4, pp. 254–255."
+        }
+      ]
+    },
+    {
+      "id": "congruence-operations",
+      "title": "Add and multiply congruences with the same modulus",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "If a ≡ b (mod m) and c ≡ d (mod m), then\na + c ≡ b + d (mod m),\na − c ≡ b − d (mod m),\nac ≡ bd (mod m).",
+          "description": "All four integers use the same positive modulus m."
+        },
+        {
+          "type": "paragraph",
+          "text": "For sums and differences, combine the divisible differences (a − b) and (c − d). For products, use ac − bd = c(a − b) + b(c − d). Every term on the right is divisible by m, so the whole expression is too."
+        },
+        {
+          "type": "example",
+          "title": "Replace large numbers by small representatives",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Modulo 7, 32 ≡ 4 and 23 ≡ 2. Therefore 32 + 23 ≡ 4 + 2 ≡ 6, and 32·23 ≡ 4·2 ≡ 1. The exact product is 736; dividing it by 7 also leaves 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "For the difference, 32 − 23 ≡ 4 − 2 ≡ 2. You may reduce a negative intermediate value by the same nonnegative-remainder rule."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If a ≡ b (mod 5) and c ≡ d (mod 7), can you directly combine them into a statement modulo 5?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. You first need information about both pairs under the same modulus. For example, 0 ≡ 0 (mod 5) and 7 ≡ 0 (mod 7), but 0 + 7 is not congruent to 0 + 0 modulo 5."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.4, pp. 255–256."
+        }
+      ]
+    },
+    {
+      "id": "modular-calculations",
+      "title": "Reduce during a computation and respect parentheses",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "(a + b) mod m = ((a mod m) + (b mod m)) mod m\n(ab) mod m = ((a mod m)(b mod m)) mod m",
+          "description": "Reducing operands keeps representatives small. A final reduction is still needed."
+        },
+        {
+          "type": "example",
+          "title": "Compute (58·47 + 29) mod 9",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "First reduce the inputs: 58 mod 9 = 4, 47 mod 9 = 2, and 29 mod 9 = 2."
+            },
+            {
+              "type": "paragraph",
+              "text": "Then compute with the representatives: 4·2 + 2 = 10. Reduce once more: 10 mod 9 = 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "The original expression is 2755, and 2755 = 9·306 + 1."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "When the modulus changes, follow the order",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For ((7³ mod 10)²) mod 9, do the inner instruction first: 7³ = 343, so 343 mod 10 = 3. Then 3² mod 9 = 0."
+            },
+            {
+              "type": "paragraph",
+              "text": "Replacing that expression with 7⁶ mod 9 changes the problem: 7⁶ mod 9 = 1. Reductions under different moduli are not interchangeable."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Compute (−14·23 + 8) mod 5 without multiplying the original numbers.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "−14 ≡ 1, 23 ≡ 3, and 8 ≡ 3 modulo 5. Thus 1·3 + 3 = 6 leaves 1. The exact value −314 also leaves 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.4, pp. 256–257."
+        }
+      ]
+    },
+    {
+      "id": "powers-and-exponents",
+      "title": "Reduce a base while keeping the exponent fixed",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Repeatedly applying the product rule shows: if a ≡ b (mod m), then aⁿ ≡ bⁿ (mod m) for every positive integer n. For exponent 0, both empty products are 1 under the usual algebraic convention. Reducing the exponent modulo m is a different operation and is not generally valid."
+        },
+        {
+          "type": "example",
+          "title": "Reduce a base, then square",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To compute 38⁴ mod 7, replace 38 by 3. Next 3² ≡ 2 (mod 7), so 3⁴ ≡ 2² ≡ 4 (mod 7)."
+            },
+            {
+              "type": "paragraph",
+              "text": "The same exponent 4 appears on both sides. Section 4.2 will turn repeated squaring into an efficient algorithm."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "An exponent is not another multiplicative factor",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Although 1 ≡ 5 (mod 4), we have 2¹ mod 4 = 2 and 2⁵ mod 4 = 0. Congruent exponents need not give congruent powers. Rules for reducing exponents require additional hypotheses introduced later."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is 12³ mod 5? Can you replace exponent 3 by 8 merely because 3 ≡ 8 (mod 5)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "12 ≡ 2 (mod 5), so 12³ ≡ 2³ ≡ 3. Replacing the exponent is not justified: 12⁸ mod 5 = 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.4, p. 256."
+        }
+      ]
+    },
+    {
+      "id": "modular-cancellation",
+      "title": "Check for an inverse before canceling a factor",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Cancellation can fail",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "2·1 ≡ 2·4 (mod 6) because 2 and 8 differ by 6. But 1 is not congruent to 4 modulo 6. Dividing both sides by 2 would erase information."
+            },
+            {
+              "type": "paragraph",
+              "text": "Modulo 6, multiplying by 2 sends both residue 1 and residue 4 to residue 2. That operation cannot uniquely recover the original residue."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A multiplicative inverse of c modulo m is an integer u such that uc ≡ 1 (mod m). If that inverse exists, multiply both sides of ca ≡ cb by u. The result is a ≡ b. This is the justified form of cancellation."
+        },
+        {
+          "type": "example",
+          "title": "A safe cancellation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Modulo 7, 5 is an inverse of 3 because 5·3 = 15 ≡ 1. To solve 3x ≡ 6 (mod 7), multiply by 5: x ≡ 30 ≡ 2. All integer solutions are x = 2 + 7k."
+            },
+            {
+              "type": "paragraph",
+              "text": "Modulo 6, 2 has no inverse: 2u is always even, whereas 2u ≡ 1 would require 2u = 1 + 6k, an odd number."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Solve 2x ≡ 2 (mod 6) by checking the six residues.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Residues x = 1 and x = 4 both work; the others do not. Therefore x ≡ 1 or 4 (mod 6). Cancelling 2 to obtain only x ≡ 1 would lose half the solutions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.4, pp. 256–257."
+        }
+      ]
+    },
+    {
+      "id": "arithmetic-on-residues",
+      "title": "Do ordinary arithmetic, then return to the residue set",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "ℤₘ = {0,1,…,m − 1}\na +ₘ b = (a + b) mod m,     a ·ₘ b = ab mod m",
+          "description": "The subscript tells you which modular operation is being used."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "+₄",
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            [
+              "1",
+              "1",
+              "2",
+              "3",
+              "0"
+            ],
+            [
+              "2",
+              "2",
+              "3",
+              "0",
+              "1"
+            ],
+            [
+              "3",
+              "3",
+              "0",
+              "1",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Results stay in ℤₘ: this is closure. Addition and multiplication remain associative and commutative, and multiplication distributes over addition because their ordinary integer versions do and reductions preserve congruence. The additive identity is 0. The additive inverse of a is (−a) mod m; for example, 3 +₄ 1 = 0."
+        },
+        {
+          "type": "paragraph",
+          "text": "For m > 1 the multiplicative identity is 1. When m = 1, the set is {0}; the representative of both integer 0 and integer 1 is 0, so the identity is represented by 0. Nonzero residues need not have multiplicative inverses: 2 ·₄ 2 = 0 even though neither factor is 0."
+        },
+        {
+          "type": "callout",
+          "title": "Optional vocabulary",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "An abelian group is a set with an associative, commutative operation, an identity, and an inverse for every element. ℤₘ under addition is one. Together with its compatible multiplication, ℤₘ is a commutative ring. Those names summarize the rules; they do not make division by every nonzero residue valid."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What are 4 +₅ 4, 4 ·₅ 4, and the additive inverse of 4 in ℤ₅?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They are 3, 1, and 1. Compute 8 mod 5, 16 mod 5, and (−4) mod 5, respectively."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1.5, pp. 257–258."
+        }
+      ]
+    },
+    {
+      "id": "modular-recap",
+      "title": "Practice choosing the right integer tool",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "First move"
+          ],
+          "rows": [
+            [
+              "Does a divide b?",
+              "Find an integer witness b = ac or show none exists"
+            ],
+            [
+              "What are quotient and remainder?",
+              "Require a = dq + r and 0 ≤ r < d"
+            ],
+            [
+              "Are a and b congruent?",
+              "Test divisibility of a − b"
+            ],
+            [
+              "Can I simplify an expression modulo m?",
+              "Use same-modulus sum/product laws"
+            ],
+            [
+              "Can I cancel a factor?",
+              "Justify an inverse or examine all possible residues"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A cycle has positions 0 through 7. Starting at position 2, move backward 19 positions. Where do you land?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Compute (2 − 19) mod 8 = −17 mod 8. Since −17 = 8·(−3) + 7, the final position is 7."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Prove that n and n + 12 have the same remainder modulo 4 for every integer n.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Their difference is −12 = 4·(−3), so n ≡ n + 12 (mod 4). This establishes the claim for every integer n, not just positive examples."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "A student says: “9 | (a + b), so 9 | a.” Find a counterexample and repair the claim with an extra assumption.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Take a = 4 and b = 5. The sum is divisible by 9 but a is not. If we additionally assume 9 | b, subtraction gives 9 | a."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Optional exploration: in ℤ₆, list inverses for multiplication and compare with inverses for addition.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Multiplicative inverses: 1 pairs with 1, and 5 pairs with 5. Residues 0,2,3,4 have no multiplicative inverse. Additive inverses exist for all residues: 0↔0, 1↔5, 2↔4, 3↔3. Use the definition of each operation to verify every pair."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "You are ready to continue when you can explain why a negative dividend still has a nonnegative remainder, why congruence allows replacing a base inside a product, and why ordinary division rules need extra care. Next, Section 4.2 uses these ideas to represent integers and compute with their digits."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.1, pp. 251–258; original mixed practice."
+        }
+      ]
+    }
+  ]
+}

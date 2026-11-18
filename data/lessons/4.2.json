@@ -1,0 +1,1088 @@
+{
+  "schemaVersion": 1,
+  "id": "4.2",
+  "title": "Integer Representations and Algorithms",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 4.2, printed pages 260–268.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "place-value",
+      "title": "Read a numeral as a sum of place values",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An integer is a value; a numeral is a way to write that value. Decimal, binary, octal, and hexadecimal use different place values to describe the same integer. The algorithms in this section work with the digits of those descriptions."
+        },
+        {
+          "type": "math",
+          "notation": "(aₖaₖ₋₁…a₁a₀)ᵦ = aₖbᵏ + aₖ₋₁bᵏ⁻¹ + … + a₁b + a₀\nb ≥ 2,     0 ≤ aᵢ < b,     aₖ ≠ 0 for a positive integer.",
+          "description": "The base b is an integer. The rightmost digit has index 0 and weight b⁰ = 1. A positive integer has a unique such representation."
+        },
+        {
+          "type": "example",
+          "title": "The same digit string can mean different values",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "(101)₂ = 1·4 + 0·2 + 1 = 5. But (101)₁₀ = 1·100 + 0·10 + 1 = 101. The subscript is essential when the base is not clear."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "We write zero canonically as 0. A minus sign can be placed before a positive numeral to represent a negative integer; that is different from a computer’s fixed-width signed encoding. The digit algorithms here use nonnegative magnitudes unless a signed input is explicitly allowed."
+        },
+        {
+          "type": "check",
+          "prompt": "What is (203)₅ in decimal, and why is (205)₅ invalid?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "(203)₅ = 2·25 + 0·5 + 3 = 53. The digit 5 is not allowed in base 5: digits must be smaller than the base."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.1–§4.2.2, pp. 260–261."
+        }
+      ]
+    },
+    {
+      "id": "common-bases",
+      "title": "Translate binary, octal, and hexadecimal digits",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Base",
+            "Name",
+            "Allowed digits"
+          ],
+          "rows": [
+            [
+              "2",
+              "Binary",
+              "0,1"
+            ],
+            [
+              "8",
+              "Octal",
+              "0 through 7"
+            ],
+            [
+              "10",
+              "Decimal",
+              "0 through 9"
+            ],
+            [
+              "16",
+              "Hexadecimal",
+              "0 through 9, then A=10, B=11, C=12, D=13, E=14, F=15"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Expand a hexadecimal numeral",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "(7EA)₁₆ = 7·16² + 14·16 + 10 = 1792 + 224 + 10 = 2026. E and A are individual digits, not variables or products."
+            },
+            {
+              "type": "paragraph",
+              "text": "The same value in octal is (3752)₈ = 3·512 + 7·64 + 5·8 + 2 = 2026."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A useful left-to-right evaluation method is “multiply the running value by the base, then add the next digit.” For 7EA: start at 0; get 7; then 7·16 + 14 = 126; then 126·16 + 10 = 2026. Each new digit shifts the earlier prefix left one place."
+        },
+        {
+          "type": "check",
+          "prompt": "Evaluate (2B)₁₆ and (11001)₂ in decimal.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "(2B)₁₆ = 2·16 + 11 = 43. (11001)₂ = 16 + 8 + 1 = 25. Internal zero digits still occupy their places."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.2, pp. 261–262."
+        }
+      ]
+    },
+    {
+      "id": "repeated-base-division",
+      "title": "Collect remainders from rightmost digit to leftmost",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To convert a nonnegative integer to base b, divide by b repeatedly. Each remainder is the next digit, beginning at the right. Continue with the quotient until it becomes 0, then reverse the collected digits. The quotient removes the last digit; the remainder reveals it."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Current value",
+            "Quotient on division by 16",
+            "Remainder",
+            "Hex digit"
+          ],
+          "rows": [
+            [
+              "2026",
+              "126",
+              "10",
+              "A"
+            ],
+            [
+              "126",
+              "7",
+              "14",
+              "E"
+            ],
+            [
+              "7",
+              "0",
+              "7",
+              "7"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Remainders arrive in reverse display order",
+          "src": "assets/base-conversion-2026.svg",
+          "description": "Repeated division of 2026 by 16 yields A, E, 7. Read those remainders upward to get the numeral 7EA."
+        },
+        {
+          "type": "paragraph",
+          "text": "Do not print A E 7 in the order found. The first remainder has weight 16⁰, so it belongs at the right. Check by expanding the finished result: 7·256 + 14·16 + 10 = 2026."
+        },
+        {
+          "type": "check",
+          "prompt": "Convert 45 to binary by repeated division.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The successive (quotient, remainder) pairs are (22,1), (11,0), (5,1), (2,1), (1,0), (0,1). Reverse the remainders to obtain 101101. Check: 32 + 8 + 4 + 1 = 45."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.2, pp. 262–263."
+        }
+      ]
+    },
+    {
+      "id": "base-code",
+      "title": "Convert exact integers with explicit digit rules",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "These two JavaScript functions implement repeated division and left-to-right evaluation. The value is a BigInt, while base is an ordinary integer Number from 2 through 36. The alphabet extends hexadecimal through Z = 35. Input strings use uppercase letters, have no sign or spaces, and may contain leading zeros. Output removes leading zeros, except that zero itself is \"0\"."
+        },
+        {
+          "type": "math",
+          "notation": "function toBase(n, base) {\n  if (typeof n !== \"bigint\") throw new TypeError(\"Use a BigInt value\");\n  if (n < 0n || !Number.isInteger(base) || base < 2 || base > 36)\n    throw new RangeError(\"Use n >= 0 and an integer base from 2 through 36\");\n  if (n === 0n) return \"0\";\n  const alphabet = \"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\n  const b = BigInt(base), digits = [];\n  while (n > 0n) {\n    digits.push(alphabet[Number(n % b)]);\n    n /= b;\n  }\n  return digits.reverse().join(\"\");\n}\n\nfunction fromBase(text, base) {\n  if (typeof text !== \"string\" || text.length === 0)\n    throw new TypeError(\"Use a nonempty digit string\");\n  if (!Number.isInteger(base) || base < 2 || base > 36)\n    throw new RangeError(\"Use an integer base from 2 through 36\");\n  const alphabet = \"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\n  const b = BigInt(base);\n  let n = 0n;\n  for (const ch of text) {\n    const digit = alphabet.indexOf(ch);\n    if (digit < 0 || digit >= base)\n      throw new RangeError(\"A digit is invalid for this base\");\n    n = n * b + BigInt(digit);\n  }\n  return n;\n}",
+          "description": "Executable JavaScript: toBase(2026n, 16) returns \"7EA\"; fromBase(\"7EA\", 16) returns 2026n. The largest digit converted to Number is 35, so that small conversion is exact."
+        },
+        {
+          "type": "paragraph",
+          "text": "The parser maintains a simple invariant: n is the integer represented by the prefix already read. Appending a digit multiplies the prefix by b and adds that digit. It rejects a digit as soon as its value is outside the allowed range."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does toBase need a special case for 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Its loop runs only while n > 0. Without the special case, zero would collect no digits and produce an empty string. The canonical representation must be \"0\"."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.2, pp. 262–263; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "base-existence-uniqueness",
+      "title": "Explain why conversion ends and why the digits are unique",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Termination: for a positive current value n and b ≥ 2, floor(n/b) < n. Thus the successive nonnegative quotients strictly decrease until they reach 0. Each step preserves n = bq + r, so substituting the equations backward reconstructs the positional expansion."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uniqueness: any expansion must have its final digit equal to n mod b, because all higher-place terms are divisible by b. The division theorem fixes that digit uniquely. Remove it and divide by b; the same argument fixes the next digit. Continue until the quotient is zero. Disallowing leading zeros makes the written expansion unique."
+        },
+        {
+          "type": "math",
+          "notation": "Number of digits of n > 0 in base b = floor(logᵦ n) + 1.",
+          "description": "If bᵏ ≤ n < bᵏ⁺¹, the highest occupied place is k and there are k + 1 digits."
+        },
+        {
+          "type": "callout",
+          "title": "Count operations separately from their bit cost",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Repeated division performs one division per output digit. This does not make its bit cost automatically O(log n): division on large integers has a cost of its own. Floating-point logarithms can also round near powers of b, so the exact conversion code stops by testing its integer quotient, not an estimated digit count."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How many binary digits do 31, 32, and 33 require?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "31 has 5 digits; 32 and 33 have 6. The boundary is 2⁵ = 32. In code, counting an exact representation avoids rounding at that boundary."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.2, pp. 261–263."
+        }
+      ]
+    },
+    {
+      "id": "group-bits",
+      "title": "Group binary digits from the right for bases 8 and 16",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Because 8 = 2³, one octal digit corresponds to three binary digits. Because 16 = 2⁴, one hexadecimal digit corresponds to four binary digits. Group from the right so the low-order place values remain aligned. Pad only the leftmost incomplete group with leading zeros."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Representation of 2026",
+            "Grouping",
+            "Read each group"
+          ],
+          "rows": [
+            [
+              "Binary",
+              "11111101010",
+              "1024 + 512 + 256 + 128 + 64 + 32 + 8 + 2"
+            ],
+            [
+              "To hexadecimal",
+              "0111 | 1110 | 1010",
+              "7 | E | A"
+            ],
+            [
+              "To octal",
+              "011 | 111 | 101 | 010",
+              "3 | 7 | 5 | 2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "To go the other way, expand every hex digit to four bits or every octal digit to three bits, including zero digits. You may discard leading zeros in the complete result, but not zeros inside it. The value 0x105, for example, gives 0001 0000 0101, hence binary 100000101."
+        },
+        {
+          "type": "check",
+          "prompt": "Convert binary 101011 to hexadecimal. Why not pad on the right?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Pad on the left: 0010 1011 gives 2B. Padding on the right appends low-order zeros and multiplies the value by a power of 2, producing a different integer."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.2, pp. 263–264."
+        }
+      ]
+    },
+    {
+      "id": "bit-length-shifts",
+      "title": "Distinguish padding from shifting and value from input length",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Zeros have different effects at different ends",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Leading zeros do not change a value: 00101₂ = 101₂ = 5. Appending two zeros gives 10100₂ = 20 = 5·2²."
+            },
+            {
+              "type": "paragraph",
+              "text": "Removing the last two bits from a nonnegative binary numeral gives the quotient on division by 4. For 10111₂ = 23, the remaining 101₂ is 5 and the removed 11₂ represents remainder 3."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "Appending k zero bits multiplies by 2ᵏ.\nRemoving k low-order bits gives floor(n/2ᵏ), for n ≥ 0.",
+          "description": "These statements concern nonnegative integer numerals. Fixed-width overflow and signed machine shifts need their own rules."
+        },
+        {
+          "type": "paragraph",
+          "text": "An integer of value n has about log₂ n bits. An algorithm that takes n steps may therefore take exponentially many steps in its input length. We will use L for a bit length, reserving n for an integer value or an exponent when explicitly stated."
+        },
+        {
+          "type": "check",
+          "prompt": "A binary input has L bits and no leading zeros. How large can its value be?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For a positive input, 2ᴸ⁻¹ ≤ n ≤ 2ᴸ − 1. One extra bit roughly doubles the available range; it does not add just one to the possible value."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.2–§4.2.3, pp. 263–264."
+        }
+      ]
+    },
+    {
+      "id": "binary-carries",
+      "title": "Add each column together with its incoming carry",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "total = aⱼ + bⱼ + carry\nsⱼ = total mod 2,     next carry = floor(total/2)",
+          "description": "Process columns from right to left. Missing high-order digits are 0. The total can be 0,1,2,or 3; the outgoing carry is 0 or 1."
+        },
+        {
+          "type": "example",
+          "title": "Add 10111₂ and 1101₂",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Their decimal values are 23 and 13. Pad the second numeral on the left: 10111 + 01101. The table starts at the rightmost column j = 0. A column total of 3 means write 1 and carry 1, because 3 = 2·1 + 1."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "j",
+            "aⱼ",
+            "bⱼ",
+            "Incoming carry",
+            "Total",
+            "Output bit",
+            "Outgoing carry"
+          ],
+          "rows": [
+            [
+              "0",
+              "1",
+              "1",
+              "0",
+              "2",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "0",
+              "1",
+              "2",
+              "0",
+              "1"
+            ],
+            [
+              "2",
+              "1",
+              "1",
+              "1",
+              "3",
+              "1",
+              "1"
+            ],
+            [
+              "3",
+              "0",
+              "1",
+              "1",
+              "2",
+              "0",
+              "1"
+            ],
+            [
+              "4",
+              "1",
+              "0",
+              "1",
+              "2",
+              "0",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The final carry is a new leftmost digit. Reading the output in descending place order gives 100100₂ = 36. The table lists low-order bits first; the printed numeral puts the high-order bit first."
+        },
+        {
+          "type": "check",
+          "prompt": "Add 111₂ + 1₂ and explain the final carry.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The carry propagates through all three columns, producing three zero bits and a final 1: 1000₂. This matches 7 + 1 = 8."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.3, pp. 264–265."
+        }
+      ]
+    },
+    {
+      "id": "binary-addition-code",
+      "title": "Implement carries without losing leading positions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "function addBinary(a, b) {\n  if (typeof a !== \"string\" || typeof b !== \"string\" ||\n      !/^[01]+$/.test(a) || !/^[01]+$/.test(b))\n    throw new TypeError(\"Use nonempty binary strings\");\n  let i = a.length - 1, j = b.length - 1, carry = 0;\n  const digits = [];\n  while (i >= 0 || j >= 0 || carry !== 0) {\n    const x = i >= 0 ? Number(a[i--]) : 0;\n    const y = j >= 0 ? Number(b[j--]) : 0;\n    const total = x + y + carry;\n    digits.push(String(total % 2));\n    carry = Math.floor(total / 2);\n  }\n  return digits.reverse().join(\"\").replace(/^0+(?=.)/, \"\");\n}",
+          "description": "Executable JavaScript: addBinary(\"10111\", \"1101\") returns \"100100\". Inputs are nonempty binary strings; the returned numeral is canonical."
+        },
+        {
+          "type": "paragraph",
+          "text": "The loop continues while either input has an unread digit or a final carry remains. It accumulates low-order digits in an array, then reverses once. The final replacement removes unnecessary leading zeros while keeping at least one character."
+        },
+        {
+          "type": "paragraph",
+          "text": "Correctness follows column by column: replacing each total by its remainder bit and a carry to the next place preserves its value. After the final carry is written, there is no unprocessed contribution. With input length at most L, there are at most L + 1 columns; validation, digit work, reversal, and output cleanup all take O(L) character operations."
+        },
+        {
+          "type": "check",
+          "prompt": "What should addBinary(\"000\", \"0\") return? What should an empty string do?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The sum is the canonical string \"0\". An empty string is rejected because the input contract requires a nonempty numeral."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.3, pp. 264–265; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "binary-products",
+      "title": "Multiply using shifted partial products",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Every multiplier bit is either 0 or 1. A 0 contributes nothing. A 1 at position j contributes the multiplicand times 2ʲ, which is the multiplicand with j zeros appended. Add all those contributions."
+        },
+        {
+          "type": "example",
+          "title": "Multiply 1101₂ by 1011₂",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The values are 13 and 11. The multiplier 1011 has 1 bits at positions 0,1,3, so the product is 13 + 26 + 104 = 143."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Multiplier position j",
+            "Bit",
+            "Contribution in binary",
+            "Decimal"
+          ],
+          "rows": [
+            [
+              "0",
+              "1",
+              "00001101",
+              "13"
+            ],
+            [
+              "1",
+              "1",
+              "00011010",
+              "26"
+            ],
+            [
+              "2",
+              "0",
+              "00000000",
+              "0"
+            ],
+            [
+              "3",
+              "1",
+              "01101000",
+              "104"
+            ],
+            [
+              "Sum",
+              "—",
+              "10001111",
+              "143"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A direct algorithm starts product at 0. For each multiplier position j, if its bit is 1, add a copy of the multiplicand shifted left by j. The invariant is that product equals the contributions of all processed bits; when all bits are processed, the positional expansion of the multiplier proves the result."
+        },
+        {
+          "type": "check",
+          "prompt": "What happens when you multiply a binary numeral by 1000₂?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There is just one nonzero multiplier bit, at position 3. Append three zeros to multiply by 8, then write zero canonically if the original value was zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.3, pp. 265–266."
+        }
+      ]
+    },
+    {
+      "id": "integer-bit-cost",
+      "title": "Charge for the digits touched by arithmetic",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "School arithmetic on nonnegative integers of at most L bits",
+            "Why",
+            "Bit-operation bound"
+          ],
+          "rows": [
+            [
+              "Addition",
+              "Process at most L + 1 columns",
+              "O(L)"
+            ],
+            [
+              "Multiplication",
+              "At most L additions of partial products of at most 2L bits",
+              "O(L²)"
+            ],
+            [
+              "Comparison or subtraction",
+              "Inspect or process at most L bits",
+              "O(L)"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Two L-bit nonnegative integers have product below 2²ᴸ, so at most 2L bits suffice. A stored partial product can be longer than either input; cost estimates must include that width. The quadratic multiplication bound describes this school method, not a claim that every multiplication algorithm needs quadratic time."
+        },
+        {
+          "type": "callout",
+          "title": "A short line of code may hide large-integer work",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Writing x*y once counts one arithmetic operation in a unit-cost model. If x and y grow to thousands of bits, the bit model charges for their digits. BigInt ensures exactness in our demonstrations; it does not promise constant-time arithmetic."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does “L additions” not make school multiplication O(L) bit operations?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Each addition can touch O(L) bits. Multiplying the number of additions by their cost gives O(L²)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.3, pp. 265–267."
+        }
+      ]
+    },
+    {
+      "id": "signed-division-algorithm",
+      "title": "Handle exact negative division as a separate sign case",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A simple division algorithm subtracts d repeatedly from |a| until the remaining amount is less than d. This first produces |a| = dq₀ + r₀ with 0 ≤ r₀ < d. Then it adjusts signs to recover a = dq + r."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Input case",
+            "Final quotient",
+            "Final remainder"
+          ],
+          "rows": [
+            [
+              "a ≥ 0",
+              "q₀",
+              "r₀"
+            ],
+            [
+              "a < 0 and r₀ = 0",
+              "−q₀",
+              "0"
+            ],
+            [
+              "a < 0 and r₀ > 0",
+              "−q₀ − 1",
+              "d − r₀"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function repeatedDivision(a, d) {\n  if (typeof a !== \"bigint\" || typeof d !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  if (d <= 0n) throw new RangeError(\"The divisor must be positive\");\n  let q = 0n, r = a < 0n ? -a : a;\n  while (r >= d) { r -= d; q += 1n; }\n  if (a < 0n) {\n    if (r === 0n) q = -q;\n    else { q = -q - 1n; r = d - r; }\n  }\n  return { q, r };\n}",
+          "description": "Executable JavaScript for small teaching examples: repeatedDivision(-20n, 5n) returns {q: -4n, r: 0n}; repeatedDivision(-17n, 5n) returns {q: -4n, r: 3n}."
+        },
+        {
+          "type": "paragraph",
+          "text": "For the nonexact negative case, −(dq₀ + r₀) = d(−q₀ − 1) + (d − r₀). If r₀ = 0, use −q₀ instead; subtracting an extra 1 would produce remainder d, which is outside the range. Both negative cases need attention."
+        },
+        {
+          "type": "callout",
+          "title": "Clear does not mean efficient",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The loop makes floor(|a|/d) subtractions. If d = 1, that is |a| iterations, exponential in the bit length of a. Use the function to study correctness on small inputs; the next unit shows how to process one dividend bit per step."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What goes wrong if the sign adjustment runs only when a < 0 and the remainder is positive?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "An exact negative input such as −20 divided by 5 would retain positive q₀ = 4. It would incorrectly claim −20 = 5·4 + 0. The exact negative branch must negate q₀."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.3, p. 267."
+        }
+      ]
+    },
+    {
+      "id": "binary-long-division",
+      "title": "Process a dividend from its highest bit downward",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Binary long division avoids subtracting once for every unit of quotient. Suppose the prefix already read equals dq + r with 0 ≤ r < d. Reading the next bit t changes that prefix to twice its old value plus t: d(2q) + (2r + t). Since 2r + t < 2d, at most one subtraction of d is needed."
+        },
+        {
+          "type": "math",
+          "notation": "function binaryDivision(n, d) {\n  if (typeof n !== \"bigint\" || typeof d !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  if (n < 0n || d <= 0n)\n    throw new RangeError(\"Use n >= 0 and d > 0\");\n  let q = 0n, r = 0n;\n  for (const ch of n.toString(2)) {\n    q *= 2n;\n    r = 2n * r + BigInt(ch);\n    if (r >= d) { r -= d; q += 1n; }\n  }\n  return { q, r };\n}",
+          "description": "Executable JavaScript for n >= 0 and d > 0: binaryDivision(23n, 5n) returns {q: 4n, r: 3n}. The conversion to a binary string exposes the dividend digits."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Prefix of 10111₂ read",
+            "Prefix value",
+            "q",
+            "r"
+          ],
+          "rows": [
+            [
+              "1",
+              "1",
+              "0",
+              "1"
+            ],
+            [
+              "10",
+              "2",
+              "0",
+              "2"
+            ],
+            [
+              "101",
+              "5",
+              "1",
+              "0"
+            ],
+            [
+              "1011",
+              "11",
+              "2",
+              "1"
+            ],
+            [
+              "10111",
+              "23",
+              "4",
+              "3"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Each row preserves prefix = 5q + r in this example. The proof above establishes the invariant for every divisor and bit, not just these rows. For inputs of at most L bits, there are O(L) digit steps, each using O(L)-bit arithmetic, giving O(L²) with school operations. This includes room for quotient accumulation; the displayed toString conversion also has a cost."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is an inner loop of repeated subtractions unnecessary?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Before the next bit, r < d. Hence 2r + t ≤ 2d − 1. Subtracting d once, if necessary, makes the new remainder less than d."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.3, p. 267; companion extension connecting division to bit cost."
+        }
+      ]
+    },
+    {
+      "id": "power-bits",
+      "title": "Use the 1 bits of an exponent to choose powers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "If n = a₀ + a₁2 + a₂2² + …, then\nbⁿ = ∏ over positions j with aⱼ = 1 of b^(2ʲ).",
+          "description": "A binary digit aⱼ says whether the power 2ʲ contributes to the exponent. The product is empty, and equals 1, when n = 0."
+        },
+        {
+          "type": "example",
+          "title": "Break exponent 13 into powers of two",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "13 = 8 + 4 + 1 = 1101₂. Therefore 7¹³ = 7⁸·7⁴·7¹. The exponent-2 factor is omitted because its bit is 0."
+            },
+            {
+              "type": "paragraph",
+              "text": "Build the needed powers by squaring: 7, 7², (7²)² = 7⁴, (7⁴)² = 7⁸. You reuse each result instead of starting a new product from scratch."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a modular answer, reduce after every multiplication. Section 4.1 guarantees that replacing a factor with a congruent representative preserves the final remainder. We are decomposing the original exponent exactly, not reducing that exponent modulo the modulus."
+        },
+        {
+          "type": "check",
+          "prompt": "Which powers are selected for b²²?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "22 = 16 + 4 + 2 = 10110₂, so select b¹⁶, b⁴, and b². Repeated squaring also computes the intervening powers b and b⁸, but those are not multiplied into the result."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.4, pp. 267–268."
+        }
+      ]
+    },
+    {
+      "id": "modular-power-trace",
+      "title": "Square the running power and consume one exponent bit",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Compute 7¹³ mod 19. Start result = 1 and power = 7. Read exponent bits from right to left. For a 1 bit, multiply result by power and reduce modulo 19; for a 0 bit, keep result. Then square power modulo 19 for the next position."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Position j",
+            "Bit",
+            "Power = 7^(2ʲ) mod 19",
+            "Result after this bit"
+          ],
+          "rows": [
+            [
+              "0",
+              "1",
+              "7",
+              "7"
+            ],
+            [
+              "1",
+              "0",
+              "11",
+              "7"
+            ],
+            [
+              "2",
+              "1",
+              "7",
+              "11"
+            ],
+            [
+              "3",
+              "1",
+              "11",
+              "7"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "Four exponent bits replace thirteen repeated factors",
+          "src": "assets/modular-power-bits.svg",
+          "description": "For exponent 13, process bits 1,0,1,1 from low to high. Powers modulo 19 are 7,11,7,11; accumulated results are 7,7,11,7."
+        },
+        {
+          "type": "example",
+          "title": "Check the arithmetic that repeats",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "7² = 49 leaves 11 modulo 19. Then 11² = 121 leaves 7. These two residues alternate in this particular trace."
+            },
+            {
+              "type": "paragraph",
+              "text": "The selected factor product gives 7·7·11 modulo 19. Reduce 7·7 to 11; then 11·11 reduces to 7. The final answer is 7."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the result unchanged at position 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The bit is 0, so exponent 13 contains no 2¹ contribution. The running power is still squared for the next position, but it is not multiplied into the accumulated result."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.4, pp. 267–268."
+        }
+      ]
+    },
+    {
+      "id": "modular-power-code",
+      "title": "Keep an invariant for the unprocessed exponent",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "function modPower(b, n, m) {\n  if (typeof b !== \"bigint\" || typeof n !== \"bigint\" ||\n      typeof m !== \"bigint\") throw new TypeError(\"Use BigInt integers\");\n  if (n < 0n || m <= 0n)\n    throw new RangeError(\"Use an exponent >= 0 and a modulus > 0\");\n  let result = 1n % m;\n  let power = ((b % m) + m) % m;\n  let remaining = n;\n  while (remaining > 0n) {\n    if (remaining % 2n === 1n) result = (result * power) % m;\n    power = (power * power) % m;\n    remaining /= 2n;\n  }\n  return result;\n}",
+          "description": "Executable JavaScript: modPower(7n, 13n, 19n) returns 7n. The base may be any BigInt integer, the exponent must be nonnegative, and the modulus must be positive."
+        },
+        {
+          "type": "math",
+          "notation": "result · power^remaining ≡ bⁿ (mod m)",
+          "description": "At each loop entry, the accumulated result times the still-unprocessed power contribution is congruent to the original target."
+        },
+        {
+          "type": "paragraph",
+          "text": "Initially result represents 1, power represents b, and remaining = n, so the invariant holds. If remaining = 2k, replace power by power² and remaining by k. If remaining = 2k + 1, first multiply one copy of power into result, then make those same replacements. In both cases the represented product stays congruent to bⁿ."
+        },
+        {
+          "type": "paragraph",
+          "text": "The remaining exponent is a nonnegative integer that strictly decreases whenever the loop runs. At termination it is 0, so the invariant leaves result ≡ bⁿ. Every stored result is already in [0,m), making it the canonical answer."
+        },
+        {
+          "type": "callout",
+          "title": "Boundary cases are part of the contract",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Exponent 0 uses the empty-product convention: the answer is 1 mod m, including the algorithmic case b = 0. Modulus 1 therefore returns 0 even for exponent 0. A negative base is normalized before the loop. Negative exponents are rejected; they would need modular inverses and additional conditions."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What do modPower(-2n, 3n, 5n) and modPower(7n, 0n, 1n) return?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first returns 2 because −8 = 5·(−2) + 2. The second returns 0 because 1 mod 1 = 0."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.4, pp. 267–268; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "modular-power-cost",
+      "title": "Measure both the number and the size of multiplications",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For positive exponent n with K binary digits, the displayed loop runs K times. It does K squarings and one extra multiplication for every 1 bit in n. Thus there are at most 2K modular multiplications. The final square is unused by this simple version; omitting it is a possible optimization."
+        },
+        {
+          "type": "paragraph",
+          "text": "Let L be the bit length of m, with m ≥ 2. Stored residues are smaller than m, and their temporary products are smaller than m², so each product has at most 2L bits. School multiplication followed by school division to reduce the product costs O(L²). After the initial base reduction, the total is O(KL²) bit operations, commonly written O((log n)(log m)²) for n ≥ 1 and m ≥ 2."
+        },
+        {
+          "type": "callout",
+          "title": "State the endpoints and the initial work",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The logarithmic form is intended for positive exponents and moduli at least 2. Exponent 0 executes no loop, and modulus 1 has the sole residue 0. Reducing an initially huge base also has a cost depending on that base’s bit length. “O(log n) multiplications” counts operations, not constant-time machine instructions."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For exponent 13, how many modular multiplications does the displayed loop execute?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "13 has 4 bits and 3 of them are 1. The code executes 4 squarings plus 3 result multiplications, for 7 in total. This count includes the final unused square."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2.4, p. 268."
+        }
+      ]
+    },
+    {
+      "id": "representations-recap",
+      "title": "Connect place values, carries, division, and modular powers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Task",
+            "Reliable method",
+            "Check"
+          ],
+          "rows": [
+            [
+              "Convert from decimal to base b",
+              "Repeated quotient and remainder; reverse digits",
+              "Expand the answer"
+            ],
+            [
+              "Convert binary to octal or hex",
+              "Group from the right in threes or fours",
+              "Preserve internal zero groups"
+            ],
+            [
+              "Add binary numerals",
+              "Process low-order columns with a carry",
+              "Convert a small example to decimal"
+            ],
+            [
+              "Divide an integer",
+              "Produce q and r satisfying both constraints",
+              "Check a = dq + r and 0 ≤ r < d"
+            ],
+            [
+              "Compute bⁿ mod m",
+              "Repeated squaring with exponent bits",
+              "Maintain the unprocessed-exponent invariant"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Convert 90 to binary and hexadecimal, then add binary 110₂.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "90 = 64 + 16 + 8 + 2 = 1011010₂ = 5A₁₆. Adding 110₂ = 6 gives 1100000₂ = 96 = 60₁₆."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find −31 div 6 and −31 mod 6 using the signed-division cases.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "First divide 31: q₀ = 5 and r₀ = 1. The negative nonexact case gives q = −6 and r = 5. Check −31 = 6·(−6) + 5."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Compute 3¹⁰ mod 7 by selected powers.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "10 = 8 + 2. The residues of 3¹, 3², 3⁴, 3⁸ are 3,2,4,2. Select the residues for exponents 8 and 2: 2·2 mod 7 = 4."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Optional project: build a conversion and arithmetic checker. What should its tests include?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For each base 2 through 36, convert several BigInt values to digit strings and parse them back. Include zero, base powers, one less than a base power, leading-zero input, and integers above Number’s safe range. Reject an out-of-base digit."
+            },
+            {
+              "type": "paragraph",
+              "text": "Compare binary addition with exact BigInt addition. Check both negative division branches. For small exponents compare modular power with direct exponentiation followed by normalized remainder; for large exponents use independently known cases such as powers of 1 and −1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The common idea is to keep an exact relationship while processing a small piece of the input. Digits, carries, quotient/remainder pairs, and the modular-power invariant all do that job. Sections 4.3 and 4.4 will develop prime factorization, greatest common divisors, and congruence-solving tools."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.2, pp. 260–268; original mixed practice."
+        }
+      ]
+    }
+  ]
+}

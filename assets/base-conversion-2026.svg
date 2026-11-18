@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="375" viewBox="0 0 840 375" role="img" aria-labelledby="title desc"><title id="title">Convert 2026 to hexadecimal</title><desc id="desc">The successive quotients are 126, 7, and 0; the remainders are 10, 14, and 7. The digit sequence is A E 7 in extraction order, but 7 E A in display order.</desc><rect width="840" height="375" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="38" font-size="22" font-weight="700">Divide by 16 until the quotient is 0</text>
+<text x="30" y="71" font-size="17" >Each remainder supplies the next digit from the RIGHT.</text>
+<g data-value="2026" data-quotient="126" data-remainder="10"><rect x="30" y="95" width="780" height="51" rx="8" fill="#e0ede3"/>
+<text x="50" y="128" font-size="21" >2026 = 16·126 + 10</text>
+<text x="435" y="128" font-size="19" >remainder 10 → digit A</text>
+</g>
+<g data-value="126" data-quotient="7" data-remainder="14"><rect x="30" y="160" width="780" height="51" rx="8" fill="#ffffff"/>
+<text x="50" y="193" font-size="21" >126 = 16·7 + 14</text>
+<text x="435" y="193" font-size="19" >remainder 14 → digit E</text>
+</g>
+<g data-value="7" data-quotient="0" data-remainder="7"><rect x="30" y="225" width="780" height="51" rx="8" fill="#e0ede3"/>
+<text x="50" y="258" font-size="21" >7 = 16·0 + 7</text>
+<text x="435" y="258" font-size="19" >remainder 7 → digit 7</text>
+</g>
+<text x="30" y="326" font-size="23" font-weight="700">Collected: A, E, 7     →     reverse     →     (7EA)₁₆</text>
+<text x="30" y="356" font-size="17" >Check: 7·256 + 14·16 + 10 = 2026.</text>
+</g></svg>

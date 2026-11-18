@@ -193,16 +193,16 @@
           "id": "4.1",
           "number": "4.1",
           "title": "Divisibility and Modular Arithmetic",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/4.1.json",
           "children": []
         },
         {
           "id": "4.2",
           "number": "4.2",
           "title": "Integer Representations and Algorithms",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/4.2.json",
           "children": []
         },
         {

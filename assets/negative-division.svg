@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="330" viewBox="0 0 840 330" role="img" aria-labelledby="title desc"><title id="title">Negative division uses the multiple on the left</title><desc id="desc">Negative 17 lies three units to the right of negative 20 and two units to the left of negative 15. Thus negative 17 equals 5 times negative 4 plus 3.</desc><rect width="840" height="330" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="38" font-size="20" font-weight="700">Divide −17 by 5: choose q so that 5q ≤ −17 &lt; 5(q + 1)</text>
+<text x="30" y="73" font-size="17" >The remainder is a distance to the right, so it is nonnegative.</text>
+<path d="M70 170 H770" stroke="#517769" stroke-width="3"/>
+<path d="M130 120 H418 M418 120 l-12 -6 M418 120 l-12 6" fill="none" stroke="#267253" stroke-width="3"/>
+<text x="274" y="108" font-size="19" text-anchor="middle" font-weight="700">r = 3</text>
+<path d="M130 162 V178" stroke="#517769" stroke-width="2"/>
+<text x="130" y="207" font-size="18" text-anchor="middle">-20</text>
+<path d="M226 162 V178" stroke="#517769" stroke-width="2"/>
+<text x="226" y="207" font-size="18" text-anchor="middle">-19</text>
+<path d="M322 162 V178" stroke="#517769" stroke-width="2"/>
+<text x="322" y="207" font-size="18" text-anchor="middle">-18</text>
+<path d="M418 162 V178" stroke="#517769" stroke-width="2"/>
+<text x="418" y="207" font-size="18" text-anchor="middle">-17</text>
+<circle cx="418" cy="170" r="7" fill="#ba6b27"/>
+<path d="M514 162 V178" stroke="#517769" stroke-width="2"/>
+<text x="514" y="207" font-size="18" text-anchor="middle">-16</text>
+<path d="M610 162 V178" stroke="#517769" stroke-width="2"/>
+<text x="610" y="207" font-size="18" text-anchor="middle">-15</text>
+<text x="130" y="236" font-size="16" text-anchor="middle">5·(−4)</text>
+<text x="610" y="236" font-size="16" text-anchor="middle">5·(−3)</text>
+<text x="30" y="285" font-size="23" font-weight="700">−17 = 5·(−4) + 3</text>
+<text x="450" y="285" font-size="19" >q = −4     and     0 ≤ 3 &lt; 5</text>
+</g></svg>
