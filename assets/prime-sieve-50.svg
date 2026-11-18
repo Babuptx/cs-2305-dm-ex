@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="480" viewBox="0 0 840 480" role="img" aria-labelledby="title desc"><title id="title">Sieve of Eratosthenes through 50</title><desc id="desc">Green cells are primes. Each composite cell names its smallest prime divisor. One is neither prime nor composite.</desc><rect width="840" height="480" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="36" font-size="22" font-weight="700">Keep primes; remove multiples of 2, 3, 5, and 7</text>
+<text x="30" y="67" font-size="16" >A smaller label shows why a composite was removed. 1 is excluded.</text>
+<g data-n="1" data-factor="0" data-prime="false"><rect x="30" y="88" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="65" y="114" font-size="20" text-anchor="middle" font-weight="650">1</text>
+<text x="65" y="134" font-size="12" text-anchor="middle">neither</text>
+</g>
+<g data-n="2" data-factor="0" data-prime="true"><rect x="108" y="88" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="143" y="114" font-size="20" text-anchor="middle" font-weight="650">2</text>
+<text x="143" y="134" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="3" data-factor="0" data-prime="true"><rect x="186" y="88" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="221" y="114" font-size="20" text-anchor="middle" font-weight="650">3</text>
+<text x="221" y="134" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="4" data-factor="2" data-prime="false"><rect x="264" y="88" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="299" y="114" font-size="20" text-anchor="middle" font-weight="650">4</text>
+<text x="299" y="134" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="5" data-factor="0" data-prime="true"><rect x="342" y="88" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="377" y="114" font-size="20" text-anchor="middle" font-weight="650">5</text>
+<text x="377" y="134" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="6" data-factor="2" data-prime="false"><rect x="420" y="88" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="455" y="114" font-size="20" text-anchor="middle" font-weight="650">6</text>
+<text x="455" y="134" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="7" data-factor="0" data-prime="true"><rect x="498" y="88" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="533" y="114" font-size="20" text-anchor="middle" font-weight="650">7</text>
+<text x="533" y="134" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="8" data-factor="2" data-prime="false"><rect x="576" y="88" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="611" y="114" font-size="20" text-anchor="middle" font-weight="650">8</text>
+<text x="611" y="134" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="9" data-factor="3" data-prime="false"><rect x="654" y="88" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="689" y="114" font-size="20" text-anchor="middle" font-weight="650">9</text>
+<text x="689" y="134" font-size="12" text-anchor="middle">factor 3</text>
+</g>
+<g data-n="10" data-factor="2" data-prime="false"><rect x="732" y="88" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="767" y="114" font-size="20" text-anchor="middle" font-weight="650">10</text>
+<text x="767" y="134" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="11" data-factor="0" data-prime="true"><rect x="30" y="152" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="65" y="178" font-size="20" text-anchor="middle" font-weight="650">11</text>
+<text x="65" y="198" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="12" data-factor="2" data-prime="false"><rect x="108" y="152" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="143" y="178" font-size="20" text-anchor="middle" font-weight="650">12</text>
+<text x="143" y="198" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="13" data-factor="0" data-prime="true"><rect x="186" y="152" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="221" y="178" font-size="20" text-anchor="middle" font-weight="650">13</text>
+<text x="221" y="198" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="14" data-factor="2" data-prime="false"><rect x="264" y="152" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="299" y="178" font-size="20" text-anchor="middle" font-weight="650">14</text>
+<text x="299" y="198" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="15" data-factor="3" data-prime="false"><rect x="342" y="152" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="377" y="178" font-size="20" text-anchor="middle" font-weight="650">15</text>
+<text x="377" y="198" font-size="12" text-anchor="middle">factor 3</text>
+</g>
+<g data-n="16" data-factor="2" data-prime="false"><rect x="420" y="152" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="455" y="178" font-size="20" text-anchor="middle" font-weight="650">16</text>
+<text x="455" y="198" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="17" data-factor="0" data-prime="true"><rect x="498" y="152" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="533" y="178" font-size="20" text-anchor="middle" font-weight="650">17</text>
+<text x="533" y="198" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="18" data-factor="2" data-prime="false"><rect x="576" y="152" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="611" y="178" font-size="20" text-anchor="middle" font-weight="650">18</text>
+<text x="611" y="198" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="19" data-factor="0" data-prime="true"><rect x="654" y="152" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="689" y="178" font-size="20" text-anchor="middle" font-weight="650">19</text>
+<text x="689" y="198" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="20" data-factor="2" data-prime="false"><rect x="732" y="152" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="767" y="178" font-size="20" text-anchor="middle" font-weight="650">20</text>
+<text x="767" y="198" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="21" data-factor="3" data-prime="false"><rect x="30" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="65" y="242" font-size="20" text-anchor="middle" font-weight="650">21</text>
+<text x="65" y="262" font-size="12" text-anchor="middle">factor 3</text>
+</g>
+<g data-n="22" data-factor="2" data-prime="false"><rect x="108" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="143" y="242" font-size="20" text-anchor="middle" font-weight="650">22</text>
+<text x="143" y="262" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="23" data-factor="0" data-prime="true"><rect x="186" y="216" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="221" y="242" font-size="20" text-anchor="middle" font-weight="650">23</text>
+<text x="221" y="262" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="24" data-factor="2" data-prime="false"><rect x="264" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="299" y="242" font-size="20" text-anchor="middle" font-weight="650">24</text>
+<text x="299" y="262" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="25" data-factor="5" data-prime="false"><rect x="342" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="377" y="242" font-size="20" text-anchor="middle" font-weight="650">25</text>
+<text x="377" y="262" font-size="12" text-anchor="middle">factor 5</text>
+</g>
+<g data-n="26" data-factor="2" data-prime="false"><rect x="420" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="455" y="242" font-size="20" text-anchor="middle" font-weight="650">26</text>
+<text x="455" y="262" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="27" data-factor="3" data-prime="false"><rect x="498" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="533" y="242" font-size="20" text-anchor="middle" font-weight="650">27</text>
+<text x="533" y="262" font-size="12" text-anchor="middle">factor 3</text>
+</g>
+<g data-n="28" data-factor="2" data-prime="false"><rect x="576" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="611" y="242" font-size="20" text-anchor="middle" font-weight="650">28</text>
+<text x="611" y="262" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="29" data-factor="0" data-prime="true"><rect x="654" y="216" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="689" y="242" font-size="20" text-anchor="middle" font-weight="650">29</text>
+<text x="689" y="262" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="30" data-factor="2" data-prime="false"><rect x="732" y="216" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="767" y="242" font-size="20" text-anchor="middle" font-weight="650">30</text>
+<text x="767" y="262" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="31" data-factor="0" data-prime="true"><rect x="30" y="280" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="65" y="306" font-size="20" text-anchor="middle" font-weight="650">31</text>
+<text x="65" y="326" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="32" data-factor="2" data-prime="false"><rect x="108" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="143" y="306" font-size="20" text-anchor="middle" font-weight="650">32</text>
+<text x="143" y="326" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="33" data-factor="3" data-prime="false"><rect x="186" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="221" y="306" font-size="20" text-anchor="middle" font-weight="650">33</text>
+<text x="221" y="326" font-size="12" text-anchor="middle">factor 3</text>
+</g>
+<g data-n="34" data-factor="2" data-prime="false"><rect x="264" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="299" y="306" font-size="20" text-anchor="middle" font-weight="650">34</text>
+<text x="299" y="326" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="35" data-factor="5" data-prime="false"><rect x="342" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="377" y="306" font-size="20" text-anchor="middle" font-weight="650">35</text>
+<text x="377" y="326" font-size="12" text-anchor="middle">factor 5</text>
+</g>
+<g data-n="36" data-factor="2" data-prime="false"><rect x="420" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="455" y="306" font-size="20" text-anchor="middle" font-weight="650">36</text>
+<text x="455" y="326" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="37" data-factor="0" data-prime="true"><rect x="498" y="280" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="533" y="306" font-size="20" text-anchor="middle" font-weight="650">37</text>
+<text x="533" y="326" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="38" data-factor="2" data-prime="false"><rect x="576" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="611" y="306" font-size="20" text-anchor="middle" font-weight="650">38</text>
+<text x="611" y="326" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="39" data-factor="3" data-prime="false"><rect x="654" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="689" y="306" font-size="20" text-anchor="middle" font-weight="650">39</text>
+<text x="689" y="326" font-size="12" text-anchor="middle">factor 3</text>
+</g>
+<g data-n="40" data-factor="2" data-prime="false"><rect x="732" y="280" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="767" y="306" font-size="20" text-anchor="middle" font-weight="650">40</text>
+<text x="767" y="326" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="41" data-factor="0" data-prime="true"><rect x="30" y="344" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="65" y="370" font-size="20" text-anchor="middle" font-weight="650">41</text>
+<text x="65" y="390" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="42" data-factor="2" data-prime="false"><rect x="108" y="344" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="143" y="370" font-size="20" text-anchor="middle" font-weight="650">42</text>
+<text x="143" y="390" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="43" data-factor="0" data-prime="true"><rect x="186" y="344" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="221" y="370" font-size="20" text-anchor="middle" font-weight="650">43</text>
+<text x="221" y="390" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="44" data-factor="2" data-prime="false"><rect x="264" y="344" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="299" y="370" font-size="20" text-anchor="middle" font-weight="650">44</text>
+<text x="299" y="390" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="45" data-factor="3" data-prime="false"><rect x="342" y="344" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="377" y="370" font-size="20" text-anchor="middle" font-weight="650">45</text>
+<text x="377" y="390" font-size="12" text-anchor="middle">factor 3</text>
+</g>
+<g data-n="46" data-factor="2" data-prime="false"><rect x="420" y="344" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="455" y="370" font-size="20" text-anchor="middle" font-weight="650">46</text>
+<text x="455" y="390" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="47" data-factor="0" data-prime="true"><rect x="498" y="344" width="70" height="56" rx="6" fill="#cee5d6"/>
+<text x="533" y="370" font-size="20" text-anchor="middle" font-weight="650">47</text>
+<text x="533" y="390" font-size="12" text-anchor="middle">prime</text>
+</g>
+<g data-n="48" data-factor="2" data-prime="false"><rect x="576" y="344" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="611" y="370" font-size="20" text-anchor="middle" font-weight="650">48</text>
+<text x="611" y="390" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<g data-n="49" data-factor="7" data-prime="false"><rect x="654" y="344" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="689" y="370" font-size="20" text-anchor="middle" font-weight="650">49</text>
+<text x="689" y="390" font-size="12" text-anchor="middle">factor 7</text>
+</g>
+<g data-n="50" data-factor="2" data-prime="false"><rect x="732" y="344" width="70" height="56" rx="6" fill="#e7ebe7"/>
+<text x="767" y="370" font-size="20" text-anchor="middle" font-weight="650">50</text>
+<text x="767" y="390" font-size="12" text-anchor="middle">factor 2</text>
+</g>
+<text x="30" y="431" font-size="18" font-weight="650">15 primes survive. The last needed pass removes 49 = 7².</text>
+<text x="30" y="461" font-size="16" >After 7, the next prime is 11 and 11² &gt; 50: stop sieving.</text>
+</g></svg>

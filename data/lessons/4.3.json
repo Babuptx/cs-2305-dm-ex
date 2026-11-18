@@ -1,0 +1,978 @@
+{
+  "schemaVersion": 1,
+  "id": "4.3",
+  "title": "Primes and Greatest Common Divisors",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 4.3, printed pages 271–288.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks.",
+    "Prime-conjecture context: Terence Tao, Analytic prime number theory course announcement, https://terrytao.wordpress.com/2014/11/13/254a-announcement-analytic-prime-number-theory/ (consulted November 17, 2026).",
+    "Goldbach context: Oxford Mathematical Institute, Oxford Online Maths Club Episode 7, https://www.maths.ox.ac.uk/outreach/oxford-online-maths-club/episode-7 (consulted November 17, 2026)."
+  ],
+  "units": [
+    {
+      "id": "prime-building-blocks",
+      "title": "Separate prime numbers from relatively prime numbers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A prime is an integer greater than 1 with exactly two positive divisors: 1 and itself. A composite integer is greater than 1 and has another positive divisor. The integer 1 is neither prime nor composite. Zero and negative integers are outside these two categories."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Integer",
+            "Reason",
+            "Classification"
+          ],
+          "rows": [
+            [
+              "2",
+              "Positive divisors are 1 and 2",
+              "Prime; the only even prime"
+            ],
+            [
+              "13",
+              "Positive divisors are 1 and 13",
+              "Prime"
+            ],
+            [
+              "15",
+              "15 = 3·5",
+              "Composite"
+            ],
+            [
+              "1",
+              "Only one positive divisor",
+              "Neither"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "“Relatively prime” describes a pair: their greatest common divisor is 1. Neither number needs to be prime. For example, 8 and 15 are both composite but have no positive common divisor except 1."
+        },
+        {
+          "type": "check",
+          "prompt": "Are 9 and 10 prime? Are they relatively prime?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both are composite: 9 = 3² and 10 = 2·5. They are relatively prime because their only positive common divisor is 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.1–§4.3.2, pp. 271–272."
+        }
+      ]
+    },
+    {
+      "id": "prime-factorization",
+      "title": "Keep multiplicity when writing the prime building blocks",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "Every integer n > 1 is a product of primes, unique up to rearranging the factors.",
+          "description": "This is the fundamental theorem of arithmetic. Repeated occurrences of the same prime matter."
+        },
+        {
+          "type": "example",
+          "title": "Two routes, one final factorization",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "360 = 36·10 = (2²·3²)(2·5) = 2³·3²·5."
+            },
+            {
+              "type": "paragraph",
+              "text": "Alternatively, 360 = 8·45 = 2³·(3²·5). The initial factor pairs differ, but the prime factors and their multiplicities agree."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Existence follows by strong induction. A number greater than 1 is either prime already or equals ab with 1 < a,b < n. Factoring those smaller integers supplies a prime factorization of n. We will justify uniqueness later in this section after proving a lemma about primes dividing products."
+        },
+        {
+          "type": "callout",
+          "title": "Why 1 is left out",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "If 1 counted as prime, you could insert any number of factors equal to 1 without changing the product. For bookkeeping, 1 is represented by an empty product, not a prime factor."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Do 2·3·2·5 and 2²·3·5 violate uniqueness?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. They have the same factors with the same multiplicities. Sorting and collecting repeated factors makes both representations 2²·3·5 = 60."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.2, p. 272."
+        }
+      ]
+    },
+    {
+      "id": "trial-primality",
+      "title": "Stop trial division only after checking the square-root boundary",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "If n = ab with both a and b greater than 1, at least one is at most √n. Otherwise their product would exceed n. That smaller factor has a prime divisor at most √n. Therefore, if no prime at most √n divides n, then n is prime."
+        },
+        {
+          "type": "example",
+          "title": "A small test with a precise stopping point",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For 109, we have 10² < 109 < 11². Test the primes 2,3,5,7. None divides 109, so 109 is prime."
+            },
+            {
+              "type": "paragraph",
+              "text": "For 121, the boundary itself matters: 11² = 121. Testing only primes strictly smaller than √121 would miss the factor 11."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function isPrime(n) {\n  if (typeof n !== \"bigint\") throw new TypeError(\"Use a BigInt integer\");\n  if (n < 2n) return false;\n  for (let d = 2n; d <= n / d; d++) {\n    if (n % d === 0n) return false;\n  }\n  return true;\n}",
+          "description": "Executable JavaScript using exact BigInt values. isPrime(109n) is true; isPrime(121n) is false."
+        },
+        {
+          "type": "paragraph",
+          "text": "This simple code checks every integer candidate, including composites, so it does extra work but remains correct. The condition d ≤ n/d uses exact integer division instead of a floating-point square root. For positive integers it is equivalent to d² ≤ n. Use it for modest teaching inputs; trial division can require about √n candidate tests, which is exponential in the bit length of n."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is testing only 2,3,5,7 insufficient to certify that 169 is prime?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "√169 = 13. You must also consider 11 and 13; in fact 13 divides 169. A stopping bound must be computed from the number being tested."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.3, pp. 272–273."
+        }
+      ]
+    },
+    {
+      "id": "factor-algorithm",
+      "title": "Divide out a factor as many times as it appears",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Factor 1386",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Divide by 2 once: 1386 = 2·693. Divide by 3 twice: 693 = 3·231 and 231 = 3·77. Then 77 = 7·11."
+            },
+            {
+              "type": "paragraph",
+              "text": "Thus 1386 = 2·3²·7·11. After removing factors, the remaining quotient gets smaller, so the square-root bound can shrink too."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function primeFactors(n) {\n  if (typeof n !== \"bigint\") throw new TypeError(\"Use a BigInt integer\");\n  if (n < 1n) throw new RangeError(\"Use a positive integer\");\n  const factors = [];\n  for (let d = 2n; d <= n / d; d++) {\n    while (n % d === 0n) { factors.push(d); n /= d; }\n  }\n  if (n > 1n) factors.push(n);\n  return factors;\n}",
+          "description": "Executable JavaScript: primeFactors(1386n) returns [2n,3n,3n,7n,11n]. Input 1 returns []; nonpositive inputs are rejected."
+        },
+        {
+          "type": "paragraph",
+          "text": "Why the final leftover is prime: when the loop ends, no possible divisor up to the square root of the remaining value remains unchecked. Any smaller factors have already been removed. A composite candidate d cannot be recorded after its prime divisors were fully removed. The invariant is original input = product of recorded factors × current n."
+        },
+        {
+          "type": "check",
+          "prompt": "Why must the inner test be while rather than a single if?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A prime can occur repeatedly. For 72 = 2³·3², removing 2 only once would fail to record its multiplicity and could leave a composite remainder."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.3, p. 273."
+        }
+      ]
+    },
+    {
+      "id": "prime-sieve",
+      "title": "Find many primes by crossing out multiples",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Trial division asks about one integer. The sieve of Eratosthenes finds all primes up to a limit N. Start with candidates 2 through N. For each surviving p with p² ≤ N, cross out its multiples beginning at p². Any smaller multiple of p already has a smaller prime factor and has been crossed out."
+        },
+        {
+          "type": "diagram",
+          "title": "A sieve through 50",
+          "src": "assets/prime-sieve-50.svg",
+          "description": "The surviving primes through 50 are highlighted. Composite numbers are labeled by their smallest prime factor 2,3,5,or 7; 1 is excluded."
+        },
+        {
+          "type": "math",
+          "notation": "function primesThrough(limit) {\n  if (!Number.isSafeInteger(limit) || limit < 0 || limit > 1000000)\n    throw new RangeError(\"Use an integer limit from 0 through 1000000\");\n  const composite = new Uint8Array(limit + 1);\n  for (let p = 2; p * p <= limit; p++) {\n    if (composite[p] === 0) {\n      for (let k = p * p; k <= limit; k += p) composite[k] = 1;\n    }\n  }\n  const primes = [];\n  for (let n = 2; n <= limit; n++) {\n    if (composite[n] === 0) primes.push(n);\n  }\n  return primes;\n}",
+          "description": "Executable JavaScript for small demonstrations. The Number limit is restricted to 0 through 1000000 to keep the stored array modest; results are ordinary Numbers."
+        },
+        {
+          "type": "paragraph",
+          "text": "The code leaves p itself untouched and never labels 1 as prime. Every composite at most N has a prime divisor at most √N, so it is crossed out. No prime is crossed out because every marked number is a product of two integers greater than 1. The array uses O(N) storage; this is a batch method, not a constant-memory test."
+        },
+        {
+          "type": "check",
+          "prompt": "When sieving through 50, why do we still process p = 7?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Because 7² = 49 ≤ 50. That pass removes 49. The next surviving candidate is 11, whose square exceeds 50, so no further pass is needed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.4, pp. 273–274."
+        }
+      ]
+    },
+    {
+      "id": "infinitely-many-primes",
+      "title": "Find a prime outside any proposed complete list",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose there were only finitely many primes p₁,…,pₖ. Form N = p₁p₂…pₖ + 1. Every prime in the list leaves remainder 1 when dividing N, so none divides N. But N > 1 has a prime divisor. That divisor must be absent from the supposedly complete list: a contradiction."
+        },
+        {
+          "type": "callout",
+          "title": "The new number need not itself be prime",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For the list 2,3,5,7,11,13, the product plus 1 is 30031 = 59·509. It is composite, yet its prime divisors are not on the original list. That is all the argument needs."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If N has no divisor on our list, why can we still say it has a prime divisor?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "N > 1, so the existence part of prime factorization applies. The proof does not depend on first guessing which prime divisor will occur."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.4, pp. 274–275."
+        }
+      ]
+    },
+    {
+      "id": "special-prime-forms",
+      "title": "Treat a special form as a candidate, not a guarantee",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A Mersenne prime has the form 2ᵖ − 1 and is prime. Its exponent p must itself be prime: if p = uv with u,v > 1, then 2ᵖ − 1 = (2ᵘ)ᵛ − 1 has the proper factor 2ᵘ − 1. This follows from xᵛ − 1 = (x − 1)(1 + x + … + xᵛ⁻¹)."
+        },
+        {
+          "type": "example",
+          "title": "Necessary is not sufficient",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The prime exponent 5 gives 2⁵ − 1 = 31, a prime. But the prime exponent 11 gives 2¹¹ − 1 = 2047 = 23·89. A prime exponent is necessary, yet it does not guarantee a prime value."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Special forms can support specialized tests, such as the Lucas–Lehmer test for Mersenne candidates. Finding a factor, deciding primality, and generating a candidate are different tasks. The historical record sizes in the textbook are snapshots; they are not needed for the mathematical argument here."
+        },
+        {
+          "type": "check",
+          "prompt": "Show directly why 2¹⁵ − 1 is composite without trial-dividing it.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Write 15 = 3·5. Then 2¹⁵ − 1 = 8⁵ − 1 is divisible by 8 − 1 = 7, with a second factor greater than 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.4, pp. 275–276."
+        }
+      ]
+    },
+    {
+      "id": "prime-distribution",
+      "title": "Read prime-density estimates as averages",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "π(x) = number of primes ≤ x\nπ(x)/(x/ln x) → 1 as x → ∞.",
+          "description": "The prime number theorem uses natural logarithms. Here π is a counting function, not the circle constant."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "x",
+            "Actual π(x)",
+            "x/ln x, rounded"
+          ],
+          "rows": [
+            [
+              "50",
+              "15",
+              "12.8"
+            ],
+            [
+              "100",
+              "25",
+              "21.7"
+            ],
+            [
+              "1000",
+              "168",
+              "144.8"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The theorem describes a relative approximation for large x. It neither supplies an exact count nor decides whether a particular integer is prime. If you choose uniformly from 1 through a large integer N, the exact probability of a prime is π(N)/N, approximately 1/ln N. A fixed integer is prime or composite; it does not acquire randomness from this estimate."
+        },
+        {
+          "type": "paragraph",
+          "text": "Two different progression results are worth separating. Dirichlet’s theorem says that for positive a,b with gcd(a,b) = 1, the progression ak + b, k = 0,1,…, contains infinitely many primes. It need not contain only primes. The Green–Tao theorem says primes contain finite arithmetic progressions of every requested length; their start and spacing may change with the length."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does 6k + 3 fail the coprimality condition?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "gcd(6,3) = 3. Every term is divisible by 3; only the first term, 3, is prime. Infinitely many terms does not mean infinitely many prime terms."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.4, pp. 276–278."
+        }
+      ]
+    },
+    {
+      "id": "prime-conjectures",
+      "title": "Separate evidence, counterexamples, and theorems",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "A run of prime outputs can stop",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The polynomial f(n) = n² + n + 17 gives primes for n = 0 through 15, but f(16) = 289 = 17². A finite run does not establish “prime for every input.”"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "More generally, no nonconstant polynomial with integer coefficients takes a positive prime value at every positive integer. Suppose f(k) = p is prime. For each positive t, f(k + tp) ≡ f(k) ≡ 0 (mod p). If every such value were a positive prime, each would have to equal p. A nonconstant polynomial cannot equal the same value at infinitely many distinct inputs. Constant prime polynomials, such as f(n) = 7, are an exception to the nonconstant statement."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Conjecture discussed in the source",
+            "What it asks"
+          ],
+          "rows": [
+            [
+              "Even Goldbach",
+              "Is every even integer greater than 2 a sum of two primes?"
+            ],
+            [
+              "Twin primes",
+              "Are there infinitely many prime pairs differing by 2?"
+            ],
+            [
+              "Quadratic prime values",
+              "Are there infinitely many positive integers n for which n² + 1 is prime?"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These are open problems in the cited prime-number references, not rules you may assume in a proof. Bounded prime-gap results establish infinitely many sufficiently close prime pairs; that is weaker than proving infinitely many pairs at distance exactly 2. A computer search can confirm examples up to its limit, but cannot settle an infinite claim by checking finitely many cases."
+        },
+        {
+          "type": "check",
+          "prompt": "What do 52 = 23 + 29 and the twin pair 41,43 prove?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They establish individual examples of Goldbach representations and twin primes. They do not establish either universal or infinite conjecture."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.5, pp. 278–280."
+        }
+      ]
+    },
+    {
+      "id": "gcd-and-coprimality",
+      "title": "Check every pair when pairwise coprimality is required",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For integers a,b not both zero, gcd(a,b) is their greatest positive common divisor. Signs do not change it, and gcd(a,0) = |a| when a ≠ 0. We exclude gcd(0,0), because every positive integer divides both zeros and there is no greatest one."
+        },
+        {
+          "type": "example",
+          "title": "A collection can share no divisor while some pairs do",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The numbers 6,10,15 have overall gcd 1. Yet gcd(6,10) = 2, gcd(6,15) = 3, and gcd(10,15) = 5. They are not pairwise relatively prime."
+            },
+            {
+              "type": "paragraph",
+              "text": "By contrast, 8,9,25 are pairwise relatively prime. Check all three pairs, not just the gcd of the whole collection."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find gcd(−18,30), gcd(0,−9), and gcd(1,100).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They are 6, 9, and 1. Work with positive divisors of the magnitudes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.6, pp. 280–281."
+        }
+      ]
+    },
+    {
+      "id": "gcd-lcm-exponents",
+      "title": "Use minimum exponents for common divisors and maximum exponents for common multiples",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For positive a and b, list every prime occurring in either factorization. Include exponent 0 when a prime is missing. A common divisor can use only the prime copies available in both numbers; a common multiple must contain enough copies to cover either number."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Prime",
+            "Exponent in 360",
+            "Exponent in 168",
+            "Minimum",
+            "Maximum"
+          ],
+          "rows": [
+            [
+              "2",
+              "3",
+              "3",
+              "3",
+              "3"
+            ],
+            [
+              "3",
+              "2",
+              "1",
+              "1",
+              "2"
+            ],
+            [
+              "5",
+              "1",
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "7",
+              "0",
+              "1",
+              "0",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "gcd(360,168) = 2³·3 = 24\nlcm(360,168) = 2³·3²·5·7 = 2520\ngcd(a,b)·lcm(a,b) = ab, for a,b > 0.",
+          "description": "For each prime, min(u,v) + max(u,v) = u + v. Multiplying the corresponding prime powers proves the product identity."
+        },
+        {
+          "type": "paragraph",
+          "text": "This also proves maximality and minimality: every common divisor has exponents at most those in the gcd, so it divides the gcd. Every common multiple has exponents at least those in the lcm, so the lcm divides it. Once the gcd is known, compute lcm(a,b) = (a/gcd(a,b))·b without factoring."
+        },
+        {
+          "type": "check",
+          "prompt": "Two repeating events occur together now, then every 18 and 24 minutes. When do they next coincide?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "After lcm(18,24) = 72 minutes. Their gcd is 6, and (18/6)·24 = 72. The shared starting time is part of the setup."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.6, pp. 281–282."
+        }
+      ]
+    },
+    {
+      "id": "euclid-trace",
+      "title": "Replace a pair by its divisor and remainder",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "If a = bq + r, then gcd(a,b) = gcd(b,r), provided the pair is not (0,0).",
+          "description": "A common divisor of a,b divides r = a − bq. Conversely, a common divisor of b,r divides a = bq + r. The common-divisor sets are identical."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Dividend",
+            "Divisor",
+            "Quotient",
+            "Remainder"
+          ],
+          "rows": [
+            [
+              "240",
+              "174",
+              "1",
+              "66"
+            ],
+            [
+              "174",
+              "66",
+              "2",
+              "42"
+            ],
+            [
+              "66",
+              "42",
+              "1",
+              "24"
+            ],
+            [
+              "42",
+              "24",
+              "1",
+              "18"
+            ],
+            [
+              "24",
+              "18",
+              "1",
+              "6"
+            ],
+            [
+              "18",
+              "6",
+              "3",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "The gcd survives each smaller pair",
+          "src": "assets/euclid-remainders.svg",
+          "description": "Euclidean pairs (240,174), (174,66), (66,42), (42,24), (24,18), (18,6), and (6,0) all have gcd 6."
+        },
+        {
+          "type": "paragraph",
+          "text": "The answer is the last nonzero remainder, 6, because gcd(6,0) = 6. The final zero is a stopping signal, not the gcd. Once the remainder is used as the next divisor, the positive divisors strictly decrease, so the process must terminate."
+        },
+        {
+          "type": "check",
+          "prompt": "If the first division has remainder 0, is that a special failure?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. For 84 = 21·4 + 0, the process immediately returns 21. An exact divisor is already the gcd."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.7, pp. 282–284."
+        }
+      ]
+    },
+    {
+      "id": "euclid-code",
+      "title": "Preserve the old pair when updating the next pair",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "function gcd(a, b) {\n  if (typeof a !== \"bigint\" || typeof b !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  if (a === 0n && b === 0n) throw new RangeError(\"Not both zero\");\n  a = a < 0n ? -a : a;\n  b = b < 0n ? -b : b;\n  while (b !== 0n) [a, b] = [b, a % b];\n  return a;\n}",
+          "description": "Executable JavaScript: gcd(240n,174n) returns 6n. Signed inputs and exactly one zero are allowed; (0n,0n) is rejected."
+        },
+        {
+          "type": "paragraph",
+          "text": "The assignment [a,b] = [b,a % b] evaluates the right-hand side from the old pair before storing either new value. If you instead overwrote a first and then computed a % b, you would incorrectly compute b % b and stop too soon."
+        },
+        {
+          "type": "paragraph",
+          "text": "The invariant is that the current pair has the same gcd as the original magnitudes. The loop ends with b = 0 and returns positive a. With positive a ≥ b ≥ 2, the number of divisions is O(log b); a uniform endpoint-safe version is O(1 + log b) for b ≥ 1. This counts divisions, not bit operations. Large-integer division itself costs time."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does gcd(174n,240n) still work even though the first argument is smaller?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first remainder is 174, producing the pair (240,174). From there it follows the same divisions. No initial sorting is required."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.7, pp. 284–285."
+        }
+      ]
+    },
+    {
+      "id": "bezout-backward",
+      "title": "Work backward to express the gcd in the original numbers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "gcd(a,b) = sa + tb for some integers s,t.",
+          "description": "Bézout’s identity expresses the gcd as an integer linear combination. Coefficients can be negative."
+        },
+        {
+          "type": "example",
+          "title": "Recover coefficients for 240 and 174",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Begin with the last nonzero remainder: 6 = 24 − 18."
+            },
+            {
+              "type": "paragraph",
+              "text": "Substitute 18 = 42 − 24: 6 = 2·24 − 42."
+            },
+            {
+              "type": "paragraph",
+              "text": "Substitute 24 = 66 − 42: 6 = 2·66 − 3·42."
+            },
+            {
+              "type": "paragraph",
+              "text": "Substitute 42 = 174 − 2·66: 6 = 8·66 − 3·174."
+            },
+            {
+              "type": "paragraph",
+              "text": "Substitute 66 = 240 − 174: 6 = 8·240 − 11·174. Check: 1920 − 1914 = 6."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The coefficients need not be unique. Adding b/g to s and subtracting a/g from t keeps sa + tb unchanged, where g = gcd(a,b). In this example, (8 + 29, −11 − 40) = (37,−51) is another coefficient pair."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can you not stop at 6 = 24 − 18 when asked for coefficients of 240 and 174?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "That equation uses intermediate remainders. Continue substitution until only the original inputs remain."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.8, pp. 285–286."
+        }
+      ]
+    },
+    {
+      "id": "extended-euclid",
+      "title": "Track coefficients in the forward pass",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Instead of substituting backward, attach coefficients to every remainder. Start with a = 1a + 0b and b = 0a + 1b. If a new remainder is oldR − q·r, its coefficients are formed by the same subtraction. This preserves the linear-combination identity at each step."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Remainder",
+            "Coefficient of 240",
+            "Coefficient of 174"
+          ],
+          "rows": [
+            [
+              "240",
+              "1",
+              "0"
+            ],
+            [
+              "174",
+              "0",
+              "1"
+            ],
+            [
+              "66",
+              "1",
+              "−1"
+            ],
+            [
+              "42",
+              "−2",
+              "3"
+            ],
+            [
+              "24",
+              "3",
+              "−4"
+            ],
+            [
+              "18",
+              "−5",
+              "7"
+            ],
+            [
+              "6",
+              "8",
+              "−11"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function extendedGcd(a, b) {\n  if (typeof a !== \"bigint\" || typeof b !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  if (a === 0n && b === 0n) throw new RangeError(\"Not both zero\");\n  let oldR = a < 0n ? -a : a, r = b < 0n ? -b : b;\n  let oldS = 1n, s = 0n, oldT = 0n, t = 1n;\n  while (r !== 0n) {\n    const q = oldR / r;\n    [oldR, r] = [r, oldR - q * r];\n    [oldS, s] = [s, oldS - q * s];\n    [oldT, t] = [t, oldT - q * t];\n  }\n  return { g: oldR, s: a < 0n ? -oldS : oldS,\n           t: b < 0n ? -oldT : oldT };\n}",
+          "description": "Executable JavaScript: extendedGcd(240n,174n) returns {g:6n,s:8n,t:-11n}. It accepts signed integers not both zero and ensures s*a + t*b = g > 0."
+        },
+        {
+          "type": "paragraph",
+          "text": "The loop runs on magnitudes, so all remainders are nonnegative. At the end, coefficients for a negative original input have their signs reversed. For every original pair, the result satisfies the stated identity. Section 4.4 will reuse this function to find modular inverses."
+        },
+        {
+          "type": "check",
+          "prompt": "What identity should you verify after calling extendedGcd(-240n,174n)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Check s·(−240) + t·174 = g and g = 6. One returned pair is s = −8, t = −11: 1920 − 1914 = 6."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.8, pp. 286–287."
+        }
+      ]
+    },
+    {
+      "id": "coprime-product-lemma",
+      "title": "Use Bézout to justify cancellation",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Suppose gcd(a,b) = 1 and a divides bc. Bézout gives sa + tb = 1. Multiply by c: sac + tbc = c. Both terms on the left are divisible by a, so a divides c. The coprimality assumption is what makes the conclusion valid."
+        },
+        {
+          "type": "math",
+          "notation": "ac ≡ bc (mod m) and gcd(c,m) = 1  ⇒  a ≡ b (mod m).",
+          "description": "Apply the lemma to m | c(a − b). The common factor c can be canceled while keeping the same modulus only when this coprimality condition is justified."
+        },
+        {
+          "type": "example",
+          "title": "Compare safe and unsafe cancellation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "From 5x ≡ 10 (mod 12), gcd(5,12) = 1 permits x ≡ 2 (mod 12)."
+            },
+            {
+              "type": "paragraph",
+              "text": "From 4x ≡ 4 (mod 12), cancellation modulo 12 is not valid: x = 1,4,7,10 are all residue solutions. Section 4.4 explains the reduced modulus that captures all of them."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does 6 | (2·3) not imply 6 | 3?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The needed hypothesis gcd(6,2) = 1 fails: it equals 2. The product can collect different prime factors from different factors."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.8, pp. 287–288."
+        }
+      ]
+    },
+    {
+      "id": "unique-factor-proof",
+      "title": "Explain why a prime factor must occur in both factorizations",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "If p is prime and p divides ab, then either p divides a or gcd(p,a) = 1. In the latter case, the preceding lemma forces p to divide b. Repeating this argument proves: if p divides a product of finitely many integers, it divides at least one factor."
+        },
+        {
+          "type": "paragraph",
+          "text": "Now suppose n > 1 has two prime factorizations. Pick a prime p from the first. Since p divides the product in the second, it divides one of its prime factors q. Positive primes have no nontrivial proper divisors, so p = q. Cancel those equal factors and repeat. Neither side can have factors left after the other becomes the empty product 1, since a nonempty product of primes exceeds 1. Thus the lists agree including multiplicities."
+        },
+        {
+          "type": "callout",
+          "title": "Avoid a circular proof",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The product-divisibility lemma uses Bézout and Euclid, whose proofs did not require unique factorization. Existence was established by strong induction. Combining those arguments establishes the full fundamental theorem."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does the same product argument fail if p is replaced by the composite number 6?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Because 6 | 2·3, although 6 divides neither prime factor. The step “not divisible by p implies relatively prime to p” specifically uses primality."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3.8, pp. 287–288."
+        }
+      ]
+    },
+    {
+      "id": "primes-gcd-recap",
+      "title": "Choose a prime, gcd, or lcm method to match the question",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Goal",
+            "Method"
+          ],
+          "rows": [
+            [
+              "Test a modest integer for primality",
+              "Try divisors through the square-root boundary"
+            ],
+            [
+              "List all primes through a bound",
+              "Sieve"
+            ],
+            [
+              "Find gcd without factoring",
+              "Euclidean algorithm"
+            ],
+            [
+              "Find coefficients for the gcd",
+              "Back substitution or extended Euclid"
+            ],
+            [
+              "Find a first common positive multiple",
+              "lcm(a,b) = (a/gcd(a,b))·b"
+            ],
+            [
+              "Cancel in a congruence",
+              "Check coprimality with the modulus"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find gcd(150,84), lcm(150,84), and one Bézout identity.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "150 = 84 + 66; 84 = 66 + 18; 66 = 3·18 + 12; 18 = 12 + 6; 12 = 2·6. Thus gcd = 6 and lcm = (150/6)·84 = 2100. Back substitution gives 6 = −5·150 + 9·84."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can three numbers have overall gcd 1 while none of their pairs is relatively prime?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes: 6,10,15. Their overall gcd is 1, while the three pair gcds are 2,3,5. This distinction will matter for the Chinese remainder theorem."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Optional project: compare trial division, factorization, and a sieve on small integers. What checks should be independent?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For every n from 2 through 500, compare trial primality with membership in the sieve output. Multiply the factors back to n, and independently check each factor’s positive divisors. Check zero, one, perfect squares, and repeated factors separately. Count tested divisors rather than timing only one run."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The central bridge to the next section is gcd(a,m) = 1 ⇔ there are integers s,t with sa + tm = 1. Reducing that identity modulo m makes s an inverse of a, which gives a systematic way to solve congruences."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.3, pp. 271–288; original mixed practice."
+        }
+      ]
+    }
+  ]
+}

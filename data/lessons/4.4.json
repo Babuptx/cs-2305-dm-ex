@@ -1,0 +1,931 @@
+{
+  "schemaVersion": 1,
+  "id": "4.4",
+  "title": "Solving Congruences",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 4.4, printed pages 290–300.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "modular-inverse",
+      "title": "Replace division by multiplication with an inverse",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "u is an inverse of a modulo m if au ≡ 1 (mod m), with m > 1.\nAn inverse exists exactly when gcd(a,m) = 1.",
+          "description": "The inverse is unique as a residue class modulo m, not as a single integer."
+        },
+        {
+          "type": "paragraph",
+          "text": "If gcd(a,m) = 1, Bézout gives sa + tm = 1. Reducing modulo m gives sa ≡ 1, so s is an inverse. Conversely, au ≡ 1 means au − km = 1 for some integer k. Every common divisor of a,m must then divide 1, so their gcd is 1."
+        },
+        {
+          "type": "paragraph",
+          "text": "For uniqueness, suppose au ≡ av ≡ 1 (mod m). Since a is coprime to m, cancellation gives u ≡ v (mod m). Thus exactly one inverse lies in 0 through m − 1; all other inverse integers differ from it by multiples of m."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does 6 have no inverse modulo 15, even though you can divide by 6 over the real numbers?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "gcd(6,15) = 3. An equation 6u − 15k = 1 would have a left side divisible by 3 and a right side not divisible by 3. A real reciprocal is a different object."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.1–§4.4.2, pp. 290–291."
+        }
+      ]
+    },
+    {
+      "id": "inverse-worked",
+      "title": "Read an inverse from the correct Bézout coefficient",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Find the inverse of 17 modulo 43",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Euclid gives 43 = 2·17 + 9, 17 = 1·9 + 8, and 9 = 1·8 + 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Work backward: 1 = 9 − 8 = 9 − (17 − 9) = 2·9 − 17 = 2·(43 − 2·17) − 17 = 2·43 − 5·17."
+            },
+            {
+              "type": "paragraph",
+              "text": "The coefficient of 17 is −5, so the inverse is −5 mod 43 = 38. Check: 17·38 = 646 = 43·15 + 1."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Solve 17x ≡ 29 (mod 43)",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Multiply by 38: x ≡ 38·29 = 1102 ≡ 27 (mod 43)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Check the original equation: 17·27 = 459 = 43·10 + 29. Every integer x = 27 + 43k works, and inverse cancellation shows there are no other solution classes."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Could 2, the other Bézout coefficient above, be the inverse of 17 modulo 43?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It multiplies 43 in the identity, so it disappears when reducing modulo 43. Use the coefficient attached to the number whose inverse you need."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.2, pp. 292–293."
+        }
+      ]
+    },
+    {
+      "id": "inverse-code",
+      "title": "Return an inverse only when the gcd permits one",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The functions here reuse extendedGcd from Section 4.3; paste that definition first. They accept exact BigInt inputs. normalizedMod returns a nonnegative remainder. inverseMod returns the canonical inverse or null when none exists; it requires m > 1."
+        },
+        {
+          "type": "math",
+          "notation": "function normalizedMod(a, m) {\n  if (typeof a !== \"bigint\" || typeof m !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  if (m <= 0n) throw new RangeError(\"Use a positive modulus\");\n  return ((a % m) + m) % m;\n}\n\nfunction inverseMod(a, m) {\n  if (typeof a !== \"bigint\" || typeof m !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  if (m <= 1n) throw new RangeError(\"Use a modulus greater than 1\");\n  const { g, s } = extendedGcd(a, m);\n  return g === 1n ? normalizedMod(s, m) : null;\n}",
+          "description": "Executable JavaScript depending on extendedGcd. inverseMod(17n,43n) returns 38n; inverseMod(6n,15n) returns null."
+        },
+        {
+          "type": "paragraph",
+          "text": "A missing inverse does not automatically mean a linear congruence has no solution. It means the coefficient cannot be canceled while keeping the same modulus. The next unit checks whether the right side shares the necessary divisor."
+        },
+        {
+          "type": "check",
+          "prompt": "What is inverseMod(-17n,43n), and how can you check it?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It is 5n because (−17)·5 = −85 = 43·(−2) + 1. A negative coefficient is normalized to its residue representative."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.2, pp. 291–293; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "general-linear-congruence",
+      "title": "Reduce by the gcd and retain every solution class",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "For ax ≡ b (mod m), let g = gcd(a,m), m > 0.\nIf g does not divide b: no solution.\nIf g divides b: (a/g)x ≡ b/g (mod m/g).",
+          "description": "Dividing the equation ax − b = km by g changes the coefficient, right side, and modulus together."
+        },
+        {
+          "type": "paragraph",
+          "text": "When g divides b, the reduced coefficient is coprime to the reduced modulus. Solve the reduced congruence. If x₀ is its canonical solution and h = m/g, all integer solutions are x = x₀ + kh. There are exactly g distinct residue solutions modulo the original m: x₀, x₀ + h, …, x₀ + (g − 1)h."
+        },
+        {
+          "type": "example",
+          "title": "Several classes versus none",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Solve 18x ≡ 12 (mod 30). Here g = 6 divides 12. Reduce to 3x ≡ 2 (mod 5). The inverse of 3 modulo 5 is 2, so x ≡ 4 (mod 5)."
+            },
+            {
+              "type": "paragraph",
+              "text": "The six residues modulo 30 are 4,9,14,19,24,29. For 18x ≡ 13 (mod 30), the same gcd 6 does not divide 13, so there is no solution."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function solveLinear(a, b, m) {\n  if ([a, b, m].some(x => typeof x !== \"bigint\"))\n    throw new TypeError(\"Use BigInt integers\");\n  if (m <= 0n) throw new RangeError(\"Use a positive modulus\");\n  const { g, s } = extendedGcd(a, m);\n  if (b % g !== 0n) return null;\n  const period = m / g;\n  const base = normalizedMod(s * (b / g), period);\n  return { base, period, count: g };\n}",
+          "description": "Executable JavaScript reusing extendedGcd and normalizedMod. It returns null or {base,period,count}; all solutions are base + k*period, and count is the number of classes modulo the original m."
+        },
+        {
+          "type": "paragraph",
+          "text": "The Bézout coefficient s obeys s(a/g) + t(m/g) = 1, so it supplies the reduced inverse directly. If the reduced modulus is 1, every integer works and the function returns base 0, period 1. This handles 0x ≡ 0 (mod m), and also any congruence modulo 1, without asking inverseMod to invert modulo 1."
+        },
+        {
+          "type": "check",
+          "prompt": "Solve 0x ≡ 5 (mod 5) and 0x ≡ 1 (mod 5).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The first is true for every integer x, represented by period 1. The second has no solution. The zero coefficient does not justify division by zero."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.2, pp. 291–293; companion extension for noninvertible coefficients."
+        }
+      ]
+    },
+    {
+      "id": "crt-meaning",
+      "title": "Combine independent remainder conditions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A system asks one integer x to satisfy several congruences at once. The Chinese remainder theorem says: if the moduli m₁,…,mₙ are pairwise relatively prime and each exceeds 1, there is exactly one solution residue modulo M = m₁m₂…mₙ for every list of target remainders."
+        },
+        {
+          "type": "math",
+          "notation": "x ≡ 3 (mod 4),     x ≡ 1 (mod 5),     x ≡ 2 (mod 7)\nM = 4·5·7 = 140",
+          "description": "The moduli 4,5,7 are pairwise coprime even though 4 is not prime."
+        },
+        {
+          "type": "diagram",
+          "title": "One residue satisfies three clocks",
+          "src": "assets/crt-residue-clocks.svg",
+          "description": "The integer 51 leaves remainders 3,1,2 modulo 4,5,7. Adding 140 preserves all three remainders."
+        },
+        {
+          "type": "paragraph",
+          "text": "“Unique modulo 140” does not mean only one integer solution. The canonical solution is 51, while all integer solutions are 51 + 140k for k ∈ ℤ. A separate range restriction would select a particular integer."
+        },
+        {
+          "type": "check",
+          "prompt": "Does an overall gcd of 1 for moduli 6,10,15 suffice for this theorem?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The theorem requires pairwise coprimality. Those moduli share factors in every pair."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.3, pp. 293–294."
+        }
+      ]
+    },
+    {
+      "id": "crt-construction",
+      "title": "Build a term that selects one congruence at a time",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Set Mᵢ = M/mᵢ. This number is divisible by all the other moduli. Find yᵢ with Mᵢyᵢ ≡ 1 (mod mᵢ). Then Eᵢ = Mᵢyᵢ is 1 in coordinate i and 0 in every other coordinate. Multiply Eᵢ by the desired remainder aᵢ and add."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "mᵢ",
+            "Target aᵢ",
+            "Mᵢ",
+            "Inverse yᵢ",
+            "Eᵢ = Mᵢyᵢ",
+            "Contribution aᵢEᵢ"
+          ],
+          "rows": [
+            [
+              "4",
+              "3",
+              "35",
+              "3",
+              "105",
+              "315"
+            ],
+            [
+              "5",
+              "1",
+              "28",
+              "2",
+              "56",
+              "56"
+            ],
+            [
+              "7",
+              "2",
+              "20",
+              "6",
+              "120",
+              "240"
+            ]
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "x = Σ aᵢMᵢyᵢ mod M\nx = (315 + 56 + 240) mod 140 = 51",
+          "description": "When viewed modulo mᵢ, all terms except term i vanish, and that remaining term gives aᵢ."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uniqueness needs its own argument. If x and z satisfy every congruence, each mᵢ divides x − z. Since these moduli are pairwise coprime, their prime factors do not overlap, so their product M divides x − z. Hence x ≡ z (mod M). This uses prime factorization, not the uniqueness claim being proved."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can 35 be inverted modulo 4, while it vanishes modulo 5 and modulo 7?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "35 is coprime to 4, and 35·3 = 105 leaves 1 modulo 4. It is divisible by 5 and 7, so every multiple of 35 leaves 0 under those moduli."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.3, pp. 294–295."
+        }
+      ]
+    },
+    {
+      "id": "crt-substitution",
+      "title": "Merge congruences by substituting an integer parameter",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Solve the same system by substitution",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "From x ≡ 3 (mod 4), write x = 3 + 4t. The second congruence gives 3 + 4t ≡ 1 (mod 5), so 4t ≡ 3 and t ≡ 2 (mod 5)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Write t = 2 + 5u. Then x = 3 + 4(2 + 5u) = 11 + 20u."
+            },
+            {
+              "type": "paragraph",
+              "text": "Use the third congruence: 11 + 20u ≡ 2 (mod 7), hence 6u ≡ 5. Because 6 is its own inverse modulo 7, u ≡ 2 (mod 7)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Write u = 2 + 7v. Then x = 11 + 20(2 + 7v) = 51 + 140v. This is the same solution class as the construction."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Every substitution uses a fresh integer parameter. Keep the equation form until the system is fully merged, then translate it back into a congruence. This helps avoid silently losing possible solutions."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is x = 11 + 20u already enough to satisfy the first two conditions?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Modulo 4, 11 gives 3 and 20u gives 0. Modulo 5, 11 gives 1 and 20u gives 0. Only the third condition remains to determine u modulo 7."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.3, p. 295."
+        }
+      ]
+    },
+    {
+      "id": "crt-code",
+      "title": "Implement the construction with checked moduli",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This function reuses extendedGcd, normalizedMod, and inverseMod. Each input row contains BigInt fields residue and modulus. It accepts noncanonical or negative target residues, but requires a nonempty array and pairwise coprime moduli greater than 1."
+        },
+        {
+          "type": "math",
+          "notation": "function chineseRemainder(equations) {\n  if (!Array.isArray(equations) || equations.length === 0)\n    throw new TypeError(\"Supply a nonempty array of congruences\");\n  const rows = Array.from(equations, row => {\n    if (!row || typeof row.residue !== \"bigint\" ||\n        typeof row.modulus !== \"bigint\")\n      throw new TypeError(\"Each row needs BigInt residue and modulus\");\n    if (row.modulus <= 1n) throw new RangeError(\"Moduli must exceed 1\");\n    return { residue: row.residue, modulus: row.modulus };\n  });\n  const modulus = rows.reduce((product, row) => product * row.modulus, 1n);\n  let sum = 0n;\n  for (const row of rows) {\n    const partial = modulus / row.modulus;\n    const inverse = inverseMod(partial, row.modulus);\n    if (inverse === null) throw new RangeError(\"Moduli must be pairwise coprime\");\n    sum += normalizedMod(row.residue, row.modulus) * partial * inverse;\n  }\n  return { residue: normalizedMod(sum, modulus), modulus };\n}",
+          "description": "Executable JavaScript: chineseRemainder([{residue:3n,modulus:4n},{residue:1n,modulus:5n},{residue:2n,modulus:7n}]) returns {residue:51n,modulus:140n}."
+        },
+        {
+          "type": "paragraph",
+          "text": "The inverse check also validates pairwise coprimality: gcd(M/mᵢ,mᵢ) = 1 for every i exactly when no two moduli share a prime divisor. The returned residue is in [0,M), and all solutions differ by a multiple of M. Rejected moduli do not prove a system inconsistent; they mean this particular implementation’s assumptions are not met."
+        },
+        {
+          "type": "check",
+          "prompt": "What should the function do with moduli 6 and 9, even if both target remainders are 0?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Reject those moduli because they are not coprime. That system does have solutions, but it requires a method that handles shared factors."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.3, pp. 294–295; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "shared-moduli",
+      "title": "Check compatibility when the moduli share a divisor",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "x ≡ a (mod m), x ≡ b (mod n) is solvable iff gcd(m,n) | (b − a).\nWhen solvable, solutions form one class modulo lcm(m,n).",
+          "description": "This two-equation extension allows shared factors; m and n are positive."
+        },
+        {
+          "type": "paragraph",
+          "text": "Proof: put x = a + mt into the second congruence. You obtain mt ≡ b − a (mod n), which the general linear criterion solves exactly when gcd(m,n) divides b − a. Its parameter period is n/g, so the resulting x period is mn/g = lcm(m,n)."
+        },
+        {
+          "type": "example",
+          "title": "Compatible and incompatible systems",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For x ≡ 2 (mod 6), x ≡ 5 (mod 9), the difference is 3 and gcd(6,9) = 3. Write x = 2 + 6t; then 6t ≡ 3 (mod 9), so 2t ≡ 1 (mod 3) and t ≡ 2. Thus x ≡ 14 (mod 18)."
+            },
+            {
+              "type": "paragraph",
+              "text": "If the second target is 4 instead, the difference is 2, which is not divisible by 3. There is no solution."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why would “unique modulo 54” be misleading in the compatible example?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The true period is 18. There are three solutions in [0,54): 14,32,50. The product period overcounts when the moduli share factors."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.3 and exercise themes, pp. 294–295, 302; companion extension."
+        }
+      ]
+    },
+    {
+      "id": "residue-arithmetic",
+      "title": "Recover an integer only within the declared range",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "With moduli 4,5,7, encode an integer a by (a mod 4,a mod 5,a mod 7). CRT recovers its residue modulo 140. If you know 0 ≤ a < 140, that determines the actual integer uniquely. Without a bound, many integers have the same tuple."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Quantity",
+            "Residues modulo (4,5,7)",
+            "Recovered representative"
+          ],
+          "rows": [
+            [
+              "23",
+              "(3,3,2)",
+              "23"
+            ],
+            [
+              "16",
+              "(0,1,2)",
+              "16"
+            ],
+            [
+              "23 + 16",
+              "(3,4,4)",
+              "39"
+            ],
+            [
+              "23·16",
+              "(0,3,4)",
+              "88"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Compute componentwise and reduce each coordinate under its own modulus. The product is actually 368, but its tuple is also the tuple of 88 because 368 − 88 = 2·140. To recover 368 as an exact nonnegative result, choose a product of moduli strictly larger than the possible result before computing."
+        },
+        {
+          "type": "paragraph",
+          "text": "The coordinate calculations can be done independently. Their stored residues are small, but temporary products may approach the square of a coordinate modulus; reconstruction also uses larger integers. Special moduli 2ᵏ − 1 can simplify binary reductions. Pairwise coprime exponents, such as 2,3,5, give pairwise coprime moduli 3,7,31 because gcd(2ᵘ − 1,2ᵛ − 1) = 2^gcd(u,v) − 1."
+        },
+        {
+          "type": "check",
+          "prompt": "Why must the known range be half-open, 0 ≤ a < M, rather than 0 ≤ a ≤ M?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both 0 and M have all-zero remainder tuples. Including both endpoints would destroy uniqueness."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.4, pp. 295–297."
+        }
+      ]
+    },
+    {
+      "id": "fermat-theorem",
+      "title": "Keep the prime-modulus and nonzero-base hypotheses",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "If p is prime and p does not divide a, then a^(p−1) ≡ 1 (mod p).\nFor every integer a, aᵖ ≡ a (mod p).",
+          "description": "Fermat’s little theorem is different from Fermat’s last theorem. The first form excludes bases divisible by p; the second form does not."
+        },
+        {
+          "type": "paragraph",
+          "text": "To see why the first form holds, multiply residues 1,2,…,p − 1 by a. None becomes 0, and no two collide: cancellation is valid because gcd(a,p) = 1. Thus the products are a rearrangement of the same nonzero residues. Multiplying them gives a^(p−1)(p − 1)! ≡ (p − 1)!. The factorial is coprime to p, so cancel it."
+        },
+        {
+          "type": "paragraph",
+          "text": "Multiply by a to obtain aᵖ ≡ a when p does not divide a. If p divides a, both aᵖ and a are 0 modulo p, so the second form still holds."
+        },
+        {
+          "type": "check",
+          "prompt": "Can you conclude 13¹² ≡ 1 (mod 13)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No: 13 divides the base. The left side is 0 modulo 13. The universally valid form gives 13¹³ ≡ 13 ≡ 0 instead."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.5, pp. 297–298."
+        }
+      ]
+    },
+    {
+      "id": "fermat-computations",
+      "title": "Reduce exponents modulo p minus one when permitted",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Compute 5¹²³ mod 13",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The modulus 13 is prime and does not divide 5. Fermat gives 5¹² ≡ 1. Divide the exponent: 123 = 10·12 + 3."
+            },
+            {
+              "type": "paragraph",
+              "text": "Then 5¹²³ = (5¹²)¹⁰·5³ ≡ 125 ≡ 8 (mod 13). The exponent is reduced modulo 12, while the result is reduced modulo 13."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "a⁻¹ ≡ a^(p−2) (mod p), if p is prime and p does not divide a.",
+          "description": "Multiplying this candidate by a gives a^(p−1) ≡ 1. The notation a⁻¹ means a modular inverse, not a real reciprocal."
+        },
+        {
+          "type": "paragraph",
+          "text": "For composite moduli, this particular exponent shortcut is not justified. Section 4.2’s repeated-squaring algorithm works for any positive modulus without assuming primality. It also handles a base divisible by the modulus, using the stated exponent-zero convention."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is reducing the exponent of 13¹² modulo 12 invalid modulo 13?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It would replace a positive exponent by 0 and change a residue of 0 into 1. The required condition that 13 not divide the base fails."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.5, pp. 297–298."
+        }
+      ]
+    },
+    {
+      "id": "fermat-pseudoprimes",
+      "title": "Use a failed Fermat test as evidence of compositeness",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For n > 1 and a base a coprime to n, every prime n satisfies a^(n−1) ≡ 1 (mod n). If the congruence fails, n is composite. If it passes, n may still be composite. A composite n that passes for a positive base a is a pseudoprime to that base."
+        },
+        {
+          "type": "example",
+          "title": "A passing result that is not a prime certificate",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "341 = 11·31 is composite. Yet 2¹⁰ = 1024 = 3·341 + 1, so 2³⁴⁰ = (2¹⁰)³⁴ ≡ 1 (mod 341). It passes the base-2 Fermat test."
+            },
+            {
+              "type": "paragraph",
+              "text": "A different base can expose it: repeated squaring gives 3³⁴⁰ mod 341 = 56, not 1. Thus base 3 detects its compositeness."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Check the base condition before applying the contrapositive",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "A prime can fail the displayed congruence if the base is divisible by it. For example, 7⁶ mod 7 = 0. A proper common divisor 1 < gcd(a,n) < n proves compositeness, but gcd(a,n) = n does not."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does passing the base-2 test allow you to use Fermat’s theorem with every other base?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Passing one necessary test does not establish the prime hypothesis. The example 341 passes base 2 but fails base 3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.6, pp. 298–299."
+        }
+      ]
+    },
+    {
+      "id": "carmichael-numbers",
+      "title": "Recognize composites that fool every coprime Fermat base",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A Carmichael number is composite and satisfies a^(n−1) ≡ 1 (mod n) for every a relatively prime to n. This shows why simply trying more coprime bases cannot make the basic Fermat test a universal proof of primality."
+        },
+        {
+          "type": "example",
+          "title": "Verify a Carmichael example using CRT",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Take n = 1105 = 5·13·17. If gcd(a,1105) = 1, the base is nonzero modulo each of these primes. Fermat gives powers with periods dividing 4,12,16."
+            },
+            {
+              "type": "paragraph",
+              "text": "All three numbers divide 1104: 1104 = 4·276 = 12·92 = 16·69. Therefore a¹¹⁰⁴ ≡ 1 modulo 5,13,17."
+            },
+            {
+              "type": "paragraph",
+              "text": "The primes are pairwise coprime, so their product divides a¹¹⁰⁴ − 1. Thus a¹¹⁰⁴ ≡ 1 (mod 1105) for every allowed a, proving the Carmichael property."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "More refined primality tests use extra structure beyond the single Fermat equality. Their probability guarantees require specifying the test and how bases are selected; they do not follow merely from running this equality several times."
+        },
+        {
+          "type": "check",
+          "prompt": "Does the definition claim 5¹¹⁰⁴ ≡ 1 (mod 1105)?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The base 5 is not relatively prime to 1105. In fact it is 0 modulo 5, so that power cannot be 1 modulo 5 or modulo 1105."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.6, pp. 299–300."
+        }
+      ]
+    },
+    {
+      "id": "primitive-roots",
+      "title": "Ask whether one base reaches every nonzero residue",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For a prime modulus p, a primitive root r is a nonzero residue whose powers reach all p − 1 nonzero residues. The order of r is the smallest positive exponent d for which rᵈ ≡ 1. A primitive root has order p − 1."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Exponent e",
+            "2ᵉ mod 13"
+          ],
+          "rows": [
+            [
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "2"
+            ],
+            [
+              "2",
+              "4"
+            ],
+            [
+              "3",
+              "8"
+            ],
+            [
+              "4",
+              "3"
+            ],
+            [
+              "5",
+              "6"
+            ],
+            [
+              "6",
+              "12"
+            ],
+            [
+              "7",
+              "11"
+            ],
+            [
+              "8",
+              "9"
+            ],
+            [
+              "9",
+              "5"
+            ],
+            [
+              "10",
+              "10"
+            ],
+            [
+              "11",
+              "7"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The table contains every residue 1 through 12 exactly once, so 2 is a primitive root modulo 13. At exponent 12 it returns to 1 and repeats. By contrast, powers of 3 modulo 13 cycle 1,3,9,1,…, reaching only three residues. A nonzero base need not be primitive."
+        },
+        {
+          "type": "diagram",
+          "title": "One base covers all residues; another covers a subgroup",
+          "src": "assets/primitive-root-cycles.svg",
+          "description": "Modulo 13, base 2 has a 12-step cycle through every nonzero residue. Base 3 has only the three-step cycle 1,3,9."
+        },
+        {
+          "type": "paragraph",
+          "text": "A theorem guarantees a primitive root for every prime modulus; proving that existence theorem is beyond this unit. For p = 2 the sole nonzero residue 1 is a primitive root with order 1. We are not asserting that every composite modulus has a primitive root."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is 0 never a primitive root modulo a prime?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "All its positive powers are 0, so it cannot generate the nonzero residues. Primitive roots belong to the nonzero multiplicative residues."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.7, p. 300."
+        }
+      ]
+    },
+    {
+      "id": "discrete-logs",
+      "title": "Fix the exponent range to make the logarithm unique",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "For prime p, primitive root r, and 1 ≤ a < p:\nlogᵣ(a) modulo p is the unique e with 0 ≤ e < p − 1 and rᵉ ≡ a (mod p).",
+          "description": "The modulus and base are part of the question. Exponents repeat modulo p − 1."
+        },
+        {
+          "type": "example",
+          "title": "Read discrete logarithms from the power table",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Modulo 13 with base 2, 2⁹ ≡ 5, so log₂(5) = 9. Also 2⁶ ≡ 12, so log₂(12) = 6."
+            },
+            {
+              "type": "paragraph",
+              "text": "The logarithm of 1 is 0 in our chosen range. Exponent 12 also gives 1, but it is outside the range 0 through 11. Including both endpoints would defeat uniqueness."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "All integer exponents representing the same nonzero residue agree modulo p − 1. Logarithms turn residue products into exponent sums modulo p − 1. For example, 5·12 ≡ 8 (mod 13), while 9 + 6 ≡ 3 (mod 12), matching 2³ ≡ 8."
+        },
+        {
+          "type": "callout",
+          "title": "A nonprimitive base changes the problem",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "With base 3 modulo 13, residue 2 is never reached, so it has no logarithm to that base. Residue 1 repeats every 3 exponents. The existence and uniqueness statement above assumes a primitive root."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is log₂(7) modulo 13? Does the answer mean 2⁷ = 7?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The logarithm is 11, since 2¹¹ mod 13 = 7. It describes a power congruent to 7, not an ordinary real-number logarithm or equality."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.7, p. 300."
+        }
+      ]
+    },
+    {
+      "id": "discrete-log-code",
+      "title": "Build a small power table and check for repetitions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This teaching function reuses isPrime from Section 4.3 and normalizedMod from this section. It verifies a small prime modulus and generates powers for exponents 0 through p − 2. A repeated residue before all p − 1 entries are filled means the base is not primitive. It returns a Map from residue to exponent."
+        },
+        {
+          "type": "math",
+          "notation": "function powerLogTable(p, r) {\n  if (typeof p !== \"bigint\" || typeof r !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  if (p < 2n || p > 10000n || !isPrime(p))\n    throw new RangeError(\"Use a prime from 2 through 10000\");\n  const base = normalizedMod(r, p);\n  if (base === 0n) throw new RangeError(\"Use a nonzero base modulo p\");\n  const logs = new Map();\n  let value = 1n;\n  for (let e = 0n; e < p - 1n; e++) {\n    if (logs.has(value)) throw new RangeError(\"The base is not a primitive root\");\n    logs.set(value, e);\n    value = (value * base) % p;\n  }\n  return logs;\n}",
+          "description": "Executable JavaScript: powerLogTable(13n,2n).get(5n) returns 9n. powerLogTable(13n,3n) rejects the nonprimitive base."
+        },
+        {
+          "type": "paragraph",
+          "text": "The modulus is deliberately limited to 10000 for this table-building demonstration. It needs p − 1 multiplications and O(p) stored entries, plus the primality check. Because p can be exponential in its bit length, this is not an efficient general discrete-log algorithm. In contrast, repeated squaring can evaluate a specified power without building the whole table."
+        },
+        {
+          "type": "check",
+          "prompt": "What does the table contain for p = 2 and r = 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "One entry: residue 1 maps to exponent 0. There are p − 1 = 1 nonzero residues, and the allowed exponent range contains only 0."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4.7, p. 300; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "congruences-recap",
+      "title": "Choose a solver and verify its hypotheses first",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Problem",
+            "First question"
+          ],
+          "rows": [
+            [
+              "ax ≡ b (mod m)",
+              "Does gcd(a,m) divide b?"
+            ],
+            [
+              "An inverse modulo m > 1",
+              "Is gcd(a,m) = 1?"
+            ],
+            [
+              "Several remainder conditions",
+              "Are the moduli pairwise coprime? If not, are the conditions compatible?"
+            ],
+            [
+              "A large power modulo p",
+              "Is p prime and the base nonzero modulo p before reducing the exponent?"
+            ],
+            [
+              "A passing Fermat test",
+              "Could this be a pseudoprime?"
+            ],
+            [
+              "A discrete logarithm",
+              "Is the base primitive, and which exponent range is being used?"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Solve 14x ≡ 8 (mod 20).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "gcd(14,20) = 2 divides 8. Reduce to 7x ≡ 4 (mod 10). The inverse of 7 is 3, so x ≡ 2 (mod 10). The two residues modulo 20 are 2 and 12. Both give remainder 8 when multiplied by 14."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Find all x with x ≡ 2 (mod 5) and x ≡ 4 (mod 7).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Write x = 2 + 5t. Then 5t ≡ 2 (mod 7), so t ≡ 6. Thus x ≡ 32 (mod 35). Check 32 mod 5 = 2 and 32 mod 7 = 4."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Compute 4⁵⁰ mod 7 and log₂(10) modulo 13.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Fermat allows exponent reduction modulo 6: 50 mod 6 = 2, so 4⁵⁰ ≡ 16 ≡ 2 (mod 7). The power table modulo 13 gives log₂(10) = 10."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Optional project: independently test the solvers on small moduli. What should a result comparison check?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Enumerate all x from 0 through m − 1 and compare them with the classes returned by solveLinear. For CRT, enumerate 0 through M − 1 for small pairwise coprime moduli and compare the sole solution. Test incompatible shared moduli separately. For each discrete-log entry, independently compute rᵉ mod p and recover the key. Include negative coefficients, zero coefficients, missing inverses, and nonprimitive bases."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These methods connect divisibility, prime factors, Bézout identities, modular arithmetic, and exponent cycles. Sections 4.5 and 4.6 apply this toolkit to concrete congruence applications and cryptography."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.4, pp. 290–300; original mixed practice."
+        }
+      ]
+    }
+  ]
+}

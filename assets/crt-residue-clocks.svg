@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="375" viewBox="0 0 840 375" role="img" aria-labelledby="title desc"><title id="title">Chinese remainder solution on three residue tracks</title><desc id="desc">Fifty-one has residues 3, 1, and 2 on tracks modulo 4, 5, and 7. Each track repeats after its own modulus, and all repeat together after 140.</desc><rect width="840" height="375" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="36" font-size="22" font-weight="700">One integer: 51     ·     three remainder conditions</text>
+<text x="30" y="69" font-size="17" >The highlighted position is the remainder on each track.</text>
+<g data-modulus="4" data-residue="3">
+<text x="30" y="125" font-size="21" font-weight="650">mod 4</text>
+<rect x="180" y="95" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="215" y="125" font-size="21" text-anchor="middle" fill="#193b36">0</text>
+<rect x="263" y="95" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="298" y="125" font-size="21" text-anchor="middle" fill="#193b36">1</text>
+<rect x="346" y="95" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="381" y="125" font-size="21" text-anchor="middle" fill="#193b36">2</text>
+<rect x="429" y="95" width="70" height="45" rx="7" fill="#267253"/>
+<text x="464" y="125" font-size="21" text-anchor="middle" fill="#ffffff">3</text>
+</g>
+<g data-modulus="5" data-residue="1">
+<text x="30" y="193" font-size="21" font-weight="650">mod 5</text>
+<rect x="180" y="163" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="215" y="193" font-size="21" text-anchor="middle" fill="#193b36">0</text>
+<rect x="263" y="163" width="70" height="45" rx="7" fill="#267253"/>
+<text x="298" y="193" font-size="21" text-anchor="middle" fill="#ffffff">1</text>
+<rect x="346" y="163" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="381" y="193" font-size="21" text-anchor="middle" fill="#193b36">2</text>
+<rect x="429" y="163" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="464" y="193" font-size="21" text-anchor="middle" fill="#193b36">3</text>
+<rect x="512" y="163" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="547" y="193" font-size="21" text-anchor="middle" fill="#193b36">4</text>
+</g>
+<g data-modulus="7" data-residue="2">
+<text x="30" y="261" font-size="21" font-weight="650">mod 7</text>
+<rect x="180" y="231" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="215" y="261" font-size="21" text-anchor="middle" fill="#193b36">0</text>
+<rect x="263" y="231" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="298" y="261" font-size="21" text-anchor="middle" fill="#193b36">1</text>
+<rect x="346" y="231" width="70" height="45" rx="7" fill="#267253"/>
+<text x="381" y="261" font-size="21" text-anchor="middle" fill="#ffffff">2</text>
+<rect x="429" y="231" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="464" y="261" font-size="21" text-anchor="middle" fill="#193b36">3</text>
+<rect x="512" y="231" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="547" y="261" font-size="21" text-anchor="middle" fill="#193b36">4</text>
+<rect x="595" y="231" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="630" y="261" font-size="21" text-anchor="middle" fill="#193b36">5</text>
+<rect x="678" y="231" width="70" height="45" rx="7" fill="#e1e9e2"/>
+<text x="713" y="261" font-size="21" text-anchor="middle" fill="#193b36">6</text>
+</g>
+<text x="30" y="324" font-size="22" font-weight="700">All solutions: x = 51 + 140k, where k is any integer.</text>
+<text x="30" y="356" font-size="16" >140 = 4·5·7 is divisible by every modulus, so adding it preserves every track.</text>
+</g></svg>

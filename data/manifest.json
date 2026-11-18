@@ -209,16 +209,16 @@
           "id": "4.3",
           "number": "4.3",
           "title": "Primes and Greatest Common Divisors",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/4.3.json",
           "children": []
         },
         {
           "id": "4.4",
           "number": "4.4",
           "title": "Solving Congruences",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/4.4.json",
           "children": []
         },
         {
