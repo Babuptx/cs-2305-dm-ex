@@ -225,16 +225,16 @@
           "id": "4.5",
           "number": "4.5",
           "title": "Applications of Congruences",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/4.5.json",
           "children": []
         },
         {
           "id": "4.6",
           "number": "4.6",
           "title": "Cryptography",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/4.6.json",
           "children": []
         },
         {

@@ -1,0 +1,770 @@
+{
+  "schemaVersion": 1,
+  "id": "4.5",
+  "title": "Applications of Congruences",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 4.5, printed pages 303–308.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks.",
+    "International ISBN Agency, What is an ISBN? (13-digit ISBNs since January 2007): https://www.isbn-international.org/content/what-isbn/10",
+    "GS1 US, Check Digit Calculator (GTIN check digits): https://www.gs1us.org/tools/check-digit-calculator"
+  ],
+  "units": [
+    {
+      "id": "congruence-applications",
+      "title": "Use a remainder to select, generate, or check",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Congruences can do three different jobs. A hash function chooses a storage location. A recurrence generates the next state of a sequence. A checksum tests whether a digit string obeys a rule. All three use remainders, but a useful property in one application may be a weakness in another."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Task",
+            "Modular rule",
+            "What to watch"
+          ],
+          "rows": [
+            [
+              "Storage",
+              "h(k) = k mod m",
+              "Different keys can share a location"
+            ],
+            [
+              "Generation",
+              "xₙ₊₁ = (axₙ + c) mod m",
+              "A deterministic finite-state sequence eventually repeats"
+            ],
+            [
+              "Error checking",
+              "A weighted sum is 0 modulo m",
+              "Some changes can preserve the checksum"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If two records have the same hash value, must they contain the same data?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The hash selects a candidate location. You still compare the full record keys to decide which record you found."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5 introduction, pp. 303–304."
+        }
+      ]
+    },
+    {
+      "id": "hash-collisions",
+      "title": "Distinguish a home location from a unique identifier",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The key k identifies a record; the positive integer m is the number of table slots. h(k) selects a home location. This table-indexing rule is not an encryption algorithm or a cryptographic hash."
+        },
+        {
+          "type": "math",
+          "notation": "h(k) = k mod m, with m > 0\nh(k) ∈ {0,1,…,m − 1}",
+          "description": "A key is mapped to one of m table locations. This is a hash-table indexing rule, not an encryption or cryptographic-hash construction."
+        },
+        {
+          "type": "example",
+          "title": "Several keys can start in one place",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "With m = 7, keys 19,26,33 all have home location 5. They differ by multiples of 7. A collision is expected when many possible keys are mapped into only seven locations."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Over all integer keys, every table location is reachable: key r maps to r for 0 ≤ r < m. For a restricted collection of keys, however, some locations may never occur. Keys that are all multiples of 7 would all map to 0 when m = 7. Surjectivity on the integers does not guarantee a good spread for your data."
+        },
+        {
+          "type": "check",
+          "prompt": "What happens if a table of size 10 stores keys 120,130,140,150?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "All four hash to location 0. The pattern in the keys and the choice of modulus interact."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.1, p. 304."
+        }
+      ]
+    },
+    {
+      "id": "linear-probing",
+      "title": "Follow collisions around the table and stop after one full pass",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "h(k,i) = (h(k) + i) mod m,     i = 0,1,…,m − 1",
+          "description": "Linear probing checks the home slot, then successive slots with wraparound."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Insert key",
+            "Home mod 7",
+            "Slots checked",
+            "Stored at"
+          ],
+          "rows": [
+            [
+              "19",
+              "5",
+              "5",
+              "5"
+            ],
+            [
+              "26",
+              "5",
+              "5,6",
+              "6"
+            ],
+            [
+              "33",
+              "5",
+              "5,6,0",
+              "0"
+            ],
+            [
+              "12",
+              "5",
+              "5,6,0,1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "title": "A collision can wrap past the last slot",
+          "src": "assets/hash-linear-probing.svg",
+          "description": "In a seven-slot table, keys 19,26,33,12 all start at slot 5. They occupy slots 5,6,0,1 in that insertion order."
+        },
+        {
+          "type": "paragraph",
+          "text": "Lookup must follow the same probe sequence and compare keys at each visited slot. In a table with no deletions, reaching an unused slot proves the key is absent. Deleting a record by simply making its slot unused can break this rule, so deletion needs additional bookkeeping such as a marker. The demonstration below does not implement deletion."
+        },
+        {
+          "type": "check",
+          "prompt": "After those four insertions, where will key 40 be stored?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "40 mod 7 = 5. Slots 5,6,0,1 are occupied, so the first free slot is 2."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.1, pp. 304–305."
+        }
+      ]
+    },
+    {
+      "id": "hash-code",
+      "title": "Keep full keys and detect a full table",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use an array of BigInt keys and an ordinary Number table size. probeTable([19n,26n,33n,12n],7) returns [33n,12n,null,null,null,19n,26n]. Here null marks an unused slot."
+        },
+        {
+          "type": "math",
+          "notation": "function probeTable(keys, size) {\n  if (!Number.isInteger(size) || size < 1 || size > 1000)\n    throw new RangeError(\"Use a table size from 1 through 1000\");\n  if (!Array.isArray(keys) ||\n      !Array.from(keys).every(k => typeof k === \"bigint\"))\n    throw new TypeError(\"Use an array of BigInt keys\");\n  const slots = Array(size).fill(null);\n  for (const key of keys) {\n    const m = BigInt(size);\n    const home = Number(((key % m) + m) % m);\n    let placed = false;\n    for (let i = 0; i < size; i++) {\n      const position = (home + i) % size;\n      if (slots[position] === null || slots[position] === key) {\n        slots[position] = key;\n        placed = true;\n        break;\n      }\n    }\n    if (!placed) throw new RangeError(\"The table is full\");\n  }\n  return slots;\n}",
+          "description": "Executable JavaScript for BigInt keys and a small Number table size. probeTable([19n,26n,33n,12n],7) returns [33n,12n,null,null,null,19n,26n]."
+        },
+        {
+          "type": "paragraph",
+          "text": "The code keeps null distinct from key 0n. A repeated identical key stays in its existing slot rather than creating a duplicate record. Negative integer keys receive nonnegative home locations. At most m probes are made per insertion, so a full table cannot cause an infinite search. The input key array is not modified."
+        },
+        {
+          "type": "paragraph",
+          "text": "The limit of 1000 slots keeps this teaching example modest. The worst case for one insertion is m probes, and clusters of adjacent occupied slots can make searches slow. Hashing alone does not promise constant time for every input."
+        },
+        {
+          "type": "check",
+          "prompt": "What should happen if a one-slot table receives keys 5,5,6 in that order?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The second 5 finds the same existing key and uses no extra slot. Inserting 6 fails with a full-table error after checking the only slot."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.1, pp. 304–305; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "lcg-recurrence",
+      "title": "Generate the next state from the current state",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In the recurrence below, m is the modulus, a the multiplier, c the increment, and x₀ the initial seed. As in the source, use 2 ≤ a < m and 0 ≤ c,x₀ < m. The index n counts transitions from the seed."
+        },
+        {
+          "type": "math",
+          "notation": "xₙ₊₁ = (axₙ + c) mod m",
+          "description": "The modulus m bounds the states, a is the multiplier, c is the increment, and x₀ is the seed. We use 2 ≤ a < m and 0 ≤ c,x₀ < m, as in the textbook."
+        },
+        {
+          "type": "example",
+          "title": "A reproducible sequence",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Choose m = 16, a = 5, c = 1, x₀ = 3. Then x₁ = (5·3 + 1) mod 16 = 0; x₂ = (5·0 + 1) mod 16 = 1; x₃ = 6; x₄ = 15."
+            },
+            {
+              "type": "paragraph",
+              "text": "Continuing gives 3,0,1,6,15,12,13,2,11,8,9,14,7,4,5,10,3,… . The same parameters and seed always give the same sequence."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Pseudorandom means algorithmically generated values used to imitate selected features of random samples. Deterministic output can be useful for reproducible experiments. A long-looking sequence alone does not establish unpredictability or good statistical behavior."
+        },
+        {
+          "type": "check",
+          "prompt": "If you restart this generator with seed 3, will its fifth state differ?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Each state is fixed by the recurrence and the seed. Repeating the same setup reproduces every state."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.2, pp. 305–306."
+        }
+      ]
+    },
+    {
+      "id": "lcg-periods",
+      "title": "Separate eventual repetition from a cycle starting at the seed",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "There are only m possible states. Among m + 1 successive states, two must agree. Because the next state depends only on the current one, the sequence repeats forever from that repeated state onward. There may be an initial path before the cycle."
+        },
+        {
+          "type": "diagram",
+          "title": "A full cycle and a short cycle",
+          "src": "assets/lcg-state-cycles.svg",
+          "description": "The generator modulo 16 with multiplier 5 and increment 1 cycles through all 16 states. A different generator modulo 8 with multiplier 4 and increment 0 follows 3 to 4 to 0 and remains at 0."
+        },
+        {
+          "type": "paragraph",
+          "text": "For xₙ₊₁ = 4xₙ mod 8 with seed 3, the states are 3,4,0,0,… . Repetition does not return to the seed. By contrast, multiplication by a coprime multiplier is invertible modulo m, and adding c is also invertible. Such a transition permutes the states, so a trajectory begins on a cycle. It still need not visit every state."
+        },
+        {
+          "type": "check",
+          "prompt": "Does the full 16-state cycle guarantee an unpredictable next value?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Anyone who knows the recurrence and current state can calculate the next state exactly. Period and unpredictability are different properties."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.2, pp. 305–306."
+        }
+      ]
+    },
+    {
+      "id": "multiplicative-generators",
+      "title": "Treat zero and scaling carefully",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "When c = 0, the recurrence is a pure multiplicative generator. Seed 0 then remains 0 forever. With a prime modulus p, a primitive-root multiplier and a nonzero seed give a cycle of p − 1 nonzero residues: xₙ ≡ aⁿx₀ (mod p). A different multiplier may produce a shorter cycle."
+        },
+        {
+          "type": "example",
+          "title": "Use the primitive-root idea from Section 4.4",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Modulo 7, multiplier 3 and seed 1 produce 1,3,2,6,4,5,1,… . All six nonzero states occur. With multiplier 2 instead, the sequence is 1,2,4,1,…, with period 3."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Dividing a state by m produces a real value xₙ/m in [0,1), not [0,1]. The result comes from a finite grid and retains the dependence of the underlying states. For large BigInt parameters, blindly converting to Number can also introduce rounding; the exact generator below returns integer states."
+        },
+        {
+          "type": "check",
+          "prompt": "For modulus 16, what are the smallest and largest possible scaled states?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They are 0 and 15/16. The value 1 is excluded because a remainder is always smaller than the modulus."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.2, pp. 305–306."
+        }
+      ]
+    },
+    {
+      "id": "lcg-code",
+      "title": "Make the seed and number of transitions explicit",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "lcg(16n,5n,1n,3n,4) returns [3n,0n,1n,6n,15n]. Its result includes the seed and then four generated values. The first four arguments are BigInt integers; the transition count is an ordinary Number."
+        },
+        {
+          "type": "math",
+          "notation": "function lcg(m, a, c, seed, steps) {\n  if ([m, a, c, seed].some(x => typeof x !== \"bigint\"))\n    throw new TypeError(\"Use BigInt parameters\");\n  if (m <= 2n || a < 2n || a >= m || c < 0n || c >= m ||\n      seed < 0n || seed >= m)\n    throw new RangeError(\"Require 2 <= a < m and 0 <= c,seed < m\");\n  if (!Number.isInteger(steps) || steps < 0 || steps > 10000)\n    throw new RangeError(\"Use 0 through 10000 steps\");\n  let x = seed;\n  const states = [x];\n  for (let i = 0; i < steps; i++) {\n    x = (a * x + c) % m;\n    states.push(x);\n  }\n  return states;\n}",
+          "description": "Executable JavaScript: lcg(16n,5n,1n,3n,4) returns [3n,0n,1n,6n,15n]. The output includes the seed and then steps generated values."
+        },
+        {
+          "type": "paragraph",
+          "text": "The function validates the stated parameter ranges and uses BigInt for the product ax + c, so large integer parameters do not lose precision. steps is an ordinary Number integer and is capped at 10000 to bound the demonstration output. Every returned state lies between 0 and m − 1."
+        },
+        {
+          "type": "callout",
+          "title": "What this demonstration establishes",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "It generates the specified recurrence correctly. It is not a source of secret keys or an assurance that the resulting samples meet a simulation’s statistical requirements. Its deterministic structure is the point of the lesson."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does steps = 0 still return a one-element array?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No transition is performed, but the initial state x₀ is still part of the sequence. The result is [seed]."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.2, pp. 305–306; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "parity-checks",
+      "title": "Detect odd numbers of bit flips with an even total",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Each xᵢ is a data bit, either 0 or 1, and p is the parity bit appended at the end. Encoding an empty data string gives \"0\"; a received word must contain at least that parity bit."
+        },
+        {
+          "type": "math",
+          "notation": "p = (x₁ + … + xₙ) mod 2\n(x₁ + … + xₙ + p) mod 2 = 0",
+          "description": "Appending p makes the number of 1 bits even. The appended parity bit is included when checking the received word."
+        },
+        {
+          "type": "example",
+          "title": "A passing check is not a guarantee",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Data 10110 has three 1 bits, so append 1 to obtain 101101, with four 1 bits."
+            },
+            {
+              "type": "paragraph",
+              "text": "Flip the first bit: 001101 has three 1 bits and fails. Flip the first two instead: 011101 has four 1 bits and passes despite differing from the transmitted word."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function appendEvenParity(bits) {\n  if (typeof bits !== \"string\" || !/^[01]*$/.test(bits))\n    throw new TypeError(\"Use a binary string\");\n  let parity = 0;\n  for (const bit of bits) parity = (parity + Number(bit)) % 2;\n  return bits + String(parity);\n}\n\nfunction validEvenParity(bits) {\n  if (typeof bits !== \"string\" || !/^[01]+$/.test(bits)) return false;\n  let sum = 0;\n  for (const bit of bits) sum += Number(bit);\n  return sum % 2 === 0;\n}",
+          "description": "Executable JavaScript: appendEvenParity(\"10110\") returns \"101101\". validEvenParity returns false for malformed or empty received words. Empty data may be encoded as the one-bit word \"0\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "Each flipped bit changes the total by an odd amount modulo 2. An odd number of flips changes parity; an even number preserves it. This includes errors in the parity bit itself. One parity bit detects a failure but does not tell you which bit to repair."
+        },
+        {
+          "type": "check",
+          "prompt": "Can an even-parity check detect swapping a 0 and a 1?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The total number of 1 bits remains unchanged. The two positions change, but the parity does not."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.3, p. 306."
+        }
+      ]
+    },
+    {
+      "id": "upc-check-digit",
+      "title": "Choose a final digit that makes the weighted total a multiple of ten",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For the twelve-digit UPC-A/GTIN-12 arithmetic in the source, positions 1,3,…,11 have weight 3 and positions 2,4,…,12 have weight 1. The final position is the check digit. Preserve leading zeros: an identifier is a digit string, not just an integer value."
+        },
+        {
+          "type": "paragraph",
+          "text": "S denotes the weighted sum of the eleven payload digits. Choose d from 0 through 9 so that S + d is divisible by 10."
+        },
+        {
+          "type": "math",
+          "notation": "3x₁ + x₂ + 3x₃ + x₄ + … + 3x₁₁ + x₁₂ ≡ 0 (mod 10)\nd = (−S) mod 10",
+          "description": "S is the weighted sum of the first eleven digits. Choose the representative d from 0 through 9."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Position group",
+            "Payload digit sum",
+            "Weight",
+            "Contribution"
+          ],
+          "rows": [
+            [
+              "Odd positions 1,3,…,11",
+              "20",
+              "3",
+              "60"
+            ],
+            [
+              "Even positions 2,4,…,10",
+              "25",
+              "1",
+              "25"
+            ],
+            [
+              "Check position 12",
+              "5",
+              "1",
+              "5"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Complete a sample digit string",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For payload 01234567890, the weight-3 digits sum to 0 + 2 + 4 + 6 + 8 + 0 = 20. The weight-1 digits sum to 1 + 3 + 5 + 7 + 9 = 25."
+            },
+            {
+              "type": "paragraph",
+              "text": "Thus S = 3·20 + 25 = 85 and d = 5. The full string 012345678905 satisfies the checksum. This calculation does not claim that an agency assigned the identifier to a product."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If the payload sum is already 120, is the check digit 10?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It is 0. A decimal check digit must be from 0 through 9; use (10 − (S mod 10)) mod 10 to handle this case."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.3, pp. 306–307."
+        }
+      ]
+    },
+    {
+      "id": "upc-error-limits",
+      "title": "Explain which digit errors preserve the checksum",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A single changed decimal digit differs by a nonzero amount Δ between −9 and 9. Its weighted contribution changes by wΔ, where w is 1 or 3. Both weights are invertible modulo 10, so wΔ cannot be 0 modulo 10. Thus every single-digit substitution is detected."
+        },
+        {
+          "type": "paragraph",
+          "text": "For two swapped digits u,v in positions with weights w,z, the change is (w − z)(v − u). If the weights match, the checksum cannot detect the swap. For adjacent positions, the weight difference is ±2, so swapping unequal digits differing by 5 is also undetected."
+        },
+        {
+          "type": "example",
+          "title": "A specific undetected adjacent swap",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "050000000005 has payload weighted sum 5 and check digit 5. Swap its first two digits to get 500000000005: the payload weighted sum becomes 15, and the same check digit still makes the total divisible by 10."
+            },
+            {
+              "type": "paragraph",
+              "text": "Passing means consistent with the arithmetic rule, not error-free, authentic, or officially assigned."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Would an adjacent swap of 2 and 3 be detected by this rule?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Their difference is 1, so the weighted sum changes by ±2, which is nonzero modulo 10."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.3, pp. 307–308; companion error analysis."
+        }
+      ]
+    },
+    {
+      "id": "isbn-ten",
+      "title": "Let X represent ten in the legacy ISBN-10 check position",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "ISBN-10 is a legacy ten-character format. Its first nine characters are decimal digits; the last may be a digit or uppercase X, representing 10. Current ISBNs have used thirteen digits since January 2007, as the International ISBN Agency explains. The older format remains a useful example of arithmetic modulo 11."
+        },
+        {
+          "type": "math",
+          "notation": "Σᵢ₌₁¹⁰ i·xᵢ ≡ 0 (mod 11)\nx₁₀ ≡ Σᵢ₌₁⁹ i·xᵢ (mod 11)",
+          "description": "Because 10 ≡ −1 modulo 11, the final weighted term is −x₁₀. This is why the check value equals the earlier weighted sum, rather than its negative."
+        },
+        {
+          "type": "paragraph",
+          "text": "Because 10 ≡ −1 (mod 11), the last weighted term is −x₁₀ modulo 11. Therefore the check value equals the earlier weighted sum modulo 11, rather than its negative."
+        },
+        {
+          "type": "example",
+          "title": "A sample that needs X",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For payload 123456789, the weighted sum is 1² + 2² + … + 9² = 285. The remainder on division by 11 is 10, so append X."
+            },
+            {
+              "type": "paragraph",
+              "text": "The complete string 123456789X has weighted total 285 + 10·10 = 385 = 11·35. Again, checksum validity is not a claim about assignment to a book."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function isbn10CheckDigit(payload) {\n  if (typeof payload !== \"string\" || !/^[0-9]{9}$/.test(payload))\n    throw new TypeError(\"Use exactly nine decimal digits\");\n  let sum = 0;\n  for (let i = 0; i < 9; i++) sum += (i + 1) * Number(payload[i]);\n  const check = sum % 11;\n  return check === 10 ? \"X\" : String(check);\n}\n\nfunction validIsbn10(code) {\n  if (typeof code !== \"string\" || !/^[0-9]{9}[0-9X]$/.test(code)) return false;\n  return isbn10CheckDigit(code.slice(0, 9)) === code[9];\n}",
+          "description": "Executable JavaScript. isbn10CheckDigit(\"123456789\") returns \"X\"; validIsbn10 accepts only nine decimal digits followed by one digit or uppercase X, with no separators."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is X permitted only in the last position?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It encodes the extra possible remainder 10 for the check value. The payload positions are still decimal digits under this format."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.3, p. 307."
+        }
+      ]
+    },
+    {
+      "id": "isbn-error-proof",
+      "title": "Use the prime modulus to prove detection",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Write W = Σ i·xᵢ and require W ≡ 0 (mod 11). If one character at position j changes by Δ ≠ 0, then the weighted sum changes by jΔ. Here 1 ≤ j ≤ 10 and 0 < |Δ| ≤ 10, so neither factor is divisible by prime 11. Their product is nonzero modulo 11, and the error is detected."
+        },
+        {
+          "type": "paragraph",
+          "text": "If unequal characters at distinct positions j,k are swapped, the change is (j − k)(xₖ − xⱼ). Neither nonzero factor has absolute value as large as 11. Therefore the checksum changes modulo 11 and the swap is detected. If a swap puts X into a payload position, the format check also rejects it. Swapping equal characters makes no change to the string."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "System",
+            "Every single substitution?",
+            "Every unequal transposition?"
+          ],
+          "rows": [
+            [
+              "Even parity on bits",
+              "Yes",
+              "No"
+            ],
+            [
+              "Alternating 3/1 decimal checksum",
+              "Yes",
+              "No"
+            ],
+            [
+              "ISBN-10 weighted checksum",
+              "Yes",
+              "Yes, within its character model"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does detecting every single error mean this checksum can detect every pair of changes?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Changes can cancel in the weighted sum. For example, increasing position 1 by 2 and decreasing position 2 by 1 gives net change 1·2 + 2·(−1) = 0, when the resulting characters remain allowed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.3, p. 308."
+        }
+      ]
+    },
+    {
+      "id": "thirteen-digit-checks",
+      "title": "Count weights from the check-digit end",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The thirteen-digit retail checksum alternates weights 1,3 on its twelve payload digits, with weight 1 on the final check digit. ISBN-13 uses this checksum. A useful implementation rule covers both twelve- and thirteen-digit full codes: start at the rightmost payload digit with weight 3, then alternate 3 and 1 while moving left."
+        },
+        {
+          "type": "paragraph",
+          "text": "These functions accept digit strings without separators and check only the arithmetic format. They do not verify ISBN prefixes or official publisher/product assignment. retailCheckDigit(\"01234567890\") returns \"5\"; validRetailCode(\"9781234567897\") returns true."
+        },
+        {
+          "type": "math",
+          "notation": "function retailCheckDigit(payload) {\n  if (typeof payload !== \"string\" || !/^(?:[0-9]{11}|[0-9]{12})$/.test(payload))\n    throw new TypeError(\"Use 11 or 12 decimal digits, with no separators\");\n  let sum = 0, weight = 3;\n  for (let i = payload.length - 1; i >= 0; i--) {\n    sum += weight * Number(payload[i]);\n    weight = 4 - weight;\n  }\n  return String((10 - sum % 10) % 10);\n}\n\nfunction validRetailCode(code) {\n  if (typeof code !== \"string\" || !/^(?:[0-9]{12}|[0-9]{13})$/.test(code))\n    return false;\n  return retailCheckDigit(code.slice(0, -1)) === code.at(-1);\n}",
+          "description": "Executable JavaScript for GTIN-12 and GTIN-13 checksum arithmetic only. It preserves leading zeros, rejects separators, and does not validate publisher/product allocation or ISBN prefixes."
+        },
+        {
+          "type": "example",
+          "title": "An ISBN-13-shaped sample",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For payload 978123456789, the weight-1 positions sum to 9 + 8 + 2 + 4 + 6 + 8 = 37. The weight-3 positions sum to 7 + 1 + 3 + 5 + 7 + 9 = 32."
+            },
+            {
+              "type": "paragraph",
+              "text": "The total is 37 + 3·32 = 133, so the check digit is 7. The sample 9781234567897 passes the checksum rule."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why should an ISBN-10 X not be copied onto the end when converting to ISBN-13?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The length, weights, and modulus change. Form the appropriate thirteen-digit-format payload and compute its new decimal check digit. X is not an ISBN-13 check character."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5.3 and ISBN-13 companion bridge, pp. 307–308."
+        }
+      ]
+    },
+    {
+      "id": "applications-recap",
+      "title": "Check what each modular application actually promises",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "Insert keys 8,13,18 into a size-5 table using linear probing.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "All have home location 3. They occupy slots 3,4,0, respectively. A lookup for 18 must follow that same sequence."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Generate three transitions of xₙ₊₁ = (3xₙ + 1) mod 7 from seed 2.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The states including the seed are 2,0,1,4. For example, x₁ = 7 mod 7 = 0. The values are fixed, not freshly random choices."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can a valid check digit prove who sent a code?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Anyone who knows the checksum rule can generate a passing code. Error detection and sender authentication are different goals."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Optional project: build a small error checker. What should you verify?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Generate valid sample strings, then systematically change each position to every other allowed character. Check that all single substitutions are rejected. Try every unequal swap to compare the ISBN-10 and retail checksum guarantees. Preserve leading zeros, include an X check digit, and test malformed lengths."
+            },
+            {
+              "type": "paragraph",
+              "text": "For hashing, test wraparound, duplicate keys, and full tables. For generators, compare the same seed twice and identify a repeated state instead of assuming the first repeated state is the seed."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "You should now be able to explain collisions, distinguish a recurrence’s period from randomness, and prove what a checksum detects. Section 4.6 uses modular inverses and powers for a different set of goals: encryption, key agreement, and signatures."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.5, pp. 303–308; original mixed practice."
+        }
+      ]
+    }
+  ]
+}

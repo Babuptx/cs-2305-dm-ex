@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="395" viewBox="0 0 840 395" role="img" aria-labelledby="title desc"><title id="title">Read-from transposition and its inverse</title><desc id="desc">With order 2,4,1,3, MATH becomes AHMT. With inverse order 3,1,4,2, AHMT becomes MATH.</desc><rect width="840" height="395" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="36" font-size="22" font-weight="700">Ciphertext position i reads plaintext position σ(i)</text>
+<text x="30" y="72" font-size="18" >One-based order: [2, 4, 1, 3]     ·     inverse: [3, 1, 4, 2]</text>
+<text x="30" y="131" font-size="18" font-weight="650">Plaintext</text>
+<g data-row="0" data-index="1" data-source="1" data-letter="M"><rect x="230" y="100" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="257" y="134" font-size="26" font-weight="700">M</text>
+<text x="315" y="133" font-size="17" text-anchor="middle">[1]</text>
+</g>
+<g data-row="0" data-index="2" data-source="2" data-letter="A"><rect x="370" y="100" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="397" y="134" font-size="26" font-weight="700">A</text>
+<text x="455" y="133" font-size="17" text-anchor="middle">[2]</text>
+</g>
+<g data-row="0" data-index="3" data-source="3" data-letter="T"><rect x="510" y="100" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="537" y="134" font-size="26" font-weight="700">T</text>
+<text x="595" y="133" font-size="17" text-anchor="middle">[3]</text>
+</g>
+<g data-row="0" data-index="4" data-source="4" data-letter="H"><rect x="650" y="100" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="677" y="134" font-size="26" font-weight="700">H</text>
+<text x="735" y="133" font-size="17" text-anchor="middle">[4]</text>
+</g>
+<text x="30" y="213" font-size="18" font-weight="650">Read positions</text>
+<g data-row="1" data-index="1" data-source="2" data-letter="A"><rect x="230" y="182" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="257" y="216" font-size="26" font-weight="700">A</text>
+<text x="315" y="215" font-size="17" text-anchor="middle">[2]</text>
+</g>
+<g data-row="1" data-index="2" data-source="4" data-letter="H"><rect x="370" y="182" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="397" y="216" font-size="26" font-weight="700">H</text>
+<text x="455" y="215" font-size="17" text-anchor="middle">[4]</text>
+</g>
+<g data-row="1" data-index="3" data-source="1" data-letter="M"><rect x="510" y="182" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="537" y="216" font-size="26" font-weight="700">M</text>
+<text x="595" y="215" font-size="17" text-anchor="middle">[1]</text>
+</g>
+<g data-row="1" data-index="4" data-source="3" data-letter="T"><rect x="650" y="182" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="677" y="216" font-size="26" font-weight="700">T</text>
+<text x="735" y="215" font-size="17" text-anchor="middle">[3]</text>
+</g>
+<text x="30" y="295" font-size="18" font-weight="650">Undo: read</text>
+<g data-row="2" data-index="1" data-source="3" data-letter="M"><rect x="230" y="264" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="257" y="298" font-size="26" font-weight="700">M</text>
+<text x="315" y="297" font-size="17" text-anchor="middle">[3]</text>
+</g>
+<g data-row="2" data-index="2" data-source="1" data-letter="A"><rect x="370" y="264" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="397" y="298" font-size="26" font-weight="700">A</text>
+<text x="455" y="297" font-size="17" text-anchor="middle">[1]</text>
+</g>
+<g data-row="2" data-index="3" data-source="4" data-letter="T"><rect x="510" y="264" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="537" y="298" font-size="26" font-weight="700">T</text>
+<text x="595" y="297" font-size="17" text-anchor="middle">[4]</text>
+</g>
+<g data-row="2" data-index="4" data-source="2" data-letter="H"><rect x="650" y="264" width="120" height="53" rx="7" fill="#cee5d6"/>
+<text x="677" y="298" font-size="26" font-weight="700">H</text>
+<text x="735" y="297" font-size="17" text-anchor="middle">[2]</text>
+</g>
+<text x="30" y="366" font-size="17" >The letters stay the same; only their positions change. Keep block boundaries.</text>
+</g></svg>

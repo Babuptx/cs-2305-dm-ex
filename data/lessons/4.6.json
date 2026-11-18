@@ -1,0 +1,947 @@
+{
+  "schemaVersion": 1,
+  "id": "4.6",
+  "title": "Cryptography",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Section 4.6, printed pages 310–321.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks.",
+    "IETF, RFC 8017, PKCS #1 v2.2, Sections 5, 7.1, and 8.1 (RSA primitives, OAEP, and PSS): https://www.rfc-editor.org/rfc/rfc8017.html",
+    "IETF, RFC 2631, Diffie-Hellman Key Agreement Method: https://www.rfc-editor.org/rfc/rfc2631.html",
+    "NIST, First 3 Finalized Post-Quantum Encryption Standards, August 2024: https://csrc.nist.gov/News/2024/postquantum-cryptography-fips-approved",
+    "Microsoft SEAL, official library documentation: https://github.com/microsoft/SEAL"
+  ],
+  "units": [
+    {
+      "id": "cryptography-goals",
+      "title": "Name the information you are trying to protect",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Cryptography uses mathematical procedures and keys to protect information. Plaintext is the original message. Encryption produces ciphertext. Decryption recovers the plaintext using the appropriate key. Cryptanalysis studies how to recover protected information or defeat a claimed security property without the intended secret."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Goal",
+            "Question it answers",
+            "Important distinction"
+          ],
+          "rows": [
+            [
+              "Confidentiality",
+              "Can an outsider read the message?",
+              "Hiding content does not by itself identify its sender."
+            ],
+            [
+              "Integrity",
+              "Has the protected message been changed?",
+              "An ordinary check digit detects some accidents, not deliberate rewriting."
+            ],
+            [
+              "Authentication",
+              "Who or what produced the message?",
+              "A public key must be reliably connected to the claimed owner."
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Learning models",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "The small keys and classical ciphers in this lesson make the arithmetic visible. They do not protect personal data. Mathematical invertibility is necessary for decryption, but it does not establish resistance to an attacker."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is replacing each letter by its alphabet number encryption with a secret key?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. If everyone knows A = 0 through Z = 25, the replacement is simply a public encoding. A secret is not introduced by making text look numerical."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.1, pp. 310–311."
+        }
+      ]
+    },
+    {
+      "id": "shift-cipher",
+      "title": "Wrap letters around a 26-position alphabet",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Encode A = 0, B = 1, …, Z = 25. Let p be a plaintext letter number, c its ciphertext number, and k the shift key. Here p is a letter value, not the prime named p later in RSA."
+        },
+        {
+          "type": "math",
+          "notation": "Encrypt: c = (p + k) mod 26\nDecrypt: p = (c − k) mod 26",
+          "description": "Take the least nonnegative remainder, including after subtraction."
+        },
+        {
+          "type": "example",
+          "title": "Shift STUDY forward by five",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "S = 18 becomes 23 = X. T = 19 becomes 24 = Y. U = 20 becomes 25 = Z. D = 3 becomes 8 = I. Y = 24 becomes 29 mod 26 = 3 = D. The ciphertext is XYZID."
+            },
+            {
+              "type": "paragraph",
+              "text": "To undo the last letter, D = 3 gives (3 − 5) mod 26 = 24 = Y. The negative intermediate value −2 is not the final remainder."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What do keys 0 and 26 do? How many distinct shift keys are there?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Both leave every letter unchanged. Only the residue of k modulo 26 matters, so there are 26 distinct shifts, including the identity shift."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.2, pp. 311–312."
+        }
+      ]
+    },
+    {
+      "id": "affine-cipher",
+      "title": "Multiply and shift only when multiplication is reversible",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Here a is the multiplier and b is the offset. Decryption uses u, the multiplicative inverse of a modulo 26. That inverse exists exactly when gcd(a,26) = 1."
+        },
+        {
+          "type": "math",
+          "notation": "c = (ap + b) mod 26\np = u(c − b) mod 26, where au ≡ 1 (mod 26).",
+          "description": "The multiplier a must satisfy gcd(a,26) = 1; u is its modular inverse."
+        },
+        {
+          "type": "paragraph",
+          "text": "The allowed multiplier residues are 1,3,5,7,9,11,15,17,19,21,23,25. The offset b may be any residue from 0 to 25. Thus there are 12·26 = 312 affine keys. A shift cipher is the special case a = 1."
+        },
+        {
+          "type": "example",
+          "title": "Encrypt HASH with a = 5 and b = 8",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "H = 7 gives 5·7 + 8 = 43 ≡ 17 = R. A = 0 gives 8 = I. S = 18 gives 98 ≡ 20 = U. The second H again gives R. The ciphertext is RIUR."
+            },
+            {
+              "type": "paragraph",
+              "text": "Since 5·21 = 105 ≡ 1 (mod 26), decrypt R = 17 as 21(17 − 8) = 189 ≡ 7 = H."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Why a = 2 fails",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Inputs A = 0 and N = 13 both give c = b modulo 26. Two different letters collapse into one output. No decryption function can recover which letter was intended from that output alone."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does knowing the inverse of a require a secret algorithm?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The inverse can be found by the extended Euclidean algorithm. The key values are what the classical scheme attempts to keep secret; hiding the procedure is not its mathematical foundation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.2, p. 312."
+        }
+      ]
+    },
+    {
+      "id": "affine-code",
+      "title": "Test encryption and decryption with the same alphabet convention",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This JavaScript demonstration accepts uppercase ASCII letters and spaces, safe integer Number keys, and a Boolean mode. It preserves spaces, which reveals word boundaries. It normalizes keys before multiplying, rejects noninvertible multipliers, and does not silently discard unsupported characters."
+        },
+        {
+          "type": "math",
+          "notation": "function affineCipher(text, a, b, decrypt = false) {\n  if (typeof text !== \"string\" || !/^[A-Z ]*$/.test(text))\n    throw new TypeError(\"Use uppercase A-Z and spaces only\");\n  if (!Number.isSafeInteger(a) || !Number.isSafeInteger(b) ||\n      typeof decrypt !== \"boolean\") throw new TypeError(\"Invalid key or mode\");\n  const mod = x => ((x % 26) + 26) % 26;\n  a = mod(a); b = mod(b);\n  let inverse = 0;\n  for (let u = 1; u < 26; u++) if ((a * u) % 26 === 1) inverse = u;\n  if (inverse === 0) throw new RangeError(\"a must be relatively prime to 26\");\n  return Array.from(text, ch => {\n    if (ch === \" \") return ch;\n    const value = ch.charCodeAt(0) - 65;\n    const out = decrypt ? mod(inverse * (value - b)) : mod(a * value + b);\n    return String.fromCharCode(65 + out);\n  }).join(\"\");\n}",
+          "description": "Executable JavaScript for shift and affine ciphers."
+        },
+        {
+          "type": "paragraph",
+          "text": "affineCipher(\"HASH\", 5, 8) returns \"RIUR\". affineCipher(\"RIUR\", 5, 8, true) returns \"HASH\". affineCipher(\"STUDY\", 1, 5) returns \"XYZID\". Empty input returns an empty string. This is a standalone teaching function, not a secure encryption library."
+        },
+        {
+          "type": "check",
+          "prompt": "Why can we use a short search for the inverse here?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "There are only 25 positive candidates below 26. For large moduli, extended Euclid is the practical general method."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.2, pp. 311–312; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "classical-cryptanalysis",
+      "title": "Distinguish a useful clue from a guaranteed decoding",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An attacker can try all 26 shift keys and look for meaningful plaintext. Monoalphabetic substitution also preserves repeated-letter patterns and rearranges letter frequencies. Common English letters can guide guesses, but the most frequent letter in one short message need not be E. Language, message length, names, and deliberately unusual wording affect that clue."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Cipher",
+            "What is transformed?",
+            "What remains visible?"
+          ],
+          "rows": [
+            [
+              "Shift or affine substitution",
+              "Each letter is replaced consistently.",
+              "Repeated letters and their frequency pattern."
+            ],
+            [
+              "General monoalphabetic substitution",
+              "A permutation of the 26 letter symbols.",
+              "The same frequency and repetition clues."
+            ],
+            [
+              "Block transposition",
+              "Letter positions are rearranged.",
+              "The actual letter counts."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does 26! possible substitution alphabets by itself prove security?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Key count alone ignores structure that an attacker can exploit. Frequency patterns and language constraints can reveal information without enumerating every key."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.2, pp. 312–313."
+        }
+      ]
+    },
+    {
+      "id": "transposition-cipher",
+      "title": "Specify whether the permutation reads from or moves to a position",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A transposition cipher keeps the symbols but changes their order inside fixed-size blocks. We use a read-from convention: ciphertext position i takes the plaintext symbol at position σ(i). Positions start at 1."
+        },
+        {
+          "type": "math",
+          "notation": "cᵢ = pσ(i)\nFor σ = [2,4,1,3], read plaintext positions 2,4,1,3 in that order.",
+          "description": "The inverse permutation is [3,1,4,2]."
+        },
+        {
+          "type": "diagram",
+          "title": "Read four positions, then undo the order",
+          "src": "assets/transposition-read-from.svg",
+          "description": "MATH becomes AHMT by reading plaintext positions 2,4,1,3. Reading ciphertext positions 3,1,4,2 recovers MATH."
+        },
+        {
+          "type": "example",
+          "title": "Keep the direction consistent",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "MATH has positions 1:M, 2:A, 3:T, 4:H. Reading 2,4,1,3 gives A,H,M,T. The inverse reads positions 3,1,4,2 of AHMT to recover M,A,T,H."
+            },
+            {
+              "type": "paragraph",
+              "text": "The wording “move position i to position σ(i)” describes the inverse convention. It would produce a different ciphertext for this same list, so always define which convention is in use."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does transposition not disguise which letter occurs most often?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It only changes positions. The count of every letter is unchanged."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.2, pp. 313–314."
+        }
+      ]
+    },
+    {
+      "id": "transposition-code",
+      "title": "Preserve block boundaries and explain padding",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "function permuteBlocks(text, order, decrypt = false) {\n  if (typeof text !== \"string\" || !/^[A-Z]*$/.test(text))\n    throw new TypeError(\"Use uppercase letters without spaces\");\n  if (!Array.isArray(order) || order.length < 1 || order.length > 1000 ||\n      typeof decrypt !== \"boolean\") throw new TypeError(\"Invalid order or mode\");\n  const width = order.length;\n  if (!Array.from(order).every(v => Number.isInteger(v) && v >= 1 && v <= width) ||\n      new Set(order).size !== width) throw new RangeError(\"Use a permutation of 1 through width\");\n  if (text.length % width !== 0) throw new RangeError(\"Supply full blocks; keep padding metadata separately\");\n  let result = \"\";\n  for (let start = 0; start < text.length; start += width) {\n    const out = Array(width);\n    for (let i = 0; i < width; i++) {\n      if (decrypt) out[order[i] - 1] = text[start + i];\n      else out[i] = text[start + order[i] - 1];\n    }\n    result += out.join(\"\");\n  }\n  return result;\n}",
+          "description": "Executable JavaScript with a one-based read-from permutation and explicit decryption mode."
+        },
+        {
+          "type": "paragraph",
+          "text": "permuteBlocks(\"MATHREAD\", [2,4,1,3]) returns \"AHMTEDRA\"; the same call with true as its third argument recovers \"MATHREAD\". It accepts only full uppercase blocks, a permutation of positions 1 through the block width, and a Boolean mode. Empty text is allowed. It does not insert padding."
+        },
+        {
+          "type": "callout",
+          "title": "Padding needs a recovery rule",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To place CAT in a width-four block you might append X, but decrypting CATX cannot tell whether that X was part of the original message. Preserve the original length or specify an unambiguous padding scheme. Removing every trailing X would destroy genuine data."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What should happen if the permutation is [2,2,1,3]?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Reject it. Position 2 is repeated and position 4 is absent, so the mapping loses information and is not a permutation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.2, pp. 313–314; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "cryptosystem-model",
+      "title": "Separate the correctness equation from a security claim",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A cryptosystem is described by five ingredients: P, the plaintext space; C, the ciphertext space; K, the keyspace; E, the family of encryption functions; and D, the family of decryption functions. These capital letters name sets or families, not individual letter values."
+        },
+        {
+          "type": "math",
+          "notation": "For each allowed key k and plaintext p: Dₖ(Eₖ(p)) = p.",
+          "description": "Encryption followed by the matching decryption must recover the original plaintext."
+        },
+        {
+          "type": "paragraph",
+          "text": "The equation states correctness. Even the identity function satisfies it, yet hides nothing. Security additionally asks what an observer can infer or change under a specified attack model. With public-key schemes, encryption and decryption use a corresponding pair of keys rather than one shared secret."
+        },
+        {
+          "type": "check",
+          "prompt": "If decryption succeeds in a test, have we proved the cipher is secure?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A successful round trip checks that example of correctness. It says nothing by itself about whether an outsider can recover messages or create convincing forgeries."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.3, p. 314."
+        }
+      ]
+    },
+    {
+      "id": "public-key-roles",
+      "title": "Choose the recipient’s public key for confidentiality",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In a shared-key system, the parties possess a common secret. In a public-key system, a public key can be distributed while the corresponding private key is kept secret. For confidentiality, a sender encrypts to the recipient’s public key; the recipient decrypts with the recipient’s private key."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Task",
+            "Key used to create the result",
+            "Key used to recover or check it"
+          ],
+          "rows": [
+            [
+              "Encrypt to Bob",
+              "Bob’s public encryption key",
+              "Bob’s private decryption key"
+            ],
+            [
+              "Sign as Alice",
+              "Alice’s private signing key",
+              "Alice’s public verification key"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A public key being visible does not prove whose key it is. A trusted association, such as an authenticated certificate or a separately checked fingerprint, is needed. Practical systems often combine public-key establishment of keying material with symmetric encryption for the actual data; this is a hybrid design."
+        },
+        {
+          "type": "check",
+          "prompt": "If Alice encrypts with her own public key, has she selected Bob as the recipient?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. She has selected the matching private-key holder, normally herself. Recipient and sender roles must be tracked explicitly."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.4, pp. 314–315."
+        }
+      ]
+    },
+    {
+      "id": "rsa-key-setup",
+      "title": "Build an inverse pair of exponents",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For the textbook RSA construction, choose distinct primes p and q, form n = pq, and calculate φ(n) = (p − 1)(q − 1). Here φ(n) counts residues relatively prime to n. Choose an encryption exponent e relatively prime to φ(n), then find d with ed ≡ 1 (mod φ(n)). Publish (n,e); keep d and the factors secret in the intended system."
+        },
+        {
+          "type": "example",
+          "title": "A deliberately small key",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Take p = 61 and q = 53. Then n = 3233 and φ(n) = 60·52 = 3120. Choose e = 17. Extended Euclid gives d = 2753 because 17·2753 = 46801 = 1 + 15·3120."
+            },
+            {
+              "type": "paragraph",
+              "text": "The public pair is (3233,17). These published small factors and d make the example easy to reproduce and unsuitable for secrecy."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Could we choose e = 12 with φ(n) = 3120?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. gcd(12,3120) = 12, so 12 has no multiplicative inverse modulo 3120. The required decryption exponent cannot be obtained from that inverse equation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.5, pp. 315–316."
+        }
+      ]
+    },
+    {
+      "id": "rsa-message-blocks",
+      "title": "Encode letters without losing leading zeros or block limits",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Raw RSA takes an integer m with 0 ≤ m < n. The upper bound is strict: m = n would become 0 modulo n and lose information. For our n = 3233, two letters represented by two digits each fit: the largest pair ZZ is 2525, which is less than 3233."
+        },
+        {
+          "type": "example",
+          "title": "Encode MATH as fixed-width pairs",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "M = 12 and A = 00 give the four-digit block 1200. T = 19 and H = 07 give 1907. A block containing AA is 0000: its integer value is 0, but the format still represents two letters."
+            },
+            {
+              "type": "paragraph",
+              "text": "Not every number up to 2525 encodes a legal pair. For example, 1275 has a valid first code 12 and an invalid second code 75. Encoding validation is separate from the bound required by RSA."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function encodePairs(text) {\n  if (typeof text !== \"string\" || !/^(?:[A-Z]{2})*$/.test(text))\n    throw new TypeError(\"Supply an even number of uppercase letters\");\n  const blocks = [];\n  for (let i = 0; i < text.length; i += 2)\n    blocks.push(BigInt(100 * (text.charCodeAt(i) - 65) + text.charCodeAt(i + 1) - 65));\n  return blocks;\n}\nfunction decodePairs(blocks) {\n  if (!Array.isArray(blocks)) throw new TypeError(\"Supply an array of BigInt blocks\");\n  return Array.from(blocks, block => {\n    if (typeof block !== \"bigint\") throw new TypeError(\"Use BigInt blocks\");\n    if (block < 0n || block > 2525n || block / 100n > 25n || block % 100n > 25n)\n      throw new RangeError(\"Each two-digit letter code must be 00 through 25\");\n    return String.fromCharCode(65 + Number(block / 100n), 65 + Number(block % 100n));\n  }).join(\"\");\n}",
+          "description": "Executable JavaScript for fixed two-letter blocks, not cryptographic padding."
+        },
+        {
+          "type": "paragraph",
+          "text": "encodePairs(\"MATH\") returns [1200n, 1907n]. decodePairs([0n, 23n]) returns \"AAAX\". The encoder requires an even number of uppercase letters; the decoder requires an array of valid BigInt letter-pair blocks. Empty inputs round trip. An odd-length message needs recorded length or another explicit format; this toy format provides no security."
+        },
+        {
+          "type": "check",
+          "prompt": "Could we use the same two-letter encoding with modulus 1000?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Not for every pair: 2525 is too large. The encoding’s largest possible block must be strictly smaller than the chosen modulus."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.5, pp. 316–317."
+        }
+      ]
+    },
+    {
+      "id": "rsa-encryption",
+      "title": "Use modular exponentiation rather than huge unreduced powers",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "math",
+          "notation": "Encrypt: c = mᵉ mod n\nDecrypt: m = cᵈ mod n",
+          "description": "The corresponding exponents satisfy ed ≡ 1 modulo (p−1)(q−1)."
+        },
+        {
+          "type": "example",
+          "title": "Encrypt the numerical block 42",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "With n = 3233 and e = 17, repeated squaring gives 42² ≡ 1764, 42⁴ ≡ 1550, 42⁸ ≡ 381, and 42¹⁶ ≡ 2909 (mod 3233)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Since 17 = 16 + 1, multiply the last residue by 42: 2909·42 mod 3233 = 2557. Decrypting gives 2557²⁷⁵³ mod 3233 = 42."
+            },
+            {
+              "type": "paragraph",
+              "text": "For the encoded word MATH, the blocks 1200 and 1907 encrypt to 2406 and 317. Keep block boundaries; concatenating variable-width decimal strings would be ambiguous."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why may each intermediate square be reduced modulo n?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Congruent integers remain congruent after multiplication. Reducing early preserves the final remainder while avoiding the enormous full power. Section 4.2’s repeated-squaring algorithm does exactly this."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.5, pp. 316–317."
+        }
+      ]
+    },
+    {
+      "id": "rsa-correctness",
+      "title": "Prove decryption for all residues, including multiples of a prime",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Write ed = 1 + k(p − 1)(q − 1). We want mᵉᵈ ≡ m (mod pq). First work modulo p. If p divides m, both m and its positive power are 0 modulo p. If p does not divide m, Fermat’s little theorem gives mᵖ⁻¹ ≡ 1 (mod p). Thus mᵉᵈ = m(mᵖ⁻¹)ᵏ⁽q⁻¹⁾ ≡ m (mod p)."
+        },
+        {
+          "type": "paragraph",
+          "text": "The same two cases give mᵉᵈ ≡ m (mod q). Because p and q are distinct primes, they are relatively prime. The Chinese remainder theorem now gives equality modulo pq. Finally, both the original block and the decrypted representative lie from 0 through n − 1, so they are the same integer."
+        },
+        {
+          "type": "callout",
+          "title": "Do not discard noncoprime messages",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For our key, m = 61 shares a factor with n. It still encrypts to 610 and decrypts to 61. A proof that applies Fermat or Euler only when gcd(m,n) = 1 would leave this valid input unexplained; the zero-residue case fills that gap."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Where does the assumption p ≠ q enter this proof?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "It ensures gcd(p,q) = 1 so that matching both prime residues determines the result modulo pq. The totient formula (p − 1)(q − 1) used here also assumes distinct primes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.6, pp. 317–318."
+        }
+      ]
+    },
+    {
+      "id": "rsa-toy-code",
+      "title": "Compose the earlier number-theory functions",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Run this teaching code together with modPower from Section 4.2, isPrime and extendedGcd from Section 4.3, and normalizedMod and inverseMod from Section 4.4. It uses exact BigInt arithmetic. The small-prime cap makes its intended educational scale explicit; it generates no randomness and provides no secure padding."
+        },
+        {
+          "type": "math",
+          "notation": "function toyRsaKey(p, q, e) {\n  if (![p, q, e].every(x => typeof x === \"bigint\")) throw new TypeError(\"Use BigInt inputs\");\n  if (p < 2n || q < 2n || p > 10000n || q > 10000n || p === q ||\n      !isPrime(p) || !isPrime(q)) throw new RangeError(\"Use distinct primes at most 10000\");\n  const n = p * q, phi = (p - 1n) * (q - 1n);\n  if (e <= 1n || e >= phi) throw new RangeError(\"Require 1 < e < phi\");\n  const d = inverseMod(e, phi);\n  if (d === null) throw new RangeError(\"e must be relatively prime to phi\");\n  return { n, e, d, phi };\n}\nfunction rsaBlock(value, exponent, n) {\n  if (![value, exponent, n].every(x => typeof x === \"bigint\")) throw new TypeError(\"Use BigInt inputs\");\n  if (n <= 1n || exponent <= 0n || value < 0n || value >= n)\n    throw new RangeError(\"Require n > 1, exponent > 0, and 0 <= value < n\");\n  return modPower(value, exponent, n);\n}",
+          "description": "Executable JavaScript for bounded toy key construction and the raw RSA modular-power operation."
+        },
+        {
+          "type": "paragraph",
+          "text": "const key = toyRsaKey(61n, 53n, 17n) gives n = 3233n and d = 2753n. rsaBlock(42n, key.e, key.n) returns 2557n; applying rsaBlock to that result with key.d returns 42n. rsaBlock checks the input range but cannot establish that arbitrary exponents form a valid key pair."
+        },
+        {
+          "type": "check",
+          "prompt": "Why reject rsaBlock(3233n, 17n, 3233n) instead of silently reducing the input?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Its input is outside the declared plaintext space. Silently reducing it would merge the distinct supplied integers 3233 and 0, defeating the encoding contract."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.5–§4.6.6, pp. 315–318; executable companion demonstration."
+        }
+      ]
+    },
+    {
+      "id": "rsa-security",
+      "title": "Explain what the arithmetic does not guarantee",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Knowing the factors of n lets an attacker compute φ(n) and d. But it is not established in general that every way of breaking RSA must factor n. Incorrect padding, exposed keys, side channels, and protocol mistakes can also defeat an implementation. Making n large does not repair every one of those problems."
+        },
+        {
+          "type": "paragraph",
+          "text": "Raw textbook RSA is deterministic: the same message and public key produce the same ciphertext. It also has algebraic structure that permits changes to ciphertext. RFC 8017 specifies complete schemes such as RSAES-OAEP for encryption and RSASSA-PSS for signatures; their encoding rules are part of the scheme. Use maintained cryptographic libraries and protocols rather than this lesson’s functions for real data."
+        },
+        {
+          "type": "paragraph",
+          "text": "A sufficiently capable quantum computer would threaten conventional RSA and finite-field Diffie–Hellman. That is a reason to distinguish this foundational mathematics from current deployment choices, not a prediction of an arrival date. NIST approved its first three post-quantum cryptography standards in August 2024."
+        },
+        {
+          "type": "check",
+          "prompt": "Does “we tested every message for this tiny RSA key” prove secrecy?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It can establish correctness for that finite key’s message space. Its factors are small and even published here, so the key offers no meaningful secrecy."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.6–§4.6.7, pp. 318–319; modern context."
+        }
+      ]
+    },
+    {
+      "id": "diffie-hellman",
+      "title": "Reach the same secret power without sending the private exponents",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Diffie–Hellman is key agreement, not direct message encryption. Alice and Bob publicly agree on a prime p and a base g. In this small textbook example g is a primitive root modulo p. Alice keeps x secret and sends A = gˣ mod p. Bob keeps y secret and sends B = gʸ mod p."
+        },
+        {
+          "type": "math",
+          "notation": "Alice computes Bˣ mod p = gʸˣ mod p.\nBob computes Aʸ mod p = gˣʸ mod p.",
+          "description": "Both parties obtain the same residue because xy = yx."
+        },
+        {
+          "type": "diagram",
+          "title": "Two private computations reach one shared residue",
+          "src": "assets/diffie-hellman-exchange.svg",
+          "description": "With public p=23 and g=5, Alice uses private x=6 and sends A=8. Bob uses private y=15 and sends B=19. Both compute shared residue 2."
+        },
+        {
+          "type": "example",
+          "title": "Work through the small example",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let p = 23 and g = 5. Alice chooses x = 6 and publishes A = 5⁶ mod 23 = 8. Bob chooses y = 15 and publishes B = 5¹⁵ mod 23 = 19."
+            },
+            {
+              "type": "paragraph",
+              "text": "Alice computes 19⁶ mod 23 = 2. Bob computes 8¹⁵ mod 23 = 2. An observer sees 23,5,8,19; neither party transmits x, y, or the resulting 2."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is the shared residue literally x·y?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The exponent product is 90, but the shared residue is 5⁹⁰ mod 23 = 2. The distinction between exponents and residues matters."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.7, p. 319."
+        }
+      ]
+    },
+    {
+      "id": "key-agreement-limits",
+      "title": "Authenticate the exchange and derive usable keys",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Solving the discrete logarithm A = gˣ mod p for x is one way to recover the shared value from public data. Computing the shared value directly is the computational Diffie–Hellman problem; do not assume these problems have been proved equivalent in every setting. Our tiny group can be searched exhaustively and is not secure."
+        },
+        {
+          "type": "paragraph",
+          "text": "An unauthenticated exchange does not establish who is on the other end. If an intermediary substitutes public values, Alice can end up sharing one secret with the intermediary and Bob a different secret with it. Neither shared-power equality identifies the intended peer. An authenticated protocol prevents this substitution using verified credentials or another trust mechanism."
+        },
+        {
+          "type": "paragraph",
+          "text": "Real protocols validate public values and parameters, choose appropriate private randomness, and feed the shared value into a key-derivation procedure. The small residue 2 in our diagram is an illustration, not a ready-to-use encryption key."
+        },
+        {
+          "type": "check",
+          "prompt": "Does publishing p and g reveal the private exponents automatically?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. The design assumes they are public. The difficulty sought is recovering or deriving the shared secret from public values at an appropriate scale; identity authentication is a separate requirement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.7, p. 319; companion clarification."
+        }
+      ]
+    },
+    {
+      "id": "digital-signatures",
+      "title": "Use the sender’s private signing key, then verify with the public key",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A digital signature is checked against a message and a public verification key. It supports integrity and authentication when that key is reliably associated with the signer and the signing key is protected. It does not hide the message."
+        },
+        {
+          "type": "example",
+          "title": "The textbook RSA signature equation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "With our small key and numerical message m = 42, the raw expression s = 42²⁷⁵³ mod 3233 gives s = 3065. The public calculation 3065¹⁷ mod 3233 returns 42."
+            },
+            {
+              "type": "paragraph",
+              "text": "This shows the inverse-exponent arithmetic. It is not a secure signature scheme: choose s = 2 first, and compute m = 2¹⁷ mod 3233 = 1752. The pair (1752,2) satisfies the same equation even though no private key was used to make it."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "A signature is not just “encrypting with the private key”",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Real signature schemes include message hashing and specified encoding and verification rules. RSA-PSS is an example standardized in RFC 8017. The raw exponent equation alone is insufficient. Encryption and signatures also have different key roles and security goals."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If a signature verifies, does that guarantee its message is factually true?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. It concerns the protected message and signing-key relationship, not the truth of the message’s claims. A trusted key association is also required before attributing it to a named person."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.8, p. 320."
+        }
+      ]
+    },
+    {
+      "id": "homomorphic-encryption",
+      "title": "Calculate on ciphertext while tracking the modulus",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A homomorphic property lets an operation on ciphertext correspond to an operation on plaintext. For raw RSA, multiply two ciphertexts and reduce modulo n. The result encrypts the product of the plaintexts, also interpreted modulo n."
+        },
+        {
+          "type": "math",
+          "notation": "E(m₁)E(m₂) mod n = (m₁m₂)ᵉ mod n = E(m₁m₂ mod n).",
+          "description": "For raw RSA, E(m) = mᵉ mod n. The reduction uses the RSA modulus n."
+        },
+        {
+          "type": "example",
+          "title": "Multiply encrypted 2 and 3",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n = 3233, e = 17, E(2) = 1752 and E(3) = 1211. Their product modulo 3233 is 824, which is E(6). Decrypting 824 recovers 6."
+            },
+            {
+              "type": "paragraph",
+              "text": "Adding those ciphertexts instead gives 2963 modulo 3233, while E(5) is 3086. This RSA operation is multiplicative, not additive."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The same algebraic flexibility can be unwanted malleability in an encryption scheme. The raw RSA equation does not describe RSA-OAEP. Fully homomorphic encryption supports the combinations of operations needed to evaluate general circuits under a scheme’s rules. Modern libraries such as Microsoft SEAL support encrypted arithmetic with scheme-specific constraints and substantial performance tradeoffs; that does not mean every cloud computation becomes automatically private or verifiably correct."
+        },
+        {
+          "type": "check",
+          "prompt": "If the plaintext product exceeds n, what does decryption return?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Its residue modulo n. For example, a product n + 7 decrypts to 7, not to the original unreduced integer. Application encoding and range analysis must account for this."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.9, pp. 320–321."
+        }
+      ]
+    },
+    {
+      "id": "cryptography-recap",
+      "title": "Match each construction to its purpose and its limits",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Construction",
+            "Core mathematics",
+            "What to remember"
+          ],
+          "rows": [
+            [
+              "Shift / affine cipher",
+              "Addition and invertible multiplication modulo 26",
+              "Classical examples are readily attacked."
+            ],
+            [
+              "Transposition",
+              "A permutation and its inverse",
+              "Define the direction and preserve length information."
+            ],
+            [
+              "Textbook RSA",
+              "Modular powers, inverses, Fermat, CRT",
+              "Correctness covers every allowed residue; raw RSA is not a secure scheme."
+            ],
+            [
+              "Diffie–Hellman",
+              "Two orders of exponentiation agree",
+              "Authenticate peers and derive keys in a real protocol."
+            ],
+            [
+              "Digital signature",
+              "Signing and verification rules",
+              "Authentication is not confidentiality or factual truth."
+            ],
+            [
+              "Homomorphic computation",
+              "Operations preserved through encryption",
+              "Track the operation, modulus, encoding, and scheme."
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Encrypt C using affine key a = 3, b = 4, then decrypt it.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "C = 2 gives 3·2 + 4 = 10 = K. Since 3·9 = 27 ≡ 1 (mod 26), decrypt 9(10 − 4) = 54 ≡ 2 = C."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "For p = 5, q = 11, e = 3, find d and encrypt m = 7.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "n = 55 and φ(n) = 40. Since 3·27 = 81 = 1 + 2·40, d = 27. The ciphertext is 7³ mod 55 = 13. Then 13²⁷ mod 55 = 7."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Which key lets someone verify Alice’s signature? Which key encrypts a confidential message to Bob?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Alice’s authenticated public verification key checks her signature. Bob’s authenticated public encryption key selects Bob as the intended decryptor. These are distinct operations and roles."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Optional project: what would a useful toy-cryptography test program check?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Enumerate all 26 letters and every invertible affine key to verify round trips. Test a permutation against its inverse, including repeated letters and full-block boundaries. For a tiny RSA key, enumerate all m from 0 through n − 1, including multiples of p and q, and reject m = n."
+            },
+            {
+              "type": "paragraph",
+              "text": "Compare raw RSA’s product property with an addition counterexample. Record that these checks validate finite mathematical examples and input contracts; they do not measure security."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: §4.6.1–§4.6.9, pp. 310–321; original practice."
+        }
+      ]
+    }
+  ]
+}
