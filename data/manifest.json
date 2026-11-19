@@ -241,8 +241,8 @@
           "id": "4-end",
           "number": null,
           "title": "End-of-Chapter Material",
-          "status": "unavailable",
-          "path": null,
+          "status": "in-progress",
+          "path": "data/lessons/4-end.json",
           "children": []
         }
       ]

@@ -1,0 +1,1090 @@
+{
+  "schemaVersion": 1,
+  "id": "4-end",
+  "title": "End-of-Chapter Material",
+  "status": "in-progress",
+  "references": [
+    "Rosen, Discrete Mathematics and Its Applications, eighth edition, Chapter 4 end-of-chapter material, printed pages 324–329.",
+    "Original companion explanations, examples, diagrams, executable demonstrations, and practice checks."
+  ],
+  "units": [
+    {
+      "id": "chapter-four-map",
+      "title": "Connect integer arithmetic to its applications",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use this review after Sections 4.1 through 4.6. First identify the kind of question, then select a theorem or algorithm whose assumptions match it. Work the checks before opening their explanations. The problems here are original companion practice, not a numbered textbook answer key."
+        },
+        {
+          "type": "diagram",
+          "title": "A route through Chapter 4",
+          "src": "assets/chapter-four-route.svg",
+          "description": "Division and representations lead to gcd and Bézout coefficients, then inverses and congruences. Modular arithmetic also supports hash tables, generators, checksums, and cryptographic constructions, each with different guarantees."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "Tool",
+            "Return to"
+          ],
+          "rows": [
+            [
+              "What is the quotient, remainder, or residue class?",
+              "Division theorem; congruence rules",
+              "4.1"
+            ],
+            [
+              "How is the integer represented or its power computed?",
+              "Positional digits; repeated squaring",
+              "4.2"
+            ],
+            [
+              "What divides these integers?",
+              "Prime factors; Euclid; Bézout",
+              "4.3"
+            ],
+            [
+              "Which residues satisfy the equations?",
+              "Inverses; linear congruences; CRT",
+              "4.4"
+            ],
+            [
+              "How do we index, generate, or detect digit errors?",
+              "Hashing; LCG; weighted sums",
+              "4.5"
+            ],
+            [
+              "What does the cryptographic construction promise?",
+              "Key roles; modular powers; security assumptions",
+              "4.6"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Is a remainder, a congruence, and a divisibility statement the same type of object?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. a mod m is an integer. a ≡ b (mod m) and m | (a − b) are equivalent propositions when m is positive. An algorithm may compute an integer that helps you establish a proposition."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 key terms and results, pp. 324–325."
+        }
+      ]
+    },
+    {
+      "id": "results-with-assumptions",
+      "title": "Carry the hypotheses with the result",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Result",
+            "Required conditions",
+            "What it gives"
+          ],
+          "rows": [
+            [
+              "a = dq + r",
+              "a integer; d > 0",
+              "Unique q,r with 0 ≤ r < d"
+            ],
+            [
+              "Prime factorization",
+              "n ≥ 2",
+              "Unique prime factors up to order; 1 has an empty product"
+            ],
+            [
+              "sa + tb = gcd(a,b)",
+              "Integers a,b not both zero",
+              "Integer coefficients; the gcd is positive"
+            ],
+            [
+              "Inverse of a modulo m",
+              "m > 1; gcd(a,m) = 1",
+              "One inverse residue class, not one integer representative"
+            ],
+            [
+              "Coprime CRT",
+              "Moduli > 1, pairwise relatively prime",
+              "One solution class modulo their product"
+            ],
+            [
+              "aᵖ⁻¹ ≡ 1 (mod p)",
+              "p prime and p does not divide a",
+              "An exponent reduction; its converse is false"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Use 0 ≤ e < p − 1 for a unique discrete logarithm to a primitive root modulo prime p. The endpoints 0 and p − 1 would both represent residue 1, so including both destroys uniqueness. Raw RSA blocks belong to the residues modulo its modulus n, not modulo 26; letter encoding is a separate step."
+        },
+        {
+          "type": "check",
+          "prompt": "Does gcd(10,15,21) = 1 mean the three integers are pairwise relatively prime?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Their overall gcd is 1, but gcd(10,15) = 5 and gcd(15,21) = 3. Pairwise coprimality requires every pair to have gcd 1."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Are 4 and 15 relatively prime even though neither is prime?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Yes. Their only common positive divisor is 1. “Prime” describes one number; “relatively prime” describes a relationship."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 key terms and results, pp. 324–325."
+        }
+      ]
+    },
+    {
+      "id": "integer-review",
+      "title": "Check signs, digit order, and exponent reduction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Divide a negative integer with a nonnegative remainder",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For −83 divided by 12, choose q = −7. Then −83 = 12·(−7) + 1. Thus the quotient is −7 and the remainder is 1. Choosing −6 would leave −11, outside the allowed range."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Division while converting 725 to base 16",
+            "Quotient",
+            "Remainder"
+          ],
+          "rows": [
+            [
+              "725 = 16·45 + 5",
+              "45",
+              "5"
+            ],
+            [
+              "45 = 16·2 + 13",
+              "2",
+              "D"
+            ],
+            [
+              "2 = 16·0 + 2",
+              "0",
+              "2"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Read the remainders upward: 725 = (2D5)₁₆ = (1011010101)₂ = (1325)₈. Reconstructing 2·16² + 13·16 + 5 = 725 checks the digit order. Leading zeros may be useful for fixed-width encoding, but do not change the integer value."
+        },
+        {
+          "type": "example",
+          "title": "Choose a valid exponent reduction",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "To find 7¹²³ mod 13, use prime 13 and 13 ∤ 7. Since 123 = 10·12 + 3, Fermat gives 7¹²³ ≡ 7³ ≡ 5 (mod 13). Reducing 123 modulo 13 instead of 12 would use the wrong cycle guarantee."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What are −84 div 12 and −84 mod 12?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "They are −7 and 0. Exact negative division does not require moving to an extra lower multiple."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What additional statement is needed to justify a repeated-squaring algorithm?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "An invariant such as result·base^remaining ≡ originalBase^originalExponent modulo m, plus a decreasing nonnegative exponent and the correct exponent-zero result. A few successful computations do not replace that argument."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 review questions and representation projects, pp. 325, 327."
+        }
+      ]
+    },
+    {
+      "id": "bezout-review",
+      "title": "Follow one gcd into a solvability decision",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Euclidean step",
+            "Equation"
+          ],
+          "rows": [
+            [
+              "1",
+              "252 = 1·165 + 87"
+            ],
+            [
+              "2",
+              "165 = 1·87 + 78"
+            ],
+            [
+              "3",
+              "87 = 1·78 + 9"
+            ],
+            [
+              "4",
+              "78 = 8·9 + 6"
+            ],
+            [
+              "5",
+              "9 = 1·6 + 3"
+            ],
+            [
+              "6",
+              "6 = 2·3 + 0"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Back-substitute to find a certificate",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "3 = 9 − 6 = 9 − (78 − 8·9) = 9·9 − 78."
+            },
+            {
+              "type": "paragraph",
+              "text": "Replace 9 by 87 − 78: 3 = 9·87 − 10·78. Replace 78 by 165 − 87: 3 = 19·87 − 10·165. Finally 87 = 252 − 165, so 3 = 19·252 − 29·165."
+            },
+            {
+              "type": "paragraph",
+              "text": "Check: 4788 − 4785 = 3. Dividing the entire identity by 3 gives 1 = 19·84 − 29·55. Consequently 19 is an inverse of 84 modulo 55, and its canonical residue is still 19."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For positive a,b, lcm(a,b) = (a/gcd(a,b))·b. Here it is 84·165 = 13860. Dividing before multiplying avoids an unnecessarily large intermediate product, although exact BigInt arithmetic remains necessary for large inputs."
+        },
+        {
+          "type": "check",
+          "prompt": "Does the identity show that 252 has an inverse modulo 165?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Its gcd with 165 is 3, not 1. It proves that an equation 252x + 165y = c is possible exactly when 3 divides c. For c = 6, doubling the displayed coefficients gives x = 38, y = −58. For c = 5 there is no solution."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 review questions and computer projects, pp. 325, 327."
+        }
+      ]
+    },
+    {
+      "id": "congruence-review",
+      "title": "Preserve all solution classes when moduli share factors",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "A linear congruence with several residues",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Solve 12x ≡ 18 (mod 30). The gcd is 6 and divides 18. Divide the coefficients and modulus by 6 to obtain 2x ≡ 3 (mod 5). The inverse of 2 modulo 5 is 3, so x ≡ 9 ≡ 4 (mod 5)."
+            },
+            {
+              "type": "paragraph",
+              "text": "In the original range 0 ≤ x < 30 the six solutions are 4,9,14,19,24,29. Keeping modulus 30 after dividing would lose valid solutions. Replacing 18 by 19 makes the original congruence inconsistent because 6 does not divide 19."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A compatible pair without coprime moduli",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Solve x ≡ 2 (mod 6) and x ≡ 5 (mod 9). Write x = 2 + 6k. Substitution gives 6k ≡ 3 (mod 9), hence 2k ≡ 1 (mod 3), so k ≡ 2 (mod 3). Therefore x = 14 + 18t."
+            },
+            {
+              "type": "paragraph",
+              "text": "The repeat modulus is lcm(6,9) = 18, not 54. By contrast, residues 2 modulo 6 and 4 modulo 9 cannot coexist: the first is 2 modulo 3, and the second is 1 modulo 3."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "x ≡ a (mod m), x ≡ b (mod n) is solvable\nexactly when gcd(m,n) divides b − a.\nIf solvable, the answer is unique modulo lcm(m,n).",
+          "description": "This shared-modulus extension assumes positive m and n."
+        },
+        {
+          "type": "check",
+          "prompt": "Why is the lcm the right uniqueness modulus?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The difference of any two solutions is divisible by both m and n, hence by their lcm. Adding the lcm to one solution preserves both congruences. Existence still needs the compatibility test."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 review and supplementary congruence exercises, pp. 325–326."
+        }
+      ]
+    },
+    {
+      "id": "crt-project",
+      "title": "Merge two congruences with a checked compatibility condition",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Use this function with normalizedMod from Section 4.4 and extendedGcd from Section 4.3. All four inputs are BigInt integers. Moduli must be positive; modulus 1 is allowed and imposes no restriction. A result is a canonical residue and its repeat modulus; null means the pair is inconsistent."
+        },
+        {
+          "type": "math",
+          "notation": "function mergeCongruences(a, m, b, n) {\n  if (![a, m, b, n].every(v => typeof v === \"bigint\"))\n    throw new TypeError(\"Use BigInt residues and moduli\");\n  if (m <= 0n || n <= 0n) throw new RangeError(\"Moduli must be positive\");\n  a = normalizedMod(a, m); b = normalizedMod(b, n);\n  const { g, s } = extendedGcd(m, n);\n  const delta = b - a;\n  if (delta % g !== 0n) return null;\n  const reducedN = n / g;\n  const k = normalizedMod(s * (delta / g), reducedN);\n  const modulus = m * reducedN;\n  return { residue: normalizedMod(a + m * k, modulus), modulus };\n}",
+          "description": "Executable JavaScript implementing the generalized two-modulus CRT."
+        },
+        {
+          "type": "paragraph",
+          "text": "mergeCongruences(2n,6n,5n,9n) returns {residue:14n,modulus:18n}. Changing the second residue to 4n returns null. Negative and noncanonical residues are normalized before solving."
+        },
+        {
+          "type": "example",
+          "title": "Why the formula works",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let g = gcd(m,n), and let s,t satisfy sm + tn = g. If g divides b − a, division gives s(m/g) + t(n/g) = 1. Thus s is an inverse of m/g modulo n/g when n/g > 1."
+            },
+            {
+              "type": "paragraph",
+              "text": "Set k = s((b − a)/g) modulo n/g. Then mk ≡ b − a (mod n), so a + mk satisfies both congruences. Reduce it modulo m(n/g), the lcm. If n/g = 1, choose k = 0; compatibility already says the first class satisfies the second condition."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "How can this become a project for an entire list of congruences?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Start with the unrestricted class 0 modulo 1. Merge one row at a time, stopping on null. Test by enumerating every residue below the lcm for small inputs. An empty list then means all integers, represented by 0 modulo 1."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 supplementary exercises and computer projects, pp. 326–327; original extension."
+        }
+      ]
+    },
+    {
+      "id": "residue-proof-lab",
+      "title": "Use small residue sets to prove an impossibility or divisibility claim",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Rule out an integer equation",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Every square is 0 or 1 modulo 4: even integers square to 0 and odd integers to 1. Therefore a sum of two squares has residue 0,1, or 2 modulo 4. It cannot equal an integer congruent to 3 modulo 4. In particular, x² + y² = 4z + 3 has no integer solutions."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Build a composite-modulus result from primes",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For every integer n, 30 divides n⁵ − n. Modulo each p in {2,3,5}, if p divides n then n⁵ − n is 0. Otherwise Fermat applies, and p − 1 divides 4, so n⁴ ≡ 1 and n⁵ − n ≡ 0 modulo p."
+            },
+            {
+              "type": "paragraph",
+              "text": "The primes 2,3,5 are pairwise relatively prime, so their product 30 divides n⁵ − n. This proof covers negative n and n = 0 as well as positive n."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "If 4 | N and 6 | N, may you conclude 24 | N?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No: N = 12 is a counterexample. You can conclude lcm(4,6) = 12 divides N. Multiplying the two divisors requires coprimality."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why does checking n = 0 through 29 suffice for this particular polynomial modulo 30?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If n = 30q + r, each power of n is congruent to the corresponding power of r modulo 30. Thus the polynomial depends only on one of 30 residues. Establishing that reduction makes exhaustive residue checking a finite proof; an unexplained list of sample integers would not."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 supplementary proof exercises, pp. 325–326."
+        }
+      ]
+    },
+    {
+      "id": "primality-review",
+      "title": "Separate a necessary test from a sufficient certificate",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Trial division through the inclusive square-root bound proves primality when no divisor is found. A Fermat test instead can expose some composites; passing one base is not a proof. A number can have prime-looking behavior while remaining composite."
+        },
+        {
+          "type": "example",
+          "title": "A concrete passing composite",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "91 = 7·13. Modulo 7, Fermat gives 3⁶ ≡ 1, and 6 divides 90. Modulo 13, 3³ = 27 ≡ 1, and 3 divides 90. Therefore 3⁹⁰ ≡ 1 modulo both 7 and 13, hence modulo 91. The composite 91 passes this base-3 test."
+            },
+            {
+              "type": "paragraph",
+              "text": "Also, a prime exponent does not make every Mersenne candidate prime: 2¹¹ − 1 = 2047 = 23·89. A candidate’s special form is not a primality certificate."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Does a failed test aⁿ⁻¹ ≢ 1 (mod n) always prove n composite?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Only with the hypotheses in place. If gcd(a,n) = 1 and n > 1, failure contradicts the prime case of Fermat. If a is divisible by prime n, the residue is 0 even though n is prime."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What is the distinction between one pseudoprime and a Carmichael number?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "A base-a pseudoprime is a composite passing that base’s Fermat congruence. A Carmichael number passes for every base relatively prime to it. Neither description changes a composite into a prime."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 key terms and computational explorations, pp. 324–325, 328."
+        }
+      ]
+    },
+    {
+      "id": "binary-gcd-project",
+      "title": "Compute gcd using parity, shifts, and subtraction",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "For nonnegative integers, binary shifts provide exact halving of even values. If both inputs are even, extract a shared factor of 2. If just one is even, halving that one preserves the gcd because the other is odd. For two odd inputs, replace the larger by their even difference. The standalone function below also normalizes signs and handles one zero; it excludes (0,0), matching this companion’s gcd convention."
+        },
+        {
+          "type": "math",
+          "notation": "function binaryGcd(a, b) {\n  if (typeof a !== \"bigint\" || typeof b !== \"bigint\")\n    throw new TypeError(\"Use BigInt integers\");\n  a = a < 0n ? -a : a; b = b < 0n ? -b : b;\n  if (a === 0n && b === 0n) throw new RangeError(\"Exclude gcd(0,0)\");\n  if (a === 0n) return b;\n  if (b === 0n) return a;\n  let scale = 1n;\n  while ((a & 1n) === 0n && (b & 1n) === 0n) {\n    a >>= 1n; b >>= 1n; scale <<= 1n;\n  }\n  while ((a & 1n) === 0n) a >>= 1n;\n  while (b !== 0n) {\n    while ((b & 1n) === 0n) b >>= 1n;\n    if (a > b) [a, b] = [b, a];\n    b -= a;\n  }\n  return scale * a;\n}",
+          "description": "Executable JavaScript for binary gcd using BigInt parity and shifts."
+        },
+        {
+          "type": "example",
+          "title": "Trace binaryGcd(84n,30n)",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Both are even: extract a factor 2 and work with (42,15). Strip the even factor from 42 to obtain (21,15). Order the odd values as (15,21), then subtract to get (15,6)."
+            },
+            {
+              "type": "paragraph",
+              "text": "Strip 6 down to 3, order (3,15), and subtract to get (3,12). Strip 12 down to 3, then subtract equal values to get (3,0). Restore the extracted factor: 2·3 = 6."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The invariant is originalGcd = scale·gcd(a,b). Every halving follows the appropriate parity rule. After making a odd, each outer iteration makes b odd, orders the pair, and replaces b by b − a; the sum of the nonnegative inputs strictly decreases. Zero ends the loop. Shifts and subtraction are not constant-cost operations on arbitrarily long BigInt values; the code is not a hardware-speed claim."
+        },
+        {
+          "type": "check",
+          "prompt": "Why handle b = 0 before trying to remove its powers of two?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Zero remains zero after every right shift. An unguarded “while even” loop on zero would never terminate. The zero checks and outer b !== 0 condition prevent that error."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 supplementary binary-gcd exercise, p. 326; original implementation."
+        }
+      ]
+    },
+    {
+      "id": "checksum-lab",
+      "title": "Analyze a weighted check instead of trusting a passing result",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "As an original arithmetic exercise, give a nine-digit string repeating weights 3,7,1 from left to right and require its weighted total to be 0 modulo 10. Position 9 has weight 1, so it can hold a check digit. This is a digit-rule exercise; a passing string is not evidence of an assigned real-world identifier."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Payload",
+            "Weighted terms",
+            "Sum",
+            "Check digit"
+          ],
+          "rows": [
+            [
+              "31415926",
+              "9 + 7 + 4 + 3 + 35 + 9 + 6 + 42",
+              "115",
+              "5"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A single substitution changes the total by wΔ, with w in {1,3,7} and nonzero |Δ| ≤ 9. Each weight is invertible modulo 10, so every such substitution is detected. Swapping two digits changes the total by the difference of the weights times the difference of the digits. Equal weights hide every swap; distinct weights differ by 2,4, or 6 in absolute value, so unequal digits differing by 5 can also be swapped undetected."
+        },
+        {
+          "type": "check",
+          "prompt": "Why does ISBN-10 have a stronger transposition guarantee than this decimal rule?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Its position weights 1 through 10 and character differences are nonzero modulo prime 11 for unequal valid characters. Their product cannot vanish. For a modulus of 10, nonzero factors such as 2 and 5 can multiply to 0."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "What should a checksum experiment measure?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Generate valid synthetic strings, mutate one position at a time, then try unequal swaps. Include the check position. Count which error classes are detected, retain leading zeros, reject malformed formats, and report coordinated changes that still pass."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 check-digit review and supplementary exercises, pp. 325, 327."
+        }
+      ]
+    },
+    {
+      "id": "cryptography-review",
+      "title": "Track the purpose, owner, and mathematical input",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Task",
+            "Key role or object",
+            "What it does not establish alone"
+          ],
+          "rows": [
+            [
+              "Confidential message to Bob",
+              "Bob’s public encryption key; his matching private decryption key",
+              "The identity of the sender"
+            ],
+            [
+              "Signature by Alice",
+              "Alice’s private signing key; her authenticated public verification key",
+              "Confidentiality or factual truth"
+            ],
+            [
+              "Diffie–Hellman agreement",
+              "Public group parameters and exchanged powers; private exponents",
+              "Peer identity in an unauthenticated exchange"
+            ],
+            [
+              "Raw RSA message block",
+              "Integer m with 0 ≤ m < n",
+              "Secure encoding or a complete encryption scheme"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A small RSA checkpoint",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Let p = 11, q = 17. Then n = 187, φ(n) = 160, and choose e = 7. Since 7·23 = 161 = 1 + 160, the decryption exponent is d = 23."
+            },
+            {
+              "type": "paragraph",
+              "text": "Block 42 encrypts to 42⁷ mod 187 = 15. Decrypting 15²³ mod 187 gives 42. The largest two-letter code ZZ = 2525 does not fit this modulus; use numerical blocks smaller than 187 for this example."
+            },
+            {
+              "type": "paragraph",
+              "text": "Even block 11, which shares a factor with n, must round trip. Correctness follows by treating the zero and nonzero cases modulo each prime, then combining them with CRT."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "With public prime 11 and base 2, let private exponents be 4 and 7. What is exchanged and what is shared?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Exchange 2⁴ mod 11 = 5 and 2⁷ mod 11 = 7. Both compute the residue 3: 7⁴ mod 11 = 5⁷ mod 11 = 3. The tiny example demonstrates equality, not secrecy or identity authentication."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Why is a prime modulus a poor replacement for pq in this RSA construction?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "If n is prime, the value φ(n) = n − 1 is public. Whenever gcd(e,n − 1) = 1, anyone can calculate the inverse d modulo n − 1 with extended Euclid. The intended hidden-factor barrier disappears."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Keep the deployment distinctions from Section 4.6: raw RSA and classical ciphers are mathematical demonstrations. Complete modern schemes include encoding and other requirements. A raw modular-power signature equation alone is forgeable, and an encryption/decryption round trip is not a security test."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 cryptography review questions and projects, pp. 325, 327–329."
+        }
+      ]
+    },
+    {
+      "id": "autokey-project",
+      "title": "Choose exactly which previous symbol feeds the next shift",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In an autokey cipher, the first shift comes from a seed letter. Each later shift comes from the previous plaintext letter or the previous ciphertext letter, depending on the declared variant. Encode A = 0 through Z = 25. Do not mix the feedback rules midway through a message."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Variant, seed D = 3",
+            "Plaintext",
+            "Shift letters",
+            "Ciphertext"
+          ],
+          "rows": [
+            [
+              "Plaintext feedback",
+              "MATH",
+              "DMAT",
+              "PMTA"
+            ],
+            [
+              "Ciphertext feedback",
+              "MATH",
+              "DPPI",
+              "PPIP"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Decrypt plaintext feedback one letter at a time",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For PMTA with seed D, first decrypt P = 15 by subtracting 3 to get M = 12. The recovered M supplies the next shift 12, so M = 12 decrypts to A = 0."
+            },
+            {
+              "type": "paragraph",
+              "text": "Then shift T = 19 back by the recovered 0 to obtain T = 19; finally shift A = 0 back by 19 to obtain H = 7. In ciphertext feedback, instead use the previous input ciphertext symbol, which is already available."
+            }
+          ]
+        },
+        {
+          "type": "math",
+          "notation": "function autokey(text, seed, feedback = \"plaintext\", decrypt = false) {\n  if (typeof text !== \"string\" || !/^[A-Z]*$/.test(text))\n    throw new TypeError(\"Use uppercase A-Z without spaces\");\n  if (!Number.isInteger(seed) || seed < 0 || seed > 25)\n    throw new RangeError(\"Seed must be an integer from 0 through 25\");\n  if (![\"plaintext\", \"ciphertext\"].includes(feedback) || typeof decrypt !== \"boolean\")\n    throw new TypeError(\"Invalid feedback or mode\");\n  let key = seed, result = \"\";\n  for (const ch of text) {\n    const input = ch.charCodeAt(0) - 65;\n    const plain = decrypt ? (input - key + 26) % 26 : input;\n    const cipher = decrypt ? input : (plain + key) % 26;\n    result += String.fromCharCode(65 + (decrypt ? plain : cipher));\n    key = feedback === \"plaintext\" ? plain : cipher;\n  }\n  return result;\n}",
+          "description": "Executable JavaScript for the two explicitly declared autokey feedback variants."
+        },
+        {
+          "type": "paragraph",
+          "text": "autokey(\"MATH\",3) returns \"PMTA\". autokey(\"PPIP\",3,\"ciphertext\",true) returns \"MATH\". The function accepts uppercase letters without spaces, an integer seed from 0 through 25, one of the two named variants, and a Boolean decryption flag. Empty text returns empty text. It preserves no word boundaries and performs no automatic text cleanup; it is a classical learning example, not secure encryption."
+        },
+        {
+          "type": "check",
+          "prompt": "Why must plaintext-feedback decryption be sequential?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "After the seed, each next shift depends on the plaintext symbol just recovered. Using the previous ciphertext instead would implement a different cipher."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 supplementary autokey exercises, p. 327; original implementation."
+        }
+      ]
+    },
+    {
+      "id": "number-theory-projects",
+      "title": "Build small projects with explicit correctness checks",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Project family",
+            "Build on",
+            "Evidence to produce"
+          ],
+          "rows": [
+            [
+              "Integer toolkit",
+              "Base conversion, modPower, primeFactors, gcd, extendedGcd",
+              "Reconstruct each value; verify factors and Bézout identities"
+            ],
+            [
+              "Congruence solver",
+              "solveLinear; mergeCongruences",
+              "Compare every small residue with the returned solution classes"
+            ],
+            [
+              "Representation extension",
+              "Optional factorial-radix project below",
+              "Enforce each digit’s bound and reconstruct the input"
+            ],
+            [
+              "Application laboratory",
+              "probeTable; lcg; parity and ISBN checks",
+              "Test collisions, wraparound, cycles, and error classes"
+            ],
+            [
+              "Classical cipher laboratory",
+              "affineCipher; permuteBlocks; autokey",
+              "Verify conventions and round trips for all small keys"
+            ],
+            [
+              "Toy public-key notebook",
+              "toyRsaKey; rsaBlock; modular powers",
+              "State message bounds, key roles, and correctness/security limits"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Optional representation extension: a factorial-radix expansion writes a nonnegative integer as a₁·1! + a₂·2! + … with 0 ≤ aᵢ ≤ i. Divide successively by 2,3,4,…, keeping each remainder as the next digit. For 47, the quotient/remainder pairs are (23,1), (7,2), (1,3), (0,1); reconstruction gives 1·1! + 2·2! + 3·3! + 1·4! = 47. The first remainder is determined modulo 2; after removing it and dividing by 2, the next is determined modulo 3, and so on. This explains uniqueness, apart from leading zero digits. Encode zero explicitly."
+        },
+        {
+          "type": "paragraph",
+          "text": "Use the published functions from the named sections rather than copying unexplained arithmetic. Give each project an input contract, sample output, a correctness argument, independent small-case checks, and limitations. Keep bit length distinct from numerical value when discussing cost. Comparing your output only with another copy of the same algorithm may repeat the same mistake."
+        },
+        {
+          "type": "check",
+          "prompt": "How should you handle the source’s large-prime RSA programming suggestion?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For this learning project, keep the verified tiny keys from Section 4.6 and focus on their mathematical contracts. Generating large primes is not enough to create a secure production cryptosystem. A real application belongs in maintained cryptographic libraries and authenticated protocols."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 computer projects, pp. 327–328."
+        }
+      ]
+    },
+    {
+      "id": "computational-explorations",
+      "title": "Report bounded evidence and prove what makes it general",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "example",
+          "title": "A prime factor can be new even when the number is composite",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "For n ≥ 2, every prime divisor of n! + 1 is larger than n: a prime at most n divides n!, so it cannot also divide n! + 1. But the whole number need not be prime. For example, 5! + 1 = 121 = 11² and 6! + 1 = 721 = 7·103."
+            },
+            {
+              "type": "paragraph",
+              "text": "This proves there cannot be a largest prime; it does not prove that the generated values themselves are always prime."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Count binary trailing zeros without writing the factorial",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "Each factor of 2 supplies one trailing zero in base 2. In 12!, the multiples of 2 supply six factors, the multiples of 4 supply three additional factors, and the multiple of 8 supplies one more. Hence the count is floor(12/2) + floor(12/4) + floor(12/8) = 6 + 3 + 1 = 10."
+            },
+            {
+              "type": "paragraph",
+              "text": "More generally, count one contribution for each power 2ʲ that divides each factor from 1 to n, giving Σⱼ≥1 floor(n/2ʲ). The sum is finite because later terms are zero."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Experiment",
+            "Fix before running",
+            "Report honestly"
+          ],
+          "rows": [
+            [
+              "Count primes",
+              "Below N or at most N; exact sieve bounds",
+              "Below 11 there are 4; through 11 there are 5"
+            ],
+            [
+              "Search Mersenne candidates",
+              "A finite exponent list and test method",
+              "Composite factors or verified primality within that list"
+            ],
+            [
+              "Find pseudoprimes",
+              "Base, upper bound, and an independent composite test",
+              "Passing composites, not a list labeled prime"
+            ],
+            [
+              "Compare factorization timings",
+              "Bit length, input family, algorithm, environment",
+              "Observed timings, not a universal hardness proof"
+            ],
+            [
+              "Inspect LCG cycles",
+              "Parameters, seed, first repeated state",
+              "Transient length, period, and reproducibility"
+            ]
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "Can a long run of prime outputs prove a polynomial always produces primes?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. Record the tested inputs and search for counterexamples. A general claim needs a proof; the examples and caveats in Section 4.3 explain why long finite runs are misleading."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 computations and explorations, p. 328; supplementary factorial exercise, p. 326."
+        }
+      ]
+    },
+    {
+      "id": "chapter-four-checkpoint",
+      "title": "Try a mixed checkpoint before revealing the explanations",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "check",
+          "prompt": "1. Find −109 div 8 and −109 mod 8, and check the defining equation.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The quotient is −14 and the remainder is 3: −109 = 8·(−14) + 3, with 0 ≤ 3 < 8."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "2. Convert (3B)₁₆ to decimal and binary.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "3·16 + 11 = 59. Grouping hexadecimal digits into four bits gives 0011 1011; omitting leading zeros gives 111011."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "3. Solve 8x ≡ 12 (mod 20), listing residues from 0 through 19.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "Divide by gcd(8,20) = 4 to get 2x ≡ 3 (mod 5). Its solutions are x ≡ 4 (mod 5), so the requested residues are 4,9,14,19."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "4. Solve x ≡ 3 (mod 4), x ≡ 1 (mod 6).",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "The residues agree modulo gcd(4,6) = 2. Substituting x = 3 + 4k gives 4k ≡ −2 ≡ 4 (mod 6), hence 2k ≡ 2 (mod 3), so k ≡ 1 (mod 3). The answer is x ≡ 7 (mod 12)."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "5. A size-five hash table receives 9,14,19 with linear probing. Where are they placed?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "All start at slot 4. They occupy slots 4,0,1 in that order. A search for 19 must follow the same path and compare full keys."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "6. Does a checksum that detects every single substitution authenticate the sender?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "No. A deliberate change can include a recomputed check digit. The arithmetic property is an error-detection guarantee, not proof of origin."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "7. With affine key a = 7, b = 3, encrypt G and recover it.",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "G = 6 maps to 45 mod 26 = 19 = T. The inverse of 7 modulo 26 is 15, because 7·15 = 105 ≡ 1. Then 15(19 − 3) mod 26 = 6 = G."
+            }
+          ]
+        },
+        {
+          "type": "check",
+          "prompt": "8. A program passes every round-trip test for a tiny RSA key. What may you conclude?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "For those inputs, the matching arithmetic recovers the supplied message. Exhausting all allowed blocks proves that finite key’s round-trip behavior, but says nothing about secrecy against an attacker or the security of a protocol."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 review and supplementary themes, pp. 325–327; original practice."
+        }
+      ]
+    },
+    {
+      "id": "chapter-four-readiness",
+      "title": "Write a defensible explanation and choose your next review",
+      "status": "in-progress",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Choose one writing topic and state the question precisely. Separate a theorem, an implementation detail, a measured observation, and a prediction. Cite primary sources and record dates when discussing records, algorithms in deployment, or security guidance. Older numerical milestones in a textbook are not current deployment requirements."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Writing direction",
+            "Useful question",
+            "What to check"
+          ],
+          "rows": [
+            [
+              "Prime tests and searches",
+              "How does a proof-producing test differ from a probable-prime test?",
+              "Assumptions, guarantees, and dated primary references"
+            ],
+            [
+              "CRT history and applications",
+              "How does one concrete historical problem become congruences?",
+              "Translation, moduli, reconstruction, and provenance"
+            ],
+            [
+              "Randomness and checksums",
+              "Which property is the experiment or error model measuring?",
+              "Reproducibility versus unpredictability; detection versus authentication"
+            ],
+            [
+              "Cryptographic systems",
+              "Which key belongs to which party, and what is authenticated?",
+              "A complete scheme and its assumptions, not only an equation"
+            ],
+            [
+              "Encrypted computation",
+              "Which plaintext operation corresponds to the ciphertext operation?",
+              "Modulus, encoding, supported operations, and practical limits"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For a small mathematical writing exercise, explain why prime-modulus RSA exposes the totient, or why a raw RSA product property can be undesirable malleability. For a research essay about current systems, return to the primary references listed in Section 4.6 and check their current versions rather than guessing future factoring or quantum milestones."
+        },
+        {
+          "type": "check",
+          "prompt": "What should you be able to explain without looking at a formula sheet?",
+          "explanation": [
+            {
+              "type": "paragraph",
+              "text": "How to choose a nonnegative remainder; reconstruct a positional expansion; verify a Bézout certificate; decide inverse existence; preserve all congruence solutions; state the CRT and Fermat hypotheses; describe checksum limits; and distinguish confidentiality, signatures, and key agreement."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "All six sections of Chapter 4 now connect to a common habit: state the input and assumptions, perform an operation that preserves the relevant relation, and check exactly what the result establishes. Use the review table to return to any topic that needs work. Chapter 5 develops induction and recursion, tools for proving families of statements and the correctness of repeated procedures."
+        },
+        {
+          "type": "paragraph",
+          "text": "Textbook connection: Chapter 4 writing projects, pp. 328–329; companion synthesis."
+        }
+      ]
+    }
+  ]
+}

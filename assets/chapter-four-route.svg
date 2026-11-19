@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="475" viewBox="0 0 840 475" role="img" aria-labelledby="title desc"><title id="title">A route through number theory and cryptography</title><desc id="desc">Sections 4.1 and 4.2 supply remainder and representation tools. Section 4.3 supplies gcd and Bezout coefficients. Section 4.4 uses them for inverses and congruence solutions. Sections 4.5 and 4.6 apply modular arithmetic with different guarantees.</desc><rect width="840" height="475" rx="16" fill="#f4f8f4"/><g font-family="system-ui, sans-serif" fill="#193b36">
+<text x="30" y="36" font-size="23" font-weight="700">Choose a tool by the question it answers</text>
+<rect x="30" y="60" width="780" height="88" rx="8" fill="#e0ede3"/>
+<text x="48" y="86" font-size="20" font-weight="700">4.1–4.2 · Represent and reduce</text>
+<text x="48" y="112" font-size="17" >Quotients, remainders, positional digits</text>
+<text x="48" y="135" font-size="16" >Repeated squaring keeps powers manageable.</text>
+<text x="420" y="163" font-size="18" text-anchor="middle">↓</text>
+<rect x="30" y="165" width="780" height="88" rx="8" fill="#e0ede3"/>
+<text x="48" y="191" font-size="20" font-weight="700">4.3 · Find divisors and certificates</text>
+<text x="48" y="217" font-size="17" >Prime factors → gcd → Bézout coefficients</text>
+<text x="48" y="240" font-size="16" >A coefficient identity can certify an inverse.</text>
+<text x="420" y="268" font-size="18" text-anchor="middle">↓</text>
+<rect x="30" y="270" width="780" height="88" rx="8" fill="#e0ede3"/>
+<text x="48" y="296" font-size="20" font-weight="700">4.4 · Solve the residue conditions</text>
+<text x="48" y="322" font-size="17" >Inverses → linear congruences → CRT</text>
+<text x="48" y="345" font-size="16" >Keep the hypotheses and every solution class.</text>
+<text x="30" y="402" font-size="19" font-weight="700">4.5 · Index, generate, and check</text>
+<text x="435" y="402" font-size="19" font-weight="700">4.6 · Encrypt, agree, and sign</text>
+<text x="30" y="435" font-size="16" >Collisions, cycles, and error detection</text>
+<text x="435" y="435" font-size="16" >Correctness, key roles, and security limits</text>
+</g></svg>
